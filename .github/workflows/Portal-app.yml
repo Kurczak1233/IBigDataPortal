@@ -1,4 +1,4 @@
-name: DEV Mobile App
+name: Portal - APP
 
 on:
   workflow_dispatch:
@@ -6,8 +6,8 @@ on:
     branches:
       - main
     paths:
-      - "Mobile/app/**"
-      - ".github/workflows/dev-mobile-app.yml"
+      - "App/**"
+      - ".github/workflows/Portal-app.yml"
 
 env:
   # ApiUrl: https://mobile-api-dev-a2pilg7y3a-ew.a.run.app/api
@@ -24,7 +24,7 @@ jobs:
         uses: google-github-actions/auth@v0
         with:
           project_id: ${{ env.GCP_PROJECT }}
-          # credentials_json: ${{ secrets.DEV_GCP_SA_KEY }}
+          credentials_json: ${{ secrets.GCP_SA_SECRET }}
           
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
