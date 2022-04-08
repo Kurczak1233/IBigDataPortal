@@ -13,7 +13,7 @@ env:
   # ApiUrl: https://mobile-api-dev-a2pilg7y3a-ew.a.run.app/api
   # AppUrl: https://m-stage.onesoft.no
   GCP_PROJECT: engineering-thesis-346319
-  CloudStorageBucket: portal-app
+  CloudStorageBucket: ibigworld-ath.com
 
 jobs:
   build_and_deploy:
