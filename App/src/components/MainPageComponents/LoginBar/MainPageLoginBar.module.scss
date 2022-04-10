@@ -1,0 +1,12 @@
+@import "styles/Commons.scss";
+.barWrapper {
+    height: 80px;
+    background-color: $less-intensive-green;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 $main-page-indent;
+    .barButtonsWrapper {
+        display: flex;
+    }
+}
