@@ -12,7 +12,7 @@ on:
 env:
   # ApiUrl: https://mobile-api-dev-a2pilg7y3a-ew.a.run.app/api
   GCP_PROJECT: engineering-thesis-346319
-  CloudStorageBucket: www.ibigworld-ath.com
+  CloudStorageBucket: ibigworld-ath
 
 jobs:
   build_and_deploy:
@@ -46,7 +46,7 @@ jobs:
           yarn build
           gsutil web set -m index.html -e index.html gs://${{env.CloudStorageBucket}}/
           gsutil -h "Cache-Control:public, max-age=60, no-transform" -m rsync -d -r -j js,html,map,css ./build gs://${{env.CloudStorageBucket}}/
-
+          gcloud compute url-maps invalidate-cdn-cache app-load-balancer --path '/*' --async
   tag:
     runs-on: ubuntu-latest
     needs: build_and_deploy
