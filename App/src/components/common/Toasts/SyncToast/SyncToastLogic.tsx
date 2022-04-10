@@ -3,7 +3,6 @@ import SuccessStatus from "public/StatusesIcons/SuccessIcon.svg";
 import ErrorStatus from "public/StatusesIcons/ErrorIcon.svg";
 import WarningStatus from "public/StatusesIcons/WarningIcon.svg";
 import InfoStatus from "public/StatusesIcons/InfoIcon.svg";
-import toast from "react-hot-toast";
 
 const SyncToastLogic = () => {
   const differentiateStatuses = (status: ToastModes) => {
