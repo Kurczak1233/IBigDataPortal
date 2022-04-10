@@ -1,10 +1,13 @@
+import { useAuth0 } from "@auth0/auth0-react";
+
 const MainPageLoginBarLogic = () => {
+  const { loginWithRedirect, logout } = useAuth0();
   const handleClickOnLogin = () => {
-    console.log("Clicked login");
+    loginWithRedirect();
   };
 
   const handleClickOnRegister = () => {
-    console.log("Clicked register");
+    logout();
   };
 
   return { handleClickOnLogin, handleClickOnRegister };

@@ -1,16 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
+import AppLogic from "./AppLogic";
 import MainPage from "./pages/MainPage/MainPage";
 
-export interface IPresent {
-  value: number;
-  content: string;
-}
-
-export const PresentContext = React.createContext<IPresent[]>([]);
-
 function App() {
+  AppLogic();
   return (
     <Router>
       <Routes>

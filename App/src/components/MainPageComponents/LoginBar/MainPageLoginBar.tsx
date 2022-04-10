@@ -1,9 +1,12 @@
+import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
+import { ToastModes } from "interfaces/ToastModes";
 import SmallButton from "../../common/Buttons/SmallButtons/SmallButton";
 import styles from "./MainPageLoginBar.module.scss";
 import MainPageLoginBarLogic from "./MainPageLoginBarLogic";
 
 const MainPageLoginBar = () => {
   const { handleClickOnLogin, handleClickOnRegister } = MainPageLoginBarLogic();
+  SyncToast({ mode: ToastModes.Success, description: "Test description" });
   return (
     <div className={styles.barWrapper}>
       <div>LOGO</div>
