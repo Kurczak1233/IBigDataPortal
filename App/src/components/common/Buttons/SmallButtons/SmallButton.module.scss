@@ -1,0 +1,13 @@
+@import "styles/Commons.scss";
+.smallButton {
+    background: $intensive-green;
+    border-radius: 100px;
+    color: $clear-white;
+    @include fontSizeTwenty;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 33px;
+    width: 141px;
+    cursor: pointer;
+}

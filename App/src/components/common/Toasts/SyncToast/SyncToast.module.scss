@@ -1,0 +1,41 @@
+@import "styles/Commons.scss";
+.syncToastWrapper {
+    width: 442px;
+    height: 64px;
+    background-color: $clear-white;
+    display: flex;
+    filter: drop-shadow(0px 0px 4px rgba(98, 98, 98, 0.25));
+    .syncToastLeftBar {
+        width: 4px;
+        height: 100%;
+        background: $intensive-green;
+        margin-right: 28px;
+    }
+    .statusIcon {
+        margin-right: 28px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .textPart {
+        flex: 1;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        .statusTitle {
+            @include fontSizeSixteen;
+            color: $black-text;
+        }
+        .description {
+            @include fontSizeSixteen;
+            color: $gray-text;
+        }
+    }
+    .exitIcon {
+        margin: 0 16px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+    }
+}
