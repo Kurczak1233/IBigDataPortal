@@ -3,5 +3,5 @@
   "clientID": "EOX8JocRP2CcPtHdVow1fR7XOXWiOY4K",
   "responseType": "token id_token",
   "scope": "openid email profile",
-  "baseUrl": ""
+  "baseUrl": "http://localhost:5239"
 }
