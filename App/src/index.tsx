@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Auth0Provider } from "@auth0/auth0-react";
 import auth from "./authenticationConfig.json";
 import { Toaster } from "react-hot-toast";
+import { getChecklistsFormTemplates } from "api/UsersClient";
 
 const onRedirectCallback = (appState: any) => {
   window.history.replaceState(
@@ -16,6 +17,7 @@ const onRedirectCallback = (appState: any) => {
       ? appState.targetUrl
       : window.location.pathname
   );
+  getChecklistsFormTemplates();
 };
 
 ReactDOM.render(
