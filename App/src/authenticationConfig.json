@@ -2,6 +2,7 @@
   "domain": "dev-lvcenvyd.us.auth0.com",
   "clientID": "EOX8JocRP2CcPtHdVow1fR7XOXWiOY4K",
   "responseType": "token id_token",
+  "audience": "IBigDataAuth",
   "scope": "openid email profile",
   "baseUrl": "http://localhost:5239"
 }

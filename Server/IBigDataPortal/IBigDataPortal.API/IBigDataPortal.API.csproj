@@ -4,9 +4,16 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>IBigDataPortal</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Dapper" Version="2.0.123" />
+        <PackageReference Include="Mediator.Net.MicrosoftDependencyInjection" Version="4.2.0" />
+        <PackageReference Include="MediatR" Version="10.0.1" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,6 +23,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\IBigDataPortal.Database\IBigDataPortal.Database.csproj" />
+      <ProjectReference Include="..\IBigDataPortal.Infrastructure\IBigDataPortal.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

@@ -23,7 +23,7 @@ namespace IBigDataPortal.Database.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("IBigDataPortal.Database.Entities.User", b =>
+            modelBuilder.Entity("IBigDataPortal.API.Database.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

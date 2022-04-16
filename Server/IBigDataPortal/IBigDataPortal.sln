@@ -1,8 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBigDataPortal", "IBigDataPortal\IBigDataPortal.csproj", "{8F8E5816-D64F-4F2D-9A7A-C95CB94B7A1A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBigDataPortal.API", "IBigDataPortal.API\IBigDataPortal.API.csproj", "{8F8E5816-D64F-4F2D-9A7A-C95CB94B7A1A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBigDataPortal.Database", "IBigDataPortal.Database\IBigDataPortal.Database.csproj", "{A6679817-6870-420C-AFC3-10B7364557F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBigDataPortal.Domain", "IBigDataPortal.Domain\IBigDataPortal.Domain.csproj", "{1951A8BC-6F3C-4590-AFC0-CFFFCFB6F429}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBigDataPortal.Infrastructure", "IBigDataPortal.Infrastructure\IBigDataPortal.Infrastructure.csproj", "{1F6E50E8-BFC2-4BE4-B2BA-56F9F6418C95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +22,13 @@ Global
 		{A6679817-6870-420C-AFC3-10B7364557F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6679817-6870-420C-AFC3-10B7364557F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6679817-6870-420C-AFC3-10B7364557F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1951A8BC-6F3C-4590-AFC0-CFFFCFB6F429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1951A8BC-6F3C-4590-AFC0-CFFFCFB6F429}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1951A8BC-6F3C-4590-AFC0-CFFFCFB6F429}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1951A8BC-6F3C-4590-AFC0-CFFFCFB6F429}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F6E50E8-BFC2-4BE4-B2BA-56F9F6418C95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F6E50E8-BFC2-4BE4-B2BA-56F9F6418C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F6E50E8-BFC2-4BE4-B2BA-56F9F6418C95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F6E50E8-BFC2-4BE4-B2BA-56F9F6418C95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
