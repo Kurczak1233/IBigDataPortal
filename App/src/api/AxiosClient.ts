@@ -16,7 +16,6 @@ const AxiosClient = async (
     },
     data: JSON.stringify(body),
   });
-
   return requestResult.data;
 };
 export { AxiosClient };

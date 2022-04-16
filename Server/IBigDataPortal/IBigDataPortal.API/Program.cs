@@ -23,7 +23,7 @@ builder.Services.AddAuthentication(options =>
 }).AddJwtBearer(options =>
 {
     options.Authority = "https://dev-lvcenvyd.us.auth0.com/";
-    options.Audience = "IBigDataAuth";
+    options.Audience = "https://i-big-data-auth-api.com/";
 });
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());

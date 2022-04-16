@@ -7,18 +7,6 @@ import reportWebVitals from "./reportWebVitals";
 import { Auth0Provider } from "@auth0/auth0-react";
 import auth from "./authenticationConfig.json";
 import { Toaster } from "react-hot-toast";
-import { getChecklistsFormTemplates } from "api/UsersClient";
-
-const onRedirectCallback = (appState: any) => {
-  window.history.replaceState(
-    {},
-    document.title,
-    appState && appState.targetUrl
-      ? appState.targetUrl
-      : window.location.pathname
-  );
-  getChecklistsFormTemplates();
-};
 
 ReactDOM.render(
   <Auth0Provider
@@ -26,7 +14,7 @@ ReactDOM.render(
     clientId={auth.clientID}
     scope={auth.scope}
     redirectUri={window.location.origin}
-    onRedirectCallback={onRedirectCallback}
+    audience={auth.audience}
   >
     <Toaster />
     <React.StrictMode>
