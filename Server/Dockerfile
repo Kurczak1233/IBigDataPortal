@@ -9,8 +9,8 @@ ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0-bullseye-slim AS build
 WORKDIR /src
-COPY ["Server/IBigDataPortal/", "./Server/IBigDataPortal/"]
-RUN dotnet restore "Server/IBigDataPortal/Portal.csproj"
+COPY ["portal/Server/IBigDataPortal/", ".portal/Server/IBigDataPortal/"]
+RUN dotnet restore "portal/Server/IBigDataPortal/Portal.csproj"
 
 # COPY ["Core/", "./Core/"]
 # COPY ["Mobile/modules/", "./Mobile/modules/"]
