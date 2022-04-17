@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import { ToastModes } from "interfaces/ToastModes";
+import { Navigate } from "react-router-dom";
 
 const AppLogic = () => {
   const [isAccessTokenSet, setIsAccessTokenSet] = useState<boolean>(false);
@@ -18,7 +19,6 @@ const AppLogic = () => {
   const setAxiosInterceptor = (accessToken: string) => {
     axios.interceptors.request.use(
       (config) => {
-        console.log("CRY");
         if (config && config.headers) {
           config.headers["Authorization"] = `Bearer ${accessToken}`;
         }
@@ -34,12 +34,22 @@ const AppLogic = () => {
     );
   };
 
+  const checkIfRouteIsAuthenticated = (component: JSX.Element) => {
+    return !isAuthenticated ? (
+      <Navigate to="/login-page" />
+    ) : isAccessTokenSet ? (
+      component
+    ) : (
+      <div />
+    );
+  };
+
   useEffect(() => {
     if (!isAccessTokenSet && isAuthenticated)
       getAccessTokenAndSetAxiosInterceptors();
   }, [isAccessTokenSet, isAuthenticated]);
 
-  return {};
+  return { checkIfRouteIsAuthenticated };
 };
 
 export default AppLogic;

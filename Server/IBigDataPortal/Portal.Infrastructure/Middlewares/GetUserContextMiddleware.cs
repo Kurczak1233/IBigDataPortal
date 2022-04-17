@@ -28,6 +28,14 @@ public class GetUserContextMiddleware
 
         //Cache userId for 20 seconds
         var id = context.User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
+
+        //Requests without token.
+        if (id == null)
+        {
+            await _next(context);
+            return;
+        }
+        
         var memoryCache = context.RequestServices.GetRequiredService<IMemoryCache>();
         var userId = memoryCache.GetOrCreate($"USER_{id}", entry =>
         {
@@ -57,42 +65,7 @@ public class GetUserContextMiddleware
                 memoryCache.Set($"USER_{id}", createdUser.Id);
             }
         }
-        
-        // var firstName = context.User.Claims.FirstOrDefault(c => c.Type == Metadata.FirstName)?.Value;
-        // var lastName = context.User.Claims.FirstOrDefault(c => c.Type == Metadata.LastName)?.Value;
-
-        // var newUserClass = new AddNewUserToDatabase(_connectionString);
-        // var userExistsClass = new GetUserByEmail(_connectionString);
-        // var id = context.User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
-        // var memoryCache = context.RequestServices.GetRequiredService<IMemoryCache>();
-
-        // if (userId != null)
-        // {
-        //     context.User.AddIdentity(new ClaimsIdentity(new List<Claim>
-        //     {
-        //         new(Metadata.UserId, userId.ToString())
-        //     }));
-        //
-        //     await _mediator.Publish(new UserLoggedInEvent(Int32.Parse(userId.ToString())));
-        // }
-        // else
-        // {
-        //     var user = await userExistsClass.GetApplicationUserByEmail(userEmail);
-        //     if (user != null)
-        //     {
-        //         memoryCache.Set($"USER_{id}", user.Id);
-        //     }
-        //     else
-        //     {
-        //         var newUser = await newUserClass.AddUserToDb(userEmail, firstName, lastName);
-        //         var userSettingsQuery = new UserSettingsQuery(_connectionString);
-        //         if (userEmail != null)
-        //         {
-        //             await userSettingsQuery.AddUserSettingsToDb(newUser.Id);
-        //             memoryCache.Set($"USER_{id}", newUser.Id);
-        //         }
-        //     }
-        // }
+       
         await _next(context);
     }
 }

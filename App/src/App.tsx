@@ -5,13 +5,18 @@ import AppLogic from "./AppLogic";
 import MainPage from "./pages/MainPage/MainPage";
 
 function App() {
-  AppLogic();
+  const { checkIfRouteIsAuthenticated } = AppLogic();
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path={"login-page"} element={<div>XD</div>} />
         <Route path={"error"} element={<div>X2D</div>} />
+        <Route
+          path={"administration"}
+          element={checkIfRouteIsAuthenticated(<div>Administration</div>)}
+        />
       </Routes>
     </Router>
   );
