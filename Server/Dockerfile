@@ -9,7 +9,9 @@ WORKDIR /src
 COPY ["IBigDataPortal/Portal/", ".IBigDataPortal/Portal/"]
 RUN dotnet restore "IBigDataPortal/Portal/Portal.csproj"
 
-WORKDIR /src
+COPY . .
+
+WORKDIR /src/.
 RUN dotnet build "IBigDataPortal/Portal/Portal.csproj" -c Release -o /app/build
 
 FROM build AS publish
