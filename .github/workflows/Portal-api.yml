@@ -1,73 +1,77 @@
 # # This is a basic workflow to help you get started with Actions
 
-# name: DEV Mobile API
+name: Portal - API
 
-# on:
-#   workflow_dispatch:
-#   pull_request:
-#     branches:
-#       - main
-#     paths:
-#       - "Server/**"
-#       - ".github/workflows/dev-mobile-api.yml"
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "Server/**"
+      - ".github/workflows/Portal-api.yml"
   
-# env:
-#   AuthenticationType: "Auth0"
-#   Origins: "*"
-#   GCP_PROJECT: one-onesoft
-#   APP_INSIGHTS_INSTRUMENTATION_KEY: ba1a8d10-a0fb-4598-952b-167376d4fe88
+env:
+  AuthenticationType: "Auth0"
+  Origins: "*"
+  GCP_PROJECT: one-onesoft
+  # APP_INSIGHTS_INSTRUMENTATION_KEY: ba1a8d10-a0fb-4598-952b-167376d4fe88
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Set up Cloud SDK
-#         uses: google-github-actions/setup-gcloud@v0
-#         with:
-#           project_id: ${{ env.GCP_PROJECT }}
-#           service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
-#           export_default_credentials: true
-#       - uses: actions/checkout@v2
+    steps:
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          project_id: ${{ env.GCP_PROJECT }}
+          credentials_json: ${{ secrets.GCP_SA_SECRET }}
+          # project_id: ${{ env.GCP_PROJECT }}
+          # service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
+          # export_default_credentials: true
+      - uses: actions/checkout@v2
     
-#       - uses: microsoft/variable-substitution@v1 
-#         with:
-#           files: "Mobile/api/Mobile.Api/appsettings.json"
-#         env:
-#           authenticationType: ${{ env.AuthenticationType }}
-#           ApplicationInsights.InstrumentationKey: ${{ env.APP_INSIGHTS_INSTRUMENTATION_KEY }}
-#           origins: ${{ env.Origins }}
-#           ConnectionStrings.SqlDataContext: ${{ secrets.STAGING_CONNECTION_STRING }}
-#           AppUrls.OneModulesFileManagementApi: https://module-filemanagement-dev-a2pilg7y3a-ew.a.run.app
+      # - uses: microsoft/variable-substitution@v1 
+      #   with:
+      #     files: "Mobile/api/Mobile.Api/appsettings.json"
+      #   env:
+      #     authenticationType: ${{ env.AuthenticationType }}
+      #     ApplicationInsights.InstrumentationKey: ${{ env.APP_INSIGHTS_INSTRUMENTATION_KEY }}
+      #     origins: ${{ env.Origins }}
+      #     ConnectionStrings.SqlDataContext: ${{ secrets.STAGING_CONNECTION_STRING }}
+      #     AppUrls.OneModulesFileManagementApi: https://module-filemanagement-dev-a2pilg7y3a-ew.a.run.app
 
                   
-#       - name: Read Mobile.Api -> appsettings.json
-#         run: "cat Mobile/api/Mobile.Api/appsettings.json"
+      # - name: Read Mobile.Api -> appsettings.json
+      #   run: "cat Mobile/api/Mobile.Api/appsettings.json"
     
-#       - name: Build the Docker image
-#         run: docker build -f Mobile/api/Mobile.Api/Dockerfile -t eu.gcr.io/${{ env.GCP_PROJECT }}/mobile-api-dev . --build-arg ASPNETCORE_ENVIRONMENT=Staging
+      - name: Build the Docker image
+        run: docker build -f Inżynierka/portal/Server/Dockerfile -t eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api . 
         
-#       - name: Configure Docker to use Google Cloud Platform
-#         run: gcloud auth configure-docker --quiet
+      - name: Configure Docker to use Google Cloud Platform
+        run: gcloud auth configure-docker --quiet
         
-#       - name: Docker push image
-#         run: docker push eu.gcr.io/${{ env.GCP_PROJECT }}/mobile-api-dev
+      - name: Docker push image
+        run: docker push eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api
       
-#   deploy:
-#     runs-on: ubuntu-latest
-#     needs: build
-#     continue-on-error: false
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    continue-on-error: false
     
-#     steps:
-#       - name: Set up Cloud SDK
-#         uses: google-github-actions/setup-gcloud@v0
-#         with:
-#           project_id: ${{ env.GCP_PROJECT }}
-#           service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
-#           export_default_credentials: true
+    steps:
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          # project_id: ${{ env.GCP_PROJECT }}
+          # service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
+          # export_default_credentials: true
+          project_id: ${{ env.GCP_PROJECT }}
+          credentials_json: ${{ secrets.GCP_SA_SECRET }}
           
-#       - name: Cloud run deploy
-#         run: gcloud run deploy mobile-api-dev --image eu.gcr.io/${{ env.GCP_PROJECT }}/mobile-api-dev --region=europe-west1 --project=${{ env.GCP_PROJECT }} --memory=1024M --max-instances=10 --cpu=2 --timeout=120 --port=5000
+      - name: Cloud run deploy
+        run: gcloud run deploy portal-api --image eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api --region=europe-west1 --project=${{ env.GCP_PROJECT }} --memory=1024M --max-instances=10 --cpu=2 --timeout=120 --port=5000
       
-#       - name: Cloud run serve traffic
-#         run: gcloud run services update-traffic mobile-api-dev --to-latest --platform=managed --region=europe-west1
+      - name: Cloud run serve traffic
+        run: gcloud run services update-traffic portal-api --to-latest --platform=managed --region=europe-west1

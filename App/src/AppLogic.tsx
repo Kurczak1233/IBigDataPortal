@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import { ToastModes } from "interfaces/ToastModes";
-import { Navigate } from "react-router-dom";
+import NoAccessComponent from "components/common/NoAccessComponent/NoAccessComponent";
 
 const AppLogic = () => {
   const [isAccessTokenSet, setIsAccessTokenSet] = useState<boolean>(false);
@@ -36,7 +36,7 @@ const AppLogic = () => {
 
   const checkIfRouteIsAuthenticated = (component: JSX.Element) => {
     return !isAuthenticated ? (
-      <Navigate to="/login-page" />
+      <NoAccessComponent />
     ) : isAccessTokenSet ? (
       component
     ) : (
