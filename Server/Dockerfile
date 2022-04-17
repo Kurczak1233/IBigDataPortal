@@ -7,11 +7,8 @@ ENV ASPNETCORE_URLS=http://+:5000
 FROM mcr.microsoft.com/dotnet/sdk:6.0-bullseye-slim AS build
 WORKDIR /src
 COPY ["IBigDataPortal/Portal/", ".IBigDataPortal/Portal/"]
-RUN dotnet restore "IBigDataPortal/Portal/Portal.csproj"
+RUN dotnet restore "Portal.csproj"
 
-COPY . .
-
-WORKDIR /src/.
 RUN dotnet build "IBigDataPortal/Portal/Portal.csproj" -c Release -o /app/build
 
 FROM build AS publish
