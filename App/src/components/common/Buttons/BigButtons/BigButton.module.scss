@@ -1,0 +1,12 @@
+@import "styles/Commons.scss";
+.buttonStyles {
+    border-radius: 100px;
+    @include fontSizeEighteen;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 250px;
+    color: $clear-white;
+    cursor: pointer;
+}

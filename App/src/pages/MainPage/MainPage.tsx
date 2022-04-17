@@ -4,11 +4,11 @@ import MainPageMain from "../../components/MainPageComponents/Main/MainPageMain"
 
 const MainPage = () => {
   return (
-    <div>
+    <>
       <MainPageHeader />
       <MainPageLoginBar />
       <MainPageMain />
-    </div>
+    </>
   );
 };
 

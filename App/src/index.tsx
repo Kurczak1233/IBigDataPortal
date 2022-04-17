@@ -16,10 +16,10 @@ ReactDOM.render(
     redirectUri={window.location.origin}
     audience={auth.audience}
   >
-    <Toaster />
     <React.StrictMode>
       <App />
     </React.StrictMode>
+    <Toaster />
   </Auth0Provider>,
   document.getElementById("root")
 );
