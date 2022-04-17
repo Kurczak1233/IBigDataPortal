@@ -17,10 +17,10 @@ RUN dotnet restore "IBigDataPortal/Portal.csproj"
 # COPY ["Server/Database/", "./Server/Database/"]
 
 WORKDIR /src
-RUN dotnet build "IBigDataPortal/Portal.csproj" -c Release -o /Server/build
+RUN dotnet build "IBigDataPortal/Portal/Portal.csproj" -c Release -o /Server/build
 
 FROM build AS publish
-RUN dotnet publish "IBigDataPortal/Portal.csproj" -c Release -o /Server/publish
+RUN dotnet publish "IBigDataPortal/Portal/Portal.csproj" -c Release -o /Server/publish
 
 FROM base AS final
 WORKDIR /Server
