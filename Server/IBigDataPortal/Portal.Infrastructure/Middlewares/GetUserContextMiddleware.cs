@@ -51,7 +51,7 @@ public class GetUserContextMiddleware
             }
             else
             {
-                var command = new CreateNewUserCommand(userEmail, "test", "test2");
+                var command = new CreateNewUserCommand(userEmail, "nickname");
                 await _mediator.Send(command);
                 var createdUser = await usersServiceQueries.GetApplicationUserByEmail(userEmail);
                 memoryCache.Set($"USER_{id}", createdUser.Id);

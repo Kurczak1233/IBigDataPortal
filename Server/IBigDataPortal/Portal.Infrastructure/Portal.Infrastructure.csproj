@@ -4,11 +4,12 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>IBigDataPortal.Infrastructure</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\IBigDataPortal.Database\IBigDataPortal.Database.csproj" />
-      <ProjectReference Include="..\IBigDataPortal.Domain\IBigDataPortal.Domain.csproj" />
+      <ProjectReference Include="..\Portal.Database\Portal.Database.csproj" />
+      <ProjectReference Include="..\Portal.Domain\Portal.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>

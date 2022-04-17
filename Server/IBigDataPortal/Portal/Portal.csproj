@@ -22,8 +22,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\IBigDataPortal.Database\IBigDataPortal.Database.csproj" />
-      <ProjectReference Include="..\IBigDataPortal.Infrastructure\IBigDataPortal.Infrastructure.csproj" />
+      <ProjectReference Include="..\Portal.Database\Portal.Database.csproj" />
+      <ProjectReference Include="..\Portal.Infrastructure\Portal.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

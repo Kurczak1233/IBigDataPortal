@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBigDataPortal.API", "IBigDataPortal.API\IBigDataPortal.API.csproj", "{8F8E5816-D64F-4F2D-9A7A-C95CB94B7A1A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal", "Portal\Portal.csproj", "{8F8E5816-D64F-4F2D-9A7A-C95CB94B7A1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBigDataPortal.Database", "IBigDataPortal.Database\IBigDataPortal.Database.csproj", "{A6679817-6870-420C-AFC3-10B7364557F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal.Database", "Portal.Database\Portal.Database.csproj", "{A6679817-6870-420C-AFC3-10B7364557F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBigDataPortal.Domain", "IBigDataPortal.Domain\IBigDataPortal.Domain.csproj", "{1951A8BC-6F3C-4590-AFC0-CFFFCFB6F429}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal.Domain", "Portal.Domain\Portal.Domain.csproj", "{1951A8BC-6F3C-4590-AFC0-CFFFCFB6F429}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBigDataPortal.Infrastructure", "IBigDataPortal.Infrastructure\IBigDataPortal.Infrastructure.csproj", "{1F6E50E8-BFC2-4BE4-B2BA-56F9F6418C95}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal.Infrastructure", "Portal.Infrastructure\Portal.Infrastructure.csproj", "{1F6E50E8-BFC2-4BE4-B2BA-56F9F6418C95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

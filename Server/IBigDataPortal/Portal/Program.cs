@@ -26,7 +26,7 @@ builder.Services.AddAuthentication(options =>
     options.Audience = "https://i-big-data-auth-api.com/";
 });
 
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(
