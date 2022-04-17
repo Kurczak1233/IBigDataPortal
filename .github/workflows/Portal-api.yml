@@ -47,13 +47,13 @@ jobs:
       #   run: "cat Mobile/api/Mobile.Api/appsettings.json"
     
       - name: Build the Docker image
-        run: docker build -f Inżynierka/portal/Server/Dockerfile -t eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api . 
+        run: docker build -f Inżynierka/portal/Server/Dockerfile -t eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api-prod . 
         
       - name: Configure Docker to use Google Cloud Platform
         run: gcloud auth configure-docker --quiet
         
       - name: Docker push image
-        run: docker push eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api
+        run: docker push eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api-prod
       
   deploy:
     runs-on: ubuntu-latest
@@ -71,7 +71,7 @@ jobs:
           credentials_json: ${{ secrets.GCP_SA_SECRET }}
           
       - name: Cloud run deploy
-        run: gcloud run deploy portal-api --image eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api --region=europe-west1 --project=${{ env.GCP_PROJECT }} --memory=1024M --max-instances=10 --cpu=2 --timeout=120 --port=5000
+        run: gcloud run deploy portal-api-prod --image eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api-prod --region=europe-west1 --project=${{ env.GCP_PROJECT }} --memory=1024M --max-instances=10 --cpu=2 --timeout=120 --port=5000
       
       - name: Cloud run serve traffic
-        run: gcloud run services update-traffic portal-api --to-latest --platform=managed --region=europe-west1
+        run: gcloud run services update-traffic portal-api-prod --to-latest --platform=managed --region=europe-west1
