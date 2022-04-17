@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace IBigDataPortal.Domain.UsersAggregate;
+﻿namespace IBigDataPortal.Domain.UsersAggregate;
 
 public interface IUsersServiceQueries
 {
