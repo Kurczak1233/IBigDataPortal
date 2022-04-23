@@ -37,6 +37,8 @@ jobs:
           yarn build
           gsutil web set -m index.html -e index.html gs://${{env.CloudStorageBucket}}/
           gsutil -h "Cache-Control:public, max-age=60, no-transform" -m rsync -d -r -j js,html,map,css ./build gs://${{env.CloudStorageBucket}}/
+          gcloud compute url-maps invalidate-cdn-cache loadbalancer --path '/*' --async
+
   tag:
     runs-on: ubuntu-latest
     needs: build_and_deploy
