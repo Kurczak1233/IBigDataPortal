@@ -47,7 +47,8 @@ jobs:
       #   run: "cat Mobile/api/Mobile.Api/appsettings.json"
     
       - name: Build the Docker image
-        run: docker build -f Inżynierka/portal/Server/Dockerfile -t eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api-prod . 
+        working-directory: ./Server/IBigDataPortal
+        run: docker build -f Dockerfile -t eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api-prod . 
         
       - name: Configure Docker to use Google Cloud Platform
         run: gcloud auth configure-docker --quiet
