@@ -90,8 +90,8 @@ jobs:
           export_default_credentials: true
           
       - name: Cloud run deploy
-        run: gcloud run deploy portal-api-prod --image eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api-prod 
-        # --region=europe-west1 --project=${{ env.GCP_PROJECT }} --memory=1024M --max-instances=10 --cpu=2 --timeout=120 --port=5000
+        run: gcloud run deploy portal-api-prod --image eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api-prod --region=europe-west1 --project=${{ env.GCP_PROJECT }}
+        #  --memory=1024M --max-instances=10 --cpu=2 --timeout=120 --port=5000
       
       - name: Cloud run serve traffic
         run: gcloud run services update-traffic portal-api-prod --to-latest --platform=managed --region=europe-west1
