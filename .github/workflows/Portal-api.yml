@@ -14,7 +14,7 @@ on:
 env:
   AuthenticationType: "Auth0"
   Origins: "*"
-  GCP_PROJECT: one-onesoft
+  GCP_PROJECT: engineering-thesis-346319
   # APP_INSIGHTS_INSTRUMENTATION_KEY: ba1a8d10-a0fb-4598-952b-167376d4fe88
 
 jobs:
