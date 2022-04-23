@@ -29,7 +29,7 @@ jobs:
           # credentials_json: ${{ secrets.GCP_SA_SECRET }}
           # project_id: ${{ env.GCP_PROJECT }}
           service_account_key: ${{ secrets.GCP_SA_SECRET }}
-          # export_default_credentials: true
+          export_default_credentials: true
       - uses: actions/checkout@v2
 
       #       # Build the container image
