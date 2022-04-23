@@ -29,15 +29,6 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
 
-      # - uses: microsoft/variable-substitution@v1
-      #   with:
-      #     files: "Mobile/app/src/config.json"
-      #   env:
-      #     baseUrl: ${{ env.ApiUrl }}
-
-      # - name: Read config.json
-      #   run: "cat Mobile/app/src/config.json"  
-
       - name: Build and deploy frontend to static GCP Cloud Storage
         id: deploy
         run: |

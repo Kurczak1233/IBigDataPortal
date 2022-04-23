@@ -26,11 +26,31 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ env.GCP_PROJECT }}
-          credentials_json: ${{ secrets.GCP_SA_SECRET }}
+          # credentials_json: ${{ secrets.GCP_SA_SECRET }}
           # project_id: ${{ env.GCP_PROJECT }}
-          # service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
+          service_account_key: ${{ secrets.GCP_SA_SECRET }}
           # export_default_credentials: true
       - uses: actions/checkout@v2
+
+      #       # Build the container image
+      # - name: "gcr.io/cloud-builders/docker"
+      #   args: ["build", "-t", "gcr.io/$PROJECT_ID/myapi:$COMMIT_SHA", "."]
+      # # Push the container image to Container Registry
+      # - name: "gcr.io/cloud-builders/docker"
+      #   args: ["push", "gcr.io/$PROJECT_ID/myapi:$COMMIT_SHA"]
+      # # Deploy container image to Cloud Run
+      # - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+      #   entrypoint: gcloud
+      #   args:
+      #       - "run"
+      #       - "deploy"
+      #       - "myapi"
+      #       - "--image"
+      #       - "gcr.io/$PROJECT_ID/myapi:$COMMIT_SHA"
+      #       - "--region"
+      #       - "asia-east1"
+      #   images:
+      #       - "gcr.io/$PROJECT_ID/myapi:$COMMIT_SHA"
     
       # - uses: microsoft/variable-substitution@v1 
       #   with:
