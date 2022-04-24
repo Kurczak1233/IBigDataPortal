@@ -2,9 +2,8 @@
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Domain.UsersAggregate;
-using IBigDataPortal.Infrastructure;
 
-namespace IBigDataPortal.Services.UsersService.Queries;
+namespace IBigDataPortal.Infrastructure.Middlewares.Queries;
 
 public class UsersServiceQueries : IUsersServiceQueries
 {
