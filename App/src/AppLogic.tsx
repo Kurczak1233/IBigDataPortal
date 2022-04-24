@@ -36,11 +36,11 @@ const AppLogic = () => {
 
   const checkIfRouteIsAuthenticated = (component: JSX.Element) => {
     return !isAuthenticated ? (
-      <NoAccessComponent />
+      <div />
     ) : isAccessTokenSet ? (
       component
     ) : (
-      <div />
+      <NoAccessComponent />
     );
   };
 
