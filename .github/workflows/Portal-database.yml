@@ -20,9 +20,8 @@ jobs:
 
     steps:
       - uses: microsoft/variable-substitution@v1
-        working-directory: ./Server/IBigDataPortal 
         with:
-          files: "Portal/appsettings.json"
+          files: "portal/Server/IBigDataPortal/Portal/appsettings.json"
         env:
           ConnectionStrings.SqlDataContext: ${{ secrets.GCP_CONNECTION_STRING }}
 
