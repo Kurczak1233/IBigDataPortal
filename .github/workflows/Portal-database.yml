@@ -73,5 +73,6 @@ jobs:
           wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
           chmod +x cloud_sql_proxy
           ./cloud_sql_proxy -instances=engineering-thesis-346319:us-central1:portalsqlserver &
-          gcloud sql databases create TEST --instance=engineering-thesis-346319:us-central1:portalsqlserver
+          gcloud config set project engineering-thesis-346319
+          gcloud sql databases create TEST --instance=portalsqlserver
          
