@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: microsoft/variable-substitution@v1
         with:
-          files: "IBigDataPortal/Portal/appsettings.json"
+          files: "Portal/appsettings.json"
         env:
           ConnectionStrings.SqlDataContext: ${{ secrets.GCP_CONNECTION_STRING }}
 
