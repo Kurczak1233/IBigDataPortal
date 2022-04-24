@@ -10,7 +10,7 @@ on:
       - ".github/workflows/Portal-app.yml"
 
 env:
-  # ApiUrl: https://mobile-api-dev-a2pilg7y3a-ew.a.run.app/api
+  ApiUrl: https://portal-api-prod-etflayreta-ew.a.run.app
   GCP_PROJECT: engineering-thesis-346319
   CloudStorageBucket: ibigworld-ath.com
 
@@ -26,6 +26,12 @@ jobs:
           project_id: ${{ env.GCP_PROJECT }}
           credentials_json: ${{ secrets.GCP_SA_SECRET }}
           
+      - uses: microsoft/variable-substitution@v1
+        with:
+          files: "portal/App/src/authenticationConfig.json"
+        env:
+          baseUrl: ${{ env.ApiUrl }}
+
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
 
