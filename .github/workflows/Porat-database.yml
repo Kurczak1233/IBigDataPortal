@@ -1,0 +1,33 @@
+name: Portal - API
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "Server/**"
+      - ".github/workflows/Portal-api.yml"
+
+env:
+  AuthenticationType: "Auth0"
+  Origins: "*"
+  GCP_PROJECT: engineering-thesis-346319
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: microsoft/variable-substitution@v1
+        working-directory: ./Server/IBigDataPortal 
+        with:
+          files: "Portal/appsettings.json"
+        env:
+          ConnectionStrings.SqlDataContext: ${{ secrets.GCP_CONNECTION_STRING }}
+
+      - name: Update database
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet tool restore
+          dotnet ef database update -s ./Portal -p ./Portal.Database
