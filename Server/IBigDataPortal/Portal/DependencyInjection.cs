@@ -1,13 +1,12 @@
 using IBigDataPortal.Database;
 using IBigDataPortal.Domain.UserMetadata;
 using IBigDataPortal.Domain.UsersAggregate;
+using IBigDataPortal.Infrastructure;
 using IBigDataPortal.Infrastructure.Middlewares.Queries;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace IBigDataPortal.Infrastructure;
+namespace IBigDataPortal;
 
 public static class DependencyInjection
 {
