@@ -63,12 +63,15 @@ jobs:
       #     ./cloud_sql_proxy -instances=nice-cb-dev:us-central1:nice-db-dev=tcp:5432 &
       #     npm run orm:migration:run:staging
 
+
+#  dotnet tool install --global dotnet-ef
+#           dotnet tool restore
+#           dotnet ef database update -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
       ## There is no IP connection here on GCP maybe Proxy connection? :(
       - name: Update database
         run: |
           wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
           chmod +x cloud_sql_proxy
           ./cloud_sql_proxy -instances=engineering-thesis-346319:us-central1:portalsqlserver &
-          dotnet tool install --global dotnet-ef
-          dotnet tool restore
-          dotnet ef database update -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
+          gcloud sql databases create TEST --instance=engineering-thesis-346319:us-central1:portalsqlserver
+         
