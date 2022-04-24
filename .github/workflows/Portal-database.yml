@@ -23,6 +23,6 @@ jobs:
 
       - name: Update database
         run: |
-          dotnet tool install --global dotnet-ef -s ./Server/IBigDataPortal/Portal
-          dotnet tool restore -s ./Server/IBigDataPortal/Portal
+          dotnet tool install --global dotnet-ef --tool-path ./Server/IBigDataPortal/Portal
+          dotnet tool restore
           dotnet ef database update -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
