@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using IBigDataPortal.Domain.UserMetadata;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IBigDataPortal.Controllers;
 
@@ -6,9 +7,16 @@ namespace IBigDataPortal.Controllers;
 [Route("[controller]")]
 public class UsersController: ControllerBase
 {
+    private readonly IUser _user;
+
+    public UsersController(IUser user)
+    {
+        _user = user;
+    }
+    
     [HttpGet]
     public ActionResult Get()
     {
-        return Ok();
+        return Ok(_user.Id);
     }
 }
