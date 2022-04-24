@@ -33,6 +33,15 @@ jobs:
           creds: ${{ secrets.GCP_SA_SECRET }}
           instance: engineering-thesis-346319:us-central1:portalsqlserver
 
+      - name: Public IP
+        id: ip
+        uses: haythem/public-ip@v1.2
+
+      - name: Print Public IP
+        run: |
+          echo ${{ steps.ip.outputs.ipv4 }}
+          echo ${{ steps.ip.outputs.ipv6 }}
+
       - name: Update database
         run: |
           dotnet tool install --global dotnet-ef
