@@ -1,0 +1,28 @@
+name: Portal - Database
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "Server/IBigDataPortal/Portal.Database/**"
+      - ".github/workflows/Portal-database.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: microsoft/variable-substitution@v1
+        with:
+          files: "Portal/appsettings.json"
+        env:
+          ConnectionStrings.SqlDataContext: ${{ secrets.GCP_CONNECTION_STRING }}
+
+      - name: Update database
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet tool restore
+          dotnet ef database update -s ./Portal -p ./Portal.Database
