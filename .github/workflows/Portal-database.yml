@@ -9,11 +9,6 @@ on:
       - "Server/IBigDataPortal/Portal.Database/**"
       - ".github/workflows/Portal-database.yml"
 
-env:
-  AuthenticationType: "Auth0"
-  Origins: "*"
-  GCP_PROJECT: engineering-thesis-346319
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,7 +16,7 @@ jobs:
     steps:
       - uses: microsoft/variable-substitution@v1
         with:
-          files: "portal/Server/IBigDataPortal/Portal/appsettings.json"
+          files: "Server/IBigDataPortal/Portal/appsettings.json"
         env:
           ConnectionStrings.SqlDataContext: ${{ secrets.GCP_CONNECTION_STRING }}
 
