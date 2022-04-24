@@ -15,6 +15,7 @@ env:
   AuthenticationType: "Auth0"
   Origins: "*"
   GCP_PROJECT: engineering-thesis-346319
+  
 
 jobs:
   build:
@@ -29,20 +30,13 @@ jobs:
           export_default_credentials: true
       - uses: actions/checkout@v2
 
-      # - uses: microsoft/variable-substitution@v1 
-      #   with:
-      #     files: "Mobile/api/Mobile.Api/appsettings.json"
-      #   env:
-      #     authenticationType: ${{ env.AuthenticationType }}
-      #     ApplicationInsights.InstrumentationKey: ${{ env.APP_INSIGHTS_INSTRUMENTATION_KEY }}
-      #     origins: ${{ env.Origins }}
-      #     ConnectionStrings.SqlDataContext: ${{ secrets.STAGING_CONNECTION_STRING }}
-      #     AppUrls.OneModulesFileManagementApi: https://module-filemanagement-dev-a2pilg7y3a-ew.a.run.app
-
-                  
-      # - name: Read Mobile.Api -> appsettings.json
-      #   run: "cat Mobile/api/Mobile.Api/appsettings.json"
-    
+      - uses: microsoft/variable-substitution@v1
+        working-directory: ./Server/IBigDataPortal 
+        with:
+          files: "Portal/appsettings.json"
+        env:
+          ConnectionStrings.SqlDataContext: ${{ secrets.GCP_CONNECTION_STRING }}
+          
       - name: Build the Docker image
         working-directory: ./Server/IBigDataPortal
         run: docker build -f Dockerfile -t eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api-prod . 

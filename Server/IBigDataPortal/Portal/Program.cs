@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Text;
 using IBigDataPortal;
+using IBigDataPortal.Infrastructure;
 using IBigDataPortal.Infrastructure.Middlewares;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
