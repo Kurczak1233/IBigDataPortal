@@ -1,0 +1,91 @@
+name: Portal - Database
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "Server/IBigDataPortal/Portal.Database/**"
+      - ".github/workflows/Portal-database.yml"
+
+env:
+  GCP_PROJECT: engineering-thesis-346319
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Apply database schema
+    steps:
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          project_id: ${{ env.GCP_PROJECT }}
+          service_account_key: ${{ secrets.GCP_SA_SECRET }}
+          export_default_credentials: true
+      - uses: actions/checkout@v2
+
+      - name: Variable substitution
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: "Server/IBigDataPortal/Portal/appsettings.json"
+        env:
+          connectionStrings.SqlConnectionString: ${{ secrets.GCP_CONNECTION_STRING }}
+                  
+      - name: Read Mobile.Api -> appsettings.json
+        run: "cat Server/IBigDataPortal/Portal/appsettings.json"
+
+      # - name: Log in to GCP proxy
+      #   uses: mattes/gce-cloudsql-proxy-action@v1
+      #   with:
+      #     creds: ${{ secrets.GCP_SA_SECRET }}
+      #     instance: engineering-thesis-346319:us-central1:portalsqlserver
+ 
+      # - name: Public IP
+      #   id: ip
+      #   uses: haythem/public-ip@v1.2
+
+      # - name: Print Public IP
+      #   run: |
+      #     echo ${{ steps.ip.outputs.ipv4 }}
+      #     echo ${{ steps.ip.outputs.ipv6 }}
+
+      # - name: Run migration
+      #   env:
+      #     TYPEORM_CONNECTION: postgres
+      #     TYPEORM_HOST: 127.0.0.1
+      #     TYPEORM_PORT: 5432
+      #     TYPEORM_USERNAME: user
+      #     TYPEORM_DATABASE: database_name
+      #     TYPEORM_PASSWORD: ${{ secrets.CLOUD_SQL_PASSWORD }}
+      #     TYPEORM_MIGRATIONS: ./migration/**/*.ts
+      #   run: |
+      #     ./cloud_sql_proxy -instances=nice-cb-dev:us-central1:nice-db-dev=tcp:5432 &
+      #     npm run orm:migration:run:staging
+
+
+#  dotnet tool install --global dotnet-ef
+#           dotnet tool restore
+#           dotnet ef database update -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
+      ## There is no IP connection here on GCP maybe Proxy connection? :( BELOW WORKED
+      # - name: Update database
+      #   run: |
+      #     # wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+      #     # chmod +x cloud_sql_proxy
+      #     # ./cloud_sql_proxy -instances=engineering-thesis-346319:us-central1:portalsqlserver &
+      #     # gcloud config set project engineering-thesis-346319
+      #     # gcloud sql databases create TEST --instance=portalsqlserver
+
+      # - name: Start SQL DB EXPORT from prod SQL instance to the staging bucket
+      #   run: |
+      #     gcloud sql export sql $SQL_PROD_INSTANCE $BUCKET_URL --database=$DATABASE_NAME
+
+      - name: Update database
+        run: |
+          ./cloud_sql_proxy -instances=engineering-thesis-346319:us-central1:portalsqlserver=tcp:3306
+          dotnet tool install --global dotnet-ef
+          dotnet tool restore
+          dotnet ef database update -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
+
+         
+         
