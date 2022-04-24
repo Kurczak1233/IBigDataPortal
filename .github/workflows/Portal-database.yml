@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    name: Apply database schema
     steps:
       - uses: actions/checkout@v2
       - uses: microsoft/variable-substitution@v1
@@ -23,6 +23,6 @@ jobs:
 
       - name: Update database
         run: |
-          dotnet tool install --global dotnet-ef
-          dotnet tool restore
+          dotnet tool install --global dotnet-ef -s ./Portal
+          dotnet tool restore -s ./Portal
           dotnet ef database update -s ./Portal -p ./Portal.Database
