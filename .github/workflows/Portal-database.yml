@@ -19,7 +19,7 @@ jobs:
         with:
           files: "Server/IBigDataPortal/Portal/appsettings.json"
         env:
-          ConnectionStrings.SqlDataContext: ${{ secrets.GCP_CONNECTION_STRING }}
+          connectionStrings.SqlConnectionString: ${{ secrets.GCP_CONNECTION_STRING }}
 
       - name: Update database
         run: |
