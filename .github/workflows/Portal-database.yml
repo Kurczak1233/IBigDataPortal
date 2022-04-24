@@ -79,12 +79,14 @@ jobs:
       # - name: Start SQL DB EXPORT from prod SQL instance to the staging bucket
       #   run: |
       #     gcloud sql export sql $SQL_PROD_INSTANCE $BUCKET_URL --database=$DATABASE_NAME
+          # dotnet ef database update -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
+
 
       - name: Update database
         run: |
           dotnet tool install --global dotnet-ef
           dotnet tool restore
-          dotnet ef database update -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
+          dotnet ef migrations script | out-file ./migrationsScript.sql
 
          
          
