@@ -86,7 +86,7 @@ jobs:
         run: |
           dotnet tool install --global dotnet-ef
           dotnet tool restore
-          dotnet ef migrations script -p ./Server/IBigDataPortal/Portal.Database
+          dotnet ef migrations script -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
 
          
          
