@@ -1,4 +1,4 @@
-name: Portal - API
+name: Portal - Database
 
 on:
   workflow_dispatch:
@@ -6,8 +6,8 @@ on:
     branches:
       - main
     paths:
-      - "Server/**"
-      - ".github/workflows/Portal-api.yml"
+      - "Server/IBigDataPortal/Portal.Database/**"
+      - ".github/workflows/Portal-database.yml"
 
 env:
   AuthenticationType: "Auth0"
