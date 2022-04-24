@@ -25,21 +25,21 @@ jobs:
           export_default_credentials: true
       - uses: actions/checkout@v2
 
-      - name: Variable substitution
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: "Server/IBigDataPortal/Portal/appsettings.json"
-        env:
-          connectionStrings.SqlConnectionString: ${{ secrets.GCP_CONNECTION_STRING }}
+      # - name: Variable substitution
+      #   uses: microsoft/variable-substitution@v1
+      #   with:
+      #     files: "Server/IBigDataPortal/Portal/appsettings.json"
+      #   env:
+      #     connectionStrings.SqlConnectionString: ${{ secrets.GCP_CONNECTION_STRING }}
                   
       - name: Read Mobile.Api -> appsettings.json
         run: "cat Server/IBigDataPortal/Portal/appsettings.json"
 
-      # - name: Log in to GCP proxy
-      #   uses: mattes/gce-cloudsql-proxy-action@v1
-      #   with:
-      #     creds: ${{ secrets.GCP_SA_SECRET }}
-      #     instance: engineering-thesis-346319:us-central1:portalsqlserver
+      - name: Log in to GCP proxy
+        uses: mattes/gce-cloudsql-proxy-action@v1
+        with:
+          creds: ${{ secrets.GCP_SA_SECRET }}
+          instance: engineering-thesis-346319:us-central1:portalsqlserver
  
       # - name: Public IP
       #   id: ip
@@ -82,7 +82,6 @@ jobs:
 
       - name: Update database
         run: |
-          ./cloud_sql_proxy -instances=engineering-thesis-346319:us-central1:portalsqlserver=tcp:3306
           dotnet tool install --global dotnet-ef
           dotnet tool restore
           dotnet ef database update -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
