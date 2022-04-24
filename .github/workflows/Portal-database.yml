@@ -40,7 +40,10 @@ jobs:
         with:
           creds: ${{ secrets.GCP_SA_SECRET }}
           instance: engineering-thesis-346319:us-central1:portalsqlserver
- 
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet tool restore
+          dotnet ef database update -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
       # - name: Public IP
       #   id: ip
       #   uses: haythem/public-ip@v1.2
@@ -64,8 +67,8 @@ jobs:
       #     npm run orm:migration:run:staging
 
       ## There is no IP connection here on GCP maybe Proxy connection? :(
-      - name: Update database
-        run: |
-          dotnet tool install --global dotnet-ef
-          dotnet tool restore
-          dotnet ef database update -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
+      # - name: Update database
+      #   run: |
+      #     dotnet tool install --global dotnet-ef
+      #     dotnet tool restore
+      #     dotnet ef database update -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
