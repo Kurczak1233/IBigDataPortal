@@ -9,6 +9,9 @@ on:
       - "Server/IBigDataPortal/Portal.Database/**"
       - ".github/workflows/Portal-database.yml"
 
+env:
+  GCP_PROJECT: engineering-thesis-346319
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,6 +26,12 @@ jobs:
                   
       - name: Read Mobile.Api -> appsettings.json
         run: "cat Server/IBigDataPortal/Portal/appsettings.json"
+
+      - name: Log in to GCP proxy
+        uses: mattes/gce-cloudsql-proxy-action@v1
+        with:
+          creds: ${{ secrets.GCP_SA_SECRET }}
+          instance: engineering-thesis-346319:us-central1:portalsqlserver
 
       - name: Update database
         run: |
