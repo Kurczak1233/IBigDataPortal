@@ -80,13 +80,22 @@ jobs:
       #   run: |
       #     gcloud sql export sql $SQL_PROD_INSTANCE $BUCKET_URL --database=$DATABASE_NAME
           # dotnet ef database update -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
+          
+          
+          
+          # wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+          # chmod +x cloud_sql_proxy
+          # ./cloud_sql_proxy -instances=engineering-thesis-346319:us-central1:portalsqlserver &
+          # gcloud config set project engineering-thesis-346319
 
-
-      - name: Update database
+      - name: Create migrations script
         run: |
           dotnet tool install --global dotnet-ef
           dotnet tool restore
-          dotnet ef migrations script -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
+          dotnet ef migrations script -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database | out-file ./script.sql
 
+      - name: Apply migrations script
+        run: |
+          gcloud sql databases import --instance=portalsqlserver ./script.sql
          
          
