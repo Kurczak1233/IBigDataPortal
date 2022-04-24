@@ -1,0 +1,49 @@
+name: Portal - Database
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "Server/IBigDataPortal/Portal.Database/**"
+      - ".github/workflows/Portal-database.yml"
+
+env:
+  GCP_PROJECT: engineering-thesis-346319
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Apply database schema
+    steps:
+      - uses: actions/checkout@v2
+      - uses: microsoft/variable-substitution@v1
+        with:
+          files: "Server/IBigDataPortal/Portal/appsettings.json"
+        env:
+          connectionStrings.SqlConnectionString: ${{ secrets.GCP_CONNECTION_STRING }}
+                  
+      - name: Read Mobile.Api -> appsettings.json
+        run: "cat Server/IBigDataPortal/Portal/appsettings.json"
+
+      - name: Log in to GCP proxy
+        uses: mattes/gce-cloudsql-proxy-action@v1
+        with:
+          creds: ${{ secrets.GCP_SA_SECRET }}
+          instance: engineering-thesis-346319:us-central1:portalsqlserver
+ 
+      - name: Public IP
+        id: ip
+        uses: haythem/public-ip@v1.2
+
+      - name: Print Public IP
+        run: |
+          echo ${{ steps.ip.outputs.ipv4 }}
+          echo ${{ steps.ip.outputs.ipv6 }}
+
+      - name: Update database
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet tool restore
+          dotnet ef database update -s ./Server/IBigDataPortal/Portal -p ./Server/IBigDataPortal/Portal.Database
