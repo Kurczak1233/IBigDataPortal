@@ -1,8 +1,10 @@
 using IBigDataPortal.Database;
+using IBigDataPortal.Domain.UserMetadata;
 using IBigDataPortal.Domain.UsersAggregate;
 using IBigDataPortal.Infrastructure;
-using IBigDataPortal.Services.UsersService.Queries;
+using IBigDataPortal.Infrastructure.Middlewares.Queries;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace IBigDataPortal;
 
@@ -14,6 +16,7 @@ public static class DependencyInjection
             opt.UseSqlServer(connectionString,   x => x.MigrationsAssembly("Portal.Database")));
         services.AddTransient<ISqlConnectionService, SqlConnectionService>(_ => new SqlConnectionService(connectionString));
         services.AddTransient<IUsersServiceQueries, UsersServiceQueries>();
-        
+        services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddScoped<IUser, User>();
     }
 }
