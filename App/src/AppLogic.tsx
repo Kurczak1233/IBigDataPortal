@@ -35,9 +35,9 @@ const AppLogic = () => {
   };
 
   const checkIfRouteIsAuthenticated = (component: JSX.Element) => {
-    return !isAuthenticated ? (
+    return !isAccessTokenSet ? (
       <div />
-    ) : isAccessTokenSet ? (
+    ) : isAuthenticated ? (
       component
     ) : (
       <NoAccessComponent />

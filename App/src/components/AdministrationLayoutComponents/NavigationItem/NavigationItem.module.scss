@@ -1,0 +1,12 @@
+@import "styles/Commons.scss";
+.navigationItem {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    cursor: pointer;
+}
+.navigationItem:hover {
+    filter: drop-shadow(0px 0px 6px #FF3D00);
+}
