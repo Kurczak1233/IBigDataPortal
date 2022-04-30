@@ -7,8 +7,12 @@ import {
   profileRoute,
   usersRoute,
 } from "constants/apiRoutes";
-import AdministrationLayout from "pages/Administration/AdministrationLayout";
-import React from "react";
+import AdministrationLayout from "pages/AdministrationLayout/AdministrationLayout";
+import DashboardPage from "pages/AdministrationSubpages/DashboardPage/DashboardPage";
+import InvitationsPage from "pages/AdministrationSubpages/InvitationsPage/InvitationsPage";
+import PostsPage from "pages/AdministrationSubpages/PostsPage/PostsPage";
+import ProfilePage from "pages/AdministrationSubpages/ProfilePage/ProfilePage";
+import UsersPage from "pages/AdministrationSubpages/UsersPage/UsersPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AppLogic from "./AppLogic";
 import MainPage from "./pages/MainPage/MainPage";
@@ -25,14 +29,11 @@ function App() {
           path={`${administrationRoute}`}
           element={checkIfRouteIsAuthenticated(<AdministrationLayout />)}
         >
-          <Route path={`${postsRoute}`} element={<div>Posts</div>} />
-          <Route path={`${profileRoute}`} element={<div>Profile</div>} />
-          <Route path={`${dashboardRoute}`} element={<div>Dashboard</div>} />
-          <Route path={`${usersRoute}`} element={<div>Users</div>} />
-          <Route
-            path={`${invitationsRoute}`}
-            element={<div>Invitations</div>}
-          />
+          <Route path={`${postsRoute}`} element={<PostsPage />} />
+          <Route path={`${profileRoute}`} element={<ProfilePage />} />
+          <Route path={`${dashboardRoute}`} element={<DashboardPage />} />
+          <Route path={`${usersRoute}`} element={<UsersPage />} />
+          <Route path={`${invitationsRoute}`} element={<InvitationsPage />} />
         </Route>
       </Routes>
     </Router>

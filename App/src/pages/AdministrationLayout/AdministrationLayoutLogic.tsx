@@ -22,22 +22,10 @@ const AdministrationLayoutLogic = () => {
   const { pathname } = useLocation();
   const administrationRoutes = [
     {
-      routeUrl: `/${administrationRoute}/${dashboardRoute}`,
-      imgNonActive: DashboardIconNonActive,
-      imgActive: DashboardIconActive,
-      alt: "Dashboard icon",
-    },
-    {
       routeUrl: `/${administrationRoute}/${postsRoute}`,
       imgNonActive: ItemsListsNonActive,
       imgActive: ItemsListsActive,
       alt: "Items lists icon",
-    },
-    {
-      routeUrl: `/${administrationRoute}/${invitationsRoute}`,
-      imgNonActive: MailIconNonActive,
-      imgActive: MailIconActive,
-      alt: "Mail icon",
     },
     {
       routeUrl: `/${administrationRoute}/${profileRoute}`,
@@ -46,10 +34,22 @@ const AdministrationLayoutLogic = () => {
       alt: "User icon",
     },
     {
+      routeUrl: `/${administrationRoute}/${dashboardRoute}`,
+      imgNonActive: DashboardIconNonActive,
+      imgActive: DashboardIconActive,
+      alt: "Dashboard icon",
+    },
+    {
       routeUrl: `/${administrationRoute}/${usersRoute}`,
       imgNonActive: UsersIconNonActive,
       imgActive: UsersIconActive,
       alt: "Users icon",
+    },
+    {
+      routeUrl: `/${administrationRoute}/${invitationsRoute}`,
+      imgNonActive: MailIconNonActive,
+      imgActive: MailIconActive,
+      alt: "Mail icon",
     },
   ];
 
