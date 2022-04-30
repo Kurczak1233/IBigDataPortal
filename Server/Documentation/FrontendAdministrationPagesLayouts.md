@@ -1,0 +1,1 @@
+There is a template implement to be used everywhere.
