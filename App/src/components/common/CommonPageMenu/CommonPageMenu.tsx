@@ -10,11 +10,9 @@ const CommonPageMenu = ({ menuContent, content }: ICommonPageMenu) => {
     <div className={styles.siteLayout}>
       <div className={styles.menu}>
         <div>{menuContent}</div>
-        <div>
-            Log out
-        </div>
+        <div>Log out</div>
       </div>
-      <div className={styles.contentLayout}>Content</div>
+      <div className={styles.contentLayout}>{content}</div>
     </div>
   );
 };

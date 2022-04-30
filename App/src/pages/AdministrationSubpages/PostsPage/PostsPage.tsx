@@ -1,11 +1,8 @@
-import CommonPageMenu from "components/common/CommonPageMenu/CommonPageMenu";
+import PageLayout from "components/common/CommonPageMenu/CommonPageMenu";
 
 const PostPage = () => {
   return (
-    <>
-      <CommonPageMenu />
-      <div></div>
-    </>
+    <PageLayout menuContent={<div>Menu</div>} content={<div>Content</div>} />
   );
 };
 export default PostPage;
