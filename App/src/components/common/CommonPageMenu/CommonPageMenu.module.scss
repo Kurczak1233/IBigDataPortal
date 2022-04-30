@@ -1,0 +1,19 @@
+@import "styles/Commons.scss";
+.siteLayout {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    .menu {
+        height: 100%;
+        width: 255px;
+        display: flex;
+        justify-content: center;
+        padding-top: 50px;
+    }
+    .contentLayout {
+        flex: 1;
+        background: $clear-white;
+        border-radius: 50px 0 0 50px;
+        padding: 50px;
+    }
+}
