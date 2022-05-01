@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import styles from "./SyncToast.module.scss";
 import "./SyncToast.module.scss";
-import { ToastModes } from "interfaces/ToastModes";
+import { ToastModes } from "interfaces/General/ToastModes";
 import SyncToastLogic from "./SyncToastLogic";
 import CloseIcon from "public/CloseIcon.svg";
 

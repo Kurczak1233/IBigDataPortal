@@ -4,11 +4,41 @@
     width: 100%;
     display: flex;
     .menu {
-        height: 100%;
         width: 255px;
         display: flex;
         justify-content: center;
         padding-top: 50px;
+        padding-bottom: 50px;
+        .menuWrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: column;
+            .menuBottom {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                cursor: pointer;
+                .logOutButton {
+                    background: $intensive-green;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-evenly;
+                    box-shadow: 0px 4px 4px rgba(229, 229, 229, 0.1);
+                    border-radius: 8px;
+                    height: 48px;
+                    width: 48px;
+                }
+                .logOutButtonText {
+                    @include fontSizeSixteen;
+                    color: $intensive-green;
+                    margin-top: 8px;
+                }
+            }
+            .menuBottom:hover {
+                filter: drop-shadow(0px 0px 6px $intensive-green);
+            }
+        }
     }
     .contentLayout {
         flex: 1;

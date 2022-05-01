@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
@@ -7,6 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 import { Auth0Provider } from "@auth0/auth0-react";
 import auth from "./authenticationConfig.json";
 import { Toaster } from "react-hot-toast";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor } from "redux/store";
 
 ReactDOM.render(
   <Auth0Provider
@@ -17,7 +18,9 @@ ReactDOM.render(
     audience={auth.audience}
   >
     <React.StrictMode>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </React.StrictMode>
     <Toaster />
   </Auth0Provider>,
