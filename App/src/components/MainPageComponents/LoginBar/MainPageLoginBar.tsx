@@ -1,5 +1,4 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { getChecklistsFormTemplates } from "api/UsersClient";
 import SmallButton from "../../common/Buttons/SmallButtons/SmallButton";
 import styles from "./MainPageLoginBar.module.scss";
 import MainPageLoginBarLogic from "./MainPageLoginBarLogic";
@@ -15,7 +14,7 @@ const MainPageLoginBar = () => {
 
   return (
     <div className={styles.barWrapper}>
-      <div onClick={getChecklistsFormTemplates}>LOGO</div>
+      <div>LOGO</div>
       <div>search input</div>
       <div className={styles.barButtonsWrapper}>
         {user ? (

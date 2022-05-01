@@ -1,4 +1,7 @@
-﻿using IBigDataPortal.Domain.UserMetadata;
+﻿using ApplicationUser.Queries;
+using ApplicationUserDomain.Models;
+using IBigDataPortal.Domain.UserMetadata;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IBigDataPortal.Controllers;
@@ -8,15 +11,18 @@ namespace IBigDataPortal.Controllers;
 public class UsersController: ControllerBase
 {
     private readonly IUser _user;
-
-    public UsersController(IUser user)
+    private readonly IMediator _mediator;
+    
+    public UsersController(IUser user, IMediator mediator)
     {
         _user = user;
+        _mediator = mediator;
     }
     
     [HttpGet]
-    public ActionResult Get()
+    public async Task<ActionResult<ApplicationUserDto>> GetCurrentApplicationUser()
     {
-        return Ok(_user.Id);
+        var result = await _mediator.Send(new GetApplicationUserQuery(_user.Id));
+        return Ok(result);
     }
 }

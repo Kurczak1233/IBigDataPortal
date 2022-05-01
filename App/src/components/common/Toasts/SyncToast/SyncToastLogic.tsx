@@ -1,4 +1,4 @@
-import { ToastModes } from "interfaces/ToastModes";
+import { ToastModes } from "interfaces/General/ToastModes";
 import SuccessStatus from "public/StatusesIcons/SuccessIcon.svg";
 import ErrorStatus from "public/StatusesIcons/ErrorIcon.svg";
 import WarningStatus from "public/StatusesIcons/WarningIcon.svg";

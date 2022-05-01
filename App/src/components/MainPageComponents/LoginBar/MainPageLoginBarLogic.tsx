@@ -17,7 +17,7 @@ const MainPageLoginBarLogic = () => {
   };
 
   const handleMoveToThePortal = () => {
-    navigate("/administration");
+    navigate("/administration/posts");
   };
 
   return {
