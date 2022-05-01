@@ -1,4 +1,7 @@
-﻿using IBigDataPortal.Domain.UserMetadata;
+﻿using System.Net.Http.Headers;
+using IBigDataPortal.Domain.UserMetadata;
+using IBigDataPortal.Domain.UsersAggregate;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IBigDataPortal.Controllers;
@@ -8,15 +11,28 @@ namespace IBigDataPortal.Controllers;
 public class UsersController: ControllerBase
 {
     private readonly IUser _user;
-
-    public UsersController(IUser user)
+    private readonly IMediator _mediator;
+    private static readonly HttpClient client = new HttpClient();
+    
+    public UsersController(IUser user, IMediator mediator)
     {
         _user = user;
+        _mediator = mediator;
     }
     
     [HttpGet]
-    public ActionResult Get()
+    public async Task<ActionResult<string>> GetCurrentApplicationUser()
     {
-        return Ok(_user.Id);
+
+        //TODO Configure this on production.
+        // client.BaseAddress = new Uri("http://localhost:7196/");
+        client.DefaultRequestHeaders.Accept.Clear();
+        client.DefaultRequestHeaders.Accept.Add(
+            new MediaTypeWithQualityHeaderValue("application/json"));
+        
+        await client.GetAsync("https://localhost:7196/WeatherForecast/Hey");
+            
+        // var result = await _mediator.Send(new)
+        return Ok("SUCCESS!");
     }
 }

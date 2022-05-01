@@ -1,13 +1,13 @@
-import styles from "./CommonAdminPanelHeader.module.scss";
+import CommonAdminPanelHeaderLogic from "./CommonAdminPanelHeaderLogic";
 
 const CommonAdminPanelHeader = () => {
-    const { userEmail } = CommonAdminPanelHeaderLogic();
+  const { applicationUser, success } = CommonAdminPanelHeaderLogic();
 
-
-
-  return <div>
-      <span>Admin panel</span>
-      <span></span>
-  </div>;
+  return (
+    <div>
+      <span>Admin panel {success}</span>
+      <span>{applicationUser?.email}</span>
+    </div>
+  );
 };
 export default CommonAdminPanelHeader;
