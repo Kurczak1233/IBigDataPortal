@@ -28,7 +28,19 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Services\UsersService" />
+      <Compile Remove="Services\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Services\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Services\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Services\**" />
     </ItemGroup>
 
 </Project>
