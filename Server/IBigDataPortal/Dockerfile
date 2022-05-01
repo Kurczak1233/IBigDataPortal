@@ -35,7 +35,7 @@ RUN chmod +x cloud_sql_proxy
 CMD ["sh", "-c", "./cloud_sql_proxy -instances=engineering-thesis-346319:us-central1:portalsqlserver=tcp:127.0.0.1:80"]
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 
 WORKDIR /app
 COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "Portal.dll"]
