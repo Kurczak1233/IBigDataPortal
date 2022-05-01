@@ -27,7 +27,9 @@ builder.Services.AddAuthentication(options =>
     options.Audience = "https://i-big-data-auth-api.com/";
 });
 
-builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAssemblies();
+// builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+//TODO Fix cors!
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(
@@ -46,6 +48,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors();
+
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseMiddleware<GetUserContextMiddleware>(connectionString);

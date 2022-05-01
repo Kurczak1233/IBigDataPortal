@@ -10,7 +10,7 @@ const Users = "Users";
 //   return AxiosClient(HttpRequestsMethods.GET, `${Users}`, base);
 // };
 
-const getApplicationUser = async (): Promise<string> => {
+const getApplicationUser = async (): Promise<IApplicationUser> => {
   return AxiosClient(HttpRequestsMethods.GET, `${Users}`, base);
 };
 

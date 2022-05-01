@@ -1,11 +1,11 @@
 import CommonAdminPanelHeaderLogic from "./CommonAdminPanelHeaderLogic";
 
 const CommonAdminPanelHeader = () => {
-  const { applicationUser, success } = CommonAdminPanelHeaderLogic();
+  const { applicationUser } = CommonAdminPanelHeaderLogic();
 
   return (
     <div>
-      <span>Admin panel {success}</span>
+      <span>Admin panel</span>
       <span>{applicationUser?.email}</span>
     </div>
   );

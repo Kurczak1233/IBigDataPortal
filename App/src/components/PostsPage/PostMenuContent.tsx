@@ -1,5 +1,11 @@
+import CommonAdminPanelHeader from "components/common/CommonAdminPanelHeader/CommonAdminPanelHeader";
+
 const PostMenuContent = () => {
-  return <div>PostMenuContent</div>;
+  return (
+    <div>
+      <CommonAdminPanelHeader />
+    </div>
+  );
 };
 
 export default PostMenuContent;
