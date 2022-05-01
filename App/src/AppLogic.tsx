@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
-import { ToastModes } from "interfaces/ToastModes";
+import { ToastModes } from "interfaces/General/ToastModes";
 import NoAccessComponent from "components/common/NoAccessComponent/NoAccessComponent";
 
 const AppLogic = () => {

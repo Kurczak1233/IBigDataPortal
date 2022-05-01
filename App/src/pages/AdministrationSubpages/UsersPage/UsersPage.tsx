@@ -1,4 +1,11 @@
+import PageLayout from "components/common/CommonPageMenu/CommonPageMenu";
+
 const UsersPage = () => {
-  return <div>UsersPage</div>;
+  return (
+    <PageLayout
+      menuContent={<div>Users Menu</div>}
+      content={<div>Content</div>}
+    />
+  );
 };
 export default UsersPage;
