@@ -32,7 +32,7 @@ RUN dotnet publish -c Release -o out
 RUN wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
 RUN chmod +x cloud_sql_proxy
 
-CMD ["sh", "-c", "./cloud_sql_proxy -instances=engineering-thesis-346319:us-central1:portalsqlserver=tcp:0.0.0.0:3306"]
+CMD ["sh", "-c", "./cloud_sql_proxy -instances=engineering-thesis-346319:us-central1:portalsqlserver=tcp:127.0.0.1:80"]
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
