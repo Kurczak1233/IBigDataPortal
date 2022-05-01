@@ -32,7 +32,7 @@ jobs:
         env:
           connectionStrings.SqlConnectionString: ${{ secrets.GCP_CONNECTION_STRING }}
 
-      - name: Build the Docker image
+      - name: Build the Docker image 
         working-directory: ./Server/IBigDataPortal
         run: docker build -f Dockerfile -t eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api-prod . 
         
