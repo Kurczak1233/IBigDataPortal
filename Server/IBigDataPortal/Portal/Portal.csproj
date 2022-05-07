@@ -27,20 +27,4 @@
       <ProjectReference Include="..\Portal.Infrastructure\Portal.Infrastructure.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Compile Remove="Services\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Remove="Services\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Services\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Remove="Services\**" />
-    </ItemGroup>
-
 </Project>
