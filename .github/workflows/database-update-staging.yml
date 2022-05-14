@@ -1,0 +1,41 @@
+name: Update staging database
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - "Server/Database/**"
+      - ".github/workflows/database-update-staging.yml"
+ 
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Install EF Tool
+        run: |
+          dotnet new tool-manifest
+          dotnet tool install dotnet-ef
+
+      - name: Generate migration script
+        run: dotnet ef migrations script --output "migration-script.sql" --idempotent
+        working-directory: ./Server/Database
+
+      - name: Azure SQL Deploy
+        uses: Azure/sql-action@v1
+        with:
+          server-name: one-onesoft.database.windows.net
+          connection-string: ${{ secrets.STAGING_CONNECTION_STRING }}
+          sql-file: ./Server/Database/migration-script.sql
