@@ -27,8 +27,4 @@
       <ProjectReference Include="..\Portal.Infrastructure\Portal.Infrastructure.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Services\UsersService" />
-    </ItemGroup>
-
 </Project>
