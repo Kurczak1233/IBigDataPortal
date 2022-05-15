@@ -1,20 +1,21 @@
-name: Update staging database
+name: Portal - Database
 
 on:
   workflow_dispatch:
   pull_request:
-    branches: [main]
+    branches:
+      - main
     paths:
-      - "Server/Database/**"
-      - ".github/workflows/database-update-staging.yml"
- 
+      - "Server/IBigDataPortal/Portal.Database/**"
+      - ".github/workflows/Portal-database.yml"
+
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2 
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -24,18 +25,18 @@ jobs:
         with:
           dotnet-version: 6.0.x
 
-      - name: Install EF Tool
+      - name: Install EF Tool 
         run: |
           dotnet new tool-manifest
           dotnet tool install dotnet-ef
 
       - name: Generate migration script
-        run: dotnet ef migrations script --output "migration-script.sql" --idempotent
-        working-directory: ./Server/Database
+        run: dotnet ef migrations script -s ./Portal -p ./Portal.Database --output "migration-script.sql" --idempotent
+        working-directory: ./Server/IBigDataPortal
 
       - name: Azure SQL Deploy
-        uses: Azure/sql-action@v1
+        uses: Azure/sql-action@v1 
         with:
-          server-name: one-onesoft.database.windows.net
+          server-name: ibigdataportaldatabase.database.windows.net
           connection-string: ${{ secrets.STAGING_CONNECTION_STRING }}
-          sql-file: ./Server/Database/migration-script.sql
+          sql-file: ./Server/IBigDataPortal/migration-script.sql
