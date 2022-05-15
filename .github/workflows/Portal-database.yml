@@ -32,11 +32,11 @@ jobs:
 
       - name: Generate migration script
         run: dotnet ef migrations script -s ./Portal -p ./Portal.Database --output "migration-script.sql" --idempotent
-        working-directory: ./Server/IBigDataPortal/Portal.Database
+        working-directory: ./Server/IBigDataPortal/Portal
 
       - name: Azure SQL Deploy
         uses: Azure/sql-action@v1
         with:
           server-name: ibigdataportaldatabase.database.windows.net
           connection-string: ${{ secrets.STAGING_CONNECTION_STRING }}
-          sql-file: ./Server/IBigDataPortal/Portal.Database/migration-script.sql
+          sql-file: ./Server/IBigDataPortal/Portal/migration-script.sql
