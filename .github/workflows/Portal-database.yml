@@ -8,7 +8,7 @@ on:
     paths:
       - "Server/IBigDataPortal/Portal.Database/**"
       - ".github/workflows/Portal-database.yml"
- 
+
 
 jobs:
   build:
