@@ -5,8 +5,8 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - "Server/Database/**"
-      - ".github/workflows/database-update-staging.yml"
+      - "Server/IBigDataPortal/Portal.Database/**"
+      - ".github/workflows/Portal-database.yml"
  
 
 jobs:
@@ -31,11 +31,11 @@ jobs:
 
       - name: Generate migration script
         run: dotnet ef migrations script --output "migration-script.sql" --idempotent
-        working-directory: ./Server/Database
+        working-directory: ./Server/IBigDataPortal/Portal.Database
 
       - name: Azure SQL Deploy
         uses: Azure/sql-action@v1
         with:
-          server-name: one-onesoft.database.windows.net
+          server-name: ibigdataportaldatabase.database.windows.net
           connection-string: ${{ secrets.STAGING_CONNECTION_STRING }}
-          sql-file: ./Server/Database/migration-script.sql
+          sql-file: ./Server/IBigDataPortal/Portal.Database/migration-script.sql
