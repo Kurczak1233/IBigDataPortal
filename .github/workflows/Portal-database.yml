@@ -31,7 +31,7 @@ jobs:
           dotnet tool install dotnet-ef
 
       - name: Generate migration script
-        run: dotnet ef migrations script --output "migration-script.sql" --idempotent
+        run: dotnet ef migrations script -s ./Portal -p ./Portal.Database --output "migration-script.sql" --idempotent
         working-directory: ./Server/IBigDataPortal/Portal.Database
 
       - name: Azure SQL Deploy
