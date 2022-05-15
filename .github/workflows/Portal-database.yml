@@ -1,9 +1,10 @@
-name: Update staging database
+name: Portal - Database
 
 on:
   workflow_dispatch:
   pull_request:
-    branches: [main]
+    branches:
+      - main
     paths:
       - "Server/IBigDataPortal/Portal.Database/**"
       - ".github/workflows/Portal-database.yml"
