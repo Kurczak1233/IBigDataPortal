@@ -1,13 +1,13 @@
-import styles from "./CommonPageMenu.module.scss";
+import styles from "./AdminMenuLayout.module.scss";
 import LogOutIcon from "public/LogOutIcon.svg";
-import CommonPageMenuLogic from "./CommonPageMenuLogic";
-interface ICommonPageMenu {
+import AdminMenuLayoutLogic from "./AdminMenuLayoutLogic";
+interface IAdminMenuLayout {
   menuContent: JSX.Element;
   content: JSX.Element;
 }
 
-const CommonPageMenu = ({ menuContent, content }: ICommonPageMenu) => {
-  const { handleLogout } = CommonPageMenuLogic();
+const AdminMenuLayout = ({ menuContent, content }: IAdminMenuLayout) => {
+  const { handleLogout } = AdminMenuLayoutLogic();
   return (
     <div className={styles.siteLayout}>
       <div className={styles.menu}>
@@ -25,4 +25,4 @@ const CommonPageMenu = ({ menuContent, content }: ICommonPageMenu) => {
     </div>
   );
 };
-export default CommonPageMenu;
+export default AdminMenuLayout;

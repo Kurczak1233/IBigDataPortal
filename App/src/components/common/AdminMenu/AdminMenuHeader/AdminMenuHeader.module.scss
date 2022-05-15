@@ -1,0 +1,16 @@
+@import "styles/Commons.scss";
+.headerWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .headerTitle {
+        @include fontSizeTwentyFive;
+        color: $intensive-green;
+        margin-bottom: 14px;
+    }
+    .currentUser {
+        @include fontSizeSixteen;
+        color: $intensive-green;
+        text-align: center;
+    }
+}

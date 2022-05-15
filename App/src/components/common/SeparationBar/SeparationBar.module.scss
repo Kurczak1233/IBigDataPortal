@@ -1,0 +1,13 @@
+@import "styles/Commons.scss";
+.separationBarWrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .separationBar {
+        background: #036613;
+        border-radius: 21px;
+        width: 50px;
+        height: 3px;
+    }
+}

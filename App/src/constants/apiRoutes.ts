@@ -1,7 +1,13 @@
 export const administrationRoute = "administration";
 export const dashboardRoute = "dashboard";
+export const articlesRoute = "articles";
 export const postsRoute = "posts";
 export const profileRoute = "profile";
 export const usersRoute = "users";
 export const invitationsRoute = "invitations";
+export const jobOffersRoute = "job-offers";
+export const eduLinksRoute = "edu-links";
 export const errorRoute = "error";
+export const createPostRoute = "create-post";
+export const createEduLinkRoute = "create-edu-link";
+export const createJobOfferRoute = "create-job-offer";

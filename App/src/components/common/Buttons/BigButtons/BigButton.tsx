@@ -1,22 +1,40 @@
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import styles from "./BigButton.module.scss";
+import BigButtonLogic from "./BigButtonLogic";
 
 interface IBigButton {
   uppercase?: boolean;
   text: string;
   color: AvailableIntensiveColors;
   onClick: () => void;
+  width?: string;
+  height?: string;
+  marginTop?: string;
+  marginBottom?: string;
 }
 
-const BigButton = ({ uppercase = false, text, color, onClick }: IBigButton) => {
+const BigButton = ({
+  width,
+  height,
+  marginTop,
+  marginBottom,
+  uppercase = false,
+  text,
+  color,
+  onClick,
+}: IBigButton) => {
+  const { handleGetColorHoverClass } = BigButtonLogic();
   return (
     <div
       onClick={onClick}
       style={{
+        width: width,
+        height: height,
+        marginTop: marginTop,
+        marginBottom: marginBottom,
         background: `#${color}`,
         textTransform: uppercase ? "uppercase" : "none",
       }}
-      className={styles.buttonStyles}
+      className={handleGetColorHoverClass(color)}
     >
       {text}
     </div>

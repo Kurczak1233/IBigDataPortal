@@ -1,0 +1,32 @@
+@import "styles/Commons.scss";
+@mixin itemStyle {
+    border-radius: 100px;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $clear-white;
+    @include fontSizeSixteen;
+    margin-top: 16px;
+    cursor: pointer;
+}
+.sectionWrapper {
+    .sectionTitle {
+        @include fontSizeFourteen;
+        color: $intensive-green;
+    }
+    .itemIsActive {
+        @include itemStyle;
+        background: $intensive-orange;
+    }
+    .itemIsActive:hover {
+        @include orangeShadow;
+    }
+    .itemIsNotActive {
+        @include itemStyle;
+        background: $intensive-green;
+    }
+    .itemIsNotActive:hover {
+        @include greenShadow;
+    }
+}

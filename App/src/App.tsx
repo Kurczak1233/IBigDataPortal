@@ -1,8 +1,14 @@
 import {
   administrationRoute,
+  articlesRoute,
+  createEduLinkRoute,
+  createJobOfferRoute,
+  createPostRoute,
   dashboardRoute,
+  eduLinksRoute,
   errorRoute,
   invitationsRoute,
+  jobOffersRoute,
   postsRoute,
   profileRoute,
   usersRoute,
@@ -29,7 +35,14 @@ function App() {
           path={`${administrationRoute}`}
           element={checkIfRouteIsAuthenticated(<AdministrationLayout />)}
         >
-          <Route path={`${postsRoute}`} element={<PostsPage />} />
+          <Route path={`${articlesRoute}`} element={<PostsPage />}>
+            <Route path={`${postsRoute}`} element={<PostsPage />} />
+            <Route path={`${jobOffersRoute}`} element={<PostsPage />} />
+            <Route path={`${eduLinksRoute}`} element={<PostsPage />} />
+            <Route path={`${createPostRoute}`} element={<PostsPage />} />
+            <Route path={`${createJobOfferRoute}`} element={<PostsPage />} />
+            <Route path={`${createEduLinkRoute}`} element={<PostsPage />} />
+          </Route>
           <Route path={`${profileRoute}`} element={<ProfilePage />} />
           <Route path={`${dashboardRoute}`} element={<DashboardPage />} />
           <Route path={`${usersRoute}`} element={<UsersPage />} />

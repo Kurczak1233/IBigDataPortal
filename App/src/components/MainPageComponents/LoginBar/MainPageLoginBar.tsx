@@ -1,4 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import SmallButton from "../../common/Buttons/SmallButtons/SmallButton";
 import styles from "./MainPageLoginBar.module.scss";
 import MainPageLoginBarLogic from "./MainPageLoginBarLogic";
@@ -21,19 +22,27 @@ const MainPageLoginBar = () => {
           <>
             <SmallButton
               text="Portal"
-              marginRight={16}
               onClick={handleMoveToThePortal}
+              color={AvailableIntensiveColors.IntensiveGreen}
             />
-            <SmallButton text="Log out" onClick={handleLogOut} />
+            <SmallButton
+              text="Log out"
+              onClick={handleLogOut}
+              color={AvailableIntensiveColors.IntensiveGreen}
+            />
           </>
         ) : (
           <>
             <SmallButton
               text={"Log in"}
-              marginRight={16}
               onClick={handleClickOnLogin}
+              color={AvailableIntensiveColors.IntensiveGreen}
             />
-            <SmallButton text={"Register"} onClick={handleClickOnRegister} />
+            <SmallButton
+              text={"Register"}
+              onClick={handleClickOnRegister}
+              color={AvailableIntensiveColors.IntensiveGreen}
+            />
           </>
         )}
       </div>
