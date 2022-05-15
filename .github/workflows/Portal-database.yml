@@ -25,7 +25,7 @@ jobs:
         with:
           dotnet-version: 6.0.x
 
-      - name: Install EF Tool
+      - name: Install EF Tool 
         run: |
           dotnet new tool-manifest
           dotnet tool install dotnet-ef
