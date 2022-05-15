@@ -38,5 +38,5 @@ jobs:
         uses: Azure/sql-action@v1 
         with:
           server-name: ibigdataportaldatabase.database.windows.net
-          connection-string: ${{ secrets.STAGING_CONNECTION_STRING }}
+          connection-string: ${{ secrets.AZURE_CONNECTION_STRING }}
           sql-file: ./Server/IBigDataPortal/migration-script.sql

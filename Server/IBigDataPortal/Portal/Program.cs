@@ -28,7 +28,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddAssemblies();
-// builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 //TODO Fix cors!
 builder.Services.AddCors(options =>
 {
