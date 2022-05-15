@@ -1,4 +1,4 @@
-import PageLayout from "components/common/CommonPageMenu/CommonPageMenu";
+import PageLayout from "components/common/AdminMenu/AdminMenuLayout/AdminMenuLayout";
 import PostMenuContent from "components/PostsPage/PostMenuContent";
 
 const PostPage = () => {
