@@ -35,7 +35,7 @@ jobs:
         working-directory: ./Server/IBigDataPortal/Portal
 
       - name: Azure SQL Deploy
-        uses: Azure/sql-action@v1
+        uses: Azure/sql-action@v1 
         with:
           server-name: ibigdataportaldatabase.database.windows.net
           connection-string: ${{ secrets.STAGING_CONNECTION_STRING }}
