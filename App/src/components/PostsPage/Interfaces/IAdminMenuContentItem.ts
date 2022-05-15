@@ -1,5 +1,5 @@
-export interface IAdminMenuContentItem<T> {
+export interface IAdminMenuContentItem {
   itemName: string;
-  switchTo: T;
+  switchTo: string;
   isActive: boolean;
 }

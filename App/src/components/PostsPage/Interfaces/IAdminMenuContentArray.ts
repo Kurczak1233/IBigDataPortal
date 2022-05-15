@@ -1,6 +1,6 @@
 import { IAdminMenuContentItem } from "./IAdminMenuContentItem";
 
-export interface IAdminMenuContentArray<T> {
+export interface IAdminMenuContentArray {
   sectionName: string;
-  items: IAdminMenuContentItem<T>[];
+  items: IAdminMenuContentItem[];
 }

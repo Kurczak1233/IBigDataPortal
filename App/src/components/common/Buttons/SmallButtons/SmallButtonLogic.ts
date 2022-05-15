@@ -1,7 +1,7 @@
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import styles from "./BigButton.module.scss";
+import styles from "./SmallButton.module.scss";
 
-const BigButtonLogic = () => {
+const SmallButtonLogic = () => {
   const handleGetColorHoverClass = (
     chosenColorEnum: AvailableIntensiveColors
   ) => {
@@ -16,4 +16,4 @@ const BigButtonLogic = () => {
   };
   return { handleGetColorHoverClass };
 };
-export default BigButtonLogic;
+export default SmallButtonLogic;

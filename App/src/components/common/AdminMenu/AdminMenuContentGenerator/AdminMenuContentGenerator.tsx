@@ -1,37 +1,34 @@
-import BigButton from "components/common/Buttons/BigButtons/BigButton";
+import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import { IAdminMenuContentArray } from "components/PostsPage/Interfaces/IAdminMenuContentArray";
 import { IAdminMenuContentItem } from "components/PostsPage/Interfaces/IAdminMenuContentItem";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import styles from "./AdminMenuContentGenerator.module.scss";
 
-//Generic type should allow us to manipulate different component rendering enums.
-interface IAdminMenuContentGenerator<T> {
-  tableOfContents: IAdminMenuContentArray<T>;
-  handleChangeState: (selectedEnum: T) => void;
+interface IAdminMenuContentGenerator {
+  tableOfContents: IAdminMenuContentArray;
+  handleChangeState: (route: string) => void;
   marginTop?: string;
   marginBottom?: string;
 }
 
-const AdminMenuContentGenerator = <T,>({
+const AdminMenuContentGenerator = ({
   tableOfContents,
   marginBottom,
   marginTop,
   handleChangeState,
-}: IAdminMenuContentGenerator<T>) => {
+}: IAdminMenuContentGenerator) => {
   return (
     <div
       className={styles.sectionWrapper}
       style={{ marginTop: marginTop, marginBottom: marginBottom }}
     >
       <div className={styles.sectionTitle}>{tableOfContents.sectionName}</div>
-      {tableOfContents.items.map((item: IAdminMenuContentItem<T>) => (
+      {tableOfContents.items.map((item: IAdminMenuContentItem) => (
         <>
-          <BigButton
+          <SmallButton
             text={item.itemName}
             onClick={() => handleChangeState(item.switchTo)}
             key={item.itemName}
-            height={"33px"}
-            width={"140px"}
             marginTop={"16px"}
             color={
               item.isActive
