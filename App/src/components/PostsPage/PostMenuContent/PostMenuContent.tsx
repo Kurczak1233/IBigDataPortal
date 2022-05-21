@@ -2,6 +2,7 @@ import AdminMenuContentGenerator from "components/common/AdminMenu/AdminMenuCont
 import AdminMenuHeader from "components/common/AdminMenu/AdminMenuHeader/AdminMenuHeader";
 import SeparationBar from "components/common/SeparationBar/SeparationBar";
 import PostMenuContentLogic from "./PostMenuContentLogic";
+import styles from "./PostMenuContent.module.scss";
 
 const PostMenuContent = () => {
   const {
@@ -10,7 +11,7 @@ const PostMenuContent = () => {
     handleChangeState,
   } = PostMenuContentLogic();
   return (
-    <div>
+    <div className={styles.menuItemsGenerator}>
       <AdminMenuHeader />
       <AdminMenuContentGenerator
         tableOfContents={adminMenuNavigationOverviewContents}
