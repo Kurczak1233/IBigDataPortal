@@ -1,0 +1,33 @@
+@import 'styles/Commons.scss';
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  label {
+    @include fontSizeFourteen;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .textarea {
+    border: 1px solid $gray-border;
+    border-radius: 6px;
+    height: 106px;
+    padding: 16px;
+    @include fontSizeSixteen;
+    color: $black-text;
+    resize: none;
+    font-family: Roboto;
+  }
+  .textarea:focus-visible {
+    outline: none;
+  }
+  .textarea::placeholder {
+    @include fontSizeSixteen;
+    color: $gray-text;
+  }
+  .error {
+    @include fontSizeFourteen;
+    color: $intensive-red;
+  }
+}

@@ -6,10 +6,6 @@ import { AxiosClient } from "./AxiosClient";
 const base = application.baseUrl;
 const Users = "Users";
 
-// const getChecklistsFormTemplates = async (): Promise<boolean> => {
-//   return AxiosClient(HttpRequestsMethods.GET, `${Users}`, base);
-// };
-
 const getApplicationUser = async (): Promise<IApplicationUser> => {
   return AxiosClient(HttpRequestsMethods.GET, `${Users}`, base);
 };

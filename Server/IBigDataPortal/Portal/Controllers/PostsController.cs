@@ -1,6 +1,14 @@
-﻿namespace IBigDataPortal.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
 
-public class PostsController
+namespace IBigDataPortal.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class PostsController : ControllerBase
 {
-    
+    [HttpPost]
+    public async Task<ActionResult> GetCurrentApplicationUser()
+    {
+        return Ok();
+    }
 }

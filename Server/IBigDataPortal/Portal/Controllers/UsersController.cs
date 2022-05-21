@@ -2,11 +2,13 @@
 using ApplicationUserDomain.Models;
 using IBigDataPortal.Domain.UserMetadata;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IBigDataPortal.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("[controller]")]
 public class UsersController: ControllerBase
 {

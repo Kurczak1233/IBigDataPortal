@@ -18,6 +18,7 @@ import {
 import AdministrationLayout from "pages/AdministrationLayout/AdministrationLayout";
 import DashboardPage from "pages/AdministrationSubpages/DashboardPage/DashboardPage";
 import InvitationsPage from "pages/AdministrationSubpages/InvitationsPage/InvitationsPage";
+import CreatePostPage from "pages/AdministrationSubpages/PostsPage/Create/Posts/CreatePostPage";
 import PostsPage from "pages/AdministrationSubpages/PostsPage/Overview/Posts/PostsPage";
 import ProfilePage from "pages/AdministrationSubpages/ProfilePage/ProfilePage";
 import UsersPage from "pages/AdministrationSubpages/UsersPage/UsersPage";
@@ -49,7 +50,7 @@ function App() {
             />
             <Route path={`${jobOffersRoute}`} element={<div>xD1</div>} />
             <Route path={`${eduLinksRoute}`} element={<div>X2D</div>} />
-            <Route path={`${createPostRoute}`} element={<div>xD3</div>} />
+            <Route path={`${createPostRoute}`} element={<CreatePostPage />} />
             <Route path={`${createJobOfferRoute}`} element={<div>xD3</div>} />
             <Route path={`${createEduLinkRoute}`} element={<div>xD4</div>} />
           </Route>

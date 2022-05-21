@@ -6,6 +6,7 @@ using IBigDataPortal.Infrastructure.Middlewares;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,10 +27,34 @@ builder.Services.AddAuthentication(options =>
     options.Authority = "https://dev-lvcenvyd.us.auth0.com/";
     options.Audience = "https://i-big-data-auth-api.com/";
 });
+builder.Services.AddSwaggerGen(setup =>
+{
+    // Include 'SecurityScheme' to use JWT Authentication
+    var jwtSecurityScheme = new OpenApiSecurityScheme
+    {
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        Name = "JWT Authentication",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
 
+        Reference = new OpenApiReference
+        {
+            Id = JwtBearerDefaults.AuthenticationScheme,
+            Type = ReferenceType.SecurityScheme
+        }
+    };
+
+    setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+
+    setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        { jwtSecurityScheme, Array.Empty<string>() }
+    });
+});
 builder.Services.AddAssemblies();
 builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
-//TODO Fix cors!
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(
