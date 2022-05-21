@@ -1,4 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import {
+  administrationRoute,
+  articlesRoute,
+  postsRoute,
+} from "constants/apiRoutes";
 import { useNavigate } from "react-router-dom";
 
 const MainPageLoginBarLogic = () => {
@@ -17,7 +22,7 @@ const MainPageLoginBarLogic = () => {
   };
 
   const handleMoveToThePortal = () => {
-    navigate("/administration/posts");
+    navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
   };
 
   return {

@@ -9,6 +9,10 @@
     font-weight: 800;
     font-size: 32px;
 }
+@mixin fontSizeTwentyFive {
+    font-weight: 800;
+    font-size: 25px;
+}
 @mixin fontSizeTwenty {
     font-weight: 700;
     font-size: 20px;
@@ -20,4 +24,8 @@
 @mixin fontSizeSixteen {
     font-weight: 700;
     font-size: 16px;
+}
+@mixin fontSizeFourteen {
+    font-weight: 700;
+    font-size: 14px;
 }

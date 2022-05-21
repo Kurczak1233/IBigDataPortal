@@ -1,13 +1,25 @@
 @import "styles/Commons.scss";
-.smallButton {
+@mixin buttonStyles {
     background: $intensive-green;
     border-radius: 100px;
     color: $clear-white;
-    @include fontSizeTwenty;
+    @include fontSizeSixteen;
     display: flex;
     align-items: center;
     justify-content: space-around;
     height: 33px;
     width: 141px;
     cursor: pointer;
+}
+.buttonStylesGreen {
+    @include buttonStyles;
+}
+.buttonStylesGreen:hover {
+    box-shadow: 0px 0px 4px $intensive-green;
+}
+.buttonStylesOrange {
+    @include buttonStyles;
+}
+.buttonStylesOrange:hover {
+    box-shadow: 0px 0px 4px $intensive-orange;
 }

@@ -11,6 +11,7 @@ import UsersIconNonActive from "public/NavigationIcons/Inactive/UsersIconGray.sv
 import { useLocation } from "react-router-dom";
 import {
   administrationRoute,
+  articlesRoute,
   dashboardRoute,
   invitationsRoute,
   postsRoute,
@@ -22,7 +23,7 @@ const AdministrationLayoutLogic = () => {
   const { pathname } = useLocation();
   const administrationRoutes = [
     {
-      routeUrl: `/${administrationRoute}/${postsRoute}`,
+      routeUrl: `/${administrationRoute}/${articlesRoute}/${postsRoute}`,
       imgNonActive: ItemsListsNonActive,
       imgActive: ItemsListsActive,
       alt: "Items lists icon",
