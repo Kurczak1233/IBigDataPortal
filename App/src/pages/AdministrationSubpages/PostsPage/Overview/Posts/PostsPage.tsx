@@ -1,7 +1,8 @@
-import PostsContent from "components/PostsPage/PostsContent/PostsContent";
+import PostsContent from "components/PostsOverviewPage/PostsContent/PostsContent";
+import PostsPageLogic from "./PostsPageLogic";
 
 const PostPage = () => {
-  //TODO render item dynamically (optimalization)?? Make a research.
-  return <PostsContent />;
+  const { posts } = PostsPageLogic();
+  return <>{posts ? <PostsContent posts={posts} /> : <div />}</>;
 };
 export default PostPage;

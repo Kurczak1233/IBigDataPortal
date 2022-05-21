@@ -1,6 +1,7 @@
 ﻿using ApplicationUser.Queries;
 using ApplicationUserDomain.Models;
 using IBigDataPortal.Domain.PostsAggregate.Requests;
+using IBigDataPortal.Domain.UserMetadata;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,14 +17,16 @@ namespace IBigDataPortal.Controllers;
 public class PostsController : ControllerBase
 {
     private readonly IMediator _mediator;
-    public PostsController(IMediator mediator)
+    private readonly IUser _user;
+    public PostsController(IMediator mediator, IUser user)
     {
         _mediator = mediator;
+        _user = user;
     }
     [HttpPost]
     public async Task<ActionResult> GetCurrentApplicationUser(CreatePostRequest body)
     {
-        await _mediator.Send(new CreatePostCommand(body));
+        await _mediator.Send(new CreatePostCommand(body, _user.Id));
         return Ok();
     }
     
