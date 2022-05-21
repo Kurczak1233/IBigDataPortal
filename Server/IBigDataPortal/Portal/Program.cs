@@ -55,6 +55,8 @@ builder.Services.AddSwaggerGen(setup =>
 });
 builder.Services.AddAssemblies();
 builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+var assembly = AppDomain.CurrentDomain.Load("Posts.Application");
+builder.Services.AddMediatR(assembly);
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(
