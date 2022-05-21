@@ -1,3 +1,5 @@
+import AdminMenuLayout from "components/common/AdminMenu/AdminMenuLayout/AdminMenuLayout";
+import PostMenuContent from "components/PostsPage/PostMenuContent/PostMenuContent";
 import {
   administrationRoute,
   articlesRoute,
@@ -16,7 +18,7 @@ import {
 import AdministrationLayout from "pages/AdministrationLayout/AdministrationLayout";
 import DashboardPage from "pages/AdministrationSubpages/DashboardPage/DashboardPage";
 import InvitationsPage from "pages/AdministrationSubpages/InvitationsPage/InvitationsPage";
-import PostsPage from "pages/AdministrationSubpages/PostsPage/PostsPage";
+import PostsPage from "pages/AdministrationSubpages/PostsPage/Overview/Posts/PostsPage";
 import ProfilePage from "pages/AdministrationSubpages/ProfilePage/ProfilePage";
 import UsersPage from "pages/AdministrationSubpages/UsersPage/UsersPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -35,13 +37,21 @@ function App() {
           path={`${administrationRoute}`}
           element={checkIfRouteIsAuthenticated(<AdministrationLayout />)}
         >
-          <Route path={`${articlesRoute}`} element={<PostsPage />}>
-            <Route path={`${postsRoute}`} element={<PostsPage />} />
-            <Route path={`${jobOffersRoute}`} element={<PostsPage />} />
-            <Route path={`${eduLinksRoute}`} element={<PostsPage />} />
-            <Route path={`${createPostRoute}`} element={<PostsPage />} />
-            <Route path={`${createJobOfferRoute}`} element={<PostsPage />} />
-            <Route path={`${createEduLinkRoute}`} element={<PostsPage />} />
+          <Route
+            path={`${articlesRoute}`}
+            element={checkIfRouteIsAuthenticated(
+              <AdminMenuLayout menuContent={<PostMenuContent />} />
+            )}
+          >
+            <Route
+              path={`${postsRoute}`}
+              element={checkIfRouteIsAuthenticated(<PostsPage />)}
+            />
+            <Route path={`${jobOffersRoute}`} element={<div>xD1</div>} />
+            <Route path={`${eduLinksRoute}`} element={<div>X2D</div>} />
+            <Route path={`${createPostRoute}`} element={<div>xD3</div>} />
+            <Route path={`${createJobOfferRoute}`} element={<div>xD3</div>} />
+            <Route path={`${createEduLinkRoute}`} element={<div>xD4</div>} />
           </Route>
           <Route path={`${profileRoute}`} element={<ProfilePage />} />
           <Route path={`${dashboardRoute}`} element={<DashboardPage />} />

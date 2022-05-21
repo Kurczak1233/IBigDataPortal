@@ -24,7 +24,7 @@ const AdminMenuContentGenerator = ({
     >
       <div className={styles.sectionTitle}>{tableOfContents.sectionName}</div>
       {tableOfContents.items.map((item: IAdminMenuContentItem) => (
-        <>
+        <div key={item.itemName}>
           <SmallButton
             text={item.itemName}
             onClick={() => handleChangeState(item.switchTo)}
@@ -36,7 +36,7 @@ const AdminMenuContentGenerator = ({
                 : AvailableIntensiveColors.IntensiveGreen
             }
           />
-        </>
+        </div>
       ))}
     </div>
   );

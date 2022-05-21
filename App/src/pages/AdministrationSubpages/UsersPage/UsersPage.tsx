@@ -2,10 +2,11 @@ import PageLayout from "components/common/AdminMenu/AdminMenuLayout/AdminMenuLay
 
 const UsersPage = () => {
   return (
-    <PageLayout
-      menuContent={<div>Users Menu</div>}
-      content={<div>Content</div>}
-    />
+    // <PageLayout
+    //   menuContent={<div>Users Menu</div>}
+    //   content={}
+    // />
+    <div>Content</div>
   );
 };
 export default UsersPage;
