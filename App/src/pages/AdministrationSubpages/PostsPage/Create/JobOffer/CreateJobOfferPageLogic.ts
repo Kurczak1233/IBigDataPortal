@@ -1,9 +1,9 @@
-import { createPost } from "api/PostsClient";
+import { createJobOffer } from "api/JobOffersClient";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import {
   administrationRoute,
   articlesRoute,
-  postsRoute,
+  jobOffersRoute,
 } from "constants/apiRoutes";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { useForm } from "react-hook-form";
@@ -18,11 +18,11 @@ const CreateJobOfferPageLogic = () => {
     formState: { errors },
   } = useForm<ICreateJobOffer>();
   const submitForm = async (data: ICreateJobOffer) => {
-    await createPost(data);
-    navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
+    await createJobOffer(data);
+    navigate(`/${administrationRoute}/${articlesRoute}/${jobOffersRoute}`);
     SyncToast({
       mode: ToastModes.Success,
-      description: "You have created a post",
+      description: "You have created a job offer",
     });
   };
   return { submitForm, register, handleSubmit, errors };

@@ -1,3 +1,4 @@
+import { IAdminMenuContentArray } from "components/common/AdminMenu/AdminMenuContentGenerator/Interfaces/IAdminMenuContentArray";
 import {
   administrationRoute,
   articlesRoute,
@@ -9,7 +10,6 @@ import {
   postsRoute,
 } from "constants/apiRoutes";
 import { useLocation, useNavigate } from "react-router-dom";
-import { IAdminMenuContentArray } from "../../common/AdminMenu/AdminMenuContentGenerator/Interfaces/IAdminMenuContentArray";
 
 const PostMenuContentLogic = () => {
   const { pathname } = useLocation();

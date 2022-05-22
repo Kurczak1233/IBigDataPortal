@@ -8,6 +8,7 @@ public class ApplicationDbContext : DbContext
 {
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<Post> Posts { get; set; }
+    public virtual DbSet<JobOffer> JobOffers { get; set; }
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)

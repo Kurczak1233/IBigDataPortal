@@ -14,9 +14,10 @@ public static class MediatorAssemblies
 {
     public static void AddAssemblies(this IServiceCollection services)
     {
-        var assembly = AppDomain.CurrentDomain.Load("ApplicationUser");
-        services.AddMediatR(assembly);
-        // builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+        services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+        services.AddMediatR(AppDomain.CurrentDomain.Load("ApplicationUser"));
+        services.AddMediatR(AppDomain.CurrentDomain.Load("Posts.Application"));
+        services.AddMediatR(AppDomain.CurrentDomain.Load("JobOffers.Application"));
 
     }
 }

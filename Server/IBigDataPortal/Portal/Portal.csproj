@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ApplicationUser\ApplicationUser.csproj" />
+      <ProjectReference Include="..\JobOffers.Application\JobOffers.Application.csproj" />
       <ProjectReference Include="..\Portal.Database\Portal.Database.csproj" />
       <ProjectReference Include="..\Portal.Infrastructure\Portal.Infrastructure.csproj" />
       <ProjectReference Include="..\Posts.Application\Posts.Application.csproj" />

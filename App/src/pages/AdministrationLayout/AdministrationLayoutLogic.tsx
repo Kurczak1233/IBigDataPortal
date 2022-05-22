@@ -26,35 +26,40 @@ const AdministrationLayoutLogic = () => {
       routeUrl: `/${administrationRoute}/${articlesRoute}/${postsRoute}`,
       imgNonActive: ItemsListsNonActive,
       imgActive: ItemsListsActive,
+      isActive: pathname.includes(articlesRoute),
       alt: "Items lists icon",
     },
     {
       routeUrl: `/${administrationRoute}/${profileRoute}`,
       imgNonActive: UserIconNonActive,
       imgActive: UserIconActive,
+      isActive: pathname === `/${administrationRoute}/${profileRoute}`,
       alt: "User icon",
     },
     {
       routeUrl: `/${administrationRoute}/${dashboardRoute}`,
       imgNonActive: DashboardIconNonActive,
       imgActive: DashboardIconActive,
+      isActive: pathname === `/${administrationRoute}/${dashboardRoute}`,
       alt: "Dashboard icon",
     },
     {
       routeUrl: `/${administrationRoute}/${usersRoute}`,
       imgNonActive: UsersIconNonActive,
       imgActive: UsersIconActive,
+      isActive: pathname === `/${administrationRoute}/${usersRoute}`,
       alt: "Users icon",
     },
     {
       routeUrl: `/${administrationRoute}/${invitationsRoute}`,
       imgNonActive: MailIconNonActive,
       imgActive: MailIconActive,
+      isActive: pathname === `/${administrationRoute}/${invitationsRoute}`,
       alt: "Mail icon",
     },
   ];
 
-  return { administrationRoutes, pathname };
+  return { administrationRoutes };
 };
 
 export default AdministrationLayoutLogic;

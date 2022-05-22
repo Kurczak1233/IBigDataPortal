@@ -22,6 +22,15 @@ const CreateJobOfferPage = () => {
           registerName={"title"}
           registerOptions={{ required: true }}
         />
+        <InputWithLabel
+          register={register}
+          errors={errors}
+          errorMessage={"This field is required"}
+          label={"Link"}
+          placeholder={"Enter link..."}
+          registerName={"link"}
+          registerOptions={{ required: true }}
+        />
         <TextareaWithLabel
           register={register}
           errors={errors}

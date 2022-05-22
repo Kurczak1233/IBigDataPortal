@@ -7,11 +7,11 @@ using MediatR;
 
 namespace JobOffers.Application.Queries;
 
-public class GetAllJobOffers : IRequest<IEnumerable<JobOfferViewModel>>
+public class GetAllJobOffersQuery : IRequest<IEnumerable<JobOfferViewModel>>
 {
 }
 
-public class GetAllPostsQueryHandler : IRequestHandler<GetAllJobOffers, IEnumerable<JobOfferViewModel>>
+public class GetAllPostsQueryHandler : IRequestHandler<GetAllJobOffersQuery, IEnumerable<JobOfferViewModel>>
 {
     private readonly ISqlConnectionService _connectionService;
 
@@ -20,7 +20,7 @@ public class GetAllPostsQueryHandler : IRequestHandler<GetAllJobOffers, IEnumera
         _connectionService = connectionService;
     }
 
-    public async Task<IEnumerable<JobOfferViewModel>> Handle(GetAllJobOffers request,
+    public async Task<IEnumerable<JobOfferViewModel>> Handle(GetAllJobOffersQuery request,
         CancellationToken cancellationToken)
     {
         var connection = await _connectionService.GetAsync();

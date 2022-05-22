@@ -24,14 +24,14 @@ public class PostsController : ControllerBase
         _user = user;
     }
     [HttpPost]
-    public async Task<ActionResult> GetCurrentApplicationUser(CreatePostRequest body)
+    public async Task<ActionResult> CreatePost(CreatePostRequest body)
     {
         await _mediator.Send(new CreatePostCommand(body, _user.Id));
         return Ok();
     }
     
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<PostViewModel>>> GetCurrentApplicationUser()
+    public async Task<ActionResult<IEnumerable<PostViewModel>>> GetAllPosts()
     {
         var result = await _mediator.Send(new GetAllPostsQuery());
         return Ok(result);

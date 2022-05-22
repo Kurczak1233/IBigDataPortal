@@ -1,5 +1,5 @@
+import PostMenuContent from "components/ArticlesComponents/PostsOverviewPage/PostMenuContent/PostMenuContent";
 import AdminMenuLayout from "components/common/AdminMenu/AdminMenuLayout/AdminMenuLayout";
-import PostMenuContent from "components/PostsOverviewPage/PostMenuContent/PostMenuContent";
 import {
   administrationRoute,
   articlesRoute,
