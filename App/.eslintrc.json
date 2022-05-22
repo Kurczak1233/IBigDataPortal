@@ -6,8 +6,9 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        "react-app",
         "plugin:prettier/recommended"
     ],
     "parser": "@typescript-eslint/parser",
@@ -20,7 +21,6 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react",
         "@typescript-eslint"
     ],
     "rules": {

@@ -1,5 +1,5 @@
 import { HttpRequestsMethods } from "interfaces/General/HttpRequestsMethods";
-import { IApplicationUser } from "interfaces/Models/IApplicationUser";
+import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import application from "../authenticationConfig.json";
 import { AxiosClient } from "./AxiosClient";
 

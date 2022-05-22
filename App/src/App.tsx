@@ -1,5 +1,5 @@
 import AdminMenuLayout from "components/common/AdminMenu/AdminMenuLayout/AdminMenuLayout";
-import PostMenuContent from "components/PostsPage/PostMenuContent/PostMenuContent";
+import PostMenuContent from "components/PostsOverviewPage/PostMenuContent/PostMenuContent";
 import {
   administrationRoute,
   articlesRoute,
@@ -18,7 +18,8 @@ import {
 import AdministrationLayout from "pages/AdministrationLayout/AdministrationLayout";
 import DashboardPage from "pages/AdministrationSubpages/DashboardPage/DashboardPage";
 import InvitationsPage from "pages/AdministrationSubpages/InvitationsPage/InvitationsPage";
-import CreatePostPage from "pages/AdministrationSubpages/PostsPage/Create/Posts/CreatePostPage";
+import CreateJobOfferPage from "pages/AdministrationSubpages/PostsPage/Create/JobOffer/CreateJobOfferPage";
+import CreatePostPage from "pages/AdministrationSubpages/PostsPage/Create/Post/CreatePostPage";
 import PostsPage from "pages/AdministrationSubpages/PostsPage/Overview/Posts/PostsPage";
 import ProfilePage from "pages/AdministrationSubpages/ProfilePage/ProfilePage";
 import UsersPage from "pages/AdministrationSubpages/UsersPage/UsersPage";
@@ -51,7 +52,10 @@ function App() {
             <Route path={`${jobOffersRoute}`} element={<div>xD1</div>} />
             <Route path={`${eduLinksRoute}`} element={<div>X2D</div>} />
             <Route path={`${createPostRoute}`} element={<CreatePostPage />} />
-            <Route path={`${createJobOfferRoute}`} element={<div>xD3</div>} />
+            <Route
+              path={`${createJobOfferRoute}`}
+              element={<CreateJobOfferPage />}
+            />
             <Route path={`${createEduLinkRoute}`} element={<div>xD4</div>} />
           </Route>
           <Route path={`${profileRoute}`} element={<ProfilePage />} />

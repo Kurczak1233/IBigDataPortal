@@ -7,7 +7,6 @@ import CreatePostPageLogic from "./CreatePostPageLogic";
 
 const CreatePostPage = () => {
   const { register, handleSubmit, submitForm, errors } = CreatePostPageLogic();
-
   return (
     <div>
       <div className={styles.title}>Create Post</div>

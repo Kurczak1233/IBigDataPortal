@@ -1,5 +1,5 @@
 import { getApplicationUser } from "api/UsersClient";
-import { IApplicationUser } from "interfaces/Models/IApplicationUser";
+import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import { useEffect, useState } from "react";
 
 const CommonAdminPanelHeaderLogic = () => {

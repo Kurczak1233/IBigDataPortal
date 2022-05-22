@@ -1,5 +1,3 @@
-import PageLayout from "components/common/AdminMenu/AdminMenuLayout/AdminMenuLayout";
-
 const InvitationsPage = () => {
   return (
     // <PageLayout

@@ -1,49 +1,51 @@
-@import "styles/Commons.scss";
+@import 'styles/Commons.scss';
 .siteLayout {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  .menu {
+    width: 255px;
     display: flex;
-    .menu {
-        width: 255px;
+    justify-content: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    .menuWrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+      .menuBottom {
         display: flex;
-        justify-content: center;
-        padding-top: 50px;
-        padding-bottom: 50px;
-        .menuWrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-direction: column;
-            .menuBottom {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                cursor: pointer;
-                .logOutButton {
-                    background: $intensive-green;
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-evenly;
-                    @include greenShadow;
-                    border-radius: 8px;
-                    height: 48px;
-                    width: 48px;
-                }
-                .logOutButtonText {
-                    @include fontSizeSixteen;
-                    color: $intensive-green;
-                    margin-top: 8px;
-                }
-            }
-            .menuBottom:hover {
-                filter: drop-shadow(0px 0px 6px $intensive-green);
-            }
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        .logOutButton {
+          background: $intensive-green;
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+          @include greenShadow;
+          border-radius: 8px;
+          height: 48px;
+          width: 48px;
         }
+        .logOutButtonText {
+          @include fontSizeSixteen;
+          color: $intensive-green;
+          margin-top: 8px;
+        }
+      }
+      .menuBottom:hover {
+        filter: drop-shadow(0px 0px 6px $intensive-green);
+      }
     }
-    .contentLayout {
-        flex: 1;
-        background: $clear-white;
-        border-radius: 50px 0 0 50px;
-        padding: 50px;
-    }
+  }
+  .contentLayout {
+    flex: 1;
+    background: $clear-white;
+    border-radius: 50px 0 0 50px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+  }
 }

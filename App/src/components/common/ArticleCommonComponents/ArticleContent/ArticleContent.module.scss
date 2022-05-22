@@ -1,0 +1,41 @@
+@import 'styles/Commons.scss';
+.contentContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  .content {
+    width: 100%;
+    flex: 1;
+    .item {
+      @include fontSizeSixteen;
+      color: $black-text;
+      display: flex;
+      align-items: center;
+      background: $less-intensive-green;
+      box-shadow: 2px 2px 8px 3px $gray-box-shadow;
+      border-radius: 12px;
+      height: 60px;
+      padding: 0 12px;
+      margin-top: 10px;
+      .posted {
+        @include postedColumnWidth;
+        display: flex;
+        align-items: center;
+      }
+      .title {
+        @include titleColumnWidth;
+        display: flex;
+        align-items: center;
+      }
+      .creator {
+        @include creatorColumnWidth;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}
+
+

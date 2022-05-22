@@ -1,6 +1,6 @@
 import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
-import { IAdminMenuContentArray } from "components/PostsPage/Interfaces/IAdminMenuContentArray";
-import { IAdminMenuContentItem } from "components/PostsPage/Interfaces/IAdminMenuContentItem";
+import { IAdminMenuContentArray } from "components/common/AdminMenu/AdminMenuContentGenerator/Interfaces/IAdminMenuContentArray";
+import { IAdminMenuContentItem } from "components/common/AdminMenu/AdminMenuContentGenerator/Interfaces/IAdminMenuContentItem";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import styles from "./AdminMenuContentGenerator.module.scss";
 

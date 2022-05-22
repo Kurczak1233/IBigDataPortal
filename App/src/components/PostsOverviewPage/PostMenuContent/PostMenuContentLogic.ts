@@ -1,4 +1,3 @@
-import { IAdminMenuContentArray } from "components/PostsPage/Interfaces/IAdminMenuContentArray";
 import {
   administrationRoute,
   articlesRoute,
@@ -10,6 +9,7 @@ import {
   postsRoute,
 } from "constants/apiRoutes";
 import { useLocation, useNavigate } from "react-router-dom";
+import { IAdminMenuContentArray } from "../../common/AdminMenu/AdminMenuContentGenerator/Interfaces/IAdminMenuContentArray";
 
 const PostMenuContentLogic = () => {
   const { pathname } = useLocation();
@@ -50,13 +50,13 @@ const PostMenuContentLogic = () => {
       },
       {
         itemName: "Job offer",
-        switchTo: createEduLinkRoute,
-        isActive: pathname.includes(`${createEduLinkRoute}`),
+        switchTo: createJobOfferRoute,
+        isActive: pathname.includes(`${createJobOfferRoute}`),
       },
       {
         itemName: "Edu link",
-        switchTo: createJobOfferRoute,
-        isActive: pathname.includes(`${createJobOfferRoute}`),
+        switchTo: createEduLinkRoute,
+        isActive: pathname.includes(`${createEduLinkRoute}`),
       },
     ],
   };
