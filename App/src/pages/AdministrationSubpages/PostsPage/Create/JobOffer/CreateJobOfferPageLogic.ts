@@ -8,7 +8,7 @@ import {
 import { ToastModes } from "interfaces/General/ToastModes";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { ICreatePostForm } from "../Post/ICreatePostForm";
+import { ICreateJobOffer } from "./ICreateJobOfferForm";
 
 const CreateJobOfferPageLogic = () => {
   const navigate = useNavigate();
@@ -16,8 +16,8 @@ const CreateJobOfferPageLogic = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ICreatePostForm>();
-  const submitForm = async (data: ICreatePostForm) => {
+  } = useForm<ICreateJobOffer>();
+  const submitForm = async (data: ICreateJobOffer) => {
     await createPost(data);
     navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
     SyncToast({
