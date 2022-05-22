@@ -1,6 +1,6 @@
 import { HttpRequestsMethods } from "interfaces/General/HttpRequestsMethods";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
-import { ICreatePostForm } from "pages/AdministrationSubpages/PostsPage/Create/Posts/ICreatePostForm";
+import { ICreatePostForm } from "pages/AdministrationSubpages/PostsPage/Create/Post/ICreatePostForm";
 import application from "../authenticationConfig.json";
 import { AxiosClient } from "./AxiosClient";
 
