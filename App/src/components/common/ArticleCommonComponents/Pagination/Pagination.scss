@@ -18,6 +18,9 @@
   background: $less-intensive-green;
   border-radius: 8px;
 }
+#pagination li:hover {
+  @include greenShadow;
+}
 #pagination {
   display: flex;
   flex-direction: row;
@@ -27,7 +30,6 @@
 #pagination .previous {
   background-color: transparent;
   margin-right: 32px;
-  
 }
 #pagination .next {
   background-color: transparent;

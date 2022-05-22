@@ -2,7 +2,6 @@ import { standarizedFormat } from "constants/dateFormats";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
 import styles from "./ArticleContent.module.scss";
 import { format } from "date-fns";
-import ReactPaginate from "react-paginate";
 import ArticleContentLogic from "./ArticleContentLogic";
 import Pagination from "../Pagination/Pagination";
 
