@@ -11,7 +11,7 @@ const SmallButtonLogic = () => {
       case AvailableIntensiveColors.IntensiveOrange:
         return styles.buttonStylesOrange;
       default:
-        "";
+        return "";
     }
   };
   return { handleGetColorHoverClass };

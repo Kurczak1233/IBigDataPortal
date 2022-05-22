@@ -10,9 +10,11 @@ namespace PostsApplication.Commands;
 public class CreatePostCommand : IRequest
 {
     public CreatePostRequest Body { get; set; }
-    public CreatePostCommand(CreatePostRequest body)
+    public int CurrentUserId { get; set; }
+    public CreatePostCommand(CreatePostRequest body, int currentUserId)
     {
         Body = body;
+        CurrentUserId = currentUserId;
     }
 }
 
@@ -27,10 +29,17 @@ public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand>
 
     public async Task<Unit> Handle(CreatePostCommand request, CancellationToken cancellationToken)
     {
+         var nowDate = DateTimeOffset.Now;
         var connection = await _connectionService.GetAsync();
-        var sql = $@"INSERT INTO {Dbo.Posts} ({nameof(Post.Title)}, {nameof(Post.Description)})
-        VALUES (@title, @description)";
-        connection.ExecuteAsync(sql, new { title = request.Body.Title, description = request.Body.Description });
+        var sql =
+            $@"INSERT INTO {Dbo.Posts} ({nameof(Post.Title)}, {nameof(Post.Description)}, {nameof(Post.CreatorId)}, {nameof(Post.Posted)})
+        VALUES (@title, @description, @userId, @dateNow)";
+        connection.ExecuteAsync(sql,
+            new
+            {
+                title = request.Body.Title, description = request.Body.Description, userId = request.CurrentUserId,
+                dateNow = nowDate
+            });
         return Unit.Value;
     }
 }

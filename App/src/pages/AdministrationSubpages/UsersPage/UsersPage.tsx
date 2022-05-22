@@ -1,5 +1,3 @@
-import PageLayout from "components/common/AdminMenu/AdminMenuLayout/AdminMenuLayout";
-
 const UsersPage = () => {
   return (
     // <PageLayout

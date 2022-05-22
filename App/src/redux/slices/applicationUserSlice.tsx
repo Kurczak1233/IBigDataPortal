@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IApplicationUser } from "interfaces/Models/IApplicationUser";
+import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 
 interface IApplicationUserState {
   user: IApplicationUser | null;
