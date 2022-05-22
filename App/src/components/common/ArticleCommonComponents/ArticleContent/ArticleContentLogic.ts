@@ -1,6 +1,5 @@
-import { current } from "@reduxjs/toolkit";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface IArticleContentLogic {
   posts: PostViewModel[];
@@ -19,17 +18,17 @@ const ArticleContentLogic = ({ posts }: IArticleContentLogic) => {
     setItemOffset(newOffset);
   };
 
-  const calculateContainerHeight = useCallback(() => {
-    if (refContainer.current) {
-      setItemsPerPage(Math.floor(refContainer.current.offsetHeight / 60));
+  const calculateContainerHeight = (item: HTMLDivElement) => {
+    if (Math.floor(item.offsetHeight / 68)) {
+      setItemsPerPage(Math.floor(item.offsetHeight / 68));
     }
-  }, [refContainer]);
+  };
 
   useEffect(() => {
-    if (refContainer) {
-      calculateContainerHeight();
+    if (refContainer.current !== null) {
+      calculateContainerHeight(refContainer.current);
     }
-  }, [calculateContainerHeight]);
+  }, [refContainer]);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;

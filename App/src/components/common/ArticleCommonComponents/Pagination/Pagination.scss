@@ -1,0 +1,50 @@
+@import 'styles/Commons.scss';
+#pagination {
+  height: 38px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
+#pagination ul {
+  display: flex;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+#pagination li {
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  margin: 5px;
+  background: $less-intensive-green;
+  border-radius: 8px;
+}
+#pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#pagination .previous {
+  background-color: transparent;
+  margin-right: 32px;
+  
+}
+#pagination .next {
+  background-color: transparent;
+  margin-left: 32px;
+}
+#pagination .selected {
+  background: $intensive-green;
+  border-radius: 8px;
+  color: $clear-white;
+}
+#pagination li > a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include fontSizeSixteen;
+  cursor: pointer;
+}

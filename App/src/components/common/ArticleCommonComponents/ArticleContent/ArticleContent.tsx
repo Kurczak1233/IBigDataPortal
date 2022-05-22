@@ -4,6 +4,7 @@ import styles from "./ArticleContent.module.scss";
 import { format } from "date-fns";
 import ReactPaginate from "react-paginate";
 import ArticleContentLogic from "./ArticleContentLogic";
+import Pagination from "../Pagination/Pagination";
 
 interface IArticleContent {
   posts: PostViewModel[];
@@ -31,16 +32,7 @@ const ArticleContent = ({ posts }: IArticleContent) => {
           </div>
         ))}
       </div>
-      <div>
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="next >"
-          onPageChange={(event) => handlePageClick(event)}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel="< previous"
-        />
-      </div>
+      <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />
     </div>
   );
 };
