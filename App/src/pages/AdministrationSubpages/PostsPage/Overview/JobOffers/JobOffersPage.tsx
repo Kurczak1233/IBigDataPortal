@@ -1,4 +1,4 @@
-import JobOffersContent from "components/ArticlesComponents/JobOffersPage/JobOffersContent/JobOfferContent";
+import JobOffersContent from "components/ArticlesComponents/JobOffersPage/JobOffersContent/JobOffersContent";
 import BigLoader from "components/common/Loaders/BigLoader";
 import JobOffersPageLogic from "./JobOffersPageLogic";
 

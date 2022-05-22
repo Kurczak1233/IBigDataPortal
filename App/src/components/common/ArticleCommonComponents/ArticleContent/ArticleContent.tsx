@@ -4,12 +4,20 @@ import styles from "./ArticleContent.module.scss";
 import { format } from "date-fns";
 import ArticleContentLogic from "./ArticleContentLogic";
 import Pagination from "../Pagination/Pagination";
+import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
+import { AvailablePaginationColors } from "../Pagination/AvailablePaginationColors";
 
 interface IArticleContent {
   posts: PostViewModel[];
+  postsColor: AvailableIntensiveColors;
+  paginationColor: AvailablePaginationColors;
 }
 
-const ArticleContent = ({ posts }: IArticleContent) => {
+const ArticleContent = ({
+  posts,
+  postsColor,
+  paginationColor,
+}: IArticleContent) => {
   const { handlePageClick, pageCount, currentItems, refContainer } =
     ArticleContentLogic({
       posts,
@@ -21,6 +29,8 @@ const ArticleContent = ({ posts }: IArticleContent) => {
         {currentItems.map((post, index) => (
           <div
             className={styles.item}
+            style={{ background: `#${postsColor}` }}
+            id={`articlePost${postsColor}`}
             key={`${post.title}, ${post.description} ${index}`}
           >
             <div className={styles.posted}>
@@ -31,7 +41,11 @@ const ArticleContent = ({ posts }: IArticleContent) => {
           </div>
         ))}
       </div>
-      <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />
+      <Pagination
+        pageCount={pageCount}
+        handlePageClick={handlePageClick}
+        colorName={paginationColor}
+      />
     </div>
   );
 };

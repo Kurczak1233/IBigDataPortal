@@ -39,7 +39,7 @@ const SyncToast = ({ mode, description }: ISyncToast) => {
     {
       id: "toast",
       position: "bottom-right",
-      duration: 20000,
+      duration: 2000,
     }
   );
 };

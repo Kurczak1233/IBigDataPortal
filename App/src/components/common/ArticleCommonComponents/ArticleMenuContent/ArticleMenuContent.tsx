@@ -1,15 +1,15 @@
 import AdminMenuContentGenerator from "components/common/AdminMenu/AdminMenuContentGenerator/AdminMenuContentGenerator";
 import AdminMenuHeader from "components/common/AdminMenu/AdminMenuHeader/AdminMenuHeader";
 import SeparationBar from "components/common/SeparationBar/SeparationBar";
-import PostMenuContentLogic from "./PostMenuContentLogic";
-import styles from "./PostMenuContent.module.scss";
+import ArticleMenuContentLogic from "./ArticleMenuContentLogic";
+import styles from "./ArticleMenuContent.module.scss";
 
-const PostMenuContent = () => {
+const ArticleMenuContent = () => {
   const {
     adminMenuNavigationOverviewContents,
     adminMenuNavigationCreateContents,
     handleChangeState,
-  } = PostMenuContentLogic();
+  } = ArticleMenuContentLogic();
   return (
     <div className={styles.menuItemsGenerator}>
       <AdminMenuHeader />
@@ -29,4 +29,4 @@ const PostMenuContent = () => {
   );
 };
 
-export default PostMenuContent;
+export default ArticleMenuContent;

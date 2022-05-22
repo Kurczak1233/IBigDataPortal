@@ -1,3 +1,4 @@
+import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
 import { useEffect, useRef, useState } from "react";
 

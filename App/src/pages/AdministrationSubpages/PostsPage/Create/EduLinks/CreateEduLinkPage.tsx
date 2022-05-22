@@ -1,17 +1,17 @@
+import CreateEduLinkPageLogic from "./CreateEduLinkPageLogic";
+import styles from "./CreateEduLinkPage.module.scss";
 import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import InputWithLabel from "components/common/Forms/InputWithLabel/InputWithLabel";
 import TextareaWithLabel from "components/common/Forms/TextareaWithLabel/TextareaWithLabel";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import CreateJobOfferPageLogic from "./CreateJobOfferPageLogic";
-import styles from "./CreateJobOfferPage.module.scss";
 
-const CreateJobOfferPage = () => {
+const CreateEduLinkPage = () => {
   const { register, handleSubmit, submitForm, errors } =
-    CreateJobOfferPageLogic();
+    CreateEduLinkPageLogic();
 
   return (
     <div>
-      <div className={styles.title}>Create job offer</div>
+      <div className={styles.title}>Create edu link</div>
       <form>
         <InputWithLabel
           register={register}
@@ -51,4 +51,4 @@ const CreateJobOfferPage = () => {
   );
 };
 
-export default CreateJobOfferPage;
+export default CreateEduLinkPage;

@@ -18,6 +18,6 @@ public static class MediatorAssemblies
         services.AddMediatR(AppDomain.CurrentDomain.Load("ApplicationUser"));
         services.AddMediatR(AppDomain.CurrentDomain.Load("Posts.Application"));
         services.AddMediatR(AppDomain.CurrentDomain.Load("JobOffers.Application"));
-
+        services.AddMediatR(AppDomain.CurrentDomain.Load("EduLinks.Application"));
     }
 }

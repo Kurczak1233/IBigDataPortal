@@ -11,11 +11,11 @@ public class GetAllJobOffersQuery : IRequest<IEnumerable<JobOfferViewModel>>
 {
 }
 
-public class GetAllPostsQueryHandler : IRequestHandler<GetAllJobOffersQuery, IEnumerable<JobOfferViewModel>>
+public class GetAllJobOffersQueryHandler : IRequestHandler<GetAllJobOffersQuery, IEnumerable<JobOfferViewModel>>
 {
     private readonly ISqlConnectionService _connectionService;
 
-    public GetAllPostsQueryHandler(ISqlConnectionService connectionService)
+    public GetAllJobOffersQueryHandler(ISqlConnectionService connectionService)
     {
         _connectionService = connectionService;
     }
