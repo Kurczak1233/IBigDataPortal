@@ -5,7 +5,7 @@ import {
 } from "constants/apiRoutes";
 import { useNavigate } from "react-router-dom";
 
-const NoItemsComponentLogic = () => {
+const PostsContentLogic = () => {
   const navigate = useNavigate();
   const navigateToCreatePosts = () => {
     navigate(`/${administrationRoute}/${articlesRoute}/${createPostRoute}`);
@@ -13,4 +13,4 @@ const NoItemsComponentLogic = () => {
 
   return { navigateToCreatePosts };
 };
-export default NoItemsComponentLogic;
+export default PostsContentLogic;

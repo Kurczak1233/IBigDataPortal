@@ -11,7 +11,7 @@ const CreateJobOfferPage = () => {
 
   return (
     <div>
-      <div className={styles.title}>Create Job offer</div>
+      <div className={styles.title}>Create job offer</div>
       <form>
         <InputWithLabel
           register={register}
@@ -20,6 +20,15 @@ const CreateJobOfferPage = () => {
           label={"Title"}
           placeholder={"Enter title..."}
           registerName={"title"}
+          registerOptions={{ required: true }}
+        />
+        <InputWithLabel
+          register={register}
+          errors={errors}
+          errorMessage={"This field is required"}
+          label={"Link"}
+          placeholder={"Enter link..."}
+          registerName={"link"}
           registerOptions={{ required: true }}
         />
         <TextareaWithLabel

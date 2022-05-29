@@ -1,20 +1,24 @@
 import ReactPaginate from "react-paginate";
 import "./Pagination.scss";
-import GreenRightArrow from "public/PostsIcons/GreenRightArrow.svg";
-import GreenLeftArrow from "public/PostsIcons/GreenLeftArrow.svg";
+
+import { AvailablePaginationColors } from "./AvailablePaginationColors";
+import PaginationLogic from "./PaginationLogic";
 
 interface IPagination {
   pageCount: number;
   handlePageClick: (event: { selected: number }) => void;
+  colorName: AvailablePaginationColors;
 }
 
-const Pagination = ({ pageCount, handlePageClick }: IPagination) => {
+const Pagination = ({ pageCount, handlePageClick, colorName }: IPagination) => {
+  const { getAppropriateIcons } = PaginationLogic();
+  const icons = getAppropriateIcons(colorName);
   return (
-    <div id={"pagination"}>
+    <div id={"pagination"} className={`${colorName}`}>
       <ReactPaginate
         breakLabel="..."
-        nextLabel={<img src={GreenRightArrow} alt={"Right arrow"} />}
-        previousLabel={<img src={GreenLeftArrow} alt={"Left arrow"} />}
+        nextLabel={<img src={icons.iconRight} alt={"Right arrow"} />}
+        previousLabel={<img src={icons.iconLeft} alt={"Left arrow"} />}
         onPageChange={(event) => handlePageClick(event)}
         pageRangeDisplayed={5}
         pageCount={pageCount}
