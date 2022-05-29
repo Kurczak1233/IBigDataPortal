@@ -14,6 +14,10 @@ public class CreatePostCommand : IRequest
     public CreatePostCommand(CreatePostRequest body, int currentUserId)
     {
         Body = body;
+        if (currentUserId == 0)
+        {
+            throw new ArgumentException("User id cannot be 0!");
+        }
         CurrentUserId = currentUserId;
     }
 }
@@ -29,7 +33,7 @@ public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand>
 
     public async Task<Unit> Handle(CreatePostCommand request, CancellationToken cancellationToken)
     {
-         var nowDate = DateTimeOffset.Now;
+        var nowDate = DateTimeOffset.Now;
         var connection = await _connectionService.GetAsync();
         var sql =
             $@"INSERT INTO {Dbo.Posts} ({nameof(Post.Title)}, {nameof(Post.Description)}, {nameof(Post.CreatorId)}, {nameof(Post.Posted)})

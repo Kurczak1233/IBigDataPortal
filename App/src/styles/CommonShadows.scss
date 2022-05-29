@@ -1,8 +1,11 @@
 @mixin greenShadow {
   box-shadow: 0px 0px 4px $intensive-green;
-} //rgba(229, 229, 229, 0.1)
+}
 @mixin orangeShadow {
   box-shadow: 0px 0px 4px $intensive-orange;
+}
+@mixin blueShadow {
+  box-shadow: 0px 0px 4px $intensive-blue;
 }
 @mixin redShadow {
   box-shadow: 0px 0px 4px $intensive-red;

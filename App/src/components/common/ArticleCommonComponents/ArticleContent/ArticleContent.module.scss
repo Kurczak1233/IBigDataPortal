@@ -13,7 +13,6 @@
       color: $black-text;
       display: flex;
       align-items: center;
-      background: $less-intensive-green;
       box-shadow: 2px 2px 8px 3px $gray-box-shadow;
       border-radius: 12px;
       height: 60px;
@@ -35,7 +34,17 @@
         align-items: center;
       }
     }
+    .item:global(#articlePostffe9bd):hover {
+      cursor: pointer;
+      @include orangeShadow;
+    }
+    .item:global(#articlePostcedeff):hover {
+      cursor: pointer;
+      @include blueShadow;
+    }
+    .item:global(#articlePostc6e4cb):hover {
+      cursor: pointer;
+      @include greenShadow;
+    }
   }
 }
-
-

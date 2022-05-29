@@ -10,15 +10,37 @@
   padding-left: 15px;
   padding-right: 15px;
 }
-#pagination li {
+#root .orange li {
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  margin: 5px;
+  background: $less-intensive-orange;
+  border-radius: 8px;
+}
+#root .blue li {
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  margin: 5px;
+  background: $less-intensive-blue;
+  border-radius: 8px;
+}
+#root .green li {
   display: inline-block;
   height: 32px;
   width: 32px;
   margin: 5px;
   background: $less-intensive-green;
-  border-radius: 8px;
+  border-radius: 8px; 
 }
-#pagination li:hover {
+.orange li:hover {
+  @include orangeShadow;
+}
+.blue li:hover {
+  @include blueShadow;
+}
+.green li:hover {
   @include greenShadow;
 }
 #pagination {
@@ -27,15 +49,25 @@
   justify-content: center;
   align-items: center;
 }
-#pagination .previous {
+#root #pagination .previous {
   background-color: transparent;
   margin-right: 32px;
 }
-#pagination .next {
+#root #pagination .next {
   background-color: transparent;
   margin-left: 32px;
 }
-#pagination .selected {
+#root .orange .selected {
+  background: $intensive-orange;
+  border-radius: 8px;
+  color: $clear-white;
+}
+#root .blue .selected {
+  background: $intensive-blue;
+  border-radius: 8px;
+  color: $clear-white;
+}
+#root .green .selected {
   background: $intensive-green;
   border-radius: 8px;
   color: $clear-white;

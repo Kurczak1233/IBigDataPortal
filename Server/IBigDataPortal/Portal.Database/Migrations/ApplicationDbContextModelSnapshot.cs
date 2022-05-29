@@ -22,6 +22,72 @@ namespace IBigDataPortal.Database.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.EduLink", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("Posted")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.ToTable("EduLinks");
+                });
+
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.JobOffer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("Posted")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.ToTable("JobOffers");
+                });
+
             modelBuilder.Entity("IBigDataPortal.Database.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -72,10 +138,10 @@ namespace IBigDataPortal.Database.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("IBigDataPortal.Database.Entities.Post", b =>
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.EduLink", b =>
                 {
                     b.HasOne("IBigDataPortal.Database.Entities.User", "Creator")
-                        .WithMany("Posts")
+                        .WithMany()
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -83,9 +149,26 @@ namespace IBigDataPortal.Database.Migrations
                     b.Navigation("Creator");
                 });
 
-            modelBuilder.Entity("IBigDataPortal.Database.Entities.User", b =>
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.JobOffer", b =>
                 {
-                    b.Navigation("Posts");
+                    b.HasOne("IBigDataPortal.Database.Entities.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
+                });
+
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.Post", b =>
+                {
+                    b.HasOne("IBigDataPortal.Database.Entities.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
                 });
 #pragma warning restore 612, 618
         }

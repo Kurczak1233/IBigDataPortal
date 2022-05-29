@@ -4,7 +4,7 @@ import styles from "./AdministrationLayout.module.scss";
 import AdministrationLayoutLogic from "./AdministrationLayoutLogic";
 
 const AdministrationLayout = () => {
-  const { administrationRoutes, pathname } = AdministrationLayoutLogic();
+  const { administrationRoutes } = AdministrationLayoutLogic();
   return (
     <div className={styles.administrationLayoutWrapper}>
       <div className={styles.navigationLayout}>
@@ -15,7 +15,7 @@ const AdministrationLayout = () => {
             nonActiveRouteImgSrc={item.imgNonActive}
             alt={item.alt}
             routeUrl={item.routeUrl}
-            isActive={pathname === item.routeUrl}
+            isActive={item.isActive}
           />
         ))}
       </div>
