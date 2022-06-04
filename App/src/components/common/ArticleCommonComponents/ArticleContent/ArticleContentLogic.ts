@@ -3,6 +3,8 @@ import {
   articlesRoute,
   postsRoute,
 } from "constants/apiRoutes";
+import { EduLinkViewModel } from "interfaces/Models/EduLinks/ViewModels/EduLinkViewModel";
+import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -31,9 +33,12 @@ const ArticleContentLogic = ({ posts }: IArticleContentLogic) => {
     }
   };
 
-  const naviateToItemOverview = (postId: number) => {
+  const naviateToItemOverview = (
+    post: PostViewModel | EduLinkViewModel | JobOfferViewModel
+  ) => {
     navigate(
-      `/${administrationRoute}/${articlesRoute}/${postsRoute}/${postId}`
+      `/${administrationRoute}/${articlesRoute}/${postsRoute}/${post.id}`,
+      { state: post }
     );
   };
 

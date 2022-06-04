@@ -2,6 +2,7 @@ export const administrationRoute = "administration";
 export const dashboardRoute = "dashboard";
 export const articlesRoute = "articles";
 export const postsRoute = "posts";
+export const postId = "postId";
 export const profileRoute = "profile";
 export const usersRoute = "users";
 export const invitationsRoute = "invitations";

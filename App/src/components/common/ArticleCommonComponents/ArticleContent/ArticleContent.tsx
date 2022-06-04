@@ -39,7 +39,7 @@ const ArticleContent = ({
             style={{ background: `#${postsColor}` }}
             id={`articlePost${postsColor}`}
             key={`${post.title}, ${post.description} ${index}`}
-            onClick={() => naviateToItemOverview(post.id)}
+            onClick={() => naviateToItemOverview(post)}
           >
             <div className={styles.posted}>
               {format(new Date(post.posted), standarizedFormat)}
