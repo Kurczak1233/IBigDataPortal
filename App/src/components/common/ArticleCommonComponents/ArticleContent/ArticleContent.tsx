@@ -6,9 +6,11 @@ import ArticleContentLogic from "./ArticleContentLogic";
 import Pagination from "../Pagination/Pagination";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { AvailablePaginationColors } from "../Pagination/AvailablePaginationColors";
+import { EduLinkViewModel } from "interfaces/Models/EduLinks/ViewModels/EduLinkViewModel";
+import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
 
 interface IArticleContent {
-  posts: PostViewModel[];
+  posts: PostViewModel[] | EduLinkViewModel[] | JobOfferViewModel[];
   postsColor: AvailableIntensiveColors;
   paginationColor: AvailablePaginationColors;
 }
@@ -18,10 +20,15 @@ const ArticleContent = ({
   postsColor,
   paginationColor,
 }: IArticleContent) => {
-  const { handlePageClick, pageCount, currentItems, refContainer } =
-    ArticleContentLogic({
-      posts,
-    });
+  const {
+    handlePageClick,
+    pageCount,
+    currentItems,
+    refContainer,
+    naviateToItemOverview,
+  } = ArticleContentLogic({
+    posts,
+  });
 
   return (
     <div className={styles.contentContainer}>
@@ -32,6 +39,7 @@ const ArticleContent = ({
             style={{ background: `#${postsColor}` }}
             id={`articlePost${postsColor}`}
             key={`${post.title}, ${post.description} ${index}`}
+            onClick={() => naviateToItemOverview(post.id)}
           >
             <div className={styles.posted}>
               {format(new Date(post.posted), standarizedFormat)}

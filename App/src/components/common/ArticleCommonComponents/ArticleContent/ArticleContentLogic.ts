@@ -1,5 +1,11 @@
+import {
+  administrationRoute,
+  articlesRoute,
+  postsRoute,
+} from "constants/apiRoutes";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface IArticleContentLogic {
   posts: PostViewModel[];
@@ -11,6 +17,7 @@ const ArticleContentLogic = ({ posts }: IArticleContentLogic) => {
   const [currentItems, setCurrentItems] = useState<PostViewModel[]>([]);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
+  const navigate = useNavigate();
   const refContainer = useRef<HTMLDivElement>(null);
 
   const handlePageClick = (event: { selected: number }) => {
@@ -22,6 +29,12 @@ const ArticleContentLogic = ({ posts }: IArticleContentLogic) => {
     if (Math.floor(item.offsetHeight / 68)) {
       setItemsPerPage(Math.floor(item.offsetHeight / 68));
     }
+  };
+
+  const naviateToItemOverview = (postId: number) => {
+    navigate(
+      `/${administrationRoute}/${articlesRoute}/${postsRoute}/${postId}`
+    );
   };
 
   useEffect(() => {
@@ -36,7 +49,13 @@ const ArticleContentLogic = ({ posts }: IArticleContentLogic) => {
     setPageCount(Math.ceil(posts.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, posts]);
 
-  return { handlePageClick, pageCount, currentItems, refContainer };
+  return {
+    handlePageClick,
+    pageCount,
+    currentItems,
+    refContainer,
+    naviateToItemOverview,
+  };
 };
 
 export default ArticleContentLogic;

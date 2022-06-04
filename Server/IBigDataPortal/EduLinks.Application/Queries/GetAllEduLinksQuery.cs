@@ -26,6 +26,7 @@ public class GetAllEduLinksQueryHandler : IRequestHandler<GetAllEduLinksQuery, I
         var connection = await _connectionService.GetAsync();
         var sql = $@"SELECT {Dbo.EduLinks}.{nameof(EduLink.Title)},
                      {Dbo.EduLinks}.{nameof(EduLink.Description)},
+                     {Dbo.EduLinks}.{nameof(EduLink.Id)},
                      {Dbo.EduLinks}.{nameof(EduLink.Link)},
                      {Dbo.EduLinks}.{nameof(EduLink.Posted)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail
