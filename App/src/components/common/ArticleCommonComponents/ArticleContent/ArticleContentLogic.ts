@@ -1,5 +1,13 @@
+import {
+  administrationRoute,
+  articlesRoute,
+  postsRoute,
+} from "constants/apiRoutes";
+import { EduLinkViewModel } from "interfaces/Models/EduLinks/ViewModels/EduLinkViewModel";
+import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface IArticleContentLogic {
   posts: PostViewModel[];
@@ -11,6 +19,7 @@ const ArticleContentLogic = ({ posts }: IArticleContentLogic) => {
   const [currentItems, setCurrentItems] = useState<PostViewModel[]>([]);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
+  const navigate = useNavigate();
   const refContainer = useRef<HTMLDivElement>(null);
 
   const handlePageClick = (event: { selected: number }) => {
@@ -22,6 +31,15 @@ const ArticleContentLogic = ({ posts }: IArticleContentLogic) => {
     if (Math.floor(item.offsetHeight / 68)) {
       setItemsPerPage(Math.floor(item.offsetHeight / 68));
     }
+  };
+
+  const naviateToItemOverview = (
+    post: PostViewModel | EduLinkViewModel | JobOfferViewModel
+  ) => {
+    navigate(
+      `/${administrationRoute}/${articlesRoute}/${postsRoute}/${post.id}`,
+      { state: post }
+    );
   };
 
   useEffect(() => {
@@ -36,7 +54,13 @@ const ArticleContentLogic = ({ posts }: IArticleContentLogic) => {
     setPageCount(Math.ceil(posts.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, posts]);
 
-  return { handlePageClick, pageCount, currentItems, refContainer };
+  return {
+    handlePageClick,
+    pageCount,
+    currentItems,
+    refContainer,
+    naviateToItemOverview,
+  };
 };
 
 export default ArticleContentLogic;

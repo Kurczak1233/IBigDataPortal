@@ -11,6 +11,7 @@ import {
   errorRoute,
   invitationsRoute,
   jobOffersRoute,
+  postId,
   postsRoute,
   profileRoute,
   usersRoute,
@@ -21,6 +22,7 @@ import InvitationsPage from "pages/AdministrationSubpages/InvitationsPage/Invita
 import CreateEduLinkPage from "pages/AdministrationSubpages/PostsPage/Create/EduLinks/CreateEduLinkPage";
 import CreateJobOfferPage from "pages/AdministrationSubpages/PostsPage/Create/JobOffer/CreateJobOfferPage";
 import CreatePostPage from "pages/AdministrationSubpages/PostsPage/Create/Post/CreatePostPage";
+import EditPostPage from "pages/AdministrationSubpages/PostsPage/Edit/Posts/EditPostPage";
 import EduLinksPage from "pages/AdministrationSubpages/PostsPage/Overview/EduLinks/EduLinksPage";
 import JobOffersPage from "pages/AdministrationSubpages/PostsPage/Overview/JobOffers/JobOffersPage";
 import PostsPage from "pages/AdministrationSubpages/PostsPage/Overview/Posts/PostsPage";
@@ -54,6 +56,10 @@ function App() {
             />
             <Route path={`${jobOffersRoute}`} element={<JobOffersPage />} />
             <Route path={`${eduLinksRoute}`} element={<EduLinksPage />} />
+            <Route
+              path={`${postsRoute}/:${postId}`}
+              element={<EditPostPage />}
+            />
             <Route path={`${createPostRoute}`} element={<CreatePostPage />} />
             <Route
               path={`${createJobOfferRoute}`}
