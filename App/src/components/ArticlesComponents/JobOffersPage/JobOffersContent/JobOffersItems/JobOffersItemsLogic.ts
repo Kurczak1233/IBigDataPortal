@@ -1,29 +1,27 @@
 import {
   administrationRoute,
   articlesRoute,
-  postsRoute,
+  jobOffersRoute,
 } from "constants/apiRoutes";
-import { EduLinkViewModel } from "interfaces/Models/EduLinks/ViewModels/EduLinkViewModel";
 import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
-import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-interface IArticleContentLogic {
-  posts: PostViewModel[];
+interface IPostsItems {
+  jobOffers: JobOfferViewModel[];
 }
 
-const ArticleContentLogic = ({ posts }: IArticleContentLogic) => {
+const JobOffersItemsLogic = ({ jobOffers }: IPostsItems) => {
   const [pageCount, setPageCount] = useState<number>(0);
   const [itemOffset, setItemOffset] = useState<number>(0);
-  const [currentItems, setCurrentItems] = useState<PostViewModel[]>([]);
+  const [currentItems, setCurrentItems] = useState<JobOfferViewModel[]>([]);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
   const navigate = useNavigate();
   const refContainer = useRef<HTMLDivElement>(null);
 
   const handlePageClick = (event: { selected: number }) => {
-    const newOffset = (event.selected * itemsPerPage) % posts.length;
+    const newOffset = (event.selected * itemsPerPage) % jobOffers.length;
     setItemOffset(newOffset);
   };
 
@@ -33,12 +31,10 @@ const ArticleContentLogic = ({ posts }: IArticleContentLogic) => {
     }
   };
 
-  const naviateToItemOverview = (
-    post: PostViewModel | EduLinkViewModel | JobOfferViewModel
-  ) => {
+  const naviateToItemOverview = (jobOffer: JobOfferViewModel) => {
     navigate(
-      `/${administrationRoute}/${articlesRoute}/${postsRoute}/${post.id}`,
-      { state: post }
+      `/${administrationRoute}/${articlesRoute}/${jobOffersRoute}/${jobOffer.id}`,
+      { state: jobOffer }
     );
   };
 
@@ -50,9 +46,9 @@ const ArticleContentLogic = ({ posts }: IArticleContentLogic) => {
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(posts.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(posts.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, posts]);
+    setCurrentItems(jobOffers.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(jobOffers.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, jobOffers]);
 
   return {
     handlePageClick,
@@ -63,4 +59,4 @@ const ArticleContentLogic = ({ posts }: IArticleContentLogic) => {
   };
 };
 
-export default ArticleContentLogic;
+export default JobOffersItemsLogic;

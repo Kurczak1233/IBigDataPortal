@@ -1,13 +1,13 @@
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import styles from "./ArticleHeader.module.scss";
-import ArticleHeaderLogic from "./ArticleHeaderLogic";
+import styles from "./JobOffersHeader.module.scss";
+import PostsHeaderLogic from "./JobOffersHeaderLogic";
 
-interface IArticleHeader {
+interface IPostsHeader {
   iconsColour: AvailableIntensiveColors;
 }
 
-const ArticleHeader = ({ iconsColour }: IArticleHeader) => {
-  const { getApppriateImagesColours } = ArticleHeaderLogic();
+const PostsHeader = ({ iconsColour }: IPostsHeader) => {
+  const { getApppriateImagesColours } = PostsHeaderLogic();
   const icons = getApppriateImagesColours(iconsColour);
   return (
     <div className={styles.header}>
@@ -35,4 +35,4 @@ const ArticleHeader = ({ iconsColour }: IArticleHeader) => {
   );
 };
 
-export default ArticleHeader;
+export default PostsHeader;

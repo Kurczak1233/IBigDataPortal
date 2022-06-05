@@ -9,7 +9,7 @@ import GreenCalendarIcon from "public/PostsIcons/GreenCalendarIcon.svg";
 import GreenFeatherIcon from "public/PostsIcons/GreenFeatherIcon.svg";
 import GreenLampIcon from "public/PostsIcons/GreenLampIcon.svg";
 
-const ArticleHeaderLogic = () => {
+const PostsHeaderLogic = () => {
   const getApppriateImagesColours = (color: AvailableIntensiveColors) => {
     switch (color) {
       case AvailableIntensiveColors.IntensiveOrange: {
@@ -45,4 +45,4 @@ const ArticleHeaderLogic = () => {
   return { getApppriateImagesColours };
 };
 
-export default ArticleHeaderLogic;
+export default PostsHeaderLogic;
