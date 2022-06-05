@@ -11,19 +11,23 @@ import {
   errorRoute,
   invitationsRoute,
   jobOffersRoute,
+  postId,
   postsRoute,
   profileRoute,
   usersRoute,
 } from "constants/apiRoutes";
 import AdministrationLayout from "pages/AdministrationLayout/AdministrationLayout";
+import CreateEduLinkPage from "pages/AdministrationSubpages/ArticlesPage/Create/EduLinks/CreateEduLinkPage";
+import CreateJobOfferPage from "pages/AdministrationSubpages/ArticlesPage/Create/JobOffer/CreateJobOfferPage";
+import CreatePostPage from "pages/AdministrationSubpages/ArticlesPage/Create/Post/CreatePostPage";
+import EditEduLinkPage from "pages/AdministrationSubpages/ArticlesPage/Edit/EduLinks/EditEduLinkPage";
+import EditJobOfferPage from "pages/AdministrationSubpages/ArticlesPage/Edit/JobOffers/EditJobOfferPage";
+import EditPostPage from "pages/AdministrationSubpages/ArticlesPage/Edit/Posts/EditPostPage";
+import EduLinksPage from "pages/AdministrationSubpages/ArticlesPage/Overview/EduLinks/EduLinksPage";
+import JobOffersPage from "pages/AdministrationSubpages/ArticlesPage/Overview/JobOffers/JobOffersPage";
+import PostsPage from "pages/AdministrationSubpages/ArticlesPage/Overview/Posts/PostsPage";
 import DashboardPage from "pages/AdministrationSubpages/DashboardPage/DashboardPage";
 import InvitationsPage from "pages/AdministrationSubpages/InvitationsPage/InvitationsPage";
-import CreateEduLinkPage from "pages/AdministrationSubpages/PostsPage/Create/EduLinks/CreateEduLinkPage";
-import CreateJobOfferPage from "pages/AdministrationSubpages/PostsPage/Create/JobOffer/CreateJobOfferPage";
-import CreatePostPage from "pages/AdministrationSubpages/PostsPage/Create/Post/CreatePostPage";
-import EduLinksPage from "pages/AdministrationSubpages/PostsPage/Overview/EduLinks/EduLinksPage";
-import JobOffersPage from "pages/AdministrationSubpages/PostsPage/Overview/JobOffers/JobOffersPage";
-import PostsPage from "pages/AdministrationSubpages/PostsPage/Overview/Posts/PostsPage";
 import ProfilePage from "pages/AdministrationSubpages/ProfilePage/ProfilePage";
 import UsersPage from "pages/AdministrationSubpages/UsersPage/UsersPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -54,6 +58,18 @@ function App() {
             />
             <Route path={`${jobOffersRoute}`} element={<JobOffersPage />} />
             <Route path={`${eduLinksRoute}`} element={<EduLinksPage />} />
+            <Route
+              path={`${postsRoute}/:${postId}`}
+              element={<EditPostPage />}
+            />
+            <Route
+              path={`${eduLinksRoute}/:${postId}`}
+              element={<EditEduLinkPage />}
+            />
+            <Route
+              path={`${jobOffersRoute}/:${postId}`}
+              element={<EditJobOfferPage />}
+            />
             <Route path={`${createPostRoute}`} element={<CreatePostPage />} />
             <Route
               path={`${createJobOfferRoute}`}

@@ -40,4 +40,11 @@ public class EduLinksController : ControllerBase
             GetAllEduLinksQuery());
         return Ok(result);
     }
+    
+    [HttpPut]
+    public async Task<ActionResult> UpdateEduLink(UpdateEduLinkRequest body)
+    {
+        await _mediator.Send(new UpdateEduLinkCommand(body, _user.Id));
+        return Ok();
+    }
 }

@@ -37,4 +37,11 @@ public class JobOffersController : ControllerBase
         var result = await _mediator.Send(new GetAllJobOffersQuery());
         return Ok(result);
     }
+    
+    [HttpPut]
+    public async Task<ActionResult> UpdateJobOffer(UpdateJobOfferRequest body)
+    {
+        await _mediator.Send(new UpdateJobOfferCommand(body, _user.Id));
+        return Ok();
+    }
 }

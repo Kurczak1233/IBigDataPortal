@@ -1,0 +1,32 @@
+@import 'styles/Commons.scss';
+.item {
+  @include fontSizeSixteen;
+  color: $black-text;
+  display: flex;
+  align-items: center;
+  box-shadow: 2px 2px 8px 3px $gray-box-shadow;
+  border-radius: 12px;
+  height: 60px;
+  padding: 0 12px;
+  margin-top: 10px;
+  cursor: pointer;
+  .posted {
+    @include postedColumnWidth;
+    display: flex;
+    align-items: center;
+  }
+  .title {
+    @include titleColumnWidth;
+    display: flex;
+    align-items: center;
+  }
+  .creator {
+    @include creatorColumnWidth;
+    display: flex;
+    align-items: center;
+  }
+}
+.item:global(#articlePostcedeff):hover {
+  cursor: pointer;
+  @include blueShadow;
+}

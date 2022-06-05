@@ -26,6 +26,7 @@ public class GetAllJobOffersQueryHandler : IRequestHandler<GetAllJobOffersQuery,
         var connection = await _connectionService.GetAsync();
         var sql = $@"SELECT {Dbo.JobOffers}.{nameof(JobOffer.Title)},
                      {Dbo.JobOffers}.{nameof(JobOffer.Description)},
+                     {Dbo.JobOffers}.{nameof(JobOffer.Id)},
                      {Dbo.JobOffers}.{nameof(JobOffer.Link)},
                      {Dbo.JobOffers}.{nameof(JobOffer.Posted)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail
