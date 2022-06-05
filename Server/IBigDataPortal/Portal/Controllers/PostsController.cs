@@ -5,6 +5,7 @@ using IBigDataPortal.Domain.UserMetadata;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Posts.Domain.PostsAggregate.Requests;
 using Posts.Domain.PostsAggregate.ViewModels;
 using PostsApplication.Commands;
 using PostsApplication.Queries;
@@ -23,6 +24,14 @@ public class PostsController : ControllerBase
         _mediator = mediator;
         _user = user;
     }
+    
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<PostViewModel>>> GetAllPosts()
+    {
+        var result = await _mediator.Send(new GetAllPostsQuery());
+        return Ok(result);
+    }
+    
     [HttpPost]
     public async Task<ActionResult> CreatePost(CreatePostRequest body)
     {
@@ -30,10 +39,10 @@ public class PostsController : ControllerBase
         return Ok();
     }
     
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<PostViewModel>>> GetAllPosts()
+    [HttpPut]
+    public async Task<ActionResult> UpdatePost(UpdatePostRequest body)
     {
-        var result = await _mediator.Send(new GetAllPostsQuery());
-        return Ok(result);
+        await _mediator.Send(new UpdatePostCommand(body, _user.Id));
+        return Ok();
     }
 }
