@@ -25,6 +25,7 @@ public class GetAllPostsQueryHandler : IRequestHandler<GetAllPostsQuery, IEnumer
         var connection = await _connectionService.GetAsync();
         var sql = $@"SELECT {Dbo.Posts}.{nameof(Post.Title)},
                      {Dbo.Posts}.{nameof(Post.Description)},
+                     {Dbo.Posts}.{nameof(Post.Id)},
                      {Dbo.Posts}.{nameof(Post.Posted)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail
                      FROM {Dbo.Posts} JOIN {Dbo.Users}

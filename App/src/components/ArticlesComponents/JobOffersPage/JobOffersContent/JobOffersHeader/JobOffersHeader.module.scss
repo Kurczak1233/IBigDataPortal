@@ -1,0 +1,27 @@
+@import 'styles/Commons.scss';
+.header {
+  @include fontSizeTwenty;
+  color: $black-text;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 0 12px;
+  .image {
+      margin-left: 4px;
+  }
+  .posted {
+    @include postedColumnWidth;
+    display: flex;
+    align-items: center;
+  }
+  .title {
+    @include titleColumnWidth;
+    display: flex;
+    align-items: center;
+  }
+  .creator {
+    @include creatorColumnWidth;
+    display: flex;
+    align-items: center;
+  }
+}
