@@ -1,5 +1,6 @@
 import AdminMenuLayout from "components/common/AdminMenu/AdminMenuLayout/AdminMenuLayout";
 import ArticleMenuContent from "components/common/ArticleCommonComponents/ArticleMenuContent/ArticleMenuContent";
+import ProfilePageMenu from "components/ProfilePageComponents/ProfilePageMenu/ProfillePageMenu";
 import {
   administrationRoute,
   articlesRoute,
@@ -56,34 +57,72 @@ function App() {
               path={`${postsRoute}`}
               element={checkIfRouteIsAuthenticated(<PostsPage />)}
             />
-            <Route path={`${jobOffersRoute}`} element={<JobOffersPage />} />
-            <Route path={`${eduLinksRoute}`} element={<EduLinksPage />} />
+            <Route
+              path={`${jobOffersRoute}`}
+              element={checkIfRouteIsAuthenticated(<JobOffersPage />)}
+            />
+            <Route
+              path={`${eduLinksRoute}`}
+              element={checkIfRouteIsAuthenticated(<EduLinksPage />)}
+            />
             <Route
               path={`${postsRoute}/:${postId}`}
-              element={<EditPostPage />}
+              element={checkIfRouteIsAuthenticated(<EditPostPage />)}
             />
             <Route
               path={`${eduLinksRoute}/:${postId}`}
-              element={<EditEduLinkPage />}
+              element={checkIfRouteIsAuthenticated(<EditEduLinkPage />)}
             />
             <Route
               path={`${jobOffersRoute}/:${postId}`}
-              element={<EditJobOfferPage />}
+              element={checkIfRouteIsAuthenticated(<EditJobOfferPage />)}
             />
-            <Route path={`${createPostRoute}`} element={<CreatePostPage />} />
+            <Route
+              path={`${createPostRoute}`}
+              element={checkIfRouteIsAuthenticated(<CreatePostPage />)}
+            />
             <Route
               path={`${createJobOfferRoute}`}
-              element={<CreateJobOfferPage />}
+              element={checkIfRouteIsAuthenticated(<CreateJobOfferPage />)}
             />
             <Route
               path={`${createEduLinkRoute}`}
-              element={<CreateEduLinkPage />}
+              element={checkIfRouteIsAuthenticated(<CreateEduLinkPage />)}
             />
           </Route>
-          <Route path={`${profileRoute}`} element={<ProfilePage />} />
-          <Route path={`${dashboardRoute}`} element={<DashboardPage />} />
-          <Route path={`${usersRoute}`} element={<UsersPage />} />
-          <Route path={`${invitationsRoute}`} element={<InvitationsPage />} />
+          <Route
+            path={`${profileRoute}`}
+            element={checkIfRouteIsAuthenticated(
+              <AdminMenuLayout menuContent={<ProfilePageMenu />} />
+            )}
+          >
+            <Route path={""} element={<ProfilePage />} />
+          </Route>
+          <Route
+            path={`${dashboardRoute}`}
+            element={checkIfRouteIsAuthenticated(
+              <AdminMenuLayout menuContent={<ProfilePageMenu />} />
+            )}
+          >
+            <Route path={``} element={<DashboardPage />} />
+          </Route>
+          <Route
+            path={`${usersRoute}`}
+            element={checkIfRouteIsAuthenticated(
+              <AdminMenuLayout menuContent={<ProfilePageMenu />} />
+            )}
+          >
+            <Route path={``} element={<UsersPage />} />
+          </Route>
+
+          <Route
+            path={`${invitationsRoute}`}
+            element={checkIfRouteIsAuthenticated(
+              <AdminMenuLayout menuContent={<ProfilePageMenu />} />
+            )}
+          >
+            <Route path={``} element={<InvitationsPage />} />
+          </Route>
         </Route>
       </Routes>
     </Router>

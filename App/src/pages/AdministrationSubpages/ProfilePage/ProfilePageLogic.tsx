@@ -1,4 +1,5 @@
 const ProfilePageLogic = () => {
-  return <div>ProfilePageLogic</div>;
+  const userProfile = "GetUserProfileRequest";
+  return { userProfile };
 };
 export default ProfilePageLogic;
