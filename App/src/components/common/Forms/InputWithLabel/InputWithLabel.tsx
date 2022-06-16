@@ -13,6 +13,7 @@ interface IInputWithLabel {
   errorMessage: string;
   marginTop?: string;
   marginBottom?: string;
+  height?: string;
 }
 
 const InputWithLabel = ({
@@ -25,11 +26,16 @@ const InputWithLabel = ({
   register,
   marginBottom,
   marginTop,
+  height = "96px",
 }: IInputWithLabel) => {
   return (
     <div
       className={styles.wrapper}
-      style={{ marginBottom: marginBottom, marginTop: marginTop }}
+      style={{
+        marginBottom: marginBottom,
+        marginTop: marginTop,
+        height: height,
+      }}
     >
       <label className={styles.label}>
         {label}

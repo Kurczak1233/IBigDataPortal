@@ -10,7 +10,7 @@ const ProfilePage = () => {
       {userProfile ? (
         <>
           <AdministartionPageHeader pageTitle={"Personal settings"} />
-          <ProfilePageMain userProfile={userProfile}/>
+          <ProfilePageMain userProfile={userProfile} />
         </>
       ) : (
         <BigLoader />

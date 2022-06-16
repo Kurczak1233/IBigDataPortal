@@ -29,6 +29,8 @@
       <ProjectReference Include="..\Portal.Infrastructure\Portal.Infrastructure.csproj" />
       <ProjectReference Include="..\Posts.Application\Posts.Application.csproj" />
       <ProjectReference Include="..\Posts.Domain\Posts.Domain.csproj" />
+      <ProjectReference Include="..\Users.Application\Users.Application.csproj" />
+      <ProjectReference Include="..\Users.Domain\Users.Domain.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,14 +1,9 @@
+import { updateUserNickname } from "api/UsersClient";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
-import {
-  administrationRoute,
-  articlesRoute,
-  postsRoute,
-} from "constants/apiRoutes";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { IUpdateProfileForm } from "./IUpdateProfileForm";
 
 interface IProfillePageMainLogic {
@@ -16,28 +11,36 @@ interface IProfillePageMainLogic {
 }
 
 const ProfilePageMainLogic = ({ userProfile }: IProfillePageMainLogic) => {
-  const navigate = useNavigate();
+  const [showEdit, setShowEdit] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<IUpdateProfileForm>();
-  const submitForm = async (data: IUpdateProfileForm) => {
-    // await createPost(data);
-    navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
-    SyncToast({
-      mode: ToastModes.Success,
-      description: "You have created a post",
-    });
-  };
-
   const handleSetInputsBasicValues = useCallback(
     (userProfile: IApplicationUser) => {
-      setValue("name", userProfile.nickname);
+      setValue("nickname", userProfile.nickname);
     },
     [setValue]
   );
+
+  const handleSetShowEdit = () => {
+    setShowEdit(true);
+  };
+
+  const handleChangeNickname = async () => {
+    const request: IUpdateProfileForm = {
+      nickname: getValues("nickname"),
+    };
+    await updateUserNickname(request);
+    SyncToast({
+      mode: ToastModes.Success,
+      description: "You have updated a nickname",
+    });
+    setShowEdit(false);
+  };
 
   useEffect(() => {
     if (userProfile) {
@@ -45,7 +48,14 @@ const ProfilePageMainLogic = ({ userProfile }: IProfillePageMainLogic) => {
     }
   }, [handleSetInputsBasicValues, userProfile]);
 
-  return { submitForm, register, handleSubmit, errors };
+  return {
+    register,
+    handleSubmit,
+    errors,
+    showEdit,
+    handleSetShowEdit,
+    handleChangeNickname,
+  };
 };
 
 export default ProfilePageMainLogic;
