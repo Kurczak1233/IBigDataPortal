@@ -7,8 +7,8 @@ const ProfilePicture = () => {
   const { handleOpenPictureModal } = ProfilePictureLogic();
   return (
     <div className={styles.pictureWrapper}>
-      <div> 
-        <img width={250} height={250} />
+      <div>
+        <img width={250} height={250} src="" alt="" />
       </div>
       <SmallButton
         text={"Edit"}
