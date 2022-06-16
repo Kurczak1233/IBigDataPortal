@@ -1,14 +1,17 @@
+import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 import BigLoader from "components/common/Loaders/BigLoader";
+import ProfilePageMain from "components/ProfilePageComponents/ProfilePageMain/ProfilePageMain";
 import ProfilePageLogic from "./ProfilePageLogic";
 
 const ProfilePage = () => {
   const { userProfile } = ProfilePageLogic();
-
   return (
     <>
       {userProfile ? (
-        // <ProfileContent userProfile={userProfile} />
-        <div>XD</div>
+        <>
+          <AdministartionPageHeader pageTitle={"Personal settings"} />
+          <ProfilePageMain userProfile={userProfile}/>
+        </>
       ) : (
         <BigLoader />
       )}

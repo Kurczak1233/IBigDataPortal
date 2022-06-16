@@ -1,10 +1,10 @@
+import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 import NoItemsComponent from "components/common/ArticleCommonComponents/NoItemsComponent/NoItemsComponent";
 import { AvailablePaginationColors } from "components/common/ArticleCommonComponents/Pagination/AvailablePaginationColors";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
 import PostsHeader from "../PostsHeader/PostsHeader";
 import PostsItems from "../PostsItems/PostsItems";
-import styles from "./PostsContent.module.scss";
 import PostsContentLogic from "./PostsContentLogic";
 interface IPostsContent {
   posts: PostViewModel[];
@@ -21,7 +21,7 @@ const PostsContent = ({ posts }: IPostsContent) => {
         />
       ) : (
         <>
-          <div className={styles.title}>Overview posts</div>
+          <AdministartionPageHeader pageTitle={"Overview posts"} />
           <PostsHeader iconsColour={AvailableIntensiveColors.IntensiveOrange} />
           <PostsItems
             posts={posts}
