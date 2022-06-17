@@ -1,15 +1,15 @@
+import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import InputWithLabel from "components/common/Forms/InputWithLabel/InputWithLabel";
 import TextareaWithLabel from "components/common/Forms/TextareaWithLabel/TextareaWithLabel";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import styles from "./CreatePostPage.module.scss";
 import CreatePostPageLogic from "./CreatePostPageLogic";
 
 const CreatePostPage = () => {
   const { register, handleSubmit, submitForm, errors } = CreatePostPageLogic();
   return (
     <div>
-      <div className={styles.title}>Create Post</div>
+      <AdministartionPageHeader pageTitle={"Create Post"} />
       <form>
         <InputWithLabel
           register={register}

@@ -2,8 +2,9 @@
 @mixin buttonStyles {
     background: $intensive-green;
     border-radius: 100px;
-    color: $clear-white;
+    color: #FFFFFF;
     @include fontSizeSixteen;
+    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: space-around;

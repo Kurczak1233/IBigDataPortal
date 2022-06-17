@@ -4,6 +4,8 @@ using IBigDataPortal.Domain.UserMetadata;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Users.Application.Commands;
+using Users.Domain.UsersAggregate.Requests;
 
 namespace IBigDataPortal.Controllers;
 
@@ -25,6 +27,13 @@ public class UsersController: ControllerBase
     public async Task<ActionResult<ApplicationUserDto>> GetCurrentApplicationUser()
     {
         var result = await _mediator.Send(new GetApplicationUserQuery(_user.Id));
+        return Ok(result);
+    }
+    
+    [HttpPut]
+    public async Task<ActionResult<ApplicationUserDto>> UpdateUserNickname([FromBody] UpdateNicknameRequest request)
+    {
+        var result = await _mediator.Send(new UpdateUserNicknameCommand(request, _user.Id));
         return Ok(result);
     }
 }

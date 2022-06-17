@@ -3,7 +3,7 @@ import InputWithLabel from "components/common/Forms/InputWithLabel/InputWithLabe
 import TextareaWithLabel from "components/common/Forms/TextareaWithLabel/TextareaWithLabel";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import CreateJobOfferPageLogic from "./CreateJobOfferPageLogic";
-import styles from "./CreateJobOfferPage.module.scss";
+import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 
 const CreateJobOfferPage = () => {
   const { register, handleSubmit, submitForm, errors } =
@@ -11,7 +11,7 @@ const CreateJobOfferPage = () => {
 
   return (
     <div>
-      <div className={styles.title}>Create job offer</div>
+      <AdministartionPageHeader pageTitle={"Create job offer"} />
       <form>
         <InputWithLabel
           register={register}
