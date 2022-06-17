@@ -2,10 +2,10 @@ import NoItemsComponent from "components/common/ArticleCommonComponents/NoItemsC
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { EduLinkViewModel } from "interfaces/Models/EduLinks/ViewModels/EduLinkViewModel";
 import EduLinksContentLogic from "./EduLinksContentLogic";
-import styles from "./EduLinksContent.module.scss";
 import { AvailablePaginationColors } from "components/common/ArticleCommonComponents/Pagination/AvailablePaginationColors";
 import EduLinksHeader from "../EduLinksHeader/EduLinksHeader";
 import EduLinksItems from "../EduLinksItems/EduLinksItems";
+import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 
 interface IEduLinksContent {
   eduLinks: EduLinkViewModel[];
@@ -22,7 +22,7 @@ const EduLinksContent = ({ eduLinks }: IEduLinksContent) => {
         />
       ) : (
         <>
-          <div className={styles.title}>Overview posts</div>
+          <AdministartionPageHeader pageTitle={"Overview posts"} />
           <EduLinksHeader
             iconsColour={AvailableIntensiveColors.IntensiveGreen}
           />

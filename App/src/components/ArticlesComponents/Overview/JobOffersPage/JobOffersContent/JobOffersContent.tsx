@@ -1,10 +1,10 @@
+import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 import NoItemsComponent from "components/common/ArticleCommonComponents/NoItemsComponent/NoItemsComponent";
 import { AvailablePaginationColors } from "components/common/ArticleCommonComponents/Pagination/AvailablePaginationColors";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
 import JobOffersHeader from "../JobOffersHeader/JobOffersHeader";
 import JobOffersItems from "../JobOffersItems/JobOffersItems";
-import styles from "./JobOffersContent.module.scss";
 import JobOfferContentLogic from "./JobOffersContentLogic";
 
 interface IJobOffersContent {
@@ -22,7 +22,7 @@ const JobOffersContent = ({ jobOffers }: IJobOffersContent) => {
         />
       ) : (
         <>
-          <div className={styles.title}>Overview posts</div>
+          <AdministartionPageHeader pageTitle={"Overview job offers"} />
           <JobOffersHeader
             iconsColour={AvailableIntensiveColors.IntensiveBlue}
           />

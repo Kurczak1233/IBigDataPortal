@@ -1,0 +1,10 @@
+@import 'styles/Commons.scss';
+.label {
+  @include fontSizeSixteen;
+  color: $gray-text;
+}
+.value {
+  @include fontSizeSixteen;
+  color: $black-text;
+  margin-top: 6px;
+}

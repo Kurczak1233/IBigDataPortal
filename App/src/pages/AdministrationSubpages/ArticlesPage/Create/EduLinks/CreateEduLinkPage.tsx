@@ -1,9 +1,9 @@
 import CreateEduLinkPageLogic from "./CreateEduLinkPageLogic";
-import styles from "./CreateEduLinkPage.module.scss";
 import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import InputWithLabel from "components/common/Forms/InputWithLabel/InputWithLabel";
 import TextareaWithLabel from "components/common/Forms/TextareaWithLabel/TextareaWithLabel";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
+import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 
 const CreateEduLinkPage = () => {
   const { register, handleSubmit, submitForm, errors } =
@@ -11,7 +11,7 @@ const CreateEduLinkPage = () => {
 
   return (
     <div>
-      <div className={styles.title}>Create edu link</div>
+      <AdministartionPageHeader pageTitle={"Create edu link"} />
       <form>
         <InputWithLabel
           register={register}

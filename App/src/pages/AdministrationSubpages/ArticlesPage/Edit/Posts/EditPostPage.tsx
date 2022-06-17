@@ -1,17 +1,17 @@
 import EditPost from "components/ArticlesComponents/Edit/EditPost/EditPost";
 import PostsHeader from "components/ArticlesComponents/Overview/PostsOverviewPage/PostsHeader/PostsHeader";
 import PostItem from "components/ArticlesComponents/Overview/PostsOverviewPage/PostsItems/PostItem/PostItem";
+import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
 import { useLocation } from "react-router-dom";
-import styles from "./EditPostPage.module.scss";
 
 const EditPostPage = () => {
   const location = useLocation();
   const state = location.state as PostViewModel;
   return (
     <div>
-      <div className={styles.title}>Edit post</div>
+      <AdministartionPageHeader pageTitle={"Edit post"} />
       <PostsHeader iconsColour={AvailableIntensiveColors.IntensiveOrange} />
       <PostItem
         post={state}
