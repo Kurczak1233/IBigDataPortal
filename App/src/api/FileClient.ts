@@ -12,4 +12,8 @@ const uploadFile = async (body: FormData): Promise<null> => {
   });
 };
 
-export { uploadFile };
+const getFileFromServer = async (): Promise<null> => {
+  return AxiosClient(HttpRequestsMethods.GET, `${Files}`, base);
+};
+
+export { uploadFile, getFileFromServer };

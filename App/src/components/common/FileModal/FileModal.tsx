@@ -184,11 +184,11 @@ IFileModal) => {
           })}
         </div>
         <div className={styles.saveButton}>
-            <SmallButton
-              text={"Submit"}
-              onClick={uploadFiles}
-              color={AvailableIntensiveColors.IntensiveOrange}
-            />
+          <SmallButton
+            text={"Submit"}
+            onClick={uploadFiles}
+            color={AvailableIntensiveColors.IntensiveOrange}
+          />
         </div>
       </main>
     </Modal>
