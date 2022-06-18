@@ -10,7 +10,7 @@ interface ISeparationSmallBar {
 const SeparationSmallBar = ({
   marginTop,
   marginBottom,
-  color = AvailableIntensiveColors.IntensiveOrange,
+  color = AvailableIntensiveColors.IntensiveGreen,
 }: ISeparationSmallBar) => {
   return (
     <div className={styles.separationBarWrapper}>
