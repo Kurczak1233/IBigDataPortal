@@ -1,10 +1,14 @@
+import { useState } from "react";
+
 const ProfilePictureLogic = () => {
-  //   const [isPictureModalOpen, setIsPictureModalOpen] = useState<boolean>();
+  const [isPictureModalOpen, setIsPictureModalOpen] = useState<boolean>(false);
 
   const handleOpenPictureModal = () => {
-    //setIsPictureModalOpen(true);
+    setIsPictureModalOpen(true);
   };
   return {
+    setIsPictureModalOpen,
+    isPictureModalOpen,
     handleOpenPictureModal,
   };
 };

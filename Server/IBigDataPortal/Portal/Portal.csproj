@@ -9,6 +9,8 @@
 
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.0.123" />
+        <PackageReference Include="Google.Apis.Auth" Version="1.57.0" />
+        <PackageReference Include="Google.Cloud.Storage.V1" Version="4.0.0" />
         <PackageReference Include="Mediator.Net.MicrosoftDependencyInjection" Version="4.2.0" />
         <PackageReference Include="MediatR" Version="10.0.1" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
