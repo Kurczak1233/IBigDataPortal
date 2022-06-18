@@ -10,26 +10,19 @@ import { acceptedFilesExtensionsToDisplay } from "./SupportedExtensions";
 import SeparationSmallBar from "../SeparationSmallGreenBar/SeparationSmallGreenBar";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import FileModalItem from "./FileModalItem/FileModalItem";
-
-// import {
-//   acceptedFileExtensions,
-//   acceptedFilesExtensionsToDisplay,
-//   maxFileSizeInBytes,
-// } from "one-common-components/lib/constants/Files";
-// import ClipLoader from "react-spinners/ClipLoader";
-// import { formatBytes } from "one-common-components/lib/constants/MathFunctions";
-// import FileIcon from "one-common-components/lib/constants/FileIcon/FileIcon";
-// import DragAndDropIcon from "src/Images/Green-drag-and-drop-icon.svg";
-// import { addFile } from "src/Api/Requests/FilesRequests/AddNewFileRequest";
-// import { useParams } from "react-router-dom";
-// import { Params } from "src/Models/Params";
-// import AvailableDocumentsToUpload from "src/Components/Common/AvailableDocumentsToUpload/AvailableDocumentsToUpload";
+import SmallButton from "../Buttons/SmallButtons/SmallButton";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
+import SyncToast from "../Toasts/SyncToast/SyncToast";
+import { ToastModes } from "interfaces/General/ToastModes";
+import { FileModuleEnum } from "./FileModuleEnum";
+import { uploadFile } from "api/FileClient";
 
 interface IFileModal {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   // refId: string;
-  // moduleId: number;
+  moduleId: number;
   // itemId: number;
   // comesFromDocumentsPage?: boolean;
   // handleItemFiles: (
@@ -41,8 +34,9 @@ interface IFileModal {
 const FileModal = ({
   isModalOpen,
   setIsModalOpen,
+  // moduleId,
+  moduleId,
 }: // itemId,
-// moduleId,
 // handleItemFiles,
 // comesFromDocumentsPage = false,
 IFileModal) => {
@@ -50,9 +44,11 @@ IFileModal) => {
   const [isDropzoneIconHoverActive, setIsDropzoneIconHoverActive] =
     useState<boolean>(false);
   const [myFiles, setMyFiles] = useState<File[]>([]);
+  const applicationUser = useSelector(
+    (state: RootState) => state.applicationUserReducer.user
+  );
+  console.log(applicationUser);
   const [isUploading, setIsUploading] = useState<boolean>(false);
-  // const { id } = useParams();
-  // const { projectId, id } = useParams<Params>();
   const onDrop = useCallback(
     (acceptedFiles: any) => {
       setMyFiles([...myFiles, ...acceptedFiles]);
@@ -72,60 +68,46 @@ IFileModal) => {
     setMyFiles(newFiles);
   };
 
-  // const uploadFiles = async () => {
-  //   setIsUploading(true);
-  //   await Promise.all(
-  //     myFiles.map(async (fileToUpload) => {
-  //       await addFile(+itemId, fileToUpload, moduleId, +id, +projectId);
-  //     })
-  //   ).then(() => {
-  //     onCloseModal();
-  //     handleItemFiles(itemId, +projectId);
-  //     setIsUploading(false);
-  //   });
-  // };
+  const uploadFiles = async () => {
+    setIsUploading(true);
+    if (!applicationUser) {
+      return SyncToast({
+        mode: ToastModes.Error,
+        description: "Application user was not found.",
+      });
+    }
+    await Promise.all(
+      myFiles.map(async (fileToUpload) => {
+        await addFile(+applicationUser?.id, fileToUpload, moduleId);
+      })
+    ).then(() => {
+      onCloseModal();
+      // handleItemFiles(itemId);
+      setIsUploading(false);
+    });
+  };
 
-  // const appendFormData = (
-  //   fileToUpload: File,
-  //   itemId: number,
-  //   module: FileModuleEnum,
-  //   organizationId: number,
-  //   projectId?: number,
-  //   groupIndex?: number,
-  //   questionIndex?: number
-  // ) => {
-  //   const formData = new FormData();
-  //   formData.append("FormFile", fileToUpload);
-  //   formData.append("FileName", fileToUpload.name);
-  //   formData.append("OrganizationId", organizationId.toString());
-  //   projectId && formData.append("ProjectId", projectId.toString());
-  //   // formData.append("FileModule", `${FileModuleEnum[module]}`);
-  //   formData.append("RefId", `${itemId}`);
-  //   groupIndex && formData.append("GroupIndex", groupIndex.toString());
-  //   questionIndex && formData.append("QuestionIndex", questionIndex.toString());
-  //   return formData;
-  // };
+  const appendFormData = (
+    fileToUpload: File,
+    itemId: number,
+    module: FileModuleEnum
+  ) => {
+    const formData = new FormData();
+    formData.append("FormFile", fileToUpload);
+    formData.append("FileName", fileToUpload.name);
+    formData.append("FileModule", module.toString());
+    formData.append("RefId", `${itemId}`);
+    return formData;
+  };
 
-  // const addFile = async (
-  //   itemId: number,
-  //   myFile: File,
-  //   // module: FileModuleEnum,
-  //   organizationId: number,
-  //   projectId?: number,
-  //   groupIndex?: number,
-  //   questionIndex?: number
-  // ) => {
-  //   const formData = appendFormData(
-  //     myFile,
-  //     itemId,
-  //     module,
-  //     organizationId,
-  //     projectId,
-  //     groupIndex,
-  //     questionIndex
-  //   );
-  //   return await uploadFile(formData);
-  // };
+  const addFile = async (
+    itemId: number,
+    myFile: File,
+    module: FileModuleEnum
+  ) => {
+    const formData = appendFormData(myFile, itemId, module);
+    return await uploadFile(formData);
+  };
 
   const onCloseModal = () => {
     setIsModalOpen(false);
@@ -201,24 +183,14 @@ IFileModal) => {
             );
           })}
         </div>
+        <div className={styles.saveButton}>
+            <SmallButton
+              text={"Submit"}
+              onClick={uploadFiles}
+              color={AvailableIntensiveColors.IntensiveOrange}
+            />
+        </div>
       </main>
-
-      {/* <div className="buttons-container">
-          <button onClick={onCloseModal} className="cancel">
-            Cancel
-          </button>
-          <button
-            onClick={uploadFiles}
-            disabled={myFiles.length === 0}
-            className="upload"
-          >
-            {!isUploading ? (
-              "Upload"
-            ) : (
-              <ClipLoader color={"#33ca75"} loading={true} size={15} />
-            )}
-          </button>
-        </div> */}
     </Modal>
   );
 };

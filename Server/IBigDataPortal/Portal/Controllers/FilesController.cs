@@ -1,4 +1,5 @@
-﻿using Google.Cloud.Storage.V1;
+﻿using Files.Domain.FilesAggregate.Requests;
+using Google.Cloud.Storage.V1;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,17 +17,17 @@ public class FilesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> UploadFileToServer()
+    public async Task<IActionResult> UploadFileToServer([FromForm] UploadFileRequest body)
     {
         string bucketName = "ibigdataportal_files";
-        string filePath = @"C:\Test\gcp\cloud\CloudBlobTest.pdf";
-        var gcsStorage = StorageClient.Create();
-        using (FileStream fs = System.IO.File.OpenRead(filePath))
-        {
-            string objectName = Path.GetFileName(filePath);
-            gcsStorage.UploadObject(bucketName, objectName, null, fs);
-            Console.WriteLine($"Uploaded {objectName}.");
-        }
+        // string filePath = @"C:\Test\gcp\cloud\CloudBlobTest.pdf";
+        // var gcsStorage = StorageClient.Create();
+        // using (FileStream fs = System.IO.File.OpenRead(filePath))
+        // {
+        //     string objectName = Path.GetFileName(filePath);
+        //     gcsStorage.UploadObject(bucketName, objectName, null, fs);
+        //     Console.WriteLine($"Uploaded {objectName}.");
+        // }
         
         // StorageClient storage = StorageClient.Create();
         // ParallelOptions parallelOptions = new ParallelOptions();

@@ -5,6 +5,7 @@ interface ISmallButton {
   text: string;
   onClick: () => void;
   color: AvailableIntensiveColors;
+  isLoading?: boolean;
   width?: string;
   uppercase?: boolean;
   height?: string;
@@ -15,6 +16,7 @@ interface ISmallButton {
 const SmallButton = ({
   width,
   height,
+  isLoading,
   marginTop,
   marginBottom,
   uppercase = false,
@@ -22,6 +24,7 @@ const SmallButton = ({
   color,
   onClick,
 }: ISmallButton) => {
+  //TODO IInstalled spinners just implement loading for button..
   const { handleGetColorHoverClass } = SmallButtonLogic();
   return (
     <div
@@ -36,7 +39,7 @@ const SmallButton = ({
       }}
       className={handleGetColorHoverClass(color)}
     >
-      {text}
+      {isLoading ? <div>Loading...</div> : text}
     </div>
   );
 };
