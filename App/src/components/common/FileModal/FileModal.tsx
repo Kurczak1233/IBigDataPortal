@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import { useDropzone } from "react-dropzone";
 import styles from "./FileModal.module.scss";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import GrayExiticon from "public/GrayExitIcon.svg";
 import OrangeExiticon from "public/OrangeExitIcon.svg";
 import ImportFileGrayIcon from "public/ImportFileGrayIcon.svg";
@@ -16,7 +16,7 @@ import { RootState } from "redux/store";
 import SyncToast from "../Toasts/SyncToast/SyncToast";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { FileModuleEnum } from "./FileModuleEnum";
-import { uploadFile } from "api/FileClient";
+import { getFileFromServer, uploadFile } from "api/FileClient";
 
 interface IFileModal {
   isModalOpen: boolean;
@@ -188,6 +188,7 @@ IFileModal) => {
             text={"Submit"}
             onClick={uploadFiles}
             color={AvailableIntensiveColors.IntensiveOrange}
+            isLoading={isUploading}
           />
         </div>
       </main>

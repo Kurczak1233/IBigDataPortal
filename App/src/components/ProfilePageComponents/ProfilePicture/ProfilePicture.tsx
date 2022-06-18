@@ -5,7 +5,11 @@ import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import styles from "./ProfilePicture.module.scss";
 import ProfilePictureLogic from "./ProfilePictureLogic";
 
-const ProfilePicture = () => {
+interface IProfilePicture {
+  profilePic: string;
+}
+
+const ProfilePicture = ({ profilePic }: IProfilePicture) => {
   const { setIsPictureModalOpen, isPictureModalOpen, handleOpenPictureModal } =
     ProfilePictureLogic();
   return (
@@ -16,7 +20,12 @@ const ProfilePicture = () => {
         moduleId={FileModuleEnum.userImage}
       />
       <div>
-        <img width={250} height={250} src="" alt="" />
+        <img
+          width={250}
+          height={250}
+          src={`data:image/png;base64,${profilePic}`}
+          alt="Profile pic"
+        />
       </div>
       <SmallButton
         text={"Edit"}

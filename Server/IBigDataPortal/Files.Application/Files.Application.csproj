@@ -9,6 +9,12 @@
     <ItemGroup>
       <PackageReference Include="Google.Apis.Auth" Version="1.57.0" />
       <PackageReference Include="Google.Cloud.Storage.V1" Version="4.0.0" />
+      <PackageReference Include="MediatR" Version="10.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Files.Domain\Files.Domain.csproj" />
+      <ProjectReference Include="..\Portal.Infrastructure\Portal.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

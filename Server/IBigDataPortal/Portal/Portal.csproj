@@ -26,6 +26,7 @@
     <ItemGroup>
       <ProjectReference Include="..\ApplicationUser\ApplicationUser.csproj" />
       <ProjectReference Include="..\EduLinks.Application\EduLinks.Application.csproj" />
+      <ProjectReference Include="..\Files.Application\Files.Application.csproj" />
       <ProjectReference Include="..\Files.Domain\Files.Domain.csproj" />
       <ProjectReference Include="..\JobOffers.Application\JobOffers.Application.csproj" />
       <ProjectReference Include="..\Portal.Database\Portal.Database.csproj" />

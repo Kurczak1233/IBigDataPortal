@@ -19,13 +19,15 @@ const ProfilePageMain = ({ userProfile }: IProfilePageMain) => {
     handleSetShowEdit,
     handleChangeNickname,
     handleSubmit,
+    profilePic,
   } = ProfilePageMainLogic({
     userProfile,
   });
+
   return (
     <div>
       <div className={styles.myDetails}>My details</div>
-      <ProfilePicture />
+      <ProfilePicture profilePic={profilePic} />
       {!showEdit ? (
         <InputWthLabelReadonly
           label={"Nickname"}

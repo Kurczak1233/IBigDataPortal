@@ -12,7 +12,7 @@ const uploadFile = async (body: FormData): Promise<null> => {
   });
 };
 
-const getFileFromServer = async (): Promise<null> => {
+const getFileFromServer = async (): Promise<string> => {
   return AxiosClient(HttpRequestsMethods.GET, `${Files}`, base);
 };
 

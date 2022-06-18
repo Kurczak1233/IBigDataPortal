@@ -1,3 +1,4 @@
+import { getFileFromServer } from "api/FileClient";
 import { updateUserNickname } from "api/UsersClient";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import { ToastModes } from "interfaces/General/ToastModes";
@@ -12,6 +13,7 @@ interface IProfillePageMainLogic {
 
 const ProfilePageMainLogic = ({ userProfile }: IProfillePageMainLogic) => {
   const [showEdit, setShowEdit] = useState<boolean>(false);
+  const [profilePic, setProfilePic] = useState<string>("");
   const {
     register,
     handleSubmit,
@@ -42,6 +44,15 @@ const ProfilePageMainLogic = ({ userProfile }: IProfillePageMainLogic) => {
     setShowEdit(false);
   };
 
+  const handleGetProfilePicture = async () => {
+    const result = await getFileFromServer();
+    setProfilePic(result);
+  };
+
+  useEffect(() => {
+    handleGetProfilePicture();
+  }, []);
+
   useEffect(() => {
     if (userProfile) {
       handleSetInputsBasicValues(userProfile);
@@ -53,6 +64,7 @@ const ProfilePageMainLogic = ({ userProfile }: IProfillePageMainLogic) => {
     handleSubmit,
     errors,
     showEdit,
+    profilePic,
     handleSetShowEdit,
     handleChangeNickname,
   };

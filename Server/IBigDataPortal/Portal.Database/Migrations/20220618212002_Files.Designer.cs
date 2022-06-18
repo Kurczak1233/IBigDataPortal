@@ -4,6 +4,7 @@ using IBigDataPortal.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IBigDataPortal.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220618212002_Files")]
+    partial class Files
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +49,7 @@ namespace IBigDataPortal.Database.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.ToTable("FilesMetadata", (string)null);
+                    b.ToTable("FilesMetadata");
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.EduLink", b =>
@@ -80,7 +82,7 @@ namespace IBigDataPortal.Database.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("EduLinks", (string)null);
+                    b.ToTable("EduLinks");
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.JobOffer", b =>
@@ -113,7 +115,7 @@ namespace IBigDataPortal.Database.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("JobOffers", (string)null);
+                    b.ToTable("JobOffers");
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.Post", b =>
@@ -142,7 +144,7 @@ namespace IBigDataPortal.Database.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Posts", (string)null);
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.User", b =>
@@ -163,7 +165,7 @@ namespace IBigDataPortal.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.DbFile", b =>
