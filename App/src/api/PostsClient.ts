@@ -12,7 +12,7 @@ const getAllPosts = async (): Promise<PostViewModel[]> => {
   return AxiosClient(HttpRequestsMethods.GET, `${Posts}`, base);
 };
 
-const createPost = async (body: ICreatePostForm): Promise<null> => {
+const createPost = async (body: ICreatePostForm): Promise<number> => {
   return AxiosClient(HttpRequestsMethods.POST, `${Posts}`, base, { body });
 };
 

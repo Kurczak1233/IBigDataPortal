@@ -1,9 +1,8 @@
-import { uploadFile } from "api/FileClient";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { useState, useCallback, useEffect } from "react";
 import { Accept, useDropzone } from "react-dropzone";
 import SyncToast from "../Toasts/SyncToast/SyncToast";
-import { FileModuleEnum } from "./FileModuleEnum";
+import { addFile } from "./FilesAppendDataHelper";
 import { maxFileSizeInBytes } from "./SupportedExtensions";
 
 interface IFileModalLogic {
@@ -11,7 +10,9 @@ interface IFileModalLogic {
   moduleId: number;
   acceptedFilesExtensions: Accept | undefined;
   itemId: number;
-  updatePicture: () => void;
+  updatePicture: (() => void) | undefined;
+  multiple: boolean;
+  currentFiles: File[] | undefined;
 }
 
 const FileModalLogic = ({
@@ -20,11 +21,15 @@ const FileModalLogic = ({
   acceptedFilesExtensions,
   itemId,
   updatePicture,
+  multiple,
+  currentFiles,
 }: IFileModalLogic) => {
   const [isExitHoverActive, setIsExitHoverActive] = useState<boolean>(false);
   const [isDropzoneIconHoverActive, setIsDropzoneIconHoverActive] =
     useState<boolean>(false);
-  const [myFiles, setMyFiles] = useState<File[]>([]);
+  const [myFiles, setMyFiles] = useState<File[]>(
+    currentFiles ? currentFiles : []
+  );
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const onDrop = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -43,6 +48,7 @@ const FileModalLogic = ({
   } = useDropzone({
     onDrop,
     maxSize: maxFileSizeInBytes,
+    multiple: multiple,
     accept: acceptedFilesExtensions,
   });
 
@@ -66,36 +72,16 @@ const FileModalLogic = ({
       })
     ).then(() => {
       onCloseModal();
-      updatePicture();
+      updatePicture && updatePicture();
       setIsUploading(false);
     });
   };
 
-  const appendFormData = (
-    fileToUpload: File,
-    itemId: number,
-    module: FileModuleEnum
-  ) => {
-    const formData = new FormData();
-    formData.append("FormFile", fileToUpload);
-    formData.append("FileName", fileToUpload.name);
-    formData.append("FileModule", module.toString());
-    formData.append("RefId", `${itemId}`);
-    return formData;
-  };
-
-  const addFile = async (
-    itemId: number,
-    myFile: File,
-    module: FileModuleEnum
-  ) => {
-    const formData = appendFormData(myFile, itemId, module);
-    return await uploadFile(formData);
-  };
-
   const onCloseModal = () => {
     setIsModalOpen(false);
-    setMyFiles([]);
+    if (currentFiles?.length === 0 || !currentFiles) {
+      setMyFiles([]);
+    }
   };
 
   const handleDragReject = () => {

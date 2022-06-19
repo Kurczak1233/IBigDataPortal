@@ -7,7 +7,7 @@ using MediatR;
 
 namespace PostsApplication.Commands;
 
-public class CreatePostCommand : IRequest
+public class CreatePostCommand : IRequest<int>
 {
     public CreatePostRequest Body { get; set; }
     public int CurrentUserId { get; set; }
@@ -22,7 +22,7 @@ public class CreatePostCommand : IRequest
     }
 }
 
-public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand>
+public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, int>
 {
     private readonly ISqlConnectionService _connectionService;  
     
@@ -31,19 +31,19 @@ public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand>
         _connectionService = connectionService;
     }
 
-    public async Task<Unit> Handle(CreatePostCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreatePostCommand request, CancellationToken cancellationToken)
     {
         var nowDate = DateTimeOffset.Now;
         var connection = await _connectionService.GetAsync();
         var sql =
             $@"INSERT INTO {Dbo.Posts} ({nameof(Post.Title)}, {nameof(Post.Description)}, {nameof(Post.CreatorId)}, {nameof(Post.Posted)})
         VALUES (@title, @description, @userId, @dateNow)";
-        await connection.ExecuteAsync(sql,
+        var postId = await connection.ExecuteAsync(sql,
             new
             {
                 title = request.Body.Title, description = request.Body.Description, userId = request.CurrentUserId,
                 dateNow = nowDate
             });
-        return Unit.Value;
+        return postId;
     }
 }
