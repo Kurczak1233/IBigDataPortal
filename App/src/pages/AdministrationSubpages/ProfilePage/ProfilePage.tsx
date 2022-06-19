@@ -4,13 +4,19 @@ import ProfilePageMain from "components/ProfilePageComponents/ProfilePageMain/Pr
 import ProfilePageLogic from "./ProfilePageLogic";
 
 const ProfilePage = () => {
-  const { userProfile } = ProfilePageLogic();
+  const { userProfile, handleGetProfilePicture, setProfilePic, profilePic } =
+    ProfilePageLogic();
   return (
     <>
-      {userProfile ? (
+      {userProfile && profilePic ? (
         <>
           <AdministartionPageHeader pageTitle={"Personal settings"} />
-          <ProfilePageMain userProfile={userProfile} />
+          <ProfilePageMain
+            userProfile={userProfile}
+            handleGetProfilePicture={handleGetProfilePicture}
+            setProfilePic={setProfilePic}
+            profilePic={profilePic}
+          />
         </>
       ) : (
         <BigLoader />

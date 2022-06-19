@@ -10,6 +10,10 @@ const BigButtonLogic = () => {
         return styles.buttonStylesGreen;
       case AvailableIntensiveColors.IntensiveOrange:
         return styles.buttonStylesOrange;
+      case AvailableIntensiveColors.IntensiveBlue:
+        return styles.buttonStylesBlue;
+      case AvailableIntensiveColors.IntensiveRed:
+        return styles.buttonStylesRed;
       default:
         return "";
     }
