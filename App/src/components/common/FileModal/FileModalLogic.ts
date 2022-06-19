@@ -12,6 +12,8 @@ interface IFileModalLogic {
   acceptedFilesExtensions: Accept | undefined;
   itemId: number;
   updatePicture: () => void;
+  multiple: boolean;
+  currentFiles: File[] | undefined;
 }
 
 const FileModalLogic = ({
@@ -20,11 +22,15 @@ const FileModalLogic = ({
   acceptedFilesExtensions,
   itemId,
   updatePicture,
+  multiple,
+  currentFiles,
 }: IFileModalLogic) => {
   const [isExitHoverActive, setIsExitHoverActive] = useState<boolean>(false);
   const [isDropzoneIconHoverActive, setIsDropzoneIconHoverActive] =
     useState<boolean>(false);
-  const [myFiles, setMyFiles] = useState<File[]>([]);
+  const [myFiles, setMyFiles] = useState<File[]>(
+    currentFiles ? currentFiles : []
+  );
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const onDrop = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -43,6 +49,7 @@ const FileModalLogic = ({
   } = useDropzone({
     onDrop,
     maxSize: maxFileSizeInBytes,
+    multiple: multiple,
     accept: acceptedFilesExtensions,
   });
 
@@ -95,7 +102,9 @@ const FileModalLogic = ({
 
   const onCloseModal = () => {
     setIsModalOpen(false);
-    setMyFiles([]);
+    if (currentFiles?.length === 0 || !currentFiles) {
+      setMyFiles([]);
+    }
   };
 
   const handleDragReject = () => {
