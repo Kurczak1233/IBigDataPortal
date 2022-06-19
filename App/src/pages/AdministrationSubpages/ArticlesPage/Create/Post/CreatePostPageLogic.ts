@@ -6,11 +6,13 @@ import {
   postsRoute,
 } from "constants/apiRoutes";
 import { ToastModes } from "interfaces/General/ToastModes";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { ICreatePostForm } from "./ICreatePostForm";
 
 const CreatePostPageLogic = () => {
+  const [postsFiles, setPostsFiles] = useState<File[]>([]);
   const navigate = useNavigate();
   const {
     register,
@@ -25,7 +27,14 @@ const CreatePostPageLogic = () => {
       description: "You have created a post",
     });
   };
-  return { submitForm, register, handleSubmit, errors };
+  return {
+    submitForm,
+    register,
+    handleSubmit,
+    errors,
+    postFiles: postsFiles,
+    setPostsFiles,
+  };
 };
 
 export default CreatePostPageLogic;
