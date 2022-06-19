@@ -1,5 +1,5 @@
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import { ClipLoader } from "react-spinners";
+import { Triangle } from "react-loader-spinner";
 import SmallButtonLogic from "./SmallButtonLogic";
 
 interface ISmallButton {
@@ -46,12 +46,9 @@ const SmallButton = ({
       className={handleGetColorHoverClass(color)}
     >
       {isLoading ? (
-        <ClipLoader
-          color={AvailableIntensiveColors.IntensiveOrange}
-          size={16}
-        />
+        <Triangle color={"white"} width={26} height={26} ariaLabel="loading" />
       ) : (
-        text
+        <span>{text}</span>
       )}
     </div>
   );

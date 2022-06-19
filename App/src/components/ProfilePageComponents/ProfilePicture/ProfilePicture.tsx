@@ -5,6 +5,7 @@ import { imageExtensions } from "components/common/FileModal/SupportedExtensions
 import ConfirmActionModal from "components/common/Modals/ConfirmActionModal/ConfirmActionModal";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
+import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import styles from "./ProfilePicture.module.scss";
 import ProfilePictureLogic from "./ProfilePictureLogic";
 
@@ -12,12 +13,14 @@ interface IProfilePicture {
   profilePic: FileVm | undefined;
   updatePicture: () => void;
   setProfilePic: React.Dispatch<React.SetStateAction<FileVm | undefined>>;
+  userProfile: IApplicationUser;
 }
 
 const ProfilePicture = ({
   profilePic,
   updatePicture,
   setProfilePic,
+  userProfile,
 }: IProfilePicture) => {
   const {
     setIsPictureModalOpen,
@@ -26,7 +29,6 @@ const ProfilePicture = ({
     handleOpenConfirmActionModal,
     isConfimActionModalOpen,
     setIsConfimrActionModalOpen,
-    applicationUserId,
     deletePicture,
   } = ProfilePictureLogic({ profilePic, setProfilePic });
   return (
@@ -35,7 +37,7 @@ const ProfilePicture = ({
         setIsModalOpen={setIsPictureModalOpen}
         isModalOpen={isPictureModalOpen}
         moduleId={FileModuleEnum.userImage}
-        itemId={applicationUserId ? applicationUserId : 0}
+        itemId={userProfile.id}
         acceptedFilesExtensions={imageExtensions}
         updatePicture={updatePicture}
       />
