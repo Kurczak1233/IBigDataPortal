@@ -30,7 +30,7 @@ const ProfilePicture = ({
     deletePicture,
   } = ProfilePictureLogic({ profilePic, setProfilePic });
   return (
-    <div className={styles.pictureWrapper}>
+    <>
       <FileModal
         setIsModalOpen={setIsPictureModalOpen}
         isModalOpen={isPictureModalOpen}
@@ -45,38 +45,37 @@ const ProfilePicture = ({
         description={"delete profile picture"}
         handleConfirmAction={deletePicture}
       />
-      {profilePic && !profilePic.isDeleted ? (
-        <div>
+      <div className={styles.pictureWrapper}>
+        {profilePic && !profilePic.isDeleted ? (
           <img
-            width={250}
-            height={250}
+            className={styles.profilePictureFrame}
             src={`data:image/png;base64,${profilePic.base64FileString}`}
             alt="Profile pic"
           />
-        </div>
-      ) : (
-        <div>No pic frame</div>
-      )}
-      <div className={styles.buttons}>
-        <SmallButton
-          width="100px"
-          text={profilePic && !profilePic.isDeleted ? "Edit" : "Add"}
-          onClick={handleOpenPictureModal}
-          color={AvailableIntensiveColors.IntensiveGreen}
-          marginTop={"16px"}
-        />
-        {profilePic && !profilePic.isDeleted && (
+        ) : (
+          <div className={styles.noPictureWrapper}>No picture</div>
+        )}
+        <div className={styles.buttons}>
           <SmallButton
-            marginLeft="16px"
             width="100px"
-            text={"Delete"}
-            onClick={handleOpenConfirmActionModal}
-            color={AvailableIntensiveColors.IntensiveRed}
+            text={profilePic && !profilePic.isDeleted ? "Edit" : "Add"}
+            onClick={handleOpenPictureModal}
+            color={AvailableIntensiveColors.IntensiveGreen}
             marginTop={"16px"}
           />
-        )}
+          {profilePic && !profilePic.isDeleted && (
+            <SmallButton
+              marginLeft="16px"
+              width="100px"
+              text={"Delete"}
+              onClick={handleOpenConfirmActionModal}
+              color={AvailableIntensiveColors.IntensiveRed}
+              marginTop={"16px"}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
