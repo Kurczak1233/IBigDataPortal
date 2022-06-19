@@ -12,6 +12,8 @@ interface ISmallButton {
   height?: string;
   marginTop?: string;
   marginBottom?: string;
+  marginLeft?: string;
+  marginRight?: string;
 }
 
 const SmallButton = ({
@@ -20,12 +22,13 @@ const SmallButton = ({
   isLoading,
   marginTop,
   marginBottom,
+  marginLeft,
+  marginRight,
   uppercase = false,
   text,
   color,
   onClick,
 }: ISmallButton) => {
-  //TODO IInstalled spinners just implement loading for button..
   const { handleGetColorHoverClass } = SmallButtonLogic();
   return (
     <div
@@ -35,6 +38,8 @@ const SmallButton = ({
         height: height,
         marginTop: marginTop,
         marginBottom: marginBottom,
+        marginLeft: marginLeft,
+        marginRight: marginRight,
         background: `#${color}`,
         textTransform: uppercase ? "uppercase" : "none",
       }}

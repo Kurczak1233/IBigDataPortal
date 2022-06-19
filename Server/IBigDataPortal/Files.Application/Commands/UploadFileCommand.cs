@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Files.Domain.FilesAggregate.Requests;
+using Files.Infrastructure;
 using Google.Cloud.Storage.V1;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
@@ -34,14 +35,14 @@ public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand>
     
     public async Task<Unit> Handle(UploadFileCommand request, CancellationToken cancellationToken)
     {
-        await UploadFileToGCP(request, cancellationToken);
-        await UploadMetadataToDatabase(request);
+        Guid newFileGuid = Guid.NewGuid();
+        await UploadFileToGCP(request, cancellationToken, newFileGuid);
+        await UploadMetadataToDatabase(request, newFileGuid);
         return Unit.Value;
         
     }
     
-    private async Task UploadFileToGCP(UploadFileCommand request, CancellationToken cancellationToken) {
-        string bucketName = "ibigdataportal_files";
+    private async Task UploadFileToGCP(UploadFileCommand request, CancellationToken cancellationToken, Guid guid) {
         var filePath = Path.GetTempFileName();
         
         await using (var stream = File.Create(filePath))
@@ -55,29 +56,33 @@ public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand>
         await using (var fileStream = new FileStream(filePath, FileMode.Open,
                          FileAccess.Read, FileShare.Read))
         {
-            await gcsStorage.UploadObjectAsync(bucketName, request.Body.FileName, request.Body.FormFile.ContentType, fileStream, cancellationToken: cancellationToken);
+            await gcsStorage.UploadObjectAsync(IBucketName.BucketName, guid.ToString(), request.Body.FormFile.ContentType, fileStream, cancellationToken: cancellationToken);
         }
 
-        //Delete temporary picture
+        //Delete temporary local picture
         File.Delete(filePath);
     }
 
-    private async Task UploadMetadataToDatabase(UploadFileCommand request)
+    private async Task UploadMetadataToDatabase(UploadFileCommand request, Guid guid)
     {
         var connection = await _connectionService.GetAsync();
         var sql = $@"INSERT INTO {Dbo.FilesMetadata} 
-                        ({nameof(FileMetadata.GCPFileName)},
+                        ({nameof(FileMetadata.Guid)},
+                        {nameof(FileMetadata.FileName)},
                         {nameof(FileMetadata.CreatedById)},
                         {nameof(FileMetadata.CreatedOn)}, 
-                        {nameof(FileMetadata.ModuleEnum)})
-                        VALUES (@fileName, @userId, @date, @module)";
+                        {nameof(FileMetadata.ModuleEnum)},
+                        {nameof(FileMetadata.RefId)})
+                        VALUES (@id, @fileName, @userId, @date, @module, @refId)";
         await connection.ExecuteAsync(sql,
             new
             {
+                id = guid,
                 fileName = request.Body.FileName,
                 userId = request.UserId,
                 date = DateTimeOffset.Now,
-                module = request.Body.FileModule
+                module = request.Body.FileModule,
+                refId = request.Body.RefId
             });
     }
 }

@@ -1,0 +1,33 @@
+@import 'styles/Commons.scss';
+.confirmActionModal {
+  position: absolute;
+  outline: none;
+  background: $clear-white;
+  box-shadow: 0px 8px 40px $gray-box-shadow;
+  border-radius: 16px;
+  padding: 32px;
+}
+.confirmActionModalOverlay {
+  position: fixed;
+  display: flex;
+  inset: 0px;
+  background-color: $modal-white-background;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+.description {
+  @include fontSizeSixteen;
+  margin-bottom: 16px;
+}
+.modalTitle {
+  @include fontSizeTwenty;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+}

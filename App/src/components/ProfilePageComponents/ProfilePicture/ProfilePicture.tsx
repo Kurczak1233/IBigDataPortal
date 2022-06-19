@@ -1,38 +1,81 @@
 import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import FileModal from "components/common/FileModal/FileModal";
 import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
+import { imageExtensions } from "components/common/FileModal/SupportedExtensions";
+import ConfirmActionModal from "components/common/Modals/ConfirmActionModal/ConfirmActionModal";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
+import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
 import styles from "./ProfilePicture.module.scss";
 import ProfilePictureLogic from "./ProfilePictureLogic";
 
 interface IProfilePicture {
-  profilePic: string;
+  profilePic: FileVm | undefined;
+  updatePicture: () => void;
+  setProfilePic: React.Dispatch<React.SetStateAction<FileVm | undefined>>;
 }
 
-const ProfilePicture = ({ profilePic }: IProfilePicture) => {
-  const { setIsPictureModalOpen, isPictureModalOpen, handleOpenPictureModal } =
-    ProfilePictureLogic();
+const ProfilePicture = ({
+  profilePic,
+  updatePicture,
+  setProfilePic,
+}: IProfilePicture) => {
+  const {
+    setIsPictureModalOpen,
+    isPictureModalOpen,
+    handleOpenPictureModal,
+    handleOpenConfirmActionModal,
+    isConfimActionModalOpen,
+    setIsConfimrActionModalOpen,
+    applicationUserId,
+    deletePicture,
+  } = ProfilePictureLogic({ profilePic, setProfilePic });
   return (
     <div className={styles.pictureWrapper}>
       <FileModal
         setIsModalOpen={setIsPictureModalOpen}
         isModalOpen={isPictureModalOpen}
         moduleId={FileModuleEnum.userImage}
+        itemId={applicationUserId ? applicationUserId : 0}
+        acceptedFilesExtensions={imageExtensions}
+        updatePicture={updatePicture}
       />
-      <div>
-        <img
-          width={250}
-          height={250}
-          src={`data:image/png;base64,${profilePic}`}
-          alt="Profile pic"
+      <ConfirmActionModal
+        isConfimActionModalOpen={isConfimActionModalOpen}
+        setIsConfirmActionModalOpen={setIsConfimrActionModalOpen}
+        description={"delete profile picture"}
+        handleConfirmAction={deletePicture}
+      />
+      {profilePic && !profilePic.isDeleted ? (
+        <div>
+          <img
+            width={250}
+            height={250}
+            src={`data:image/png;base64,${profilePic.base64FileString}`}
+            alt="Profile pic"
+          />
+        </div>
+      ) : (
+        <div>No pic frame</div>
+      )}
+      <div className={styles.buttons}>
+        <SmallButton
+          width="100px"
+          text={profilePic && !profilePic.isDeleted ? "Edit" : "Add"}
+          onClick={handleOpenPictureModal}
+          color={AvailableIntensiveColors.IntensiveGreen}
+          marginTop={"16px"}
         />
+        {profilePic && !profilePic.isDeleted && (
+          <SmallButton
+            marginLeft="16px"
+            width="100px"
+            text={"Delete"}
+            onClick={handleOpenConfirmActionModal}
+            color={AvailableIntensiveColors.IntensiveRed}
+            marginTop={"16px"}
+          />
+        )}
       </div>
-      <SmallButton
-        text={"Edit"}
-        onClick={handleOpenPictureModal}
-        color={AvailableIntensiveColors.IntensiveGreen}
-        marginTop={"16px"}
-      />
     </div>
   );
 };

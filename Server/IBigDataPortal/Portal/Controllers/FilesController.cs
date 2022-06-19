@@ -1,4 +1,6 @@
 ﻿using Files.Application.Commands;
+using Files.Application.Queries;
+using Files.Domain.FilesAggregate.Enums;
 using Files.Domain.FilesAggregate.Requests;
 using Google.Cloud.Storage.V1;
 using IBigDataPortal.Domain.UserMetadata;
@@ -23,24 +25,25 @@ public class FilesController : ControllerBase
         _user = user;
     }
 
+    [HttpGet("Last/Item/{itemId}/Module/{moduleNumber}")]
+    public async Task<IActionResult> GetLastUploadedFileFromServer(int itemId, FileModuleEnum moduleNumber)
+    {
+        var fileResult = await _mediator.Send(new GetFileQuery(itemId, moduleNumber));
+        return Ok(fileResult);
+    }
+    
     [HttpPost]
     public async Task<IActionResult> UploadFileToServer([FromForm] UploadFileRequest body)
     {
         await _mediator.Send(new UploadFileCommand(body, _user.Id));
         return Ok();
     }
-    
-    [HttpGet]
-    public async Task<IActionResult> GetFileFromServer()
+
+    [HttpPut("File/{fileId}")]
+    public async Task<IActionResult> RemoveFile(string fileId)
     {
-        string bucketName = "ibigdataportal_files";
-        
-        string objectBlobName = "profilowe.png";
-        var gcsStorage = StorageClient.Create();
-        var memoryStream = new MemoryStream();
-        await gcsStorage.DownloadObjectAsync(bucketName, objectBlobName, memoryStream);
-        var fileInBytes = memoryStream.ToArray();
-        string tempinBase64 = Convert.ToBase64String(fileInBytes);
-        return Ok(tempinBase64);
+        await _mediator.Send(new DeleteFileCommand(fileId));
+        return Ok();
     }
+
 }

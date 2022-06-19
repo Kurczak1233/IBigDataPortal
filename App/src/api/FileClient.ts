@@ -1,4 +1,6 @@
+import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import { HttpRequestsMethods } from "interfaces/General/HttpRequestsMethods";
+import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
 import application from "../authenticationConfig.json";
 import { AxiosClient } from "./AxiosClient";
 
@@ -12,8 +14,19 @@ const uploadFile = async (body: FormData): Promise<null> => {
   });
 };
 
-const getFileFromServer = async (): Promise<string> => {
-  return AxiosClient(HttpRequestsMethods.GET, `${Files}`, base);
+const getLastUploadedFileFromServer = async (
+  itemId: number,
+  moduleNumber: FileModuleEnum
+): Promise<FileVm> => {
+  return AxiosClient(
+    HttpRequestsMethods.GET,
+    `${Files}/Last/Item/${itemId}/Module/${moduleNumber}`,
+    base
+  );
 };
 
-export { uploadFile, getFileFromServer };
+const removeFile = async (fileId: string): Promise<FileVm> => {
+  return AxiosClient(HttpRequestsMethods.PUT, `${Files}/File/${fileId}`, base);
+};
+
+export { uploadFile, getLastUploadedFileFromServer, removeFile };
