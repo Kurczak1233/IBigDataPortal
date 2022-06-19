@@ -1,0 +1,32 @@
+@import 'styles/Commons.scss';
+.buttons {
+  display: flex;
+}
+.profilePictureFrame {
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+}
+.pictureWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+  margin-bottom: 32px;
+}
+.noPictureWrapper {
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $gray-box-shadow;
+  @include fontSizeSixteen;
+}

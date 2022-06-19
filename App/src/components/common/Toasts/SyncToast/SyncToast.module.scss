@@ -1,15 +1,30 @@
 @import "styles/Commons.scss";
+@mixin leftBarStyles {
+    width: 4px;
+    height: 100%;
+    margin-right: 28px;
+}
 .syncToastWrapper {
     width: 442px;
     height: 64px;
     background-color: $clear-white;
     display: flex;
     filter: drop-shadow(0px 0px 4px rgba(98, 98, 98, 0.25));
-    .syncToastLeftBar {
-        width: 4px;
-        height: 100%;
+    .syncToastLeftBarGreen {
+        @include leftBarStyles;
         background: $intensive-green;
-        margin-right: 28px;
+    }
+    .syncToastLeftBarBlue {
+        @include leftBarStyles;
+        background: $intensive-blue;
+    }
+    .syncToastLeftBarOrange {
+        @include leftBarStyles;
+        background: $intensive-orange;
+    }
+    .syncToastLeftBarRed {
+        @include leftBarStyles;
+        background: $intensive-red;
     }
     .statusIcon {
         margin-right: 28px;

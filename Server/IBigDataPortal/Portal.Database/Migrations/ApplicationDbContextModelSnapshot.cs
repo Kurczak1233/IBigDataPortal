@@ -55,6 +55,38 @@ namespace IBigDataPortal.Database.Migrations
                     b.ToTable("EduLinks");
                 });
 
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.FileMetadata", b =>
+                {
+                    b.Property<Guid>("Guid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ModuleEnum")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RefId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Guid");
+
+                    b.HasIndex("CreatedById");
+
+                    b.ToTable("FilesMetadata");
+                });
+
             modelBuilder.Entity("IBigDataPortal.Database.Entities.JobOffer", b =>
                 {
                     b.Property<int>("Id")
@@ -147,6 +179,17 @@ namespace IBigDataPortal.Database.Migrations
                         .IsRequired();
 
                     b.Navigation("Creator");
+                });
+
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.FileMetadata", b =>
+                {
+                    b.HasOne("IBigDataPortal.Database.Entities.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.JobOffer", b =>
