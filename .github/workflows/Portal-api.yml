@@ -12,7 +12,6 @@ on:
 env:
   GCP_PROJECT: engineering-thesis-346319
   
-
 jobs:
   build:
     runs-on: ubuntu-latest
