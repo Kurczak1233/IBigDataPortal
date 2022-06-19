@@ -1,6 +1,6 @@
 import { getApplicationUser } from "api/UsersClient";
 import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateApplicationUser } from "redux/slices/applicationUserSlice";
 
@@ -10,15 +10,15 @@ const CommonAdminPanelHeaderLogic = () => {
 
   const disptach = useDispatch();
 
-  const getUserDetailsAndSaveThoseInRedux = async () => {
+  const getUserDetailsAndSaveThoseInRedux = useCallback(async () => {
     const user = await getApplicationUser();
     setApplicationUser(user);
     disptach(updateApplicationUser(user));
-  };
+  }, [disptach]);
 
   useEffect(() => {
     getUserDetailsAndSaveThoseInRedux();
-  }, []);
+  }, [getUserDetailsAndSaveThoseInRedux]);
 
   return { applicationUser };
 };
