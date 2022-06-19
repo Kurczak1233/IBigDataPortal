@@ -31,7 +31,6 @@ jobs:
         env:
           connectionStrings.SqlConnectionString: ${{ secrets.AZURE_CONNECTION_STRING }}
 
-
       - uses: microsoft/variable-substitution@v1
         with:
           files: "Server/IBigDataPortal/Portal/GCPCredentials.json"
