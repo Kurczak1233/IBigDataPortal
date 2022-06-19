@@ -15,7 +15,7 @@ const SyncToast = ({ mode, description }: ISyncToast) => {
   const currentStatus = differentiateStatuses(mode);
   return toast.custom(
     <div className={styles.syncToastWrapper}>
-      <div className={styles.syncToastLeftBar} />
+      <div className={currentStatus.leftBar} />
       <img
         height={24}
         width={24}

@@ -32,6 +32,14 @@ jobs:
         env:
           connectionStrings.SqlConnectionString: ${{ secrets.AZURE_CONNECTION_STRING }}
 
+      - uses: microsoft/variable-substitution@v1
+        with:
+          files: "Server/IBigDataPortal/Portal/GCPCredentials.json"
+        env:
+          private_key_id: ${{ secrets.GCP_SA_PRIVATE_KEY_ID }}
+          private_key: ${{ secrets.GCP_SA_PRIVATE_KEY }}
+          client_id: ${{ secrets.GCP_SA_CLIENT_ID }}
+
       - name: Build the Docker image 
         working-directory: ./Server/IBigDataPortal
         run: docker build -f Dockerfile -t eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api-prod . 

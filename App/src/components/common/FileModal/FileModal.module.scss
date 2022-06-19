@@ -1,0 +1,83 @@
+@import 'styles/Commons.scss';
+.fileModal {
+  position: absolute;
+  outline: none;
+  background: $clear-white;
+  box-shadow: 0px 8px 40px $gray-box-shadow;
+  border-radius: 16px;
+  padding: 32px;
+}
+.fileModalOverlay {
+  position: fixed;
+  display: flex;
+  inset: 0px;
+  background-color: $modal-white-background;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+.titleSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .modalTitle {
+    @include fontSizeTwenty;
+    color: $black-text;
+  }
+  img {
+    cursor: pointer;
+  }
+}
+@mixin drozponeStyles {
+  width: 450px;
+  height: 150px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  border: 1px solid $gray-border;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.dropzone {
+  @include drozponeStyles;
+}
+.dropzone:hover {
+  border: 1px solid $intensive-orange;
+  .dropzoneText {
+    color: $intensive-orange;
+  }
+}
+.dropzoneActive {
+  @include drozponeStyles;
+  border: 1px solid $intensive-orange;
+  .dropzoneText {
+    color: $intensive-orange;
+  }
+}
+.dropzoneText {
+  @include fontSizeSixteen;
+  color: $gray-text;
+  margin-top: 8px;
+}
+.filesSupported {
+  @include fontSizeFourteen;
+  color: $black-text;
+}
+.uploadedFiles {
+  display: flex;
+  flex-direction: column;
+  max-width: 450px;
+  .uploadedFilesText {
+    @include fontSizeSixteen;
+    margin-bottom: 8px;
+  }
+}
+.saveButton {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 16px;
+}

@@ -1,8 +1,8 @@
 import AdminMenuContentGenerator from "components/common/AdminMenu/AdminMenuContentGenerator/AdminMenuContentGenerator";
 import AdminMenuHeader from "components/common/AdminMenu/AdminMenuHeader/AdminMenuHeader";
-import SeparationBar from "components/common/SeparationBar/SeparationBar";
 import ArticleMenuContentLogic from "./ArticleMenuContentLogic";
 import styles from "./ArticleMenuContent.module.scss";
+import SeparationSmallBar from "components/common/SeparationSmallGreenBar/SeparationSmallGreenBar";
 
 const ArticleMenuContent = () => {
   const {
@@ -19,7 +19,7 @@ const ArticleMenuContent = () => {
         marginBottom={"16px"}
         marginTop={"32px"}
       />
-      <SeparationBar />
+      <SeparationSmallBar />
       <AdminMenuContentGenerator
         tableOfContents={adminMenuNavigationCreateContents}
         handleChangeState={handleChangeState}

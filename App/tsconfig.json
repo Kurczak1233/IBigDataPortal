@@ -26,5 +26,5 @@
   },
   "include": [
     "src"
-  ]
+, "src/components/common/FileModal/.ts"  ]
 }

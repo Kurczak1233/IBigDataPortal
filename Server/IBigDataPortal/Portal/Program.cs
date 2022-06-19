@@ -72,7 +72,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors();
-
+Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "./GCPCredentials.json");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseMiddleware<GetUserContextMiddleware>(connectionString);

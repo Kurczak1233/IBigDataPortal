@@ -10,6 +10,7 @@ public class ApplicationDbContext : DbContext
     public virtual DbSet<Post> Posts { get; set; }
     public virtual DbSet<JobOffer> JobOffers { get; set; }
     public virtual DbSet<EduLink> EduLinks { get; set; }
+    public virtual DbSet<FileMetadata> FilesMetadata { get; set; }
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)

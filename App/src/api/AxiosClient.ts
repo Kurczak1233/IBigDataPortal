@@ -5,7 +5,7 @@ const AxiosClient = async (
   method: Method,
   endpoint: string,
   applicationBase: string,
-  { body }: any = {}
+  { body, requestContaisFile = false }: any = {}
 ): Promise<any> => {
   const requestResult = await axios({
     method: method,
@@ -14,7 +14,7 @@ const AxiosClient = async (
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-    data: JSON.stringify(body),
+    data: requestContaisFile ? body : JSON.stringify(body),
   });
   return requestResult.data;
 };
