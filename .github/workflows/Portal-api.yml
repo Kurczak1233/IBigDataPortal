@@ -40,6 +40,9 @@ jobs:
           private_key: ${{ secrets.GCP_SA_PRIVATE_KEY }}
           client_id: ${{ secrets.GCP_SA_CLIENT_ID }}
 
+      - name: Read GCPCredentials.json
+        run: "cat Server/IBigDataPortal/Portal/GCPCredentials.json"  
+
       - name: Build the Docker image 
         working-directory: ./Server/IBigDataPortal
         run: docker build -f Dockerfile -t eu.gcr.io/${{ env.GCP_PROJECT }}/portal-api-prod . 
