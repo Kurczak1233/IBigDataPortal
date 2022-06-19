@@ -7,7 +7,8 @@ import NoAccessComponent from "components/common/NoAccessComponent/NoAccessCompo
 
 const AppLogic = () => {
   const [isAccessTokenSet, setIsAccessTokenSet] = useState<boolean>(false);
-  const { getAccessTokenSilently, logout, isAuthenticated } = useAuth0();
+  const { getAccessTokenSilently, logout, isAuthenticated, isLoading } =
+    useAuth0();
 
   const setAxiosInterceptor = useCallback(
     (accessToken: string) => {
@@ -34,23 +35,24 @@ const AppLogic = () => {
     const accessToken = await getAccessTokenSilently();
     if (accessToken !== "") {
       setAxiosInterceptor(accessToken);
-      setIsAccessTokenSet(true);
     }
+    setIsAccessTokenSet(true);
   }, [getAccessTokenSilently, setAxiosInterceptor]);
 
   const checkIfRouteIsAuthenticated = (component: JSX.Element) => {
-    return !isAccessTokenSet ? (
-      <div />
-    ) : isAuthenticated ? (
+    return !isAuthenticated && !isLoading ? (
+      <NoAccessComponent />
+    ) : isAccessTokenSet && isAuthenticated ? (
       component
     ) : (
-      <NoAccessComponent />
+      <div />
     );
   };
 
   useEffect(() => {
-    if (!isAccessTokenSet && isAuthenticated)
+    if (!isAccessTokenSet && isAuthenticated) {
       getAccessTokenAndSetAxiosInterceptors();
+    }
   }, [
     getAccessTokenAndSetAxiosInterceptors,
     isAccessTokenSet,

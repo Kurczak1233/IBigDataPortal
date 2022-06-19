@@ -4,7 +4,6 @@ import SeparationSmallBar from "components/common/SeparationSmallGreenBar/Separa
 
 const AdminMenuHeader = () => {
   const { applicationUser } = AdminMenuHeaderLogic();
-
   return (
     <div className={styles.headerWrapper}>
       <div className={styles.headerTitle}>Admin panel</div>

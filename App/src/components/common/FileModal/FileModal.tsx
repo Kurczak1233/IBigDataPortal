@@ -45,6 +45,7 @@ const FileModal = ({
     setIsExitHoverActive,
     onCloseModal,
     myFiles,
+    isUploading,
   } = FileModalLogic({
     setIsModalOpen,
     moduleId,
@@ -129,6 +130,7 @@ const FileModal = ({
             text={"Submit"}
             onClick={uploadFiles}
             color={AvailableIntensiveColors.IntensiveOrange}
+            isLoading={isUploading}
           />
         </div>
       </main>

@@ -4,7 +4,7 @@ const CommonPageMenuLogic = () => {
   const { logout } = useAuth0();
 
   const handleLogout = () => {
-    logout({ returnTo: "/" });
+    logout();
   };
 
   return { handleLogout };
