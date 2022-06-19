@@ -15,6 +15,7 @@ const CreatePostPage = () => {
     errors,
     setPostsFiles,
     postFiles,
+    isPostCreating,
   } = CreatePostPageLogic();
 
   return (
@@ -45,6 +46,7 @@ const CreatePostPage = () => {
             text={"Save"}
             color={AvailableIntensiveColors.IntensiveGreen}
             onClick={handleSubmit(submitForm)}
+            isLoading={isPostCreating}
           />
         </form>
         <CreatePostFiles setPostsFiles={setPostsFiles} postFiles={postFiles} />

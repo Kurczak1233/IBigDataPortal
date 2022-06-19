@@ -21,7 +21,7 @@ interface IFileModal {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   moduleId: number;
   itemId: number;
-  updatePicture: () => void;
+  updatePicture?: () => void;
   acceptedFilesExtensions?: Accept;
   multiple?: boolean;
   customUploadFiles?: (file: File[]) => void;

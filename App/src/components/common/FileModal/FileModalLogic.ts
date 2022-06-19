@@ -1,9 +1,8 @@
-import { uploadFile } from "api/FileClient";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { useState, useCallback, useEffect } from "react";
 import { Accept, useDropzone } from "react-dropzone";
 import SyncToast from "../Toasts/SyncToast/SyncToast";
-import { FileModuleEnum } from "./FileModuleEnum";
+import { addFile } from "./FilesAppendDataHelper";
 import { maxFileSizeInBytes } from "./SupportedExtensions";
 
 interface IFileModalLogic {
@@ -11,7 +10,7 @@ interface IFileModalLogic {
   moduleId: number;
   acceptedFilesExtensions: Accept | undefined;
   itemId: number;
-  updatePicture: () => void;
+  updatePicture: (() => void) | undefined;
   multiple: boolean;
   currentFiles: File[] | undefined;
 }
@@ -73,31 +72,9 @@ const FileModalLogic = ({
       })
     ).then(() => {
       onCloseModal();
-      updatePicture();
+      updatePicture && updatePicture();
       setIsUploading(false);
     });
-  };
-
-  const appendFormData = (
-    fileToUpload: File,
-    itemId: number,
-    module: FileModuleEnum
-  ) => {
-    const formData = new FormData();
-    formData.append("FormFile", fileToUpload);
-    formData.append("FileName", fileToUpload.name);
-    formData.append("FileModule", module.toString());
-    formData.append("RefId", `${itemId}`);
-    return formData;
-  };
-
-  const addFile = async (
-    itemId: number,
-    myFile: File,
-    module: FileModuleEnum
-  ) => {
-    const formData = appendFormData(myFile, itemId, module);
-    return await uploadFile(formData);
   };
 
   const onCloseModal = () => {

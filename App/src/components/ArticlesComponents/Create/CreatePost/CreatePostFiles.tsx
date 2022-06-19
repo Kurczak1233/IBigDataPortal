@@ -45,7 +45,7 @@ const CreatePostFiles = ({ setPostsFiles, postFiles }: ICreatePostFiles) => {
           color={AvailableIntensiveColors.IntensiveGreen}
         />
       </div>
-      {postFiles.length > 0 &&
+      {postFiles.length > 0 ? (
         postFiles
           .filter((item) => !item.type.includes("image"))
           .map((file) => {
@@ -56,12 +56,15 @@ const CreatePostFiles = ({ setPostsFiles, postFiles }: ICreatePostFiles) => {
                 file={file}
               />
             );
-          })}
+          })
+      ) : (
+        <div className={styles.noFilesOrImages}>None</div>
+      )}
       <SeparationSmallBar marginTop="32px" marginBottom="32px" />
       <div className={styles.filesHeader}>
         <div className={styles.files}>Images</div>
       </div>
-      {postFiles.length > 0 &&
+      {postFiles.length > 0 ? (
         postFiles
           .filter((item) => item.type.includes("image"))
           .map((file) => {
@@ -72,7 +75,10 @@ const CreatePostFiles = ({ setPostsFiles, postFiles }: ICreatePostFiles) => {
                 file={file}
               />
             );
-          })}
+          })
+      ) : (
+        <div className={styles.noImages}>None</div>
+      )}
     </div>
   );
 };

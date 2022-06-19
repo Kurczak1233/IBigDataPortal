@@ -10,4 +10,12 @@
       @include fontSizeSixteen;
     }
   }
+  .noFilesOrImages {
+    margin-top: 8px;
+    @include fontSizeSixteen;
+  }
+  .noImages {
+    @include fontSizeSixteen;
+    margin-top: 20px;
+  }
 }

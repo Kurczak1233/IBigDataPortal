@@ -35,8 +35,8 @@ public class PostsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> CreatePost(CreatePostRequest body)
     {
-        await _mediator.Send(new CreatePostCommand(body, _user.Id));
-        return Ok();
+        var postId = await _mediator.Send(new CreatePostCommand(body, _user.Id));
+        return Ok(postId);
     }
     
     [HttpPut]
