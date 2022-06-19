@@ -20,9 +20,12 @@ interface IFileModal {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   moduleId: number;
-  acceptedFilesExtensions?: Accept;
   itemId: number;
-  updatePicture: () => void;
+  updatePicture?: () => void;
+  acceptedFilesExtensions?: Accept;
+  multiple?: boolean;
+  customUploadFiles?: (file: File[]) => void;
+  currentFiles?: File[];
 }
 
 const FileModal = ({
@@ -30,8 +33,11 @@ const FileModal = ({
   setIsModalOpen,
   moduleId,
   itemId,
+  multiple = false,
   acceptedFilesExtensions,
+  customUploadFiles,
   updatePicture,
+  currentFiles,
 }: IFileModal) => {
   const {
     isExitHoverActive,
@@ -52,6 +58,8 @@ const FileModal = ({
     acceptedFilesExtensions,
     itemId,
     updatePicture,
+    multiple,
+    currentFiles,
   });
   return (
     <Modal
@@ -128,7 +136,9 @@ const FileModal = ({
         <div className={styles.saveButton}>
           <SmallButton
             text={"Submit"}
-            onClick={uploadFiles}
+            onClick={() =>
+              customUploadFiles ? customUploadFiles(myFiles) : uploadFiles()
+            }
             color={AvailableIntensiveColors.IntensiveOrange}
             isLoading={isUploading}
           />

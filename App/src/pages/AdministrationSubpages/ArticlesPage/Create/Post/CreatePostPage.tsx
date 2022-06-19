@@ -4,38 +4,53 @@ import InputWithLabel from "components/common/Forms/InputWithLabel/InputWithLabe
 import TextareaWithLabel from "components/common/Forms/TextareaWithLabel/TextareaWithLabel";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import CreatePostPageLogic from "./CreatePostPageLogic";
+import styles from "./CreatePostPage.module.scss";
+import CreatePostFiles from "components/ArticlesComponents/Create/CreatePost/CreatePostFiles";
 
 const CreatePostPage = () => {
-  const { register, handleSubmit, submitForm, errors } = CreatePostPageLogic();
+  const {
+    register,
+    handleSubmit,
+    submitForm,
+    errors,
+    setPostsFiles,
+    postFiles,
+    isPostCreating,
+  } = CreatePostPageLogic();
+
   return (
     <div>
-      <AdministartionPageHeader pageTitle={"Create Post"} />
-      <form>
-        <InputWithLabel
-          register={register}
-          errors={errors}
-          errorMessage={"This field is required"}
-          label={"Title"}
-          placeholder={"Enter title..."}
-          registerName={"title"}
-          registerOptions={{ required: true }}
-        />
-        <TextareaWithLabel
-          register={register}
-          errors={errors}
-          errorMessage={"This field is required"}
-          label={"Description"}
-          placeholder={"Enter description..."}
-          registerName={"description"}
-          registerOptions={{ required: true }}
-        />
-        <SmallButton
-          marginTop="16px"
-          text={"Save"}
-          color={AvailableIntensiveColors.IntensiveGreen}
-          onClick={handleSubmit(submitForm)}
-        />
-      </form>
+      <div className={styles.postsWrapper}>
+        <form className={styles.form}>
+          <AdministartionPageHeader pageTitle={"Create Post"} />
+          <InputWithLabel
+            register={register}
+            errors={errors}
+            errorMessage={"This field is required"}
+            label={"Title"}
+            placeholder={"Enter title..."}
+            registerName={"title"}
+            registerOptions={{ required: true }}
+          />
+          <TextareaWithLabel
+            register={register}
+            errors={errors}
+            errorMessage={"This field is required"}
+            label={"Description"}
+            placeholder={"Enter description..."}
+            registerName={"description"}
+            registerOptions={{ required: true }}
+          />
+          <SmallButton
+            marginTop="16px"
+            text={"Save"}
+            color={AvailableIntensiveColors.IntensiveGreen}
+            onClick={handleSubmit(submitForm)}
+            isLoading={isPostCreating}
+          />
+        </form>
+        <CreatePostFiles setPostsFiles={setPostsFiles} postFiles={postFiles} />
+      </div>
     </div>
   );
 };

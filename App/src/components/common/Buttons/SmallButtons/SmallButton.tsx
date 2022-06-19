@@ -32,7 +32,7 @@ const SmallButton = ({
   const { handleGetColorHoverClass } = SmallButtonLogic();
   return (
     <div
-      onClick={onClick}
+      onClick={!isLoading ? onClick : () => null}
       style={{
         width: width,
         height: height,
