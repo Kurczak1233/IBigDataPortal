@@ -3,4 +3,5 @@
 public enum FileModuleEnum
 {
     userImage,
+    postsFiles,
 }

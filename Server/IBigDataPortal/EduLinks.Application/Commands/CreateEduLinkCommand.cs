@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EduLinks.Application.Commands;
 
-public class CreateEduLinkCommand : IRequest
+public class CreateEduLinkCommand : IRequest<int>
 {
     public CreateEduLinkRequest Body { get; set; }
     public int CurrentUserId { get; set; }
@@ -22,7 +22,7 @@ public class CreateEduLinkCommand : IRequest
     }
 }
 
-public class CreateJobOfferCommandHandler : IRequestHandler<CreateEduLinkCommand>
+public class CreateJobOfferCommandHandler : IRequestHandler<CreateEduLinkCommand, int>
 {
     
     private readonly ISqlConnectionService _connectionService;  
@@ -32,19 +32,19 @@ public class CreateJobOfferCommandHandler : IRequestHandler<CreateEduLinkCommand
         _connectionService = connectionService;
     }
 
-    public async Task<Unit> Handle(CreateEduLinkCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateEduLinkCommand request, CancellationToken cancellationToken)
     {
         var nowDate = DateTimeOffset.Now;
         var connection = await _connectionService.GetAsync();
         var sql =
             $@"INSERT INTO {Dbo.EduLinks} ({nameof(EduLink.Title)}, {nameof(EduLink.Link)}, {nameof(EduLink.Description)}, {nameof(EduLink.CreatorId)}, {nameof(EduLink.Posted)})
         VALUES (@title, @link, @description, @userId, @dateNow)";
-        await connection.ExecuteAsync(sql,
+        var eduLinkId = await connection.ExecuteAsync(sql,
             new
             {
                 title = request.Body.Title, link = request.Body.Link, description = request.Body.Description, userId = request.CurrentUserId,
                 dateNow = nowDate
             });
-        return Unit.Value;
+        return eduLinkId;
     }
 }

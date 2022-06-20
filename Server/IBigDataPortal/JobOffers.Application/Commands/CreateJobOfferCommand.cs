@@ -7,7 +7,7 @@ using MediatR;
 
 namespace JobOffers.Application.Commands;
 
-public class CreateJobOfferCommand : IRequest
+public class CreateJobOfferCommand : IRequest<int>
 {
     public CreateJobOfferRequest Body { get; set; }
     public int CurrentUserId { get; set; }
@@ -22,7 +22,7 @@ public class CreateJobOfferCommand : IRequest
     }
 }
 
-public class CreateJobOfferCommandHandler : IRequestHandler<CreateJobOfferCommand>
+public class CreateJobOfferCommandHandler : IRequestHandler<CreateJobOfferCommand, int>
 {
     
     private readonly ISqlConnectionService _connectionService;  
@@ -32,19 +32,19 @@ public class CreateJobOfferCommandHandler : IRequestHandler<CreateJobOfferComman
         _connectionService = connectionService;
     }
 
-    public async Task<Unit> Handle(CreateJobOfferCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateJobOfferCommand request, CancellationToken cancellationToken)
     {
         var nowDate = DateTimeOffset.Now;
         var connection = await _connectionService.GetAsync();
         var sql =
             $@"INSERT INTO {Dbo.JobOffers} ({nameof(JobOffer.Title)}, {nameof(JobOffer.Link)}, {nameof(JobOffer.Description)}, {nameof(JobOffer.CreatorId)}, {nameof(JobOffer.Posted)})
         VALUES (@title, @link, @description, @userId, @dateNow)";
-        await connection.ExecuteAsync(sql,
+        var jobOfferId = await connection.ExecuteAsync(sql,
             new
             {
                 title = request.Body.Title, link = request.Body.Link, description = request.Body.Description, userId = request.CurrentUserId,
                 dateNow = nowDate
             });
-        return Unit.Value;
+        return jobOfferId;
     }
 }
