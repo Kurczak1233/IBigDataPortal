@@ -5,7 +5,7 @@ import TextareaWithLabel from "components/common/Forms/TextareaWithLabel/Textare
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import CreatePostPageLogic from "./CreatePostPageLogic";
 import styles from "./CreatePostPage.module.scss";
-import AddFileComponent from "components/ArticlesComponents/Create/AddFileComponent/AddFileComponent";
+import AddFileComponent from "components/ArticlesComponents/ArticlesFiles/AddFileComponent/AddFileComponent";
 import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 
 const CreatePostPage = () => {
@@ -54,6 +54,7 @@ const CreatePostPage = () => {
           setPostsFiles={setPostsFiles}
           postFiles={postFiles}
           module={FileModuleEnum.postsFiles}
+          componentTitle={"Posts files"}
         />
       </div>
     </div>

@@ -38,8 +38,9 @@ public class CreateJobOfferCommandHandler : IRequestHandler<CreateJobOfferComman
         var connection = await _connectionService.GetAsync();
         var sql =
             $@"INSERT INTO {Dbo.JobOffers} ({nameof(JobOffer.Title)}, {nameof(JobOffer.Link)}, {nameof(JobOffer.Description)}, {nameof(JobOffer.CreatorId)}, {nameof(JobOffer.Posted)})
-        VALUES (@title, @link, @description, @userId, @dateNow)";
-        var jobOfferId = await connection.ExecuteAsync(sql,
+               OUTPUT INSERTED.[Id]
+               VALUES (@title, @link, @description, @userId, @dateNow)";
+        var jobOfferId = await connection.QuerySingleAsync<int>(sql,
             new
             {
                 title = request.Body.Title, link = request.Body.Link, description = request.Body.Description, userId = request.CurrentUserId,

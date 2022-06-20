@@ -32,6 +32,13 @@ public class FilesController : ControllerBase
         return Ok(fileResult);
     }
     
+    [HttpGet("Item/{itemId}/Module/{moduleNumber}")]
+    public async Task<IActionResult> GetAllItemsFiles(int itemId, FileModuleEnum moduleNumber)
+    {
+        var fileResult = await _mediator.Send(new GetAllFilesQuery(itemId, moduleNumber));
+        return Ok(fileResult);
+    }
+    
     [HttpPost]
     public async Task<IActionResult> UploadFileToServer([FromForm] UploadFileRequest body)
     {

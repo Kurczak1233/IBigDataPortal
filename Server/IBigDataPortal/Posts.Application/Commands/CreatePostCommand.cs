@@ -37,8 +37,9 @@ public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, int>
         var connection = await _connectionService.GetAsync();
         var sql =
             $@"INSERT INTO {Dbo.Posts} ({nameof(Post.Title)}, {nameof(Post.Description)}, {nameof(Post.CreatorId)}, {nameof(Post.Posted)})
-        VALUES (@title, @description, @userId, @dateNow)";
-        var postId = await connection.ExecuteAsync(sql,
+               OUTPUT INSERTED.[Id]
+               VALUES (@title, @description, @userId, @dateNow)";
+        var postId = await connection.QuerySingleAsync<int>(sql,
             new
             {
                 title = request.Body.Title, description = request.Body.Description, userId = request.CurrentUserId,

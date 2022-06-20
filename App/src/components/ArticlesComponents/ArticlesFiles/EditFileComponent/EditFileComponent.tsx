@@ -1,24 +1,23 @@
-import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import FileModal from "components/common/FileModal/FileModal";
 import FileModalItem from "components/common/FileModal/FileModalItem/FileModalItem";
 import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import SeparationSmallBar from "components/common/SeparationSmallGreenBar/SeparationSmallGreenBar";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import styles from "./AddFileComponent.module.scss";
-import CreatePostFilesLogic from "./AddFileComponentLogic";
+import styles from "./EditFileComponent.module.scss";
+import CreatePostFilesLogic from "./EditFileComponentLogic";
 
-interface IAddFileComponent {
+interface IEditFileComponent {
   setPostsFiles: React.Dispatch<React.SetStateAction<File[]>>;
   postFiles: File[];
   module: FileModuleEnum;
 }
 
-const AddFileComponent = ({
+const EditFileComponent = ({
   setPostsFiles,
   postFiles,
   module,
-}: IAddFileComponent) => {
+}: IEditFileComponent) => {
   const {
     setIsFileModalOpen,
     openFileModal,
@@ -38,11 +37,10 @@ const AddFileComponent = ({
         multiple
         currentFiles={postFiles}
       />
-      <AdministartionPageHeader pageTitle={"Post files"} />
       <div className={styles.filesHeader}>
         <div className={styles.files}>Documents</div>
         <SmallButton
-          text={"Add files"}
+          text={"Edit files"}
           onClick={openFileModal}
           color={AvailableIntensiveColors.IntensiveGreen}
         />
@@ -85,4 +83,4 @@ const AddFileComponent = ({
   );
 };
 
-export default AddFileComponent;
+export default EditFileComponent;

@@ -4,7 +4,7 @@ import TextareaWithLabel from "components/common/Forms/TextareaWithLabel/Textare
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import CreateJobOfferPageLogic from "./CreateJobOfferPageLogic";
 import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
-import AddFileComponent from "components/ArticlesComponents/Create/AddFileComponent/AddFileComponent";
+import AddFileComponent from "components/ArticlesComponents/ArticlesFiles/AddFileComponent/AddFileComponent";
 import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import styles from "./CreateJobOfferPage.module.scss";
 
@@ -63,6 +63,7 @@ const CreateJobOfferPage = () => {
           setPostsFiles={setJobOffersFiles}
           postFiles={jobOfferFiles}
           module={FileModuleEnum.jobOffersFiles}
+          componentTitle={"Job offer files"}
         />
       </div>
     </div>

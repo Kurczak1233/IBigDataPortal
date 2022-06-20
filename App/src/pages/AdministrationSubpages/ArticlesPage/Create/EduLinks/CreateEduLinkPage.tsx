@@ -4,7 +4,7 @@ import InputWithLabel from "components/common/Forms/InputWithLabel/InputWithLabe
 import TextareaWithLabel from "components/common/Forms/TextareaWithLabel/TextareaWithLabel";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
-import AddFileComponent from "components/ArticlesComponents/Create/AddFileComponent/AddFileComponent";
+import AddFileComponent from "components/ArticlesComponents/ArticlesFiles/AddFileComponent/AddFileComponent";
 import styles from "./CreateEduLinkPage.module.scss";
 import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 
@@ -63,6 +63,7 @@ const CreateEduLinkPage = () => {
           setPostsFiles={setEduLinksFiles}
           postFiles={eduLinksFiles}
           module={FileModuleEnum.eduLinksFiles}
+          componentTitle={"Edu link files"}
         />
       </div>
     </div>
