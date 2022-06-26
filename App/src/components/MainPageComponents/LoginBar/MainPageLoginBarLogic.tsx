@@ -1,5 +1,4 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { initialUserCall } from "api/UsersClient";
 import {
   administrationRoute,
   articlesRoute,
@@ -23,7 +22,6 @@ const MainPageLoginBarLogic = () => {
   };
 
   const handleMoveToThePortal = () => {
-    initialUserCall();
     navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
   };
 

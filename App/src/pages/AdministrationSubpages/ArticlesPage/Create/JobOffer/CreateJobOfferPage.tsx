@@ -47,6 +47,7 @@ const CreateJobOfferPage = () => {
           onClick={handleSubmit(submitForm)}
         />
       </form>
+      {/* <CreatePostFiles setPostsFiles={setPostsFiles} postFiles={postFiles} /> */}
     </div>
   );
 };

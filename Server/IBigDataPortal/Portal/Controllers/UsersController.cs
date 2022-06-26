@@ -23,12 +23,6 @@ public class UsersController: ControllerBase
         _mediator = mediator;
     }
     
-    [HttpGet("Initial")]
-    public async Task<ActionResult<ApplicationUserDto>> RunMiddlewares()
-    {
-        return Ok();
-    }
-    
     [HttpGet]
     public async Task<ActionResult<ApplicationUserDto>> GetCurrentApplicationUser()
     {
