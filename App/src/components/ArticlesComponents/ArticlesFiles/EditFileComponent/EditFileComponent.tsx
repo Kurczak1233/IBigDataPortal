@@ -51,7 +51,7 @@ const EditFileComponent = ({
           .map((file) => {
             return (
               <FileModalItem
-                key={file.lastModified}
+                key={`${file.lastModified} ${file.name}`}
                 removeFile={() => handleRemoveFile(file)}
                 file={file}
               />
@@ -70,7 +70,7 @@ const EditFileComponent = ({
           .map((file) => {
             return (
               <FileModalItem
-                key={file.lastModified}
+                key={`${file.lastModified} ${file.name}`}
                 removeFile={() => handleRemoveFile(file)}
                 file={file}
               />

@@ -44,6 +44,8 @@ public class GetFileQueryHandler : IRequestHandler<GetFileQuery, FileVm>
                         {nameof(FileMetadata.CreatedById)},
                         {nameof(FileMetadata.CreatedOn)},
                         {nameof(FileMetadata.IsDeleted)},
+                        {nameof(FileMetadata.FileType)},
+                        {nameof(FileMetadata.IsDeleted)},
                         {nameof(FileMetadata.FileName)}
                         FROM {Dbo.FilesMetadata}
                         WHERE {nameof(FileMetadata.RefId)} = @refId AND {nameof(FileMetadata.ModuleEnum)} = @moduleEnum     

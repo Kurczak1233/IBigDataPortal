@@ -39,7 +39,12 @@ const EditPostLogic = (post: PostViewModel) => {
     setPostEditValues();
   }, [setPostEditValues]);
 
-  return { submitForm, register, handleSubmit, errors };
+  return {
+    submitForm,
+    register,
+    handleSubmit,
+    errors,
+  };
 };
 
 export default EditPostLogic;

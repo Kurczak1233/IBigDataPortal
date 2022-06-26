@@ -33,7 +33,8 @@ public class GetAllPostsQueryHandler : IRequestHandler<GetAllPostsQuery, IEnumer
                      {nameof(FileMetadata.CreatedById)},
                      {nameof(FileMetadata.CreatedOn)},
                      {nameof(FileMetadata.IsDeleted)},
-                     {nameof(FileMetadata.FileName)}
+                     {nameof(FileMetadata.FileName)},
+                     {nameof(FileMetadata.FileType)}
                      FROM {Dbo.Posts} JOIN {Dbo.Users}
                      ON {Dbo.Posts}.{nameof(Post.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}
                      LEFT JOIN {Dbo.FilesMetadata} ON {Dbo.Posts}.{nameof(Post.Id)} = {Dbo.FilesMetadata}.{nameof(FileMetadata.RefId)}";
