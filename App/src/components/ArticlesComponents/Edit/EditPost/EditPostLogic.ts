@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { IEditPostForm } from "./IEditPostForm";
 
-const EditPostLogic = (post: PostViewModel) => {
+const EditPostLogic = (post: PostViewModel, postFiles: File[]) => {
   const navigate = useNavigate();
   const {
     register,
@@ -21,6 +21,8 @@ const EditPostLogic = (post: PostViewModel) => {
     formState: { errors },
   } = useForm<IEditPostForm>();
   const submitForm = async (data: IEditPostForm) => {
+    console.log(postFiles);
+    //TODO Wybrać tylko nowe!
     await editPost(data);
     navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
     SyncToast({
@@ -28,6 +30,32 @@ const EditPostLogic = (post: PostViewModel) => {
       description: "You have edited a post",
     });
   };
+
+  // const submitForm = async (data: ICreatePostForm) => {
+  //   setIsPostCreating(true);
+  //   const newPostId = await createPost(data);
+  //   await handleUploadFiles(newPostId);
+  //   setIsPostCreating(false);
+  //   navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
+  //   SyncToast({
+  //     mode: ToastModes.Success,
+  //     description: "You have created a post",
+  //   });
+  // };
+
+  // const handleUploadFiles = async (newPostId: number) => {
+  //   if (!newPostId) {
+  //     return SyncToast({
+  //       mode: ToastModes.Error,
+  //       description: "Item id was not found.",
+  //     });
+  //   }
+  //   await Promise.all(
+  //     postFiles.map(async (fileToUpload) => {
+  //       await addFile(newPostId, fileToUpload, FileModuleEnum.postsFiles);
+  //     })
+  //   );
+  // };
 
   const setPostEditValues = useCallback(() => {
     setValue("title", post.title);

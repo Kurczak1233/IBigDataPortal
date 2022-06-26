@@ -8,10 +8,14 @@ import styles from "./EditPost.module.scss";
 
 interface IEditPost {
   post: PostViewModel;
+  postFiles: File[];
 }
 
-const EditPost = ({ post }: IEditPost) => {
-  const { submitForm, register, handleSubmit, errors } = EditPostLogic(post);
+const EditPost = ({ post, postFiles }: IEditPost) => {
+  const { submitForm, register, handleSubmit, errors } = EditPostLogic(
+    post,
+    postFiles
+  );
   return (
     <form className={styles.editForm}>
       <InputWithLabel
