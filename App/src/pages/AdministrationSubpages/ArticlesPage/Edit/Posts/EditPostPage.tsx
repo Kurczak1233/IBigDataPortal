@@ -9,7 +9,7 @@ import styles from "./EditPostPage.module.scss";
 import EditPostPageLogic from "./EditPostPageLogic";
 
 const EditPostPage = () => {
-  const { state } = EditPostPageLogic();
+  const { state, postFiles, setPostFiles } = EditPostPageLogic();
   return (
     <div>
       <AdministartionPageHeader pageTitle={"Edit post"} />
@@ -24,8 +24,8 @@ const EditPostPage = () => {
           <EditPost post={state} />
         </div>
         <EditFileComponent
-          setPostsFiles={() => null}
-          postFiles={[]}
+          setPostsFiles={setPostFiles}
+          postFiles={postFiles}
           module={FileModuleEnum.postsFiles}
         />
       </div>

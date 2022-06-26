@@ -7,5 +7,3 @@ dotnet ef database update -s ./Portal -p ./Portal.Database
 
 Add migration:
 dotnet ef migrations add MigrationName -s ./Portal -p ./Portal.Database
-
-s
