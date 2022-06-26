@@ -12,7 +12,7 @@ const getAllJobOffers = async (): Promise<JobOfferViewModel[]> => {
   return AxiosClient(HttpRequestsMethods.GET, `${JobOffers}`, base);
 };
 
-const createJobOffer = async (body: ICreatePostForm): Promise<null> => {
+const createJobOffer = async (body: ICreatePostForm): Promise<number> => {
   return AxiosClient(HttpRequestsMethods.POST, `${JobOffers}`, base, { body });
 };
 

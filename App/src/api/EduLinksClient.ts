@@ -12,7 +12,7 @@ const getAllEduLinks = async (): Promise<JobOfferViewModel[]> => {
   return AxiosClient(HttpRequestsMethods.GET, `${EduLinks}`, base);
 };
 
-const createEduLink = async (body: ICreateEduLink): Promise<null> => {
+const createEduLink = async (body: ICreateEduLink): Promise<number> => {
   return AxiosClient(HttpRequestsMethods.POST, `${EduLinks}`, base, { body });
 };
 
