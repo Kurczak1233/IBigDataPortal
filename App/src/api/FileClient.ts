@@ -25,8 +25,24 @@ const getLastUploadedFileFromServer = async (
   );
 };
 
+const getAllItemsFiles = async (
+  itemId: number,
+  moduleNumber: FileModuleEnum
+): Promise<FileVm> => {
+  return AxiosClient(
+    HttpRequestsMethods.GET,
+    `${Files}/Item/${itemId}/Module/${moduleNumber}`,
+    base
+  );
+};
+
 const removeFile = async (fileId: string): Promise<FileVm> => {
   return AxiosClient(HttpRequestsMethods.PUT, `${Files}/File/${fileId}`, base);
 };
 
-export { uploadFile, getLastUploadedFileFromServer, removeFile };
+export {
+  uploadFile,
+  getLastUploadedFileFromServer,
+  removeFile,
+  getAllItemsFiles,
+};

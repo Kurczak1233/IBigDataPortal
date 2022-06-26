@@ -1,14 +1,15 @@
+import EditFileComponent from "components/ArticlesComponents/ArticlesFiles/EditFileComponent/EditFileComponent";
 import EditPost from "components/ArticlesComponents/Edit/EditPost/EditPost";
 import PostsHeader from "components/ArticlesComponents/Overview/PostsOverviewPage/PostsHeader/PostsHeader";
 import PostItem from "components/ArticlesComponents/Overview/PostsOverviewPage/PostsItems/PostItem/PostItem";
 import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
+import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
-import { useLocation } from "react-router-dom";
+import styles from "./EditPostPage.module.scss";
+import EditPostPageLogic from "./EditPostPageLogic";
 
 const EditPostPage = () => {
-  const location = useLocation();
-  const state = location.state as PostViewModel;
+  const { state } = EditPostPageLogic();
   return (
     <div>
       <AdministartionPageHeader pageTitle={"Edit post"} />
@@ -18,7 +19,16 @@ const EditPostPage = () => {
         postsColor={AvailableIntensiveColors.LessIntensiveOrange}
         interactive={false}
       />
-      <EditPost post={state} />
+      <div className={styles.formsContainer}>
+        <div className={styles.formWrapper}>
+          <EditPost post={state} />
+        </div>
+        <EditFileComponent
+          setPostsFiles={() => null}
+          postFiles={[]}
+          module={FileModuleEnum.postsFiles}
+        />
+      </div>
     </div>
   );
 };

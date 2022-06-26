@@ -29,8 +29,8 @@ public class EduLinksController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> CreateEduLink(CreateEduLinkRequest body)
     {
-        await _mediator.Send(new CreateEduLinkCommand(body, _user.Id));
-        return Ok();
+        var eduLinkId = await _mediator.Send(new CreateEduLinkCommand(body, _user.Id));
+        return Ok(eduLinkId);
     }
 
     [HttpGet]

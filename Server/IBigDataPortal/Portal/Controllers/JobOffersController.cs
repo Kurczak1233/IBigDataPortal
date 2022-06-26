@@ -27,8 +27,8 @@ public class JobOffersController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> CreateJobOffer(CreateJobOfferRequest body)
     {
-        await _mediator.Send(new CreateJobOfferCommand(body, _user.Id));
-        return Ok();
+        var jobOfferId = await _mediator.Send(new CreateJobOfferCommand(body, _user.Id));
+        return Ok(jobOfferId);
     }
     
     [HttpGet]

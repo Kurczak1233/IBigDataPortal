@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { IEditPostForm } from "./IEditPostForm";
 
-const EditPostPageLogic = (post: PostViewModel) => {
+const EditPostLogic = (post: PostViewModel) => {
   const navigate = useNavigate();
   const {
     register,
@@ -42,4 +42,4 @@ const EditPostPageLogic = (post: PostViewModel) => {
   return { submitForm, register, handleSubmit, errors };
 };
 
-export default EditPostPageLogic;
+export default EditPostLogic;

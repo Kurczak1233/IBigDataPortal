@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Files.Contracts\Files.Contracts.csproj" />
+      <Folder Include="Events" />
     </ItemGroup>
 
 </Project>
