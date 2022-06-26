@@ -15,4 +15,8 @@ const updateUserNickname = async (body: IUpdateProfileForm): Promise<null> => {
   return AxiosClient(HttpRequestsMethods.PUT, `${Users}`, base, { body });
 };
 
-export { getApplicationUser, updateUserNickname };
+const initialUserCall = async (): Promise<null> => {
+  return AxiosClient(HttpRequestsMethods.GET, `${Users}/Initial`, base);
+};
+
+export { getApplicationUser, updateUserNickname, initialUserCall };
