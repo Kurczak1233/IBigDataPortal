@@ -1,19 +1,23 @@
-import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import FileModal from "components/common/FileModal/FileModal";
 import FileModalItem from "components/common/FileModal/FileModalItem/FileModalItem";
 import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import SeparationSmallBar from "components/common/SeparationSmallGreenBar/SeparationSmallGreenBar";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import styles from "./CreatePostFiles.module.scss";
-import CreatePostFilesLogic from "./CreatePostFilesLogic";
+import styles from "./EditFileComponent.module.scss";
+import CreatePostFilesLogic from "./EditFileComponentLogic";
 
-interface ICreatePostFiles {
+interface IEditFileComponent {
   setPostsFiles: React.Dispatch<React.SetStateAction<File[]>>;
   postFiles: File[];
+  module: FileModuleEnum;
 }
 
-const CreatePostFiles = ({ setPostsFiles, postFiles }: ICreatePostFiles) => {
+const EditFileComponent = ({
+  setPostsFiles,
+  postFiles,
+  module,
+}: IEditFileComponent) => {
   const {
     setIsFileModalOpen,
     openFileModal,
@@ -27,20 +31,16 @@ const CreatePostFiles = ({ setPostsFiles, postFiles }: ICreatePostFiles) => {
       <FileModal
         isModalOpen={isFileModalOpen}
         setIsModalOpen={setIsFileModalOpen}
-        moduleId={FileModuleEnum.postsFiles}
+        moduleId={module}
         itemId={0}
-        updatePicture={function (): void {
-          throw new Error("Function not implemented.");
-        }}
         customUploadFiles={temporaryGatherFiles}
         multiple
         currentFiles={postFiles}
       />
-      <AdministartionPageHeader pageTitle={"Post files"} />
       <div className={styles.filesHeader}>
         <div className={styles.files}>Documents</div>
         <SmallButton
-          text={"Add files"}
+          text={"Edit files"}
           onClick={openFileModal}
           color={AvailableIntensiveColors.IntensiveGreen}
         />
@@ -83,4 +83,4 @@ const CreatePostFiles = ({ setPostsFiles, postFiles }: ICreatePostFiles) => {
   );
 };
 
-export default CreatePostFiles;
+export default EditFileComponent;

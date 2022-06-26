@@ -26,7 +26,7 @@ const CreatePostPageLogic = () => {
     setIsPostCreating(true);
     const newPostId = await createPost(data);
     await handleUploadFiles(newPostId);
-    setIsPostCreating(false); //(update state when on different page) May be problematic.
+    setIsPostCreating(false);
     navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
     SyncToast({
       mode: ToastModes.Success,
