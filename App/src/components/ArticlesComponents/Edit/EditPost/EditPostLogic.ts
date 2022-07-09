@@ -1,4 +1,6 @@
 import { editPost } from "api/PostsClient";
+import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
+import { addFile } from "components/common/FileModal/FilesAppendDataHelper";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import {
   administrationRoute,
@@ -6,14 +8,14 @@ import {
   postsRoute,
 } from "constants/apiRoutes";
 import { ToastModes } from "interfaces/General/ToastModes";
-import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { IEditPostForm } from "./IEditPostForm";
 
 const EditPostLogic = (post: PostViewModel, postFiles: File[]) => {
+  const [isSaving, setIsSaving] = useState<boolean>(false);
   const navigate = useNavigate();
   const {
     register,
@@ -22,51 +24,26 @@ const EditPostLogic = (post: PostViewModel, postFiles: File[]) => {
     formState: { errors },
   } = useForm<IEditPostForm>();
 
-  const handleAddAndDeleteFiles = (postFiles: FileVm[], newFiles: File[]) => {
-    console.log("Post files", postFiles);
-    console.log("new files", newFiles);
+  const handleAddFiles = async (newFiles: File[]) => {
     const filesToAdd = newFiles.filter((item) => "path" in item);
-    console.log("filteted new files", filesToAdd);
-    // const filesToDelete = postFiles.filter((item) => item.)
+    await Promise.all(
+      filesToAdd.map(async (fileToUpload) => {
+        await addFile(post.id, fileToUpload, FileModuleEnum.postsFiles);
+      })
+    );
   };
 
   const submitForm = async (data: IEditPostForm) => {
-    // console.log(postFiles);
-    //TODO Wybrać tylko nowe!
-    handleAddAndDeleteFiles(post.files, postFiles);
+    setIsSaving(true);
+    await handleAddFiles(postFiles);
     await editPost(data);
+    setIsSaving(false);
     navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
     SyncToast({
       mode: ToastModes.Success,
       description: "You have edited a post",
     });
   };
-
-  // const submitForm = async (data: ICreatePostForm) => {
-  //   setIsPostCreating(true);
-  //   const newPostId = await createPost(data);
-  //   await handleUploadFiles(newPostId);
-  //   setIsPostCreating(false);
-  //   navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
-  //   SyncToast({
-  //     mode: ToastModes.Success,
-  //     description: "You have created a post",
-  //   });
-  // };
-
-  // const handleUploadFiles = async (newPostId: number) => {
-  //   if (!newPostId) {
-  //     return SyncToast({
-  //       mode: ToastModes.Error,
-  //       description: "Item id was not found.",
-  //     });
-  //   }
-  //   await Promise.all(
-  //     postFiles.map(async (fileToUpload) => {
-  //       await addFile(newPostId, fileToUpload, FileModuleEnum.postsFiles);
-  //     })
-  //   );
-  // };
 
   const setPostEditValues = useCallback(() => {
     setValue("title", post.title);
@@ -83,6 +60,7 @@ const EditPostLogic = (post: PostViewModel, postFiles: File[]) => {
     register,
     handleSubmit,
     errors,
+    isSaving,
   };
 };
 

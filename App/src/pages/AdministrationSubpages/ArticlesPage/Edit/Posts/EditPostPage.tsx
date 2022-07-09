@@ -21,7 +21,10 @@ const EditPostPage = () => {
       />
       <div className={styles.formsContainer}>
         <div className={styles.formWrapper}>
-          <EditPost post={state} postFiles={postFiles} />
+          <EditPost
+            post={state}
+            postFiles={postFiles.map((item) => item.file)}
+          />
         </div>
         <EditFileComponent
           setPostsFiles={setPostFiles}

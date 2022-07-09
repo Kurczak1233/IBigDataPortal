@@ -1,15 +1,16 @@
 import { removeFile } from "api/FileClient";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import { ToastModes } from "interfaces/General/ToastModes";
+import { FileWithMetadata } from "interfaces/Models/FilesMetadata/ViewModels/FileWithMetadata";
 import { useState } from "react";
 
 interface ICreatePostFilesLogic {
-  setPostsFiles: React.Dispatch<React.SetStateAction<File[]>>;
+  setPostsFiles: React.Dispatch<React.SetStateAction<FileWithMetadata[]>>;
 }
 
 const CreatePostFilesLogic = ({ setPostsFiles }: ICreatePostFilesLogic) => {
   const [isFileModalOpen, setIsFileModalOpen] = useState<boolean>(false);
-  const [fileToDelete, setFileToDelete] = useState<File>();
+  const [fileToDelete, setFileToDelete] = useState<FileWithMetadata>();
   const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
     useState<boolean>(false);
 
@@ -24,8 +25,8 @@ const CreatePostFilesLogic = ({ setPostsFiles }: ICreatePostFilesLogic) => {
         description: "Something went wrong",
       });
     }
-    if (!("path" in fileToDelete)) {
-      // await removeFile(fileToDelete.guid);
+    if (!("path" in fileToDelete.file)) {
+      await removeFile(fileToDelete.guid);
     }
     setFileToDelete(undefined);
     setPostsFiles((newFiles) => {
@@ -33,19 +34,19 @@ const CreatePostFilesLogic = ({ setPostsFiles }: ICreatePostFilesLogic) => {
       return [...newFiles];
     });
     setIsConfirmDeleteModalOpen(false);
-    //TODO reove file from db and system
-    console.log(fileToDelete);
-    //There are new files and the old files...
     setFileToDelete(undefined);
   };
 
-  const handleRemoveFile = (file: File) => {
+  const handleRemoveFile = (file: FileWithMetadata) => {
     setFileToDelete(file);
     setIsConfirmDeleteModalOpen(true);
   };
 
   const temporaryGatherFiles = (files: File[]) => {
-    setPostsFiles(files);
+    const modifiedItems = files.map((item) => {
+      return { file: item, guid: "" };
+    });
+    setPostsFiles(modifiedItems);
     setIsFileModalOpen(false);
   };
 

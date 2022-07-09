@@ -2,9 +2,10 @@ import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel"
 import { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
+import { FileWithMetadata } from "interfaces/Models/FilesMetadata/ViewModels/FileWithMetadata";
 
 const EditPostPageLogic = () => {
-  const [postFiles, setPostFiles] = useState<File[]>([]);
+  const [postFiles, setPostFiles] = useState<FileWithMetadata[]>([]);
   const location = useLocation();
   const state = location.state as PostViewModel;
 
@@ -17,7 +18,7 @@ const EditPostPageLogic = () => {
           type: item.fileType,
         }
       );
-      return file;
+      return { guid: item.guid, file: file };
     });
   };
 

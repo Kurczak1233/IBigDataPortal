@@ -12,10 +12,8 @@ interface IEditPost {
 }
 
 const EditPost = ({ post, postFiles }: IEditPost) => {
-  const { submitForm, register, handleSubmit, errors } = EditPostLogic(
-    post,
-    postFiles
-  );
+  const { submitForm, register, handleSubmit, errors, isSaving } =
+    EditPostLogic(post, postFiles);
   return (
     <form className={styles.editForm}>
       <InputWithLabel
@@ -41,6 +39,7 @@ const EditPost = ({ post, postFiles }: IEditPost) => {
         text={"Save"}
         color={AvailableIntensiveColors.IntensiveGreen}
         onClick={handleSubmit(submitForm)}
+        isLoading={isSaving}
       />
     </form>
   );

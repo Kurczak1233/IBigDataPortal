@@ -5,12 +5,13 @@ import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import ConfirmActionModal from "components/common/Modals/ConfirmActionModal/ConfirmActionModal";
 import SeparationSmallBar from "components/common/SeparationSmallGreenBar/SeparationSmallGreenBar";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
+import { FileWithMetadata } from "interfaces/Models/FilesMetadata/ViewModels/FileWithMetadata";
 import styles from "./EditFileComponent.module.scss";
 import CreatePostFilesLogic from "./EditFileComponentLogic";
 
 interface IEditFileComponent {
-  setPostsFiles: React.Dispatch<React.SetStateAction<File[]>>;
-  postFiles: File[];
+  setPostsFiles: React.Dispatch<React.SetStateAction<FileWithMetadata[]>>;
+  postFiles: FileWithMetadata[];
   module: FileModuleEnum;
 }
 
@@ -30,7 +31,6 @@ const EditFileComponent = ({
     confirmDeleteFile,
   } = CreatePostFilesLogic({ setPostsFiles });
 
-  console.log(isConfirmDeleteModalOpen);
   return (
     <div className={styles.filesWrapper}>
       <ConfirmActionModal
@@ -46,7 +46,7 @@ const EditFileComponent = ({
         itemId={0}
         customUploadFiles={temporaryGatherFiles}
         multiple
-        currentFiles={postFiles}
+        currentFiles={postFiles.map((item) => item.file)}
       />
       <div className={styles.filesHeader}>
         <div className={styles.files}>Documents</div>
@@ -58,13 +58,13 @@ const EditFileComponent = ({
       </div>
       {postFiles.length > 0 ? (
         postFiles
-          .filter((item) => !item.type.includes("image"))
+          .filter((item) => !item.file.type.includes("image"))
           .map((file) => {
             return (
               <FileModalItem
-                key={`${file.lastModified} ${file.name}`}
+                key={`${file.file.lastModified} ${file.file.name}`}
                 removeFile={() => handleRemoveFile(file)}
-                file={file}
+                file={file.file}
               />
             );
           })
@@ -77,13 +77,13 @@ const EditFileComponent = ({
       </div>
       {postFiles.length > 0 ? (
         postFiles
-          .filter((item) => item.type.includes("image"))
+          .filter((item) => item.file.type.includes("image"))
           .map((file) => {
             return (
               <FileModalItem
-                key={`${file.lastModified} ${file.name}`}
+                key={`${file.file.lastModified} ${file.file.name}`}
                 removeFile={() => handleRemoveFile(file)}
-                file={file}
+                file={file.file}
               />
             );
           })
