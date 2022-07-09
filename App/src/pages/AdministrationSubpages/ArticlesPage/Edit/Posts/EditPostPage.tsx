@@ -9,7 +9,7 @@ import styles from "./EditPostPage.module.scss";
 import EditPostPageLogic from "./EditPostPageLogic";
 
 const EditPostPage = () => {
-  const { state } = EditPostPageLogic();
+  const { state, postFiles, setPostFiles } = EditPostPageLogic();
   return (
     <div>
       <AdministartionPageHeader pageTitle={"Edit post"} />
@@ -21,11 +21,14 @@ const EditPostPage = () => {
       />
       <div className={styles.formsContainer}>
         <div className={styles.formWrapper}>
-          <EditPost post={state} />
+          <EditPost
+            post={state}
+            postFiles={postFiles.map((item) => item.file)}
+          />
         </div>
         <EditFileComponent
-          setPostsFiles={() => null}
-          postFiles={[]}
+          setPostsFiles={setPostFiles}
+          postFiles={postFiles}
           module={FileModuleEnum.postsFiles}
         />
       </div>

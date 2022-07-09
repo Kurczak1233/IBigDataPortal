@@ -10,6 +10,7 @@ public class FileMetadata
     public string FileName { get; set; }
     public User CreatedBy { get; set; } = null!;
     public int CreatedById { get; set; }
+    public string FileType { get; set; }
     public DateTimeOffset CreatedOn { get; set; }
     public int RefId { get; set; }
     public FileModuleEnum ModuleEnum { get; set; }
