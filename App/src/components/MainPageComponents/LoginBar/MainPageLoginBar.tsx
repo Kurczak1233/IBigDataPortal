@@ -1,16 +1,15 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import SmallButton from "../../common/Buttons/SmallButtons/SmallButton";
 import styles from "./MainPageLoginBar.module.scss";
 import MainPageLoginBarLogic from "./MainPageLoginBarLogic";
 
 const MainPageLoginBar = () => {
-  const { user } = useAuth0();
   const {
     handleClickOnLogin,
     handleClickOnRegister,
     handleLogOut,
     handleMoveToThePortal,
+    user,
   } = MainPageLoginBarLogic();
 
   return (
