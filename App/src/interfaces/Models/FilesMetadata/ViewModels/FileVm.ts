@@ -4,5 +4,6 @@ export interface FileVm {
   createdById: number;
   createdOn: Date;
   isDeleted: boolean;
-  filename: string;
+  fileName: string;
+  fileType: string;
 }
