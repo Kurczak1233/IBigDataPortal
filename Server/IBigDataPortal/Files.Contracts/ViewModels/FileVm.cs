@@ -7,5 +7,6 @@ public class FileVm
     public int CreatedById { get; set; }
     public bool IsDeleted { get; set; }
     public DateTimeOffset CreatedOn { get; set; }
-    public string Filename { get; set; }
+    public string FileName { get; set; }
+    public string FileType { get; set; }
 }

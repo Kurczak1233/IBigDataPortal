@@ -4,4 +4,6 @@ public enum FileModuleEnum
 {
     userImage,
     postsFiles,
+    jobOffersFiles,
+    eduLinksFiles,
 }
