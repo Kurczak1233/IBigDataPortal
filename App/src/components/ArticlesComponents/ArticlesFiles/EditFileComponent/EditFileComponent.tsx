@@ -2,6 +2,7 @@ import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import FileModal from "components/common/FileModal/FileModal";
 import FileModalItem from "components/common/FileModal/FileModalItem/FileModalItem";
 import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
+import ConfirmActionModal from "components/common/Modals/ConfirmActionModal/ConfirmActionModal";
 import SeparationSmallBar from "components/common/SeparationSmallGreenBar/SeparationSmallGreenBar";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import styles from "./EditFileComponent.module.scss";
@@ -24,10 +25,20 @@ const EditFileComponent = ({
     isFileModalOpen,
     temporaryGatherFiles,
     handleRemoveFile,
+    setIsConfirmDeleteModalOpen,
+    isConfirmDeleteModalOpen,
+    confirmDeleteFile,
   } = CreatePostFilesLogic({ setPostsFiles });
 
+  console.log(isConfirmDeleteModalOpen);
   return (
     <div className={styles.filesWrapper}>
+      <ConfirmActionModal
+        isConfimActionModalOpen={isConfirmDeleteModalOpen}
+        setIsConfirmActionModalOpen={setIsConfirmDeleteModalOpen}
+        description={"delete this file pernamently"}
+        handleConfirmAction={confirmDeleteFile}
+      />
       <FileModal
         isModalOpen={isFileModalOpen}
         setIsModalOpen={setIsFileModalOpen}

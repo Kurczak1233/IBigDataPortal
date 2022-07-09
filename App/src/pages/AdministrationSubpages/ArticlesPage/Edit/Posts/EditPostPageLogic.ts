@@ -12,7 +12,7 @@ const EditPostPageLogic = () => {
     return files.map((item) => {
       const file = new File(
         [`data:image/png;base64,${item.base64FileString}`],
-        item.fileName,
+        `${item.fileName}`,
         {
           type: item.fileType,
         }

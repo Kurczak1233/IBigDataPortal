@@ -6,6 +6,7 @@ import {
   postsRoute,
 } from "constants/apiRoutes";
 import { ToastModes } from "interfaces/General/ToastModes";
+import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
 import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -20,9 +21,19 @@ const EditPostLogic = (post: PostViewModel, postFiles: File[]) => {
     handleSubmit,
     formState: { errors },
   } = useForm<IEditPostForm>();
+
+  const handleAddAndDeleteFiles = (postFiles: FileVm[], newFiles: File[]) => {
+    console.log("Post files", postFiles);
+    console.log("new files", newFiles);
+    const filesToAdd = newFiles.filter((item) => "path" in item);
+    console.log("filteted new files", filesToAdd);
+    // const filesToDelete = postFiles.filter((item) => item.)
+  };
+
   const submitForm = async (data: IEditPostForm) => {
-    console.log(postFiles);
+    // console.log(postFiles);
     //TODO Wybrać tylko nowe!
+    handleAddAndDeleteFiles(post.files, postFiles);
     await editPost(data);
     navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
     SyncToast({
