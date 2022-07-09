@@ -1,3 +1,5 @@
+import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
+
 export interface JobOfferViewModel {
   title: string;
   link: string;
@@ -5,4 +7,5 @@ export interface JobOfferViewModel {
   description: string;
   posted: Date;
   userEmail: string;
+  files: FileVm[];
 }
