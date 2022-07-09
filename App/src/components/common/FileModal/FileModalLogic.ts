@@ -84,6 +84,10 @@ const FileModalLogic = ({
     }
   };
 
+  const updateMyFiles = (currentFiles: File[]) => {
+    setMyFiles(currentFiles);
+  };
+
   const handleDragReject = () => {
     return SyncToast({
       mode: ToastModes.Info,
@@ -96,6 +100,12 @@ const FileModalLogic = ({
       handleDragReject();
     }
   }, [isDragReject, fileRejections]);
+
+  useEffect(() => {
+    if (currentFiles) {
+      updateMyFiles(currentFiles);
+    }
+  }, [currentFiles]);
 
   return {
     isExitHoverActive,
