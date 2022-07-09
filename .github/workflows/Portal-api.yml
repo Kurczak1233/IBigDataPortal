@@ -8,6 +8,7 @@ on:
     paths:
       - "Server/**"
       - ".github/workflows/Portal-api.yml"
+  
 env:
   GCP_PROJECT: engineering-thesis-346319
   
