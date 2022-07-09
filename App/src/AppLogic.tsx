@@ -4,11 +4,24 @@ import axios from "axios";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import { ToastModes } from "interfaces/General/ToastModes";
 import NoAccessComponent from "components/common/NoAccessComponent/NoAccessComponent";
+import { initialUserCall } from "api/UsersClient";
 
 const AppLogic = () => {
   const [isAccessTokenSet, setIsAccessTokenSet] = useState<boolean>(false);
+  const [userWasChecked, setUserWasChecked] = useState<boolean>(false);
   const { getAccessTokenSilently, logout, isAuthenticated, isLoading } =
     useAuth0();
+
+  const handleInitServerMiddleWareInOrderToCheckUser = () => {
+    initialUserCall();
+    setUserWasChecked(true);
+  };
+
+  useEffect(() => {
+    if (isAuthenticated && !userWasChecked && !isLoading && isAccessTokenSet) {
+      handleInitServerMiddleWareInOrderToCheckUser();
+    }
+  }, [isAuthenticated, userWasChecked, isLoading, isAccessTokenSet]);
 
   const setAxiosInterceptor = useCallback(
     (accessToken: string) => {

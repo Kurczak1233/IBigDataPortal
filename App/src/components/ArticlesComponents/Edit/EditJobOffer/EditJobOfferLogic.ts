@@ -1,4 +1,6 @@
 import { editJobOffer } from "api/JobOffersClient";
+import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
+import { addFile } from "components/common/FileModal/FilesAppendDataHelper";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import {
   administrationRoute,
@@ -7,12 +9,18 @@ import {
 } from "constants/apiRoutes";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { IEditJobOfferForm } from "./IEditJobOfferForm";
+interface IEditPostPageLogic {
+  jobOffer: JobOfferViewModel;
+  jobOfferFiles: File[];
+}
 
-const EditPostPageLogic = (jobOffer: JobOfferViewModel) => {
+const EditPostPageLogic = ({ jobOffer, jobOfferFiles }: IEditPostPageLogic) => {
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+
   const navigate = useNavigate();
   const {
     register,
@@ -20,8 +28,21 @@ const EditPostPageLogic = (jobOffer: JobOfferViewModel) => {
     handleSubmit,
     formState: { errors },
   } = useForm<IEditJobOfferForm>();
+
+  const handleAddFiles = async (newFiles: File[]) => {
+    const filesToAdd = newFiles.filter((item) => "path" in item);
+    await Promise.all(
+      filesToAdd.map(async (fileToUpload) => {
+        await addFile(jobOffer.id, fileToUpload, FileModuleEnum.jobOffersFiles);
+      })
+    );
+  };
+
   const submitForm = async (data: IEditJobOfferForm) => {
+    setIsSaving(true);
+    await handleAddFiles(jobOfferFiles);
     await editJobOffer(data);
+    setIsSaving(false);
     navigate(`/${administrationRoute}/${articlesRoute}/${jobOffersRoute}`);
     SyncToast({
       mode: ToastModes.Success,
@@ -46,7 +67,7 @@ const EditPostPageLogic = (jobOffer: JobOfferViewModel) => {
     setPostEditValues();
   }, [setPostEditValues]);
 
-  return { submitForm, register, handleSubmit, errors };
+  return { submitForm, register, handleSubmit, errors, isSaving };
 };
 
 export default EditPostPageLogic;

@@ -69,11 +69,12 @@ public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand>
         var sql = $@"INSERT INTO {Dbo.FilesMetadata} 
                         ({nameof(FileMetadata.Guid)},
                         {nameof(FileMetadata.FileName)},
+                        {nameof(FileMetadata.FileType)},
                         {nameof(FileMetadata.CreatedById)},
                         {nameof(FileMetadata.CreatedOn)}, 
                         {nameof(FileMetadata.ModuleEnum)},
                         {nameof(FileMetadata.RefId)})
-                        VALUES (@id, @fileName, @userId, @date, @module, @refId)";
+                        VALUES (@id, @fileName, @fileType,@userId, @date, @module, @refId)";
         await connection.ExecuteAsync(sql,
             new
             {
@@ -81,6 +82,7 @@ public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand>
                 fileName = request.Body.FileName,
                 userId = request.UserId,
                 date = DateTimeOffset.Now,
+                fileType = request.Body.FileType,
                 module = request.Body.FileModule,
                 refId = request.Body.RefId
             });
