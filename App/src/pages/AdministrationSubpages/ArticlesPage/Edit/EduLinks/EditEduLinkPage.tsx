@@ -1,14 +1,16 @@
+import EditFileComponent from "components/ArticlesComponents/ArticlesFiles/EditFileComponent/EditFileComponent";
 import EditEduLink from "components/ArticlesComponents/Edit/EditEduLink/EditEduLink";
 import EduLinksHeader from "components/ArticlesComponents/Overview/EduLinksPage/EduLinksHeader/EduLinksHeader";
 import EduLinkItem from "components/ArticlesComponents/Overview/EduLinksPage/EduLinksItems/EduLinkItem/EduLinkItem";
 import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
+import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import { EduLinkViewModel } from "interfaces/Models/EduLinks/ViewModels/EduLinkViewModel";
-import { useLocation } from "react-router-dom";
+import styles from "./EditEduLinkPage.module.scss";
+import EditEduLinkPageLogic from "./EditEduLinkPageLogic";
 
 const EditEduLinkPage = () => {
-  const location = useLocation();
-  const state = location.state as EduLinkViewModel;
+  const { state, eduLinkFiles, setEduLinkFiles } = EditEduLinkPageLogic();
+
   return (
     <div>
       <AdministartionPageHeader pageTitle={"Edit edu link"} />
@@ -18,7 +20,19 @@ const EditEduLinkPage = () => {
         eduLinkColor={AvailableIntensiveColors.LessIntensiveGreen}
         interactive={false}
       />
-      <EditEduLink eduLink={state} />
+      <div className={styles.formsContainer}>
+        <div className={styles.formWrapper}>
+          <EditEduLink
+            eduLink={state}
+            eduLinkFiles={eduLinkFiles.map((item) => item.file)}
+          />
+        </div>
+        <EditFileComponent
+          setPostsFiles={setEduLinkFiles}
+          postFiles={eduLinkFiles}
+          module={FileModuleEnum.eduLinksFiles}
+        />
+      </div>
     </div>
   );
 };
