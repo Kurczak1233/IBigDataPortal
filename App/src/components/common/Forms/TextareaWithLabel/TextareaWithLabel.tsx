@@ -32,7 +32,7 @@ const TextareaWithLabel = ({
       style={{ marginBottom: marginBottom, marginTop: marginTop }}
     >
       <label className={styles.label}>
-        {label}{" "}
+        {label}
         {errors[registerName] && (
           <span className={styles.error}>{errorMessage}</span>
         )}

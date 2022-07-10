@@ -9,6 +9,7 @@ export const appendFormData = (
   const formData = new FormData();
   formData.append("FormFile", fileToUpload);
   formData.append("FileName", fileToUpload.name);
+  formData.append("FileType", fileToUpload.type);
   formData.append("FileModule", module.toString());
   formData.append("RefId", `${itemId}`);
   return formData;

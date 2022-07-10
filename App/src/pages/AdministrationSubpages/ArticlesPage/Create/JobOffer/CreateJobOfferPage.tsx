@@ -18,7 +18,6 @@ const CreateJobOfferPage = () => {
     jobOfferFiles,
     isJobOfferCreating,
   } = CreateJobOfferPageLogic();
-
   return (
     <div>
       <div className={styles.jobOffersWrapper}>

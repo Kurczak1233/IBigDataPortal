@@ -8,11 +8,12 @@ import styles from "./EditJobOffer.module.scss";
 
 interface IEditJobOffer {
   jobOffer: JobOfferViewModel;
+  jobOfferFiles: File[];
 }
 
-const EditJobOffer = ({ jobOffer }: IEditJobOffer) => {
-  const { submitForm, register, handleSubmit, errors } =
-    EditJobOfferLogic(jobOffer);
+const EditJobOffer = ({ jobOffer, jobOfferFiles }: IEditJobOffer) => {
+  const { submitForm, register, handleSubmit, errors, isSaving } =
+    EditJobOfferLogic({ jobOffer, jobOfferFiles });
   return (
     <form className={styles.editForm}>
       <InputWithLabel
@@ -48,6 +49,7 @@ const EditJobOffer = ({ jobOffer }: IEditJobOffer) => {
         text={"Save"}
         color={AvailableIntensiveColors.IntensiveGreen}
         onClick={handleSubmit(submitForm)}
+        isLoading={isSaving}
       />
     </form>
   );
