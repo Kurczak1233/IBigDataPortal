@@ -34,7 +34,7 @@ const FileModal = ({
   moduleId,
   itemId,
   multiple = false,
-  acceptedFilesExtensions,
+  acceptedFilesExtensions = imageExtensions,
   customUploadFiles,
   updatePicture,
   currentFiles,
@@ -61,6 +61,14 @@ const FileModal = ({
     multiple,
     currentFiles,
   });
+  // console.log(    setIsModalOpen,
+  //   moduleId,
+  //   acceptedFilesExtensions,
+  //   itemId,
+  //   updatePicture,
+  //   multiple,
+  //   currentFiles);
+
   return (
     <Modal
       isOpen={isModalOpen}
@@ -126,7 +134,7 @@ const FileModal = ({
           {myFiles.map((file) => {
             return (
               <FileModalItem
-                key={file.lastModified}
+                key={`${file.lastModified} ${file.name}`}
                 removeFile={removeFile}
                 file={file}
               />

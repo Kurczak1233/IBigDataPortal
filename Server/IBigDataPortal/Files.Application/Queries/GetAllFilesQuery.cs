@@ -40,6 +40,7 @@ public class GetAllFilesQueryHandler : IRequestHandler<GetAllFilesQuery, List<Fi
         var sql = $@"SELECT {nameof(FileMetadata.Guid)},
                         {nameof(FileMetadata.CreatedById)},
                         {nameof(FileMetadata.CreatedOn)},
+                        {nameof(FileMetadata.FileType)},
                         {nameof(FileMetadata.IsDeleted)},
                         {nameof(FileMetadata.FileName)}
                         FROM {Dbo.FilesMetadata}
