@@ -3,12 +3,12 @@ import {
   articlesRoute,
   jobOffersRoute,
 } from "constants/apiRoutes";
-import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
+import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
 import { useNavigate } from "react-router-dom";
 
 const JobOfferItemLogic = () => {
   const navigate = useNavigate();
-  const naviateToItemOverview = (post: PostViewModel) => {
+  const naviateToItemOverview = (post: JobOfferViewModel) => {
     navigate(
       `/${administrationRoute}/${articlesRoute}/${jobOffersRoute}/${post.id}`,
       { state: post }
