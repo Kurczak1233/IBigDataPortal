@@ -1,14 +1,16 @@
+import EditFileComponent from "components/ArticlesComponents/ArticlesFiles/EditFileComponent/EditFileComponent";
 import EditJobOffer from "components/ArticlesComponents/Edit/EditJobOffer/EditJobOffer";
 import JobOffersHeader from "components/ArticlesComponents/Overview/JobOffersPage/JobOffersHeader/JobOffersHeader";
 import JobOfferItem from "components/ArticlesComponents/Overview/JobOffersPage/JobOffersItems/JobOfferItem/JobOfferItem";
 import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
+import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
-import { useLocation } from "react-router-dom";
+import styles from "./EditJobOfferPage.module.scss";
+import EditJobOfferPageLogic from "./EditJobOfferPageLogic";
 
 const EditJobOfferPage = () => {
-  const location = useLocation();
-  const state = location.state as JobOfferViewModel;
+  const { state, jobOfferFiles, setJobOfferFiles } = EditJobOfferPageLogic();
+
   return (
     <div>
       <AdministartionPageHeader pageTitle={"Edit job offer"} />
@@ -18,7 +20,19 @@ const EditJobOfferPage = () => {
         jobOfferColor={AvailableIntensiveColors.LessIntensiveBlue}
         interactive={false}
       />
-      <EditJobOffer jobOffer={state} />
+      <div className={styles.formsContainer}>
+        <div className={styles.formWrapper}>
+          <EditJobOffer
+            jobOffer={state}
+            jobOfferFiles={jobOfferFiles.map((item) => item.file)}
+          />
+        </div>
+        <EditFileComponent
+          setPostsFiles={setJobOfferFiles}
+          postFiles={jobOfferFiles}
+          module={FileModuleEnum.jobOffersFiles}
+        />
+      </div>
     </div>
   );
 };
