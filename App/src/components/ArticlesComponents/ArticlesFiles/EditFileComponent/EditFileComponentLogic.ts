@@ -1,25 +1,52 @@
+import { removeFile } from "api/FileClient";
+import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
+import { ToastModes } from "interfaces/General/ToastModes";
+import { FileWithMetadata } from "interfaces/Models/FilesMetadata/ViewModels/FileWithMetadata";
 import { useState } from "react";
 
 interface ICreatePostFilesLogic {
-  setPostsFiles: React.Dispatch<React.SetStateAction<File[]>>;
+  setPostsFiles: React.Dispatch<React.SetStateAction<FileWithMetadata[]>>;
 }
 
 const CreatePostFilesLogic = ({ setPostsFiles }: ICreatePostFilesLogic) => {
   const [isFileModalOpen, setIsFileModalOpen] = useState<boolean>(false);
+  const [fileToDelete, setFileToDelete] = useState<FileWithMetadata>();
+  const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
+    useState<boolean>(false);
 
   const openFileModal = () => {
     setIsFileModalOpen(true);
   };
 
-  const handleRemoveFile = (file: File) => {
+  const confirmDeleteFile = async () => {
+    if (!fileToDelete) {
+      return SyncToast({
+        mode: ToastModes.Error,
+        description: "Something went wrong",
+      });
+    }
+    if (!("path" in fileToDelete.file)) {
+      await removeFile(fileToDelete.guid);
+    }
+    setFileToDelete(undefined);
     setPostsFiles((newFiles) => {
-      newFiles.splice(newFiles.indexOf(file), 1);
+      newFiles.splice(newFiles.indexOf(fileToDelete), 1);
       return [...newFiles];
     });
+    setIsConfirmDeleteModalOpen(false);
+    setFileToDelete(undefined);
+  };
+
+  const handleRemoveFile = (file: FileWithMetadata) => {
+    setFileToDelete(file);
+    setIsConfirmDeleteModalOpen(true);
   };
 
   const temporaryGatherFiles = (files: File[]) => {
-    setPostsFiles(files);
+    const modifiedItems = files.map((item) => {
+      return { file: item, guid: "" };
+    });
+    setPostsFiles(modifiedItems);
     setIsFileModalOpen(false);
   };
 
@@ -28,7 +55,10 @@ const CreatePostFilesLogic = ({ setPostsFiles }: ICreatePostFilesLogic) => {
     setIsFileModalOpen,
     isFileModalOpen,
     temporaryGatherFiles,
+    isConfirmDeleteModalOpen,
+    setIsConfirmDeleteModalOpen,
     handleRemoveFile,
+    confirmDeleteFile,
   };
 };
 
