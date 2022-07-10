@@ -2,17 +2,20 @@ import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import InputWithLabel from "components/common/Forms/InputWithLabel/InputWithLabel";
 import TextareaWithLabel from "components/common/Forms/TextareaWithLabel/TextareaWithLabel";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
 import EditJobOfferLogic from "./EditEduLinkLogic";
 import styles from "./EditEduLink.module.scss";
+import { EduLinkViewModel } from "interfaces/Models/EduLinks/ViewModels/EduLinkViewModel";
 
 interface IEditEduLink {
-  eduLink: JobOfferViewModel;
+  eduLink: EduLinkViewModel;
+  eduLinkFiles: File[];
 }
 
-const EditEduLink = ({ eduLink }: IEditEduLink) => {
-  const { submitForm, register, handleSubmit, errors } =
-    EditJobOfferLogic(eduLink);
+const EditEduLink = ({ eduLink, eduLinkFiles }: IEditEduLink) => {
+  const { submitForm, register, handleSubmit, errors } = EditJobOfferLogic({
+    eduLink,
+    eduLinkFiles,
+  });
   return (
     <form className={styles.editForm}>
       <InputWithLabel
