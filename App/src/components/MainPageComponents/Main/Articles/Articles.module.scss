@@ -10,4 +10,11 @@
     @include fontSizeTwentyFive;
     margin-bottom: 24px;
   }
+  .noArticlesComponent {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include fontSizeEighteen
+  }
 }

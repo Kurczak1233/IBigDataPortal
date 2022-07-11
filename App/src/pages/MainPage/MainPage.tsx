@@ -4,11 +4,15 @@ import MainPageLogic from "./MainPageLogic";
 import styles from "./MainPage.module.scss";
 
 const MainPage = () => {
-  const { articles } = MainPageLogic();
+  const { articles, setArticles, initialArticlesModel } = MainPageLogic();
   return (
     <div className={styles.pageLayout}>
       <MainPageHeader />
-      <MainPageMain articles={articles} />
+      <MainPageMain
+        articles={articles}
+        setArticles={setArticles}
+        initialArticlesModel={initialArticlesModel}
+      />
     </div>
   );
 };

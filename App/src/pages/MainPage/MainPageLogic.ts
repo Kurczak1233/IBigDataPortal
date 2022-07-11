@@ -3,16 +3,21 @@ import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
 import { useEffect, useState } from "react";
 
 const MainPageLogic = () => {
+  const [initialArticlesModel, setOriginalArticlesModel] =
+    useState<ArticlesVm>();
   const [articles, setArticles] = useState<ArticlesVm>();
 
   const handleGetAllArticles = async () => {
-    setArticles(await getAllArticles());
+    const articles = await getAllArticles();
+    setArticles(articles);
+    setOriginalArticlesModel({ ...articles });
   };
+
   useEffect(() => {
     handleGetAllArticles();
   }, []);
 
-  return { articles };
+  return { articles, setArticles, initialArticlesModel };
 };
 
 export default MainPageLogic;

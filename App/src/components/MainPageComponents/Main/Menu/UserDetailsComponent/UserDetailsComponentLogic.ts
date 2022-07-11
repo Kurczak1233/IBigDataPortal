@@ -18,7 +18,7 @@ import {
 import { updateAccessTokenWasSet } from "redux/slices/accessTokenSlice";
 import { RootState } from "redux/store";
 
-const MenuLogic = () => {
+const UserDetailsComponentLogic = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const appUser = useSelector(
     (state: RootState) => state.applicationUserReducer.user
@@ -103,4 +103,4 @@ const MenuLogic = () => {
   };
 };
 
-export default MenuLogic;
+export default UserDetailsComponentLogic;

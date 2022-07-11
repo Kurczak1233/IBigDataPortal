@@ -31,8 +31,8 @@ const ArticleItem = ({ article }: IArticleItem) => {
         color={componentIntensiveColour}
       />
       <div>
-        {article.description.length >= 250 ? (
-          <span>{article.description.substring(0, 250)}...</span>
+        {article.description.length >= 500 ? (
+          <span>{article.description.substring(0, 500)}...</span>
         ) : (
           article.description
         )}

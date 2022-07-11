@@ -6,4 +6,5 @@ export enum AvailableIntensiveColors {
   LessIntensiveGreen = "c6e4cb",
   LessIntensiveBlue = "cedeff",
   LessIntensiveOrange = "ffe9bd",
+  InactiveGray = "EBEBEB",
 }

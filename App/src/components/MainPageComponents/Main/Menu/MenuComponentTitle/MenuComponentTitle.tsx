@@ -1,10 +1,10 @@
-import styles from "./MenuTitle.module.scss";
+import styles from "./MenuComponentTitle.module.scss";
 
-interface IMenuTitle {
+interface IMenuComponentTitle {
   name: string;
 }
 
-const MenuTitle = ({ name }: IMenuTitle) => {
+const MenuComponentTitle = ({ name }: IMenuComponentTitle) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.name}>{name}</div>
@@ -13,4 +13,4 @@ const MenuTitle = ({ name }: IMenuTitle) => {
   );
 };
 
-export default MenuTitle;
+export default MenuComponentTitle;
