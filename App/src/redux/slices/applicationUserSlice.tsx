@@ -16,8 +16,12 @@ const applicationUserSlice = createSlice({
     updateApplicationUser: (state, action: PayloadAction<IApplicationUser>) => {
       state.user = action.payload;
     },
+    removeApplicationUser: (state) => {
+      state.user = null;
+    },
   },
 });
 
-export const { updateApplicationUser } = applicationUserSlice.actions;
+export const { updateApplicationUser, removeApplicationUser } =
+  applicationUserSlice.actions;
 export default applicationUserSlice.reducer;

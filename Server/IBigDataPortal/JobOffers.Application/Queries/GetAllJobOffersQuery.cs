@@ -1,10 +1,10 @@
 ﻿using Dapper;
+using Files.Contracts.ViewModels;
 using Files.Domain.FilesAggregate.Enums;
-using Files.Domain.FilesAggregate.ViewModels;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Infrastructure;
-using JobOffers.Domain.PostsAggregate.ViewModels;
+using JobOffers.Contracts.ViewModels;
 using MediatR;
 
 namespace JobOffers.Application.Queries;
@@ -41,7 +41,7 @@ public class GetAllJobOffersQueryHandler : IRequestHandler<GetAllJobOffersQuery,
                      ON {Dbo.JobOffers}.{nameof(JobOffer.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}
                      LEFT JOIN {Dbo.FilesMetadata} ON {Dbo.JobOffers}.{nameof(JobOffer.Id)} = {Dbo.FilesMetadata}.{nameof(FileMetadata.RefId)}
                      WHERE ({nameof(FileMetadata.IsDeleted)} = 0 OR {nameof(FileMetadata.IsDeleted)} IS NULL)
-                     AND {nameof(FileMetadata.ModuleEnum)} = {(int)FileModuleEnum.jobOffersFiles}";
+                     AND ({nameof(FileMetadata.ModuleEnum)} = {(int)FileModuleEnum.jobOffersFiles} OR {nameof(FileMetadata.ModuleEnum)} IS NULL)";
         
         var result = await connection.QueryAsync<JobOfferViewModel, FileVm, JobOfferViewModel>(sql, (jobOffer, fileVm) =>
         {

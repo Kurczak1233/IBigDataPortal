@@ -1,0 +1,13 @@
+@import "styles/Commons.scss";
+.menu {
+  background: #c6e4cb;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 24px;
+  .filterPosition {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+}

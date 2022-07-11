@@ -14,6 +14,8 @@ const SmallButtonLogic = () => {
         return styles.buttonStylesBlue;
       case AvailableIntensiveColors.IntensiveRed:
         return styles.buttonStylesRed;
+      case AvailableIntensiveColors.InactiveGray:
+        return styles.buttonsStylesGray;
       default:
         return "";
     }
