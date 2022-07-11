@@ -1,0 +1,13 @@
+@import "styles/Commons.scss";
+.articlesSite {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  .mainWrapper {
+    margin-right: 32px;
+  }
+  .headerTitle {
+    @include fontSizeTwentyFive;
+    margin-bottom: 24px;
+  }
+}

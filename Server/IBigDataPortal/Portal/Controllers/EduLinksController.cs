@@ -8,7 +8,7 @@ using JobOffers.Domain.PostsAggregate.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Posts.Domain.PostsAggregate.ViewModels;
+using Posts.Contracts.ViewModels;
 
 namespace IBigDataPortal.Controllers;
 

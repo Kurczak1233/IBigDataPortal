@@ -5,12 +5,16 @@ import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import { ToastModes } from "interfaces/General/ToastModes";
 import NoAccessComponent from "components/common/NoAccessComponent/NoAccessComponent";
 import { initialUserCall } from "api/UsersClient";
+import { updateAccessTokenWasSet } from "redux/slices/accessTokenSlice";
+import { useDispatch } from "react-redux";
 
 const AppLogic = () => {
   const [isAccessTokenSet, setIsAccessTokenSet] = useState<boolean>(false);
   const [userWasChecked, setUserWasChecked] = useState<boolean>(false);
   const { getAccessTokenSilently, logout, isAuthenticated, isLoading } =
     useAuth0();
+
+  const dispatch = useDispatch();
 
   const handleInitServerMiddleWareInOrderToCheckUser = () => {
     initialUserCall();
@@ -50,7 +54,8 @@ const AppLogic = () => {
       setAxiosInterceptor(accessToken);
     }
     setIsAccessTokenSet(true);
-  }, [getAccessTokenSilently, setAxiosInterceptor]);
+    dispatch(updateAccessTokenWasSet(true));
+  }, [dispatch, getAccessTokenSilently, setAxiosInterceptor]);
 
   const checkIfRouteIsAuthenticated = (component: JSX.Element) => {
     return !isAuthenticated && !isLoading ? (

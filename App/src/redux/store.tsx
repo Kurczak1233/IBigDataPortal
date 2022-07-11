@@ -11,8 +11,12 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import applicationUserReducer from "./slices/applicationUserSlice";
+import accessTokenReducer from "./slices/accessTokenSlice";
 
-const reducers = combineReducers({ applicationUserReducer });
+const reducers = combineReducers({
+  applicationUserReducer,
+  accessTokenReducer,
+});
 
 const persistConfig = {
   key: "root",

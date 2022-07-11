@@ -1,9 +1,9 @@
 ﻿using Dapper;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
-using IBigDataPortal.Domain.PostsAggregate.Requests;
 using IBigDataPortal.Infrastructure;
 using MediatR;
+using Posts.Domain.PostsAggregate.Requests;
 
 namespace PostsApplication.Commands;
 

@@ -1,4 +1,4 @@
-﻿namespace Files.Domain.FilesAggregate.ViewModels;
+﻿namespace Files.Contracts.ViewModels;
 
 public class FileVm
 {

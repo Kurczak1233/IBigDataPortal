@@ -1,0 +1,11 @@
+@import "styles/Commons.scss";
+.mainPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  .content {
+    width: 80%;
+    display: flex;
+  }
+}
