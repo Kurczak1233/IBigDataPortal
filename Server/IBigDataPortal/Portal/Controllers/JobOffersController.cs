@@ -1,12 +1,11 @@
-﻿using IBigDataPortal.Domain.PostsAggregate.Requests;
-using IBigDataPortal.Domain.UserMetadata;
+﻿using IBigDataPortal.Domain.UserMetadata;
 using JobOffers.Application.Commands;
 using JobOffers.Application.Queries;
 using JobOffers.Domain.PostsAggregate.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Posts.Domain.PostsAggregate.ViewModels;
+using Posts.Contracts.ViewModels;
 using PostsApplication.Commands;
 using PostsApplication.Queries;
 

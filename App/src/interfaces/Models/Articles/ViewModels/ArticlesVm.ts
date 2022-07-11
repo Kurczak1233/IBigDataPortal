@@ -3,7 +3,7 @@ import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOff
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
 
 export interface ArticlesVm {
-  eduLinks: EduLinkViewModel;
-  jobOffers: JobOfferViewModel;
-  posts: PostViewModel;
+  eduLinks: EduLinkViewModel[];
+  jobOffers: JobOfferViewModel[];
+  posts: PostViewModel[];
 }

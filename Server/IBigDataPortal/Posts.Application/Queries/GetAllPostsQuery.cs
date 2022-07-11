@@ -1,11 +1,11 @@
 ﻿using Dapper;
+using Files.Contracts.ViewModels;
 using Files.Domain.FilesAggregate.Enums;
-using Files.Domain.FilesAggregate.ViewModels;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Infrastructure;
 using MediatR;
-using Posts.Domain.PostsAggregate.ViewModels;
+using Posts.Contracts.ViewModels;
 
 namespace PostsApplication.Queries;
 
@@ -40,7 +40,7 @@ public class GetAllPostsQueryHandler : IRequestHandler<GetAllPostsQuery, IEnumer
                      ON {Dbo.Posts}.{nameof(Post.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}
                      LEFT JOIN {Dbo.FilesMetadata} ON {Dbo.Posts}.{nameof(Post.Id)} = {Dbo.FilesMetadata}.{nameof(FileMetadata.RefId)}
                      WHERE ({nameof(FileMetadata.IsDeleted)} = 0 OR {nameof(FileMetadata.IsDeleted)} IS NULL)
-                     AND {nameof(FileMetadata.ModuleEnum)} = {(int)FileModuleEnum.postsFiles}";
+                     AND ({nameof(FileMetadata.ModuleEnum)} = {(int)FileModuleEnum.postsFiles} OR {nameof(FileMetadata.ModuleEnum)} IS NULL)";
         
         var result = await connection.QueryAsync<PostViewModel, FileVm, PostViewModel>(sql, (post, fileVm) =>
         {

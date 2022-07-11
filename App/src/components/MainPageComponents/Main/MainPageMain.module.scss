@@ -7,15 +7,5 @@
   .content {
     width: 80%;
     display: flex;
-    .headerTitle {
-      @include fontSizeTwentyFive;
-      margin-bottom: 24px;
-    }
-    .articlesSite {
-      width: 75%;
-      display: flex;
-      flex-direction: column;
-    }
-
   }
 }

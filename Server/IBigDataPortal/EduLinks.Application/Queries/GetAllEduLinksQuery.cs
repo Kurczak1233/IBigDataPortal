@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using EduLinks.Contracts.ViewModels;
+using Files.Contracts.ViewModels;
 using Files.Domain.FilesAggregate.Enums;
-using Files.Domain.FilesAggregate.ViewModels;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Infrastructure;
@@ -42,7 +42,7 @@ public class GetAllEduLinksQueryHandler : IRequestHandler<GetAllEduLinksQuery, I
                      ON {Dbo.EduLinks}.{nameof(EduLink.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}
                      LEFT JOIN {Dbo.FilesMetadata} ON {Dbo.EduLinks}.{nameof(EduLink.Id)} = {Dbo.FilesMetadata}.{nameof(FileMetadata.RefId)}
                      WHERE ({nameof(FileMetadata.IsDeleted)} = 0 OR {nameof(FileMetadata.IsDeleted)} IS NULL)
-                     AND {nameof(FileMetadata.ModuleEnum)} = {(int)FileModuleEnum.eduLinksFiles}";
+                     AND ({nameof(FileMetadata.ModuleEnum)} = {(int)FileModuleEnum.eduLinksFiles} OR {nameof(FileMetadata.ModuleEnum)} IS NULL)";
         
         var result = await connection.QueryAsync<EduLinkViewModel, FileVm, EduLinkViewModel>(sql, (eduLink, fileVm) =>
         {

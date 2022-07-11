@@ -1,6 +1,6 @@
 using EduLinks.Contracts.ViewModels;
-using JobOffers.Domain.PostsAggregate.ViewModels;
-using Posts.Domain.PostsAggregate.ViewModels;
+using JobOffers.Contracts.ViewModels;
+using Posts.Contracts.ViewModels;
 
 namespace Articles.Domain.ArticlesAggregate.ViewModels;
 
