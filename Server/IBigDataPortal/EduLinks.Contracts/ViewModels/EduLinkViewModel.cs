@@ -1,6 +1,6 @@
 ﻿using Files.Domain.FilesAggregate.ViewModels;
 
-namespace EduLinks.Domain.EduLinksAggregate.ViewModels;
+namespace EduLinks.Contracts.ViewModels;
 
 public class EduLinkViewModel
 {
