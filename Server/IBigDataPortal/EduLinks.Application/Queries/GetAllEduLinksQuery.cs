@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using EduLinks.Domain.EduLinksAggregate.ViewModels;
+using EduLinks.Contracts.ViewModels;
 using Files.Domain.FilesAggregate.Enums;
 using Files.Domain.FilesAggregate.ViewModels;
 using IBigDataPortal.Database;

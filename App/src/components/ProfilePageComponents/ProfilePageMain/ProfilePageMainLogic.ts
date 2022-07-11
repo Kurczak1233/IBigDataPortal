@@ -8,9 +8,15 @@ import { IUpdateProfileForm } from "./IUpdateProfileForm";
 
 interface IProfillePageMainLogic {
   userProfile: IApplicationUser;
+  setUserProfile: React.Dispatch<
+    React.SetStateAction<IApplicationUser | undefined>
+  >;
 }
 
-const ProfilePageMainLogic = ({ userProfile }: IProfillePageMainLogic) => {
+const ProfilePageMainLogic = ({
+  userProfile,
+  setUserProfile,
+}: IProfillePageMainLogic) => {
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const {
     register,
@@ -39,6 +45,14 @@ const ProfilePageMainLogic = ({ userProfile }: IProfillePageMainLogic) => {
       mode: ToastModes.Success,
       description: "You have updated a nickname",
     });
+    setUserProfile((oldProfile) => {
+      if (!oldProfile) {
+        return oldProfile;
+      }
+      oldProfile.nickname = request.nickname;
+      return { ...oldProfile };
+    });
+    setValue("nickname", request.nickname);
     setShowEdit(false);
   };
 

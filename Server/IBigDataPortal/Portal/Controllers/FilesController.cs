@@ -2,9 +2,7 @@
 using Files.Application.Queries;
 using Files.Domain.FilesAggregate.Enums;
 using Files.Domain.FilesAggregate.Requests;
-using Google.Cloud.Storage.V1;
 using IBigDataPortal.Domain.UserMetadata;
-using JobOffers.Application.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
