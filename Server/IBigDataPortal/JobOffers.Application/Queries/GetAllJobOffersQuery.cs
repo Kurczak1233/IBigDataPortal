@@ -1,10 +1,10 @@
 ﻿using Dapper;
+using Files.Contracts.ViewModels;
 using Files.Domain.FilesAggregate.Enums;
-using Files.Domain.FilesAggregate.ViewModels;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Infrastructure;
-using JobOffers.Domain.PostsAggregate.ViewModels;
+using JobOffers.Contracts.ViewModels;
 using MediatR;
 
 namespace JobOffers.Application.Queries;
@@ -31,21 +31,24 @@ public class GetAllJobOffersQueryHandler : IRequestHandler<GetAllJobOffersQuery,
                      {Dbo.JobOffers}.{nameof(JobOffer.Link)},
                      {Dbo.JobOffers}.{nameof(JobOffer.Posted)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail,
-                     {nameof(FileMetadata.Guid)},
-                     {nameof(FileMetadata.CreatedById)},
-                     {nameof(FileMetadata.CreatedOn)},
-                     {nameof(FileMetadata.IsDeleted)},
-                     {nameof(FileMetadata.FileName)},
-                     {nameof(FileMetadata.FileType)}
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.Guid)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.CreatedById)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.CreatedOn)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.FileName)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.ModuleEnum)} as FileModule,
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.FileType)}
                      FROM {Dbo.JobOffers} JOIN {Dbo.Users}
                      ON {Dbo.JobOffers}.{nameof(JobOffer.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}
                      LEFT JOIN {Dbo.FilesMetadata} ON {Dbo.JobOffers}.{nameof(JobOffer.Id)} = {Dbo.FilesMetadata}.{nameof(FileMetadata.RefId)}
-                     WHERE ({nameof(FileMetadata.IsDeleted)} = 0 OR {nameof(FileMetadata.IsDeleted)} IS NULL)
-                     AND {nameof(FileMetadata.ModuleEnum)} = {(int)FileModuleEnum.jobOffersFiles}";
+                     WHERE ({Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)} = 0 OR 
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)} = 1 OR
+                      {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)} IS NULL)
+                     AND {Dbo.JobOffers}.{nameof(JobOffer.IsDeleted)} = 0";
         
         var result = await connection.QueryAsync<JobOfferViewModel, FileVm, JobOfferViewModel>(sql, (jobOffer, fileVm) =>
         {
-            if (fileVm != null)
+            if (fileVm != null && fileVm.IsDeleted == false && (int)fileVm.FileModule == (int)FileModuleEnum.JobOffersFiles)
             {
                 jobOffer.Files.Add(fileVm);
             }
@@ -56,9 +59,10 @@ public class GetAllJobOffersQueryHandler : IRequestHandler<GetAllJobOffersQuery,
         {
             var groupedPost = g.First();
             var foundFiles= g.Select(p => p.Files.Count != 0 ? p.Files.Single() : null).ToList();
-            if (foundFiles[0] != null)
+            var allFiles = foundFiles.FindAll(item => item != null);
+            if (allFiles.Count != 0)
             {
-                groupedPost.Files = foundFiles;
+                groupedPost.Files = allFiles;
             }
             return groupedPost;
         });

@@ -1,6 +1,6 @@
 ﻿using Dapper;
+using Files.Contracts.ViewModels;
 using Files.Domain.FilesAggregate.Enums;
-using Files.Domain.FilesAggregate.ViewModels;
 using Files.Infrastructure;
 using Google.Cloud.Storage.V1;
 using IBigDataPortal.Database;
@@ -10,7 +10,7 @@ using MediatR;
 
 namespace Files.Application.Queries;
 
-public class GetFileQuery : IRequest<FileVm>
+public class GetFileQuery : IRequest<FileVm?>
 {
     public int FileId { get; set; }
     public FileModuleEnum ModuleId { get; set; }
@@ -21,7 +21,7 @@ public class GetFileQuery : IRequest<FileVm>
     }
 }
 
-public class GetFileQueryHandler : IRequestHandler<GetFileQuery, FileVm>
+public class GetFileQueryHandler : IRequestHandler<GetFileQuery, FileVm?>
 {
     private readonly ISqlConnectionService _connectionService;
 
@@ -31,11 +31,14 @@ public class GetFileQueryHandler : IRequestHandler<GetFileQuery, FileVm>
 
     }
     
-    public async Task<FileVm> Handle(GetFileQuery request, CancellationToken cancellationToken)
+    public async Task<FileVm?> Handle(GetFileQuery request, CancellationToken cancellationToken)
     {
-        var fileMetadata = await GetFileMetadata(request);
-        fileMetadata.Base64FileString = await GetFileFromGCP(fileMetadata.Guid.ToString(), cancellationToken);
-        return fileMetadata;
+        if (await GetFileMetadata(request) is { } fileMetadata)
+        {
+            fileMetadata.Base64FileString = await GetFileFromGCP(fileMetadata.Guid.ToString(), cancellationToken);
+            return fileMetadata;
+        }
+        return null;
     }
     
     private async Task<FileVm> GetFileMetadata(GetFileQuery request) {

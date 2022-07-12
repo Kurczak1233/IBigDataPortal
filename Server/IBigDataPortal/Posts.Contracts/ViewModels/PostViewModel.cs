@@ -1,6 +1,6 @@
-﻿using Files.Domain.FilesAggregate.ViewModels;
+﻿using Files.Contracts.ViewModels;
 
-namespace Posts.Domain.PostsAggregate.ViewModels;
+namespace Posts.Contracts.ViewModels;
 
 public class PostViewModel
 {
@@ -8,6 +8,9 @@ public class PostViewModel
     public string Title { get; set; }
     public string Description { get; set; }
     public string UserEmail { get; set; }
+    public string Type { get; set; }
+    public string Nickname { get; set; }
+
     public DateTimeOffset Posted { get; set; }
     public List<FileVm?> Files { get; set; } = new();
 

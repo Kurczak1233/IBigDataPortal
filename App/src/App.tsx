@@ -1,8 +1,11 @@
 import AdminMenuLayout from "components/common/AdminMenu/AdminMenuLayout/AdminMenuLayout";
 import ArticleMenuContent from "components/common/ArticleCommonComponents/ArticleMenuContent/ArticleMenuContent";
+import MainPageMain from "components/MainPageComponents/Main/MainPageMain";
 import ProfilePageMenu from "components/ProfilePageComponents/ProfilePageMenu/ProfillePageMenu";
 import {
   administrationRoute,
+  articleId,
+  articleRoute,
   articlesRoute,
   createEduLinkRoute,
   createJobOfferRoute,
@@ -31,6 +34,7 @@ import DashboardPage from "pages/AdministrationSubpages/DashboardPage/DashboardP
 import InvitationsPage from "pages/AdministrationSubpages/InvitationsPage/InvitationsPage";
 import ProfilePage from "pages/AdministrationSubpages/ProfilePage/ProfilePage";
 import UsersPage from "pages/AdministrationSubpages/UsersPage/UsersPage";
+import ArticlePage from "pages/MainPage/ArticlePage/ArticlePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AppLogic from "./AppLogic";
 import MainPage from "./pages/MainPage/MainPage";
@@ -41,7 +45,13 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" element={<MainPage />}>
+          <Route path={`/`} element={<MainPageMain />} />
+          <Route
+            path={`/${articleRoute}/:${articleId}`}
+            element={<ArticlePage />}
+          />
+        </Route>
         <Route path={`${errorRoute}`} element={<div>X2D</div>} />
         <Route
           path={`${administrationRoute}`}
