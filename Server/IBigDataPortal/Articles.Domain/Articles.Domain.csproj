@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EduLinks.Contracts\EduLinks.Contracts.csproj" />
+      <ProjectReference Include="..\JobOffers.Contracts\JobOffers.Contracts.csproj" />
+      <ProjectReference Include="..\Posts.Contracts\Posts.Contracts.csproj" />
+    </ItemGroup>
+
+</Project>

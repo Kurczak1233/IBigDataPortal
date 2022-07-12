@@ -24,9 +24,9 @@ public class UsersController: ControllerBase
     }
     
     [HttpGet("Initial")]
-    public async Task<ActionResult<ApplicationUserDto>> RunMiddlewares()
+    public Task<ActionResult<ApplicationUserDto>> RunMiddlewares()
     {
-        return Ok();
+        return Task.FromResult<ActionResult<ApplicationUserDto>>(Ok());
     }
     
     [HttpGet]

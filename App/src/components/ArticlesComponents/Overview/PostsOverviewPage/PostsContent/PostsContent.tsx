@@ -8,9 +8,10 @@ import PostsItems from "../PostsItems/PostsItems";
 import PostsContentLogic from "./PostsContentLogic";
 interface IPostsContent {
   posts: PostViewModel[];
+  setPosts: React.Dispatch<React.SetStateAction<PostViewModel[] | undefined>>;
 }
 
-const PostsContent = ({ posts }: IPostsContent) => {
+const PostsContent = ({ posts, setPosts }: IPostsContent) => {
   const { navigateToCreatePosts } = PostsContentLogic();
   return (
     <>
@@ -25,6 +26,7 @@ const PostsContent = ({ posts }: IPostsContent) => {
           <PostsHeader iconsColour={AvailableIntensiveColors.IntensiveOrange} />
           <PostsItems
             posts={posts}
+            setPosts={setPosts}
             postsColor={AvailableIntensiveColors.LessIntensiveOrange}
             paginationColor={AvailablePaginationColors.orange}
           />

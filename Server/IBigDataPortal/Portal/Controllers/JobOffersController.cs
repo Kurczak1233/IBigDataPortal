@@ -1,12 +1,11 @@
-﻿using IBigDataPortal.Domain.PostsAggregate.Requests;
-using IBigDataPortal.Domain.UserMetadata;
+﻿using IBigDataPortal.Domain.UserMetadata;
 using JobOffers.Application.Commands;
 using JobOffers.Application.Queries;
 using JobOffers.Domain.PostsAggregate.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Posts.Domain.PostsAggregate.ViewModels;
+using Posts.Contracts.ViewModels;
 using PostsApplication.Commands;
 using PostsApplication.Queries;
 
@@ -42,6 +41,14 @@ public class JobOffersController : ControllerBase
     public async Task<ActionResult> UpdateJobOffer(UpdateJobOfferRequest body)
     {
         await _mediator.Send(new UpdateJobOfferCommand(body, _user.Id));
+        return Ok();
+    }
+    
+        
+    [HttpPut("Delete/{itemId}")]
+    public async Task<ActionResult> DeleteJobOffer(int itemId)
+    {
+        await _mediator.Send(new DeleteJobOfferCommand(itemId, _user.Id));
         return Ok();
     }
 }

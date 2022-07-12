@@ -1,11 +1,11 @@
 ﻿using Dapper;
+using Files.Contracts.ViewModels;
 using Files.Domain.FilesAggregate.Enums;
-using Files.Domain.FilesAggregate.ViewModels;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Infrastructure;
 using MediatR;
-using Posts.Domain.PostsAggregate.ViewModels;
+using Posts.Contracts.ViewModels;
 
 namespace PostsApplication.Queries;
 
@@ -30,21 +30,24 @@ public class GetAllPostsQueryHandler : IRequestHandler<GetAllPostsQuery, IEnumer
                      {Dbo.Posts}.{nameof(Post.Id)},
                      {Dbo.Posts}.{nameof(Post.Posted)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail,
-                     {nameof(FileMetadata.Guid)},
-                     {nameof(FileMetadata.CreatedById)},
-                     {nameof(FileMetadata.CreatedOn)},
-                     {nameof(FileMetadata.IsDeleted)},
-                     {nameof(FileMetadata.FileName)},
-                     {nameof(FileMetadata.FileType)}
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.Guid)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.CreatedById)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.CreatedOn)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.FileName)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.ModuleEnum)} as FileModule,
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.FileType)}
                      FROM {Dbo.Posts} JOIN {Dbo.Users}
                      ON {Dbo.Posts}.{nameof(Post.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}
                      LEFT JOIN {Dbo.FilesMetadata} ON {Dbo.Posts}.{nameof(Post.Id)} = {Dbo.FilesMetadata}.{nameof(FileMetadata.RefId)}
-                     WHERE ({nameof(FileMetadata.IsDeleted)} = 0 OR {nameof(FileMetadata.IsDeleted)} IS NULL)
-                     AND {nameof(FileMetadata.ModuleEnum)} = {(int)FileModuleEnum.postsFiles}";
+                     WHERE ({Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)} = 0 OR 
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)} = 1 OR
+                      {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)} IS NULL)
+                     AND {Dbo.Posts}.{nameof(Post.IsDeleted)} = 0";
         
         var result = await connection.QueryAsync<PostViewModel, FileVm, PostViewModel>(sql, (post, fileVm) =>
         {
-            if (fileVm != null)
+            if (fileVm != null && fileVm.IsDeleted == false && (int)fileVm.FileModule == (int)FileModuleEnum.PostsFiles)
             {
                 post.Files.Add(fileVm);
             }
@@ -55,9 +58,10 @@ public class GetAllPostsQueryHandler : IRequestHandler<GetAllPostsQuery, IEnumer
         {
             var groupedPost = g.First();
             var foundFiles= g.Select(p => p.Files.Count != 0 ? p.Files.Single() : null).ToList();
-            if (foundFiles[0] != null)
+            var allFiles = foundFiles.FindAll(item => item != null);
+            if (allFiles.Count != 0)
             {
-                groupedPost.Files = foundFiles;
+                groupedPost.Files = allFiles;
             }
             return groupedPost;
         });

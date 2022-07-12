@@ -40,6 +40,12 @@ const ProfilePageLogic = () => {
     handleGetUserProfileRequest();
   }, []);
 
-  return { userProfile, profilePic, setProfilePic, handleGetProfilePicture };
+  return {
+    userProfile,
+    profilePic,
+    setProfilePic,
+    handleGetProfilePicture,
+    setUserProfile,
+  };
 };
 export default ProfilePageLogic;
