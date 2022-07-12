@@ -1,0 +1,18 @@
+@import "styles/Commons.scss";
+.footer {
+  margin-top: 32px;
+  background-color: $less-intensive-green;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  .pagename {
+    @include fontSizeEighteen;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .buttons {
+    display: flex;
+  }
+}

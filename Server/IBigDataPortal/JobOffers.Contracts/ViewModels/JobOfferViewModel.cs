@@ -1,6 +1,6 @@
-﻿using Files.Domain.FilesAggregate.ViewModels;
+﻿using Files.Contracts.ViewModels;
 
-namespace JobOffers.Domain.PostsAggregate.ViewModels;
+namespace JobOffers.Contracts.ViewModels;
 
 public class JobOfferViewModel
 {
@@ -9,6 +9,8 @@ public class JobOfferViewModel
     public string Link { get; set; }
     public string Description { get; set; }
     public string UserEmail { get; set; }
+    public string Nickname { get; set; }
+    public string Type { get; set; }
     public DateTimeOffset Posted { get; set; } 
     public List<FileVm?> Files { get; set; } = new();
 }

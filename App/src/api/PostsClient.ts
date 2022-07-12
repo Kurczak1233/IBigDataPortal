@@ -20,4 +20,12 @@ const editPost = async (body: IEditPostForm): Promise<null> => {
   return AxiosClient(HttpRequestsMethods.PUT, `${Posts}`, base, { body });
 };
 
-export { getAllPosts, createPost, editPost };
+const deletePost = async (itemId: number): Promise<null> => {
+  return AxiosClient(
+    HttpRequestsMethods.PUT,
+    `${Posts}/Delete/${itemId}`,
+    base
+  );
+};
+
+export { getAllPosts, createPost, editPost, deletePost };

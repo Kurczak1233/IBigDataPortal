@@ -20,4 +20,12 @@ const editEduLink = async (body: IEditEduLinkForm): Promise<null> => {
   return AxiosClient(HttpRequestsMethods.PUT, `${EduLinks}`, base, { body });
 };
 
-export { getAllEduLinks, createEduLink, editEduLink };
+const deleteEduLink = async (itemId: number): Promise<null> => {
+  return AxiosClient(
+    HttpRequestsMethods.PUT,
+    `${EduLinks}/Delete/${itemId}`,
+    base
+  );
+};
+
+export { getAllEduLinks, createEduLink, editEduLink, deleteEduLink };

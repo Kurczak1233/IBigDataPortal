@@ -10,12 +10,16 @@ interface IJobOffersItems {
   jobOffers: JobOfferViewModel[];
   jobOfferColor: AvailableIntensiveColors;
   paginationColor: AvailablePaginationColors;
+  setJobOffers: React.Dispatch<
+    React.SetStateAction<JobOfferViewModel[] | undefined>
+  >;
 }
 
 const JobOffersItems = ({
   jobOffers,
   jobOfferColor,
   paginationColor,
+  setJobOffers,
 }: IJobOffersItems) => {
   const { handlePageClick, pageCount, currentItems, refContainer } =
     JobOffersItemsLogic({
@@ -30,6 +34,7 @@ const JobOffersItems = ({
             key={`${jobOffer.title}, ${jobOffer.description} ${index}`}
             jobOffer={jobOffer}
             jobOfferColor={jobOfferColor}
+            setJobOffers={setJobOffers}
           />
         ))}
       </div>
