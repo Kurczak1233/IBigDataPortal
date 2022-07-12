@@ -3,7 +3,15 @@ import BigLoader from "components/common/Loaders/BigLoader";
 import PostsPageLogic from "./PostsPageLogic";
 
 const PostPage = () => {
-  const { posts } = PostsPageLogic();
-  return <>{posts ? <PostsContent posts={posts} /> : <BigLoader />}</>;
+  const { posts, setPosts } = PostsPageLogic();
+  return (
+    <>
+      {posts ? (
+        <PostsContent posts={posts} setPosts={setPosts} />
+      ) : (
+        <BigLoader />
+      )}
+    </>
+  );
 };
 export default PostPage;

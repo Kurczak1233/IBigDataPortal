@@ -12,7 +12,7 @@ const EduLinksPageLogic = () => {
       handleGetAllEduLinks();
     }
   }, [eduLinks]);
-  return { eduLinks };
+  return { eduLinks, setEduLinks };
 };
 
 export default EduLinksPageLogic;

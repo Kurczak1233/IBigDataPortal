@@ -12,6 +12,6 @@ const PostsPageLogic = () => {
       handleGetAllPosts();
     }
   }, [posts]);
-  return { posts };
+  return { posts, setPosts };
 };
 export default PostsPageLogic;

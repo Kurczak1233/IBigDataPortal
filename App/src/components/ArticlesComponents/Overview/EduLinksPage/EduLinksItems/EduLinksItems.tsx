@@ -10,12 +10,16 @@ interface IEduLinksItems {
   eduLinks: EduLinkViewModel[];
   eduLinkColor: AvailableIntensiveColors;
   paginationColor: AvailablePaginationColors;
+  setEduLinks: React.Dispatch<
+    React.SetStateAction<EduLinkViewModel[] | undefined>
+  >;
 }
 
 const EduLinksItems = ({
   eduLinks,
   eduLinkColor,
   paginationColor,
+  setEduLinks,
 }: IEduLinksItems) => {
   const { handlePageClick, pageCount, currentItems, refContainer } =
     EduLinksItemsLogic({ eduLinks });
@@ -28,6 +32,7 @@ const EduLinksItems = ({
             key={`${eduLink.title}, ${eduLink.description} ${index}`}
             eduLink={eduLink}
             eduLinkColor={eduLinkColor}
+            setEduLinks={setEduLinks}
           />
         ))}
       </div>

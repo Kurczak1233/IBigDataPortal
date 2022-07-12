@@ -1,7 +1,7 @@
 ﻿using Dapper;
-using EduLinks.Domain.EduLinksAggregate.ViewModels;
+using EduLinks.Contracts.ViewModels;
+using Files.Contracts.ViewModels;
 using Files.Domain.FilesAggregate.Enums;
-using Files.Domain.FilesAggregate.ViewModels;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Infrastructure;
@@ -32,21 +32,24 @@ public class GetAllEduLinksQueryHandler : IRequestHandler<GetAllEduLinksQuery, I
                      {Dbo.EduLinks}.{nameof(EduLink.Link)},
                      {Dbo.EduLinks}.{nameof(EduLink.Posted)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail,
-                     {nameof(FileMetadata.Guid)},
-                     {nameof(FileMetadata.CreatedById)},
-                     {nameof(FileMetadata.CreatedOn)},
-                     {nameof(FileMetadata.IsDeleted)},
-                     {nameof(FileMetadata.FileName)},
-                     {nameof(FileMetadata.FileType)}
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.Guid)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.CreatedById)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.CreatedOn)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.FileName)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.ModuleEnum)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.FileType)}
                      FROM {Dbo.EduLinks} JOIN {Dbo.Users}
                      ON {Dbo.EduLinks}.{nameof(EduLink.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}
                      LEFT JOIN {Dbo.FilesMetadata} ON {Dbo.EduLinks}.{nameof(EduLink.Id)} = {Dbo.FilesMetadata}.{nameof(FileMetadata.RefId)}
-                     WHERE ({nameof(FileMetadata.IsDeleted)} = 0 OR {nameof(FileMetadata.IsDeleted)} IS NULL)
-                     AND {nameof(FileMetadata.ModuleEnum)} = {(int)FileModuleEnum.eduLinksFiles}";
+                     WHERE ({Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)} = 0 OR 
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)} = 1 OR
+                      {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)} IS NULL)
+                     AND {Dbo.EduLinks}.{nameof(EduLink.IsDeleted)} = 0";
         
         var result = await connection.QueryAsync<EduLinkViewModel, FileVm, EduLinkViewModel>(sql, (eduLink, fileVm) =>
         {
-            if (fileVm != null)
+            if (fileVm != null && fileVm.IsDeleted == false && (int)fileVm.FileModule == (int)FileModuleEnum.EduLinksFiles)
             {
                 eduLink.Files.Add(fileVm);
             }

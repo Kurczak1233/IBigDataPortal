@@ -41,6 +41,7 @@ const EduLinksItemsLogic = ({ eduLinks }: IEduLinksItemsLogic) => {
     pageCount,
     currentItems,
     refContainer,
+    setPageCount,
   };
 };
 
