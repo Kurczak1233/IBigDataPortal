@@ -44,4 +44,11 @@ public class PostsController : ControllerBase
         await _mediator.Send(new UpdatePostCommand(body, _user.Id));
         return Ok();
     }
+    
+    [HttpPut("Delete/{itemId}")]
+    public async Task<ActionResult> DeletePost(int itemId)
+    {
+        await _mediator.Send(new DeletePostCommand(itemId, _user.Id));
+        return Ok();
+    }
 }

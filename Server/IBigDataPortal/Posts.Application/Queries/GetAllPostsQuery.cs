@@ -30,21 +30,24 @@ public class GetAllPostsQueryHandler : IRequestHandler<GetAllPostsQuery, IEnumer
                      {Dbo.Posts}.{nameof(Post.Id)},
                      {Dbo.Posts}.{nameof(Post.Posted)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail,
-                     {nameof(FileMetadata.Guid)},
-                     {nameof(FileMetadata.CreatedById)},
-                     {nameof(FileMetadata.CreatedOn)},
-                     {nameof(FileMetadata.IsDeleted)},
-                     {nameof(FileMetadata.FileName)},
-                     {nameof(FileMetadata.FileType)}
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.Guid)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.CreatedById)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.CreatedOn)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.FileName)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.ModuleEnum)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.FileType)}
                      FROM {Dbo.Posts} JOIN {Dbo.Users}
                      ON {Dbo.Posts}.{nameof(Post.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}
                      LEFT JOIN {Dbo.FilesMetadata} ON {Dbo.Posts}.{nameof(Post.Id)} = {Dbo.FilesMetadata}.{nameof(FileMetadata.RefId)}
-                     WHERE ({nameof(FileMetadata.IsDeleted)} = 0 OR {nameof(FileMetadata.IsDeleted)} IS NULL)
-                     AND ({nameof(FileMetadata.ModuleEnum)} = {(int)FileModuleEnum.postsFiles} OR {nameof(FileMetadata.ModuleEnum)} IS NULL)";
+                     WHERE ({Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)} = 0 OR 
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)} = 1 OR
+                      {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)} IS NULL)
+                     AND {Dbo.Posts}.{nameof(Post.IsDeleted)} = 0";
         
         var result = await connection.QueryAsync<PostViewModel, FileVm, PostViewModel>(sql, (post, fileVm) =>
         {
-            if (fileVm != null)
+            if (fileVm != null && fileVm.IsDeleted == false && (int)fileVm.FileModule == (int)FileModuleEnum.PostsFiles)
             {
                 post.Files.Add(fileVm);
             }

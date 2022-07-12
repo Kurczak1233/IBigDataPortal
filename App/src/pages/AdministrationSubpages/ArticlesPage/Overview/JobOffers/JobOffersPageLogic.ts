@@ -12,7 +12,7 @@ const JobOffersPageLogic = () => {
       handleGetAllJobOffers();
     }
   }, [jobOffers]);
-  return { jobOffers };
+  return { jobOffers, setJobOffers };
 };
 
 export default JobOffersPageLogic;

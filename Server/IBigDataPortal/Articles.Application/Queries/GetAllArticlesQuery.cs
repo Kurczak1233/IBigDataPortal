@@ -56,7 +56,8 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      {Dbo.Users}.{nameof(User.Nickname)},
                      'Post' as Type
                      FROM {Dbo.Posts} JOIN {Dbo.Users}
-                     ON {Dbo.Posts}.{nameof(Post.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}";
+                     ON {Dbo.Posts}.{nameof(Post.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}
+                     WHERE {Dbo.Posts}.{nameof(Post.IsDeleted)} = 0";
 
         var jobOffers = await connection.QueryAsync<JobOfferViewModel>(jobOffersSql);
         var posts = await connection.QueryAsync<PostViewModel>(postsSql);

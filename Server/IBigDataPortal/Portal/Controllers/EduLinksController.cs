@@ -47,4 +47,11 @@ public class EduLinksController : ControllerBase
         await _mediator.Send(new UpdateEduLinkCommand(body, _user.Id));
         return Ok();
     }
+    
+    [HttpPut("Delete/{itemId}")]
+    public async Task<ActionResult> DeleteEduLink(int itemId)
+    {
+        await _mediator.Send(new DeleteEduLinkCommand(itemId, _user.Id));
+        return Ok();
+    }
 }

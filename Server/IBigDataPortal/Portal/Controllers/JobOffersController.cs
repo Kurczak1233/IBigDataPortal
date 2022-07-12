@@ -43,4 +43,12 @@ public class JobOffersController : ControllerBase
         await _mediator.Send(new UpdateJobOfferCommand(body, _user.Id));
         return Ok();
     }
+    
+        
+    [HttpPut("Delete/{itemId}")]
+    public async Task<ActionResult> DeleteJobOffer(int itemId)
+    {
+        await _mediator.Send(new DeleteJobOfferCommand(itemId, _user.Id));
+        return Ok();
+    }
 }
