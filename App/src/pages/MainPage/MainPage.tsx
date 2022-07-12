@@ -1,14 +1,15 @@
 import MainPageHeader from "../../components/MainPageComponents/Header/MainPageHeader";
-import MainPageLoginBar from "../../components/MainPageComponents/LoginBar/MainPageLoginBar";
-import MainPageMain from "../../components/MainPageComponents/Main/MainPageMain";
+import styles from "./MainPage.module.scss";
+import { Outlet } from "react-router-dom";
+import MainPageFooter from "components/MainPageComponents/Footer/MainPageFooter";
 
 const MainPage = () => {
   return (
-    <>
+    <div className={styles.pageLayout}>
       <MainPageHeader />
-      <MainPageLoginBar />
-      <MainPageMain />
-    </>
+      <Outlet />
+      <MainPageFooter />
+    </div>
   );
 };
 

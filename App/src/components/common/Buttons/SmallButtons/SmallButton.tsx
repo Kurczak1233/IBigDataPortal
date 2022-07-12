@@ -5,6 +5,7 @@ import SmallButtonLogic from "./SmallButtonLogic";
 interface ISmallButton {
   text: string;
   onClick: () => void;
+  itemRef?: React.RefObject<HTMLDivElement>;
   color: AvailableIntensiveColors;
   isLoading?: boolean;
   width?: string;
@@ -27,11 +28,13 @@ const SmallButton = ({
   uppercase = false,
   text,
   color,
+  itemRef,
   onClick,
 }: ISmallButton) => {
   const { handleGetColorHoverClass } = SmallButtonLogic();
   return (
     <div
+      ref={itemRef}
       onClick={!isLoading ? onClick : () => null}
       style={{
         width: width,

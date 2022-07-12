@@ -8,4 +8,6 @@ export interface EduLinkViewModel {
   posted: Date;
   userEmail: string;
   files: FileVm[];
+  type: string;
+  nickname: string;
 }

@@ -1,0 +1,38 @@
+@import "styles/Commons.scss";
+.pageLayout {
+  flex: 1;
+  display: flex;
+  justify-content: space-evenly;
+  .main {
+    width: 80%;
+    margin-top: 30px;
+    background-color: $less-intensive-green;
+    padding: 16px;
+    border-radius: 8px;
+    height: fit-content;
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      @include fontSizeTwentyFive;
+    }
+    .content {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      flex-direction: column;
+      .contactEmail {
+        @include fontSizeEighteen;
+        margin-bottom: 8px;
+      }
+    }
+  }
+}
+.returnButton {
+  width: 100%;
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}

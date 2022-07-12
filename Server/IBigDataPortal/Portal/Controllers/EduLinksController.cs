@@ -8,7 +8,7 @@ using JobOffers.Domain.PostsAggregate.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Posts.Domain.PostsAggregate.ViewModels;
+using Posts.Contracts.ViewModels;
 
 namespace IBigDataPortal.Controllers;
 
@@ -45,6 +45,13 @@ public class EduLinksController : ControllerBase
     public async Task<ActionResult> UpdateEduLink(UpdateEduLinkRequest body)
     {
         await _mediator.Send(new UpdateEduLinkCommand(body, _user.Id));
+        return Ok();
+    }
+    
+    [HttpPut("Delete/{itemId}")]
+    public async Task<ActionResult> DeleteEduLink(int itemId)
+    {
+        await _mediator.Send(new DeleteEduLinkCommand(itemId, _user.Id));
         return Ok();
     }
 }

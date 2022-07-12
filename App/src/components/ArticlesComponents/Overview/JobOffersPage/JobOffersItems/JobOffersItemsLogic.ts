@@ -56,6 +56,7 @@ const JobOffersItemsLogic = ({ jobOffers }: IPostsItems) => {
     currentItems,
     refContainer,
     naviateToItemOverview,
+    setPageCount,
   };
 };
 

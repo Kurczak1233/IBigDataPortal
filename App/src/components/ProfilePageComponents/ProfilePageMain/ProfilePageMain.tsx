@@ -13,13 +13,16 @@ interface IProfilePageMain {
   handleGetProfilePicture: () => Promise<string | undefined>;
   setProfilePic: React.Dispatch<React.SetStateAction<FileVm | undefined>>;
   profilePic: FileVm;
+  setUserProfile: React.Dispatch<
+    React.SetStateAction<IApplicationUser | undefined>
+  >;
 }
-
 const ProfilePageMain = ({
   userProfile,
   handleGetProfilePicture,
   setProfilePic,
   profilePic,
+  setUserProfile,
 }: IProfilePageMain) => {
   const {
     register,
@@ -30,6 +33,7 @@ const ProfilePageMain = ({
     handleSubmit,
   } = ProfilePageMainLogic({
     userProfile,
+    setUserProfile,
   });
 
   return (

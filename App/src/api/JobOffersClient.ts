@@ -20,4 +20,12 @@ const editJobOffer = async (body: IEditJobOfferForm): Promise<null> => {
   return AxiosClient(HttpRequestsMethods.PUT, `${JobOffers}`, base, { body });
 };
 
-export { getAllJobOffers, createJobOffer, editJobOffer };
+const deleteJobOffer = async (itemId: number): Promise<null> => {
+  return AxiosClient(
+    HttpRequestsMethods.PUT,
+    `${JobOffers}/Delete/${itemId}`,
+    base
+  );
+};
+
+export { getAllJobOffers, createJobOffer, editJobOffer, deleteJobOffer };
