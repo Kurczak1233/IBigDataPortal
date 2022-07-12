@@ -1,19 +1,10 @@
-import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
 import Articles from "./Articles/Articles";
 import styles from "./MainPageMain.module.scss";
+import MainPageMainLogic from "./MainPageMainLogic";
 import Menu from "./Menu/Menu";
 
-interface IMainPageMain {
-  articles: ArticlesVm | undefined;
-  setArticles: React.Dispatch<React.SetStateAction<ArticlesVm | undefined>>;
-  initialArticlesModel: ArticlesVm | undefined;
-}
-
-const MainPageMain = ({
-  initialArticlesModel,
-  articles,
-  setArticles,
-}: IMainPageMain) => {
+const MainPageMain = () => {
+  const { articles, setArticles, initialArticlesModel } = MainPageMainLogic();
   return (
     <div className={styles.mainPage}>
       <div className={styles.content}>

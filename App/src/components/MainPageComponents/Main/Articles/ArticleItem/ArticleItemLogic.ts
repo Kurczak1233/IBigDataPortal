@@ -1,9 +1,12 @@
+import { articleRoute } from "constants/apiRoutes";
 import { ArticlesTypes } from "enums/ArticlesTypes";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { IMergedPosts } from "../ArticlesLogic";
 
 const ArticleItemLogic = (article: IMergedPosts) => {
+  const navigate = useNavigate();
   const findArticleColour = (type: string): AvailableIntensiveColors => {
     switch (type) {
       case ArticlesTypes.Post:
@@ -32,6 +35,10 @@ const ArticleItemLogic = (article: IMergedPosts) => {
     }
   };
 
+  const navigateToArticle = () => {
+    navigate(`${articleRoute}/${article.id}`, { state: article });
+  };
+
   const componentColour = useMemo(() => {
     return findArticleColour(article.type);
   }, [article]);
@@ -39,6 +46,6 @@ const ArticleItemLogic = (article: IMergedPosts) => {
     return findIntensiveArticleColour(article.type);
   }, [article]);
 
-  return { componentColour, componentIntensiveColour };
+  return { componentColour, componentIntensiveColour, navigateToArticle };
 };
 export default ArticleItemLogic;

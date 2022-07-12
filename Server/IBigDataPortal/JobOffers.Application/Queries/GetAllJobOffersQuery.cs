@@ -36,7 +36,7 @@ public class GetAllJobOffersQueryHandler : IRequestHandler<GetAllJobOffersQuery,
                      {Dbo.FilesMetadata}.{nameof(FileMetadata.CreatedOn)},
                      {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)},
                      {Dbo.FilesMetadata}.{nameof(FileMetadata.FileName)},
-                     {Dbo.FilesMetadata}.{nameof(FileMetadata.ModuleEnum)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.ModuleEnum)} as FileModule,
                      {Dbo.FilesMetadata}.{nameof(FileMetadata.FileType)}
                      FROM {Dbo.JobOffers} JOIN {Dbo.Users}
                      ON {Dbo.JobOffers}.{nameof(JobOffer.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}
@@ -59,9 +59,10 @@ public class GetAllJobOffersQueryHandler : IRequestHandler<GetAllJobOffersQuery,
         {
             var groupedPost = g.First();
             var foundFiles= g.Select(p => p.Files.Count != 0 ? p.Files.Single() : null).ToList();
-            if (foundFiles[0] != null)
+            var allFiles = foundFiles.FindAll(item => item != null);
+            if (allFiles.Count != 0)
             {
-                groupedPost.Files = foundFiles;
+                groupedPost.Files = allFiles;
             }
             return groupedPost;
         });

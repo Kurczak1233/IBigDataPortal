@@ -10,7 +10,7 @@ interface IArticleItem {
 }
 
 const ArticleItem = ({ article }: IArticleItem) => {
-  const { componentColour, componentIntensiveColour } =
+  const { componentColour, componentIntensiveColour, navigateToArticle } =
     ArticleItemLogic(article);
   return (
     <div
@@ -40,9 +40,7 @@ const ArticleItem = ({ article }: IArticleItem) => {
       <div className={styles.readMoreButton}>
         <SmallButton
           text={"READ MORE"}
-          onClick={function (): void {
-            throw new Error("Function not implemented.");
-          }}
+          onClick={navigateToArticle}
           color={componentIntensiveColour}
         />
       </div>

@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using Files.Contracts.ViewModels;
 using Files.Domain.FilesAggregate.Enums;
+using Files.Infrastructure;
+using Google.Cloud.Storage.V1;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Infrastructure;
@@ -31,7 +33,17 @@ public class GetAllFilesQueryHandler : IRequestHandler<GetAllFilesQuery, List<Fi
     
     public async Task<List<FileVm>> Handle(GetAllFilesQuery request, CancellationToken cancellationToken)
     {
-        return await GetFilesMetadata(request);
+        var files = await GetFilesMetadata(request);
+        if (files.Count > 0)
+        {
+            foreach (var fileVm in files)
+            {
+                fileVm.Base64FileString = await GetFileFromGCP(fileVm.Guid.ToString(), cancellationToken);
+            }
+
+            return files;
+        }
+        return new List<FileVm>();
     }
 
     private async Task<List<FileVm>> GetFilesMetadata(GetAllFilesQuery request)
@@ -55,5 +67,13 @@ public class GetAllFilesQueryHandler : IRequestHandler<GetAllFilesQuery, List<Fi
                 refId = request.ItemId
             });
         return result.ToList();
+    }
+    
+    private async Task<string> GetFileFromGCP(string fileName, CancellationToken cancellationToken) {
+        var gcsStorage = await StorageClient.CreateAsync();
+        var memoryStream = new MemoryStream();
+        await gcsStorage.DownloadObjectAsync(IBucketName.BucketName, fileName, memoryStream, cancellationToken: cancellationToken);
+        var fileInBytes = memoryStream.ToArray();
+        return Convert.ToBase64String(fileInBytes);
     }
 }

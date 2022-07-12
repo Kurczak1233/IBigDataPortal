@@ -16,16 +16,23 @@ const AppLogic = () => {
 
   const dispatch = useDispatch();
 
-  const handleInitServerMiddleWareInOrderToCheckUser = () => {
-    initialUserCall();
+  const handleInitServerMiddleWareInOrderToCheckUser = useCallback(async () => {
+    await initialUserCall();
+    dispatch(updateAccessTokenWasSet(true));
     setUserWasChecked(true);
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     if (isAuthenticated && !userWasChecked && !isLoading && isAccessTokenSet) {
       handleInitServerMiddleWareInOrderToCheckUser();
     }
-  }, [isAuthenticated, userWasChecked, isLoading, isAccessTokenSet]);
+  }, [
+    isAuthenticated,
+    userWasChecked,
+    isLoading,
+    isAccessTokenSet,
+    handleInitServerMiddleWareInOrderToCheckUser,
+  ]);
 
   const setAxiosInterceptor = useCallback(
     (accessToken: string) => {
@@ -52,9 +59,9 @@ const AppLogic = () => {
     const accessToken = await getAccessTokenSilently();
     if (accessToken !== "") {
       setAxiosInterceptor(accessToken);
+      dispatch(updateAccessTokenWasSet(true));
     }
     setIsAccessTokenSet(true);
-    dispatch(updateAccessTokenWasSet(true));
   }, [dispatch, getAccessTokenSilently, setAxiosInterceptor]);
 
   const checkIfRouteIsAuthenticated = (component: JSX.Element) => {
@@ -76,6 +83,17 @@ const AppLogic = () => {
     isAccessTokenSet,
     isAuthenticated,
   ]);
+
+  //Refresh page --> reset accessToken
+  useEffect(() => {
+    window.onbeforeunload = () => {
+      return dispatch(updateAccessTokenWasSet(false));
+    };
+
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, [dispatch]);
 
   return { checkIfRouteIsAuthenticated };
 };
