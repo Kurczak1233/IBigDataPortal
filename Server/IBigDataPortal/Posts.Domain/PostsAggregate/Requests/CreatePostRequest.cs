@@ -1,4 +1,4 @@
-﻿namespace IBigDataPortal.Domain.PostsAggregate.Requests;
+﻿namespace Posts.Domain.PostsAggregate.Requests;
 
 public class CreatePostRequest
 {

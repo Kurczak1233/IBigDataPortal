@@ -5,6 +5,8 @@ import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import { ToastModes } from "interfaces/General/ToastModes";
 import NoAccessComponent from "components/common/NoAccessComponent/NoAccessComponent";
 import { initialUserCall } from "api/UsersClient";
+import { updateAccessTokenWasSet } from "redux/slices/accessTokenSlice";
+import { useDispatch } from "react-redux";
 
 const AppLogic = () => {
   const [isAccessTokenSet, setIsAccessTokenSet] = useState<boolean>(false);
@@ -12,16 +14,25 @@ const AppLogic = () => {
   const { getAccessTokenSilently, logout, isAuthenticated, isLoading } =
     useAuth0();
 
-  const handleInitServerMiddleWareInOrderToCheckUser = () => {
-    initialUserCall();
+  const dispatch = useDispatch();
+
+  const handleInitServerMiddleWareInOrderToCheckUser = useCallback(async () => {
+    await initialUserCall();
+    dispatch(updateAccessTokenWasSet(true));
     setUserWasChecked(true);
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     if (isAuthenticated && !userWasChecked && !isLoading && isAccessTokenSet) {
       handleInitServerMiddleWareInOrderToCheckUser();
     }
-  }, [isAuthenticated, userWasChecked, isLoading, isAccessTokenSet]);
+  }, [
+    isAuthenticated,
+    userWasChecked,
+    isLoading,
+    isAccessTokenSet,
+    handleInitServerMiddleWareInOrderToCheckUser,
+  ]);
 
   const setAxiosInterceptor = useCallback(
     (accessToken: string) => {
@@ -48,9 +59,10 @@ const AppLogic = () => {
     const accessToken = await getAccessTokenSilently();
     if (accessToken !== "") {
       setAxiosInterceptor(accessToken);
+      dispatch(updateAccessTokenWasSet(true));
     }
     setIsAccessTokenSet(true);
-  }, [getAccessTokenSilently, setAxiosInterceptor]);
+  }, [dispatch, getAccessTokenSilently, setAxiosInterceptor]);
 
   const checkIfRouteIsAuthenticated = (component: JSX.Element) => {
     return !isAuthenticated && !isLoading ? (
@@ -71,6 +83,17 @@ const AppLogic = () => {
     isAccessTokenSet,
     isAuthenticated,
   ]);
+
+  //Refresh page --> reset accessToken
+  useEffect(() => {
+    window.onbeforeunload = () => {
+      return dispatch(updateAccessTokenWasSet(false));
+    };
+
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, [dispatch]);
 
   return { checkIfRouteIsAuthenticated };
 };

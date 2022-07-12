@@ -28,7 +28,7 @@ const getLastUploadedFileFromServer = async (
 const getAllItemsFiles = async (
   itemId: number,
   moduleNumber: FileModuleEnum
-): Promise<FileVm> => {
+): Promise<FileVm[]> => {
   return AxiosClient(
     HttpRequestsMethods.GET,
     `${Files}/Item/${itemId}/Module/${moduleNumber}`,
