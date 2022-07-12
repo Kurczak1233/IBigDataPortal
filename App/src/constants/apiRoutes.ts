@@ -14,3 +14,6 @@ export const articleId = "articleId";
 export const createPostRoute = "create-post";
 export const createEduLinkRoute = "create-edu-link";
 export const createJobOfferRoute = "create-job-offer";
+export const privacyRoute = "privacy";
+export const contactRoute = "contact";
+export const aboutRoute = "about";

@@ -14,7 +14,9 @@ export interface IMergedPosts {
   nickname: string;
 }
 
-const ArticlesLogic = () => {
+const ArticlesLogic = (
+  setNumberOfArticlesVisible: React.Dispatch<React.SetStateAction<number>>
+) => {
   const sortArticles = (articles: ArticlesVm | undefined): IMergedPosts[] => {
     if (articles) {
       const oneArray = [
@@ -30,7 +32,11 @@ const ArticlesLogic = () => {
     return [];
   };
 
-  return { sortArticles };
+  const multiplyNumbersOfArticles = () => {
+    setNumberOfArticlesVisible((oldValue) => oldValue + 8);
+  };
+
+  return { sortArticles, multiplyNumbersOfArticles };
 };
 
 export default ArticlesLogic;

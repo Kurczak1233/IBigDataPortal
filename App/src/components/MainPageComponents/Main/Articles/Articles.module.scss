@@ -15,6 +15,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    @include fontSizeEighteen
+    @include fontSizeEighteen;
+  }
+  .showMoreArticles {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-right: 32px;
   }
 }

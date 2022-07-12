@@ -3,10 +3,12 @@ import ArticleMenuContent from "components/common/ArticleCommonComponents/Articl
 import MainPageMain from "components/MainPageComponents/Main/MainPageMain";
 import ProfilePageMenu from "components/ProfilePageComponents/ProfilePageMenu/ProfillePageMenu";
 import {
+  aboutRoute,
   administrationRoute,
   articleId,
   articleRoute,
   articlesRoute,
+  contactRoute,
   createEduLinkRoute,
   createJobOfferRoute,
   createPostRoute,
@@ -17,6 +19,7 @@ import {
   jobOffersRoute,
   postId,
   postsRoute,
+  privacyRoute,
   profileRoute,
   usersRoute,
 } from "constants/apiRoutes";
@@ -34,7 +37,10 @@ import DashboardPage from "pages/AdministrationSubpages/DashboardPage/DashboardP
 import InvitationsPage from "pages/AdministrationSubpages/InvitationsPage/InvitationsPage";
 import ProfilePage from "pages/AdministrationSubpages/ProfilePage/ProfilePage";
 import UsersPage from "pages/AdministrationSubpages/UsersPage/UsersPage";
+import AboutPage from "pages/MainPage/AboutPage/AboutPage";
 import ArticlePage from "pages/MainPage/ArticlePage/ArticlePage";
+import ContactPage from "pages/MainPage/ContactPage/ContactPage";
+import PrivacyPage from "pages/MainPage/PrivacyPage/PrivacyPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AppLogic from "./AppLogic";
 import MainPage from "./pages/MainPage/MainPage";
@@ -46,11 +52,14 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<MainPage />}>
-          <Route path={`/`} element={<MainPageMain />} />
+          <Route path={`/${contactRoute}`} element={<ContactPage />} />
+          <Route path={`/${privacyRoute}`} element={<PrivacyPage />} />
+          <Route path={`/${aboutRoute}`} element={<AboutPage />} />
           <Route
             path={`/${articleRoute}/:${articleId}`}
             element={<ArticlePage />}
           />
+          <Route path={`/`} element={<MainPageMain />} />
         </Route>
         <Route path={`${errorRoute}`} element={<div>X2D</div>} />
         <Route

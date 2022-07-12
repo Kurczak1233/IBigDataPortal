@@ -1,10 +1,10 @@
+@import "styles/Commons.scss";
 .articlePage {
   display: flex;
   justify-content: space-evenly;
   .mainContainer {
     width: 80%;
     margin-top: 55px;
-    @import "styles/Commons.scss";
     .article {
       border-radius: 8px;
       margin-bottom: 24px;

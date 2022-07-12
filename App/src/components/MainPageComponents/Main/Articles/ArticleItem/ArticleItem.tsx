@@ -39,7 +39,7 @@ const ArticleItem = ({ article }: IArticleItem) => {
       </div>
       <div className={styles.readMoreButton}>
         <SmallButton
-          text={"READ MORE"}
+          text={"Read more"}
           onClick={navigateToArticle}
           color={componentIntensiveColour}
         />

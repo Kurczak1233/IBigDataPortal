@@ -4,11 +4,21 @@ import MainPageMainLogic from "./MainPageMainLogic";
 import Menu from "./Menu/Menu";
 
 const MainPageMain = () => {
-  const { articles, setArticles, initialArticlesModel } = MainPageMainLogic();
+  const {
+    articles,
+    setArticles,
+    initialArticlesModel,
+    numberOfArticlesVisible,
+    setNumberOfArticlesVisible,
+  } = MainPageMainLogic();
   return (
     <div className={styles.mainPage}>
       <div className={styles.content}>
-        <Articles articles={articles} />
+        <Articles
+          articles={articles}
+          numberOfArticlesVisible={numberOfArticlesVisible}
+          setNumberOfArticlesVisible={setNumberOfArticlesVisible}
+        />
         <Menu
           setArticles={setArticles}
           initialArticlesModel={initialArticlesModel}
