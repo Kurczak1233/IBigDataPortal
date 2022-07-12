@@ -5,7 +5,7 @@
   justify-content: space-evenly;
   .main {
     width: 80%;
-    margin-top: 55px;
+    margin-top: 30px;
     background-color: $less-intensive-green;
     padding: 16px;
     border-radius: 8px;
@@ -37,4 +37,11 @@
       justify-content: space-evenly;
     }
   }
+}
+.returnButton {
+  width: 100%;
+  display: flex;
+  margin-top: 32px;
+  align-items: center;
+  justify-content: space-evenly;
 }
