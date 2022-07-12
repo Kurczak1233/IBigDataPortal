@@ -3,12 +3,9 @@ import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import { IMergedPosts } from "components/MainPageComponents/Main/Articles/ArticlesLogic";
 import { ArticlesTypes } from "enums/ArticlesTypes";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import { access } from "fs";
 import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { RootState } from "redux/store";
 
 const ArticlePageLogic = () => {
   const [articleFiles, setArticleFiles] = useState<FileVm[]>([]);
@@ -16,9 +13,6 @@ const ArticlePageLogic = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const article = location.state as IMergedPosts;
-  const accessTokenWasSet = useSelector(
-    (state: RootState) => state.accessTokenReducer.accessTokenSet
-  );
 
   const findArticleColour = (type: string): AvailableIntensiveColors => {
     switch (type) {
@@ -69,9 +63,7 @@ const ArticlePageLogic = () => {
 
   const handleItemFiles = useCallback(async () => {
     const type = findModuleEnum(article.type);
-    console.log("WORKS?", article, article.id, type, accessTokenWasSet);
     const reuslt = await getAllItemsFiles(article.id, type);
-    console.log(reuslt);
     await setArticleFiles(reuslt);
     setFilesLoading(false);
   }, [article]);
@@ -81,10 +73,8 @@ const ArticlePageLogic = () => {
   };
 
   useEffect(() => {
-    if (accessTokenWasSet) {
-      handleItemFiles();
-    }
-  }, [article.id, article.type, handleItemFiles, accessTokenWasSet]);
+    handleItemFiles();
+  }, [article.id, article.type, handleItemFiles]);
 
   return {
     article,

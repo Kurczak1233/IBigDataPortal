@@ -11,7 +11,6 @@ namespace IBigDataPortal.Controllers;
 
 
 [ApiController]
-[Authorize]
 [Route("[controller]")]
 public class FilesController : ControllerBase
 {
@@ -22,7 +21,7 @@ public class FilesController : ControllerBase
         _mediator = mediator;
         _user = user;
     }
-
+    [Authorize]
     [HttpGet("Last/Item/{itemId}/Module/{moduleNumber}")]
     public async Task<IActionResult> GetLastUploadedFileFromServer(int itemId, FileModuleEnum moduleNumber)
     {
@@ -36,14 +35,14 @@ public class FilesController : ControllerBase
         var fileResult = await _mediator.Send(new GetAllFilesQuery(itemId, moduleNumber));
         return Ok(fileResult);
     }
-    
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> UploadFileToServer([FromForm] UploadFileRequest body)
     {
         await _mediator.Send(new UploadFileCommand(body, _user.Id));
         return Ok();
     }
-
+    [Authorize]
     [HttpPut("File/{fileId}")]
     public async Task<IActionResult> RemoveFile(string fileId)
     {
