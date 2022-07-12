@@ -49,13 +49,15 @@ const Articles = ({
               </div>
             )}
           </main>
-          <div className={styles.showMoreArticles}>
-            <BigButton
-              text={"Load more..."}
-              color={AvailableIntensiveColors.IntensiveGreen}
-              onClick={multiplyNumbersOfArticles}
-            />
-          </div>
+          {sortArticles(articles).length > numberOfArticlesVisible && (
+            <div className={styles.showMoreArticles}>
+              <BigButton
+                text={"Load more..."}
+                color={AvailableIntensiveColors.IntensiveGreen}
+                onClick={multiplyNumbersOfArticles}
+              />
+            </div>
+          )}
         </>
       ) : (
         <BigLoader />
