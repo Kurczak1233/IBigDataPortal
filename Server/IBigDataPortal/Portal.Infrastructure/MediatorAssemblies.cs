@@ -21,5 +21,6 @@ public static class MediatorAssemblies
         services.AddMediatR(AppDomain.CurrentDomain.Load("EduLinks.Application"));
         services.AddMediatR(AppDomain.CurrentDomain.Load("Files.Application"));
         services.AddMediatR(AppDomain.CurrentDomain.Load("Users.Application"));
+        services.AddMediatR(AppDomain.CurrentDomain.Load("Articles.Application"));
     }
 }

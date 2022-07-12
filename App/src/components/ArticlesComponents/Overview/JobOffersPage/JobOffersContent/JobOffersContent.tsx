@@ -9,9 +9,12 @@ import JobOfferContentLogic from "./JobOffersContentLogic";
 
 interface IJobOffersContent {
   jobOffers: JobOfferViewModel[];
+  setJobOffers: React.Dispatch<
+    React.SetStateAction<JobOfferViewModel[] | undefined>
+  >;
 }
 
-const JobOffersContent = ({ jobOffers }: IJobOffersContent) => {
+const JobOffersContent = ({ jobOffers, setJobOffers }: IJobOffersContent) => {
   const { navigateToCreateJobOffer } = JobOfferContentLogic();
   return (
     <>
@@ -30,6 +33,7 @@ const JobOffersContent = ({ jobOffers }: IJobOffersContent) => {
             jobOfferColor={AvailableIntensiveColors.LessIntensiveBlue}
             jobOffers={jobOffers}
             paginationColor={AvailablePaginationColors.blue}
+            setJobOffers={setJobOffers}
           />
         </>
       )}

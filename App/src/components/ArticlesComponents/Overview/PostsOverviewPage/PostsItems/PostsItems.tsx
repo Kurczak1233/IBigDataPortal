@@ -10,9 +10,15 @@ interface IPostsItems {
   posts: PostViewModel[];
   postsColor: AvailableIntensiveColors;
   paginationColor: AvailablePaginationColors;
+  setPosts: React.Dispatch<React.SetStateAction<PostViewModel[] | undefined>>;
 }
 
-const PostsItems = ({ posts, postsColor, paginationColor }: IPostsItems) => {
+const PostsItems = ({
+  posts,
+  postsColor,
+  paginationColor,
+  setPosts,
+}: IPostsItems) => {
   const { handlePageClick, pageCount, currentItems, refContainer } =
     PostsItemsLogic({
       posts,
@@ -25,6 +31,7 @@ const PostsItems = ({ posts, postsColor, paginationColor }: IPostsItems) => {
           <PostItem
             key={`${post.title}, ${post.description} ${index}`}
             post={post}
+            setPosts={setPosts}
             postsColor={postsColor}
           />
         ))}

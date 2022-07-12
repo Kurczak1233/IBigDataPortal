@@ -9,9 +9,12 @@ import AdministartionPageHeader from "components/common/AdministartionPageHeader
 
 interface IEduLinksContent {
   eduLinks: EduLinkViewModel[];
+  setEduLinks: React.Dispatch<
+    React.SetStateAction<EduLinkViewModel[] | undefined>
+  >;
 }
 
-const EduLinksContent = ({ eduLinks }: IEduLinksContent) => {
+const EduLinksContent = ({ eduLinks, setEduLinks }: IEduLinksContent) => {
   const { navigateToCreateEduLink } = EduLinksContentLogic();
   return (
     <>
@@ -30,6 +33,7 @@ const EduLinksContent = ({ eduLinks }: IEduLinksContent) => {
             eduLinks={eduLinks}
             eduLinkColor={AvailableIntensiveColors.LessIntensiveGreen}
             paginationColor={AvailablePaginationColors.green}
+            setEduLinks={setEduLinks}
           />
         </>
       )}

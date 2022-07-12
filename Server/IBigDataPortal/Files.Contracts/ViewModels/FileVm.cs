@@ -1,4 +1,6 @@
-﻿namespace Files.Domain.FilesAggregate.ViewModels;
+﻿using Files.Domain.FilesAggregate.Enums;
+
+namespace Files.Contracts.ViewModels;
 
 public class FileVm
 {
@@ -9,4 +11,5 @@ public class FileVm
     public DateTimeOffset CreatedOn { get; set; }
     public string FileName { get; set; }
     public string FileType { get; set; }
+    public FileModuleEnum FileModule { get; set; }
 }

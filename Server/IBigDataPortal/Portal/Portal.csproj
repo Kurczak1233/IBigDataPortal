@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ApplicationUser\ApplicationUser.csproj" />
+      <ProjectReference Include="..\Articles.Application\Articles.Application.csproj" />
       <ProjectReference Include="..\EduLinks.Application\EduLinks.Application.csproj" />
       <ProjectReference Include="..\Files.Application\Files.Application.csproj" />
       <ProjectReference Include="..\Files.Domain\Files.Domain.csproj" />

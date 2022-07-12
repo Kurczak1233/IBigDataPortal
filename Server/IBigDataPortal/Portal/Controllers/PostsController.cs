@@ -1,12 +1,11 @@
 ﻿using ApplicationUser.Queries;
 using ApplicationUserDomain.Models;
-using IBigDataPortal.Domain.PostsAggregate.Requests;
 using IBigDataPortal.Domain.UserMetadata;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Posts.Contracts.ViewModels;
 using Posts.Domain.PostsAggregate.Requests;
-using Posts.Domain.PostsAggregate.ViewModels;
 using PostsApplication.Commands;
 using PostsApplication.Queries;
 
@@ -43,6 +42,13 @@ public class PostsController : ControllerBase
     public async Task<ActionResult> UpdatePost(UpdatePostRequest body)
     {
         await _mediator.Send(new UpdatePostCommand(body, _user.Id));
+        return Ok();
+    }
+    
+    [HttpPut("Delete/{itemId}")]
+    public async Task<ActionResult> DeletePost(int itemId)
+    {
+        await _mediator.Send(new DeletePostCommand(itemId, _user.Id));
         return Ok();
     }
 }
