@@ -1,5 +1,4 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
 import {
   administrationRoute,
   articlesRoute,
@@ -7,10 +6,9 @@ import {
 } from "constants/apiRoutes";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import application from "authenticationConfig.json";
 import { useDispatch, useSelector } from "react-redux";
 import { getApplicationUser } from "api/UsersClient";
-import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
+import { ApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import {
   removeApplicationUser,
   updateApplicationUser,
@@ -28,12 +26,11 @@ const UserDetailsComponentLogic = () => {
   );
 
   const [applicationUser, setApplicationUser] =
-    useState<IApplicationUser | null>(appUser);
+    useState<ApplicationUser | null>(appUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { loginWithRedirect, logout, user, getAccessTokenSilently } =
-    useAuth0();
+  const { loginWithRedirect, logout } = useAuth0();
   const handleClickOnLogin = () => {
     loginWithRedirect();
   };
@@ -50,26 +47,6 @@ const UserDetailsComponentLogic = () => {
   const handleMoveToThePortal = () => {
     navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
   };
-
-  const runInitialMiddleware = useCallback(async () => {
-    const accessToken = await getAccessTokenSilently();
-    const base = application.baseUrl;
-    await axios({
-      method: "GET",
-      url: `${base}/Users/Initial`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  }, [getAccessTokenSilently]);
-
-  useEffect(() => {
-    if (user) {
-      runInitialMiddleware();
-    }
-  }, [runInitialMiddleware, user]);
 
   const getUserDetailsAndSaveThoseInRedux = useCallback(async () => {
     if (accessTokenWasSet) {

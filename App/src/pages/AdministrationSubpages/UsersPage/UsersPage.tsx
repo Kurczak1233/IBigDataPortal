@@ -1,10 +1,12 @@
+import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
+import UsersPageMain from "components/UsersPageComponents/UsersPageMain/UsersPageMain";
+
 const UsersPage = () => {
   return (
-    // <PageLayout
-    //   menuContent={<div>Users Menu</div>}
-    //   content={}
-    // />
-    <div>Content</div>
+    <>
+      <AdministartionPageHeader pageTitle={"User management"} />
+      <UsersPageMain />
+    </>
   );
 };
 export default UsersPage;

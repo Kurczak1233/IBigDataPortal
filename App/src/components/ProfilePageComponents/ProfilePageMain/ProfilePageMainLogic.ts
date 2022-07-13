@@ -1,15 +1,15 @@
 import { updateUserNickname } from "api/UsersClient";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import { ToastModes } from "interfaces/General/ToastModes";
-import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
+import { ApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IUpdateProfileForm } from "./IUpdateProfileForm";
 
 interface IProfillePageMainLogic {
-  userProfile: IApplicationUser;
+  userProfile: ApplicationUser;
   setUserProfile: React.Dispatch<
-    React.SetStateAction<IApplicationUser | undefined>
+    React.SetStateAction<ApplicationUser | undefined>
   >;
 }
 
@@ -26,7 +26,7 @@ const ProfilePageMainLogic = ({
     formState: { errors },
   } = useForm<IUpdateProfileForm>();
   const handleSetInputsBasicValues = useCallback(
-    (userProfile: IApplicationUser) => {
+    (userProfile: ApplicationUser) => {
       setValue("nickname", userProfile.nickname);
     },
     [setValue]

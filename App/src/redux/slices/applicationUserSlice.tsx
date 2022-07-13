@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
+import { ApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 
 interface IApplicationUserState {
-  user: IApplicationUser | null;
+  user: ApplicationUser | null;
 }
 
 const initialState: IApplicationUserState = {
@@ -13,7 +13,7 @@ const applicationUserSlice = createSlice({
   name: "applicationUser",
   initialState,
   reducers: {
-    updateApplicationUser: (state, action: PayloadAction<IApplicationUser>) => {
+    updateApplicationUser: (state, action: PayloadAction<ApplicationUser>) => {
       state.user = action.payload;
     },
     removeApplicationUser: (state) => {

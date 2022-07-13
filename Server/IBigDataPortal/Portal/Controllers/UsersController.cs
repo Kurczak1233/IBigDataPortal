@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Users.Application.Commands;
+using Users.Application.Queries;
 using Users.Domain.UsersAggregate.Requests;
 
 namespace IBigDataPortal.Controllers;
@@ -12,7 +13,7 @@ namespace IBigDataPortal.Controllers;
 [ApiController]
 [Authorize]
 [Route("[controller]")]
-public class UsersController: ControllerBase
+public class UsersController : ControllerBase
 {
     private readonly IUser _user;
     private readonly IMediator _mediator;
@@ -29,10 +30,17 @@ public class UsersController: ControllerBase
         return Task.FromResult<ActionResult<ApplicationUserDto>>(Ok());
     }
     
-    [HttpGet]
+    [HttpGet("Current")]
     public async Task<ActionResult<ApplicationUserDto>> GetCurrentApplicationUser()
     {
         var result = await _mediator.Send(new GetApplicationUserQuery(_user.Id));
+        return Ok(result);
+    }
+    
+    [HttpGet("All")]
+    public async Task<ActionResult<IEnumerable<ApplicationUserDto>>> GetAllPortalUsers()
+    {
+        var result = await _mediator.Send(new GetAllPortalUsersQuery());
         return Ok(result);
     }
     
