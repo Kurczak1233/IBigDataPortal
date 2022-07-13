@@ -12,10 +12,11 @@ import {
 import storage from "redux-persist/lib/storage";
 import applicationUserReducer from "./slices/applicationUserSlice";
 import accessTokenReducer from "./slices/accessTokenSlice";
-
+import resetFiltersFlags from "./slices/resetFiltersFlags";
 const reducers = combineReducers({
   applicationUserReducer,
   accessTokenReducer,
+  resetFiltersFlags,
 });
 
 const persistConfig = {

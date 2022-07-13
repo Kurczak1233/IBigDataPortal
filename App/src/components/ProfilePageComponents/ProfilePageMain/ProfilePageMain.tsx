@@ -3,18 +3,18 @@ import InputWithLabel from "components/common/Forms/InputWithLabel/InputWithLabe
 import InputWthLabelReadonly from "components/common/Forms/InputWthLabelReadonly/InputWthLabelReadonly";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
-import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
+import { ApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import styles from "./ProfilePageMain.module.scss";
 import ProfilePageMainLogic from "./ProfilePageMainLogic";
 
 interface IProfilePageMain {
-  userProfile: IApplicationUser;
+  userProfile: ApplicationUser;
   handleGetProfilePicture: () => Promise<string | undefined>;
   setProfilePic: React.Dispatch<React.SetStateAction<FileVm | undefined>>;
   profilePic: FileVm;
   setUserProfile: React.Dispatch<
-    React.SetStateAction<IApplicationUser | undefined>
+    React.SetStateAction<ApplicationUser | undefined>
   >;
 }
 const ProfilePageMain = ({

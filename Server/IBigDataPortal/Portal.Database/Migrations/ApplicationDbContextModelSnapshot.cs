@@ -196,9 +196,58 @@ namespace IBigDataPortal.Database.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserRoleId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserRoleId");
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.UserRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            RoleName = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            RoleName = "HEI"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            RoleName = "Employee"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            RoleName = "Student/Business"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            RoleName = "User"
+                        });
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.EduLink", b =>
@@ -243,6 +292,22 @@ namespace IBigDataPortal.Database.Migrations
                         .IsRequired();
 
                     b.Navigation("Creator");
+                });
+
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.User", b =>
+                {
+                    b.HasOne("IBigDataPortal.Database.Entities.UserRole", "UserRole")
+                        .WithMany("Users")
+                        .HasForeignKey("UserRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserRole");
+                });
+
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.UserRole", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }
