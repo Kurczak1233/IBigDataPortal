@@ -81,17 +81,17 @@ const AppLogic = () => {
     isAccessTokenSet,
     isAuthenticated,
   ]);
+  const alertUser = useCallback(() => {
+    return dispatch(updateAccessTokenWasSet(false));
+  }, [dispatch]);
 
   //Refresh page --> reset accessToken
   useEffect(() => {
-    window.onbeforeunload = () => {
-      return dispatch(updateAccessTokenWasSet(false));
-    };
-
+    window.addEventListener("beforeunload", alertUser);
     return () => {
-      window.onbeforeunload = null;
+      window.removeEventListener("beforeunload", alertUser);
     };
-  }, [dispatch]);
+  }, [alertUser, dispatch]);
 
   return { checkIfRouteIsAuthenticated };
 };
