@@ -1,5 +1,11 @@
 import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateResetAdvancedFilters,
+  updateResetSimpleFilters,
+} from "redux/slices/resetFiltersFlags";
+import { RootState } from "redux/store";
 
 interface IFilterArticlesComponentLogic {
   setArticles: React.Dispatch<React.SetStateAction<ArticlesVm | undefined>>;
@@ -13,6 +19,10 @@ const FilterArticlesComponentLogic = ({
   const [arePostsVisible, setArePostsVisible] = useState<boolean>(true);
   const [areJobOffersVisible, setAreJobOffersVisible] = useState<boolean>(true);
   const [areEduLinksVisible, setAreEduLinksVisible] = useState<boolean>(true);
+  const simpleFiltersShouldReset = useSelector(
+    (state: RootState) => state.resetFiltersFlags.resetSimpleFilters
+  );
+  const dispatch = useDispatch();
 
   const filterByPosts = () => {
     setArePostsVisible((oldValue) => !oldValue);
@@ -27,6 +37,7 @@ const FilterArticlesComponentLogic = ({
       }
       return { ...oldArticles };
     });
+    dispatch(updateResetAdvancedFilters(true));
   };
   const filterByJobOffers = () => {
     setAreJobOffersVisible((oldValue) => !oldValue);
@@ -41,6 +52,7 @@ const FilterArticlesComponentLogic = ({
       }
       return { ...oldArticles };
     });
+    dispatch(updateResetAdvancedFilters(true));
   };
   const filterByEduLinks = () => {
     setAreEduLinksVisible((oldValue) => !oldValue);
@@ -55,7 +67,21 @@ const FilterArticlesComponentLogic = ({
       }
       return { ...oldArticles };
     });
+    dispatch(updateResetAdvancedFilters(true));
   };
+
+  const resetSimpleFilters = useCallback(() => {
+    setArePostsVisible(true);
+    setAreEduLinksVisible(true);
+    setAreJobOffersVisible(true);
+    dispatch(updateResetSimpleFilters(false));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (simpleFiltersShouldReset) {
+      resetSimpleFilters();
+    }
+  }, [resetSimpleFilters, simpleFiltersShouldReset]);
 
   return {
     arePostsVisible,
