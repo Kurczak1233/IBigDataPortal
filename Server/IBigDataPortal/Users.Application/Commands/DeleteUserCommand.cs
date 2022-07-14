@@ -3,6 +3,7 @@ using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Infrastructure;
 using MediatR;
+using UserRole.Contracts.UserRoles;
 
 namespace Users.Application.Commands;
 
@@ -33,12 +34,14 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
         var sql =
             $@"UPDATE {Dbo.Users}
                 SET {Dbo.Users}.{nameof(User.IsDeleted)} = @isDeleted
+                SET {Dbo.Users}.{nameof(User.UserRoleId)} = @role
                 WHERE {Dbo.Users}.{nameof(User.Id)} = @userId";
         await connection.ExecuteAsync(sql,
             new
             {
                 userId = request.UserId,
                 isDeleted = true,
+                role = UserRoles.StudentOrBusiness,
             });
         return Unit.Value;
     }

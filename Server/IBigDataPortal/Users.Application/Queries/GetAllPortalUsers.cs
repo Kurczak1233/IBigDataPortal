@@ -29,7 +29,8 @@ public class GetAllPortalUsersQueryHandler : IRequestHandler<GetAllPortalUsersQu
                         {nameof(User.Nickname)},
                         {nameof(User.UserRoleId)},
                         {nameof(User.Id)}
-                        FROM {Dbo.Users}";
+                        FROM {Dbo.Users}
+                        WHERE {nameof(User.IsDeleted)} = 0";
 
         return await connection.QueryAsync<ApplicationUser>(sql);
     }

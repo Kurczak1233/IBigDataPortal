@@ -68,6 +68,10 @@ const UsersPageMainItem = (
 
   const handleDeleteUser = async (userId: number) => {
     await deleteUser(userId);
+    setAllPortalUsers((oldUsers) => {
+      const filteredUsers = oldUsers.filter((item) => item.id !== userId);
+      return [...filteredUsers];
+    });
     setIsDeleteUserModalOpen(false);
   };
 

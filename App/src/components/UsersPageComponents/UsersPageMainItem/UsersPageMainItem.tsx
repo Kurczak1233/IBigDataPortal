@@ -85,13 +85,13 @@ const UsersPageMainItem = ({ user, setAllPortalUsers }: IUsersPageMainItem) => {
           }
         />
       </div>
-      <div>
+      <div className={styles.deleteButtonWrapper}>
         {isDeleteIconVisible && (
           <SmallButton
             text={"Delete"}
             onClick={handleOpenDeleteModal}
-            marginLeft={"16px"}
             width={"100px"}
+            marginLeft={"16px"}
             color={AvailableIntensiveColors.IntensiveRed}
           />
         )}
