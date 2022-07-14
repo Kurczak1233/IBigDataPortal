@@ -8,16 +8,20 @@ const AdministrationLayout = () => {
   return (
     <div className={styles.administrationLayoutWrapper}>
       <div className={styles.navigationLayout}>
-        {administrationRoutes.map((item) => (
-          <NavigationItem
-            key={item.routeUrl}
-            activeRouteImgSrc={item.imgActive}
-            nonActiveRouteImgSrc={item.imgNonActive}
-            alt={item.alt}
-            routeUrl={item.routeUrl}
-            isActive={item.isActive}
-          />
-        ))}
+        {administrationRoutes.map((item) => {
+          return (
+            item.hasPermissionsToView && (
+              <NavigationItem
+                key={item.routeUrl}
+                activeRouteImgSrc={item.imgActive}
+                nonActiveRouteImgSrc={item.imgNonActive}
+                alt={item.alt}
+                routeUrl={item.routeUrl}
+                isActive={item.isActive}
+              />
+            )
+          );
+        })}
       </div>
       <Outlet />
     </div>

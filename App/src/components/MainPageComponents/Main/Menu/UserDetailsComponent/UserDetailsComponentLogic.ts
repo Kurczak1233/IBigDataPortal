@@ -4,7 +4,7 @@ import {
   articlesRoute,
   postsRoute,
 } from "constants/apiRoutes";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getApplicationUser } from "api/UsersClient";
@@ -15,6 +15,7 @@ import {
 } from "redux/slices/applicationUserSlice";
 import { updateAccessTokenWasSet } from "redux/slices/accessTokenSlice";
 import { RootState } from "redux/store";
+import { UserRoles } from "enums/UserRoles";
 
 const UserDetailsComponentLogic = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -51,11 +52,14 @@ const UserDetailsComponentLogic = () => {
   const getUserDetailsAndSaveThoseInRedux = useCallback(async () => {
     if (accessTokenWasSet) {
       try {
-        const user = await getApplicationUser();
+        let user = await getApplicationUser();
+        //First registered (and initialized user)
+        if (!user) {
+          user = await getApplicationUser();
+        }
         setApplicationUser(user);
         dispatch(updateApplicationUser(user));
       } catch {
-        //TODO Redirect to error page.
         return;
       }
     } else {
@@ -64,6 +68,10 @@ const UserDetailsComponentLogic = () => {
     }
     setIsLoading(false);
   }, [dispatch, accessTokenWasSet]);
+
+  const hasAccessToPortal = useMemo(() => {
+    return appUser && appUser.userRoleId <= UserRoles.Employee;
+  }, [appUser]);
 
   useEffect(() => {
     getUserDetailsAndSaveThoseInRedux();
@@ -77,6 +85,7 @@ const UserDetailsComponentLogic = () => {
     applicationUser,
     accessTokenWasSet,
     isLoading,
+    hasAccessToPortal,
   };
 };
 

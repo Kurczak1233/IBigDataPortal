@@ -11,6 +11,7 @@ const UserDetailsComponent = () => {
     handleLogOut,
     handleMoveToThePortal,
     applicationUser,
+    hasAccessToPortal,
   } = UserDetailsComponentLogic();
   return (
     <section className={styles.menu}>
@@ -23,12 +24,14 @@ const UserDetailsComponent = () => {
               <div className={styles.loggedAs}>{applicationUser?.email}</div>
             </div>
             <div className={styles.buttons}>
-              <SmallButton
-                text="Portal"
-                width="45%"
-                onClick={handleMoveToThePortal}
-                color={AvailableIntensiveColors.IntensiveGreen}
-              />
+              {hasAccessToPortal && (
+                <SmallButton
+                  text="Portal"
+                  width="45%"
+                  onClick={handleMoveToThePortal}
+                  color={AvailableIntensiveColors.IntensiveGreen}
+                />
+              )}
               <SmallButton
                 text="Log out"
                 onClick={handleLogOut}
