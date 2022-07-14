@@ -25,6 +25,7 @@ const EditPostPageLogic = ({ jobOffer, jobOfferFiles }: IEditPostPageLogic) => {
   const {
     register,
     setValue,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<IEditJobOfferForm>();
@@ -67,7 +68,7 @@ const EditPostPageLogic = ({ jobOffer, jobOfferFiles }: IEditPostPageLogic) => {
     setPostEditValues();
   }, [setPostEditValues]);
 
-  return { submitForm, register, handleSubmit, errors, isSaving };
+  return { submitForm, register, control, handleSubmit, errors, isSaving };
 };
 
 export default EditPostPageLogic;

@@ -26,6 +26,7 @@ const EditEduLinkLogic = ({ eduLink, eduLinkFiles }: IEditEduLinkLogic) => {
     register,
     setValue,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<IEditEduLinkForm>();
   const submitForm = async (data: IEditEduLinkForm) => {
@@ -60,7 +61,7 @@ const EditEduLinkLogic = ({ eduLink, eduLinkFiles }: IEditEduLinkLogic) => {
     setPostEditValues();
   }, [setPostEditValues]);
 
-  return { submitForm, register, handleSubmit, errors, isSaving };
+  return { submitForm, register, handleSubmit, control, errors, isSaving };
 };
 
 export default EditEduLinkLogic;
