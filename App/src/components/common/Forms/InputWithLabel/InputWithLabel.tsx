@@ -14,6 +14,7 @@ interface IInputWithLabel {
   marginTop?: string;
   marginBottom?: string;
   height?: string;
+  justifyContent?: string;
 }
 
 const InputWithLabel = ({
@@ -27,6 +28,7 @@ const InputWithLabel = ({
   marginBottom,
   marginTop,
   height = "96px",
+  justifyContent,
 }: IInputWithLabel) => {
   return (
     <div
@@ -35,6 +37,7 @@ const InputWithLabel = ({
         marginBottom: marginBottom,
         marginTop: marginTop,
         height: height,
+        justifyContent: justifyContent,
       }}
     >
       <label className={styles.label}>

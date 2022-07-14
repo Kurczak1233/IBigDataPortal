@@ -1,0 +1,2 @@
+Keep in mind that every time the users has to be logged in as a totally new user he will depend on the FIRST middleware run.
+So creating many requests on the main page is not advised. Otherwise we have to create some kind of callback from the login first then allow user to get other requests.
