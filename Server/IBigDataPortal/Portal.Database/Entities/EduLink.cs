@@ -3,7 +3,6 @@
 public class EduLink : BaseEntity
 {
     public string Title { get; set; } = null!;
-    public string Link { get; set; } = null!;
     public string Description { get; set; } = null!;
     public User Creator { get; set; } = null!;
     public int CreatorId { get; set; }
@@ -11,4 +10,6 @@ public class EduLink : BaseEntity
     public int IsDeleted { get; set; }
     public int? DeletedBy { get; set; }
     public DateTimeOffset? DeletedOn { get; set; }
+    public ICollection<Comment>? Comments { get; set; }
+    public bool ProhibitedCommenting { get; set; }
 }

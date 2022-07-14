@@ -4,6 +4,7 @@ import SeparationSmallBar from "components/common/SeparationSmallGreenBar/Separa
 import { format } from "date-fns";
 import styles from "./ArticlePage.module.scss";
 import ArticlePageLogic from "./ArticlePageLogic";
+import parse from "html-react-parser";
 
 const ArticlePage = () => {
   const {
@@ -34,7 +35,7 @@ const ArticlePage = () => {
             marginBottom={"8px"}
             color={componentIntensiveColour}
           />
-          <div>{article.description}</div>
+          <div>{parse(article.description)}</div>
           {filesLoading ? (
             <BigLoader />
           ) : (

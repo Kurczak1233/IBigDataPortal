@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace IBigDataPortal.Domain.UserMetadata;
 
@@ -43,4 +44,6 @@ public class User : IUser
             return userLastName?.Value!;
         }
     }
+
+    public ClaimsPrincipal UserClaims { get; }
 }

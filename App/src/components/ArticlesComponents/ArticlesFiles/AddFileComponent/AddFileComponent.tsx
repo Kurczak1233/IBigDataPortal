@@ -3,7 +3,6 @@ import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import FileModal from "components/common/FileModal/FileModal";
 import FileModalItem from "components/common/FileModal/FileModalItem/FileModalItem";
 import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
-import SeparationSmallBar from "components/common/SeparationSmallGreenBar/SeparationSmallGreenBar";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import styles from "./AddFileComponent.module.scss";
 import CreatePostFilesLogic from "./AddFileComponentLogic";
@@ -42,14 +41,14 @@ const AddFileComponent = ({
       />
       <AdministartionPageHeader pageTitle={componentTitle} />
       <div className={styles.filesHeader}>
-        <div className={styles.files}>Documents</div>
+        <div className={styles.files}>Images</div>
         <SmallButton
           text={"Add files"}
           onClick={openFileModal}
           color={AvailableIntensiveColors.IntensiveGreen}
         />
       </div>
-      {postFiles.length > 0 ? (
+      {/* {postFiles.length > 0 ? (
         postFiles
           .filter((item) => !item.type.includes("image"))
           .map((file) => {
@@ -63,11 +62,7 @@ const AddFileComponent = ({
           })
       ) : (
         <div className={styles.noFilesOrImages}>None</div>
-      )}
-      <SeparationSmallBar marginTop="32px" marginBottom="32px" />
-      <div className={styles.filesHeader}>
-        <div className={styles.files}>Images</div>
-      </div>
+      )} */}
       {postFiles.length > 0 ? (
         postFiles
           .filter((item) => item.type.includes("image"))
