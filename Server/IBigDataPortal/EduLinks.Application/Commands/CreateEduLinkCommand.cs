@@ -24,7 +24,6 @@ public class CreateEduLinkCommand : IRequest<int>
 
 public class CreateJobOfferCommandHandler : IRequestHandler<CreateEduLinkCommand, int>
 {
-    
     private readonly ISqlConnectionService _connectionService;  
     
     public CreateJobOfferCommandHandler(ISqlConnectionService connectionService)
