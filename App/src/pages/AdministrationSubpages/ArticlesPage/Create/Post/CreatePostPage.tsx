@@ -37,6 +37,7 @@ const CreatePostPage = () => {
             registerOptions={{ required: true }}
           />
           <div className={styles.richText}>
+            <label>Description</label>
             <Controller
               control={control}
               name="description"

@@ -20,6 +20,7 @@ const CreateJobOfferPageLogic = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<ICreateJobOffer>();
   const submitForm = async (data: ICreateJobOffer) => {
@@ -53,6 +54,7 @@ const CreateJobOfferPageLogic = () => {
     register,
     handleSubmit,
     errors,
+    control,
     setJobOffersFiles,
     jobOfferFiles,
     isJobOfferCreating,

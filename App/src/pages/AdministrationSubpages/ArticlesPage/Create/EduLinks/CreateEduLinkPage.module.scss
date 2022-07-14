@@ -1,10 +1,22 @@
 @import 'styles/Commons.scss';
 .eduLinksWrapper {
   display: flex;
+  width: 100%;
   .form {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
     margin-right: 16px;
+  }
+}
+.richText {
+  width: 100%;
+  height: 300px;
+  label {
+    @include fontSizeSixteen;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
