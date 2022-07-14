@@ -15,6 +15,6 @@ public static class Dbo
     public static string Posts { get; } = $"[{_schema}].[{nameof(Posts)}]";
     public static string JobOffers { get; } = $"[{_schema}].[{nameof(JobOffers)}]";
     public static string EduLinks { get; } = $"[{_schema}].[{nameof(EduLinks)}]";
-    public static string UserRoles { get; } = $"[{_schema}].[{nameof(UserRoles)}]";
+    public static string UserRole { get; } = $"[{_schema}].[{nameof(UserRole)}]";
   
 }

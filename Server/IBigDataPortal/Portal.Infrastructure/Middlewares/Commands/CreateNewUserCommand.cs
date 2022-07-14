@@ -1,8 +1,8 @@
 ﻿using Dapper;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
-using IBigDataPortal.Domain.UserRoles;
 using MediatR;
+using UserRole.Contracts.UserRoles;
 
 namespace IBigDataPortal.Infrastructure.Middlewares.Commands;
 
@@ -30,7 +30,7 @@ public class CreateNewUserCommandHandler : IRequestHandler<CreateNewUserCommand>
     public async Task<Unit> Handle(CreateNewUserCommand request, CancellationToken cancellationToken)
     {
         var connection = await _connection.GetAsync();
-        await connection.ExecuteAsync(CreateNewUserCommandSql(), new {email = request.Email, userRoleId = UserRoles.User, nickname = request.Nickname});
+        await connection.ExecuteAsync(CreateNewUserCommandSql(), new {email = request.Email, userRoleId = UserRoles.StudentOrBusiness, nickname = request.Nickname});
         return Unit.Value;
     }
     

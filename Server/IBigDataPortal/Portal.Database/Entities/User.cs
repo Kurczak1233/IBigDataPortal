@@ -7,4 +7,5 @@ public class User : BaseEntity
     
     public UserRole? UserRole { get; set; }
     public int UserRoleId { get; set; }
+    public bool IsDeleted { get; set; } = false;
 }

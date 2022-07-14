@@ -1,4 +1,4 @@
-namespace IBigDataPortal.Domain.UserRoles;
+namespace UserRole.Contracts.UserRoles;
 
 public enum UserRoles
 {
@@ -6,5 +6,4 @@ public enum UserRoles
     HEI = 2,
     Employee = 3,
     StudentOrBusiness = 4,
-    User = 5
 }

@@ -1,6 +1,7 @@
 ﻿using ApplicationUser.Queries;
 using ApplicationUserDomain.Models;
 using IBigDataPortal.Domain.UserMetadata;
+using IBigDataPortal.Infrastructure.ResourceBasedAuthorization.Handlers.Users;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,14 @@ namespace IBigDataPortal.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly IUser _user;
+    private readonly IAuthorizationService _authorizationService;
     private readonly IMediator _mediator;
     
-    public UsersController(IUser user, IMediator mediator)
+    public UsersController(IUser user, IMediator mediator, IAuthorizationService authorizationService)
     {
         _user = user;
         _mediator = mediator;
+        _authorizationService = authorizationService;
     }
     
     [HttpGet("Initial")]
@@ -48,6 +51,14 @@ public class UsersController : ControllerBase
     public async Task<ActionResult<ApplicationUserDto>> UpdateUserNickname([FromBody] UpdateNicknameRequest request)
     {
         var result = await _mediator.Send(new UpdateUserNicknameCommand(request, _user.Id));
+        return Ok(result);
+    }
+    
+    [HttpPut("Delete/{userId}")]
+    public async Task<ActionResult<ApplicationUserDto>> DeleteUser(int userId)
+    {
+        await _authorizationService.AuthorizeAsync(_user.UserClaims, userId, new UsersAuthorizationRequirement(_user.Id));
+        var result = await _mediator.Send(new DeleteUserCommand(userId));
         return Ok(result);
     }
 }

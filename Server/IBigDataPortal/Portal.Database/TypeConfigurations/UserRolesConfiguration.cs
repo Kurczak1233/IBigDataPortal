@@ -28,11 +28,6 @@ public class UserRolesConfiguration : IEntityTypeConfiguration<UserRole>
             {
                 Id = 4,
                 RoleName = "Student/Business"
-            },
-            new UserRole()
-            {
-                Id = 5,
-                RoleName = "User"
             });
     }
 }

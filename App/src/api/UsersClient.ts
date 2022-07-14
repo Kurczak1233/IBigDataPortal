@@ -19,4 +19,17 @@ const updateUserNickname = async (body: IUpdateProfileForm): Promise<null> => {
   return AxiosClient(HttpRequestsMethods.PUT, `${Users}`, base, { body });
 };
 
-export { getApplicationUser, updateUserNickname, getAllPortalUsers };
+const deleteUser = async (userId: number): Promise<null> => {
+  return AxiosClient(
+    HttpRequestsMethods.PUT,
+    `${Users}/Delete/${userId}`,
+    base
+  );
+};
+
+export {
+  getApplicationUser,
+  updateUserNickname,
+  getAllPortalUsers,
+  deleteUser,
+};

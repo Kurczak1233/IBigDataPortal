@@ -12,8 +12,17 @@ interface IUsersPageMainItem {
 }
 
 const UsersPageMainItem = ({ user, setAllPortalUsers }: IUsersPageMainItem) => {
-  const { handleUpdateUserRole, isModalOpen, setIsModalOpen, handleOpenModal } =
-    UsersPageMainItemLogic(setAllPortalUsers);
+  const {
+    handleUpdateUserRole,
+    isModalOpen,
+    setIsModalOpen,
+    handleOpenModal,
+    handleOpenDeleteModal,
+    handleDeleteUser: deleteUser,
+    isDeleteUserModalOpen,
+    setIsDeleteUserModalOpen,
+    isDeleteIconVisible,
+  } = UsersPageMainItemLogic(setAllPortalUsers, user.id);
   return (
     <div className={styles.item}>
       <ConfirmActionModal
@@ -22,13 +31,20 @@ const UsersPageMainItem = ({ user, setAllPortalUsers }: IUsersPageMainItem) => {
         description={"change this role"}
         handleConfirmAction={() => handleUpdateUserRole(user.id)}
       />
+      <ConfirmActionModal
+        isConfimActionModalOpen={isDeleteUserModalOpen}
+        setIsConfirmActionModalOpen={setIsDeleteUserModalOpen}
+        description={"delete this user"}
+        handleConfirmAction={() => deleteUser(user.id)}
+      />
       <div className={styles.nickname}>{user.nickname}</div>
       <div className={styles.email}>{user.email}</div>
       <div className={styles.role}>
         <SmallButton
-          width="19%"
+          width={"23%"}
           text={"Admin"}
           onClick={() => handleOpenModal(UserRoles["Admin"])}
+          marginRight={"1%"}
           color={
             user.userRoleId === UserRoles["Admin"]
               ? AvailableIntensiveColors.IntensiveOrange
@@ -36,8 +52,9 @@ const UsersPageMainItem = ({ user, setAllPortalUsers }: IUsersPageMainItem) => {
           }
         />
         <SmallButton
-          width="19%"
+          width="23%"
           text={"Employee"}
+          marginRight={"1%"}
           onClick={() => handleOpenModal(UserRoles["Employee"])}
           color={
             user.userRoleId === UserRoles["Employee"]
@@ -46,8 +63,9 @@ const UsersPageMainItem = ({ user, setAllPortalUsers }: IUsersPageMainItem) => {
           }
         />
         <SmallButton
-          width="19%"
+          width="23%"
           text={"HEI"}
+          marginRight={"1%"}
           onClick={() => handleOpenModal(UserRoles["HEI"])}
           color={
             user.userRoleId === UserRoles["HEI"]
@@ -56,8 +74,9 @@ const UsersPageMainItem = ({ user, setAllPortalUsers }: IUsersPageMainItem) => {
           }
         />
         <SmallButton
-          width="19%"
+          width="23%"
           text={"Stu/Bus"}
+          marginRight={"1%"}
           onClick={() => handleOpenModal(UserRoles["StudentOrBusiness"])}
           color={
             user.userRoleId === UserRoles["StudentOrBusiness"]
@@ -65,16 +84,17 @@ const UsersPageMainItem = ({ user, setAllPortalUsers }: IUsersPageMainItem) => {
               : AvailableIntensiveColors.InactiveGray
           }
         />
-        <SmallButton
-          width="19%"
-          text={"User"}
-          onClick={() => handleOpenModal(UserRoles["User"])}
-          color={
-            user.userRoleId === UserRoles["User"]
-              ? AvailableIntensiveColors.IntensiveOrange
-              : AvailableIntensiveColors.InactiveGray
-          }
-        />
+      </div>
+      <div>
+        {isDeleteIconVisible && (
+          <SmallButton
+            text={"Delete"}
+            onClick={handleOpenDeleteModal}
+            marginLeft={"16px"}
+            width={"100px"}
+            color={AvailableIntensiveColors.IntensiveRed}
+          />
+        )}
       </div>
     </div>
   );
