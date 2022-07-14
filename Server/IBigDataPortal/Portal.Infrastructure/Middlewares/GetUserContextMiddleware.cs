@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using IBigDataPortal.Domain.UserMetadata;
 using IBigDataPortal.Domain.UsersAggregate;
-using IBigDataPortal.Infrastructure.Commands;
+using IBigDataPortal.Infrastructure.Middlewares.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
