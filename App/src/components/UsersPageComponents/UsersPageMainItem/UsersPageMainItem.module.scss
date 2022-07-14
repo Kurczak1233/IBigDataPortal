@@ -1,0 +1,28 @@
+@import "styles/Commons.scss";
+.item {
+  @include fontSizeSixteen;
+  background-color: $less-intensive-green;
+  color: $black-text;
+  display: flex;
+  align-items: center;
+  box-shadow: 2px 2px 8px 3px $gray-box-shadow;
+  border-radius: 12px;
+  height: 60px;
+  padding: 0 16px;
+  margin-top: 10px;
+  .nickname {
+    @include nicknameColumnWidth;
+    display: flex;
+    align-items: center;
+  }
+  .email {
+    @include emailColumnWidth;
+    display: flex;
+    align-items: center;
+  }
+  .role {
+    @include roleColumnWidth;
+    display: flex;
+    align-items: center;
+  }
+}
