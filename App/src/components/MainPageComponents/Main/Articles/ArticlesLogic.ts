@@ -17,6 +17,7 @@ export interface IMergedPosts {
   type: string;
   nickname: string;
   comments: CommentVm[];
+  prohibitedCommenting: boolean;
 }
 
 const ArticlesLogic = (

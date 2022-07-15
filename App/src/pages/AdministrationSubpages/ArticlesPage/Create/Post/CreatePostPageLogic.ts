@@ -7,16 +7,23 @@ import {
   articlesRoute,
   postsRoute,
 } from "constants/apiRoutes";
+import { UserRoles } from "enums/UserRoles";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { isHtmlStringEmpty } from "utils/IsHtmlStringEmpty/isHtmlStringEmpty";
-import { ICreatePostForm } from "./ICreatePostForm";
+import { ICreatePostForm, ICreatePostRequest } from "./ICreatePostForm";
 
 const CreatePostPageLogic = () => {
   const [postFiles, setPostsFiles] = useState<File[]>([]);
   const [isPostCreating, setIsPostCreating] = useState<boolean>(false);
+  const [commentsPermission, setCommentsPermission] = useState<UserRoles>(
+    UserRoles.StudentOrBusiness
+  );
+  const [visibilityPermissions, setVisibilityPermissions] = useState<UserRoles>(
+    UserRoles.Everybody
+  );
 
   const navigate = useNavigate();
   const {
@@ -31,7 +38,12 @@ const CreatePostPageLogic = () => {
       return setError("description", { type: "required" });
     }
     setIsPostCreating(true);
-    const newPostId = await createPost(data);
+    const request: ICreatePostRequest = {
+      ...data,
+      commentsPermissions: commentsPermission,
+      visibilityPermissions: visibilityPermissions,
+    };
+    const newPostId = await createPost(request);
     await handleUploadFiles(newPostId);
     setIsPostCreating(false);
     navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
@@ -64,6 +76,10 @@ const CreatePostPageLogic = () => {
     postFiles,
     setPostsFiles,
     isPostCreating,
+    setCommentsPermission,
+    commentsPermission,
+    setVisibilityPermissions,
+    visibilityPermissions,
   };
 };
 

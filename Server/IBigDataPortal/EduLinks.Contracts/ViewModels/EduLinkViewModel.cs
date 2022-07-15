@@ -1,5 +1,5 @@
 ﻿using Files.Contracts.ViewModels;
-using IBigDataPortal.Database.Entities;
+using UserRole.Contracts.UserRoles;
 
 namespace EduLinks.Contracts.ViewModels;
 
@@ -11,6 +11,8 @@ public class EduLinkViewModel
     public string UserEmail { get; set; }
     public string Nickname { get; set; }
     public string Type { get; set; }
+    public UserRoles CommentsPermissions { get; set; }
+    public UserRoles ArticleVisibilityPermissions { get; set; }
     public DateTimeOffset Posted { get; set; } 
     public List<FileVm?> Files { get; set; } = new();
     public List<EduLinkCommentViewModel> Comments { get; set; } = new();

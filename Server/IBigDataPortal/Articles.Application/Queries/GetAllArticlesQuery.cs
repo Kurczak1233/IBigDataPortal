@@ -1,13 +1,16 @@
-using Articles.Contracts.Enums;
 using Articles.Domain.ArticlesAggregate.ViewModels;
 using Dapper;
 using EduLinks.Contracts.ViewModels;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
+using IBigDataPortal.Domain.UserMetadata;
 using IBigDataPortal.Infrastructure;
 using JobOffers.Contracts.ViewModels;
 using MediatR;
 using Posts.Contracts.ViewModels;
+using UserRole.Contracts.UserRoles;
+using User = IBigDataPortal.Database.Entities.User;
+using UsersRole = IBigDataPortal.Database.Entities.UserRole;
 
 namespace Articles.Application.Queries;
 
@@ -18,19 +21,46 @@ public class GetAllArticlesQuery : IRequest<ArticlesVm>
 public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, ArticlesVm>
 {
     private readonly ISqlConnectionService _connectionService;
+    private readonly IUser _user;
 
-    public GetAllArticlesQueryHandler(ISqlConnectionService connectionService)
+    public GetAllArticlesQueryHandler(ISqlConnectionService connectionService, IUser user)
     {
         _connectionService = connectionService;
+        _user = user;
     }
 
     public async Task<ArticlesVm> Handle(GetAllArticlesQuery request, CancellationToken cancellationToken)
     {
+        var connection = await _connectionService.GetAsync();
+        var userRoleId = (int)UserRoles.Nobody;
+        if (_user.Id != 0)
+        {
+            var sql =
+                $@"SELECT {Dbo.UserRole}.{nameof(UsersRole.Id)}
+                FROM {Dbo.UserRole}
+                JOIN {Dbo.Users}
+                ON {Dbo.Users}.{nameof(User.UserRoleId)} = {Dbo.UserRole}.{nameof(UsersRole.Id)}
+                WHERE {Dbo.Users}.{nameof(User.Id)} = @userId";
+            userRoleId = await connection.QuerySingleOrDefaultAsync<int>(sql,
+                new
+                {
+                    userId = _user.Id,
+                }); 
+        }
+
+        var jobOffers = await GetAllJobOffers();
+        var eduLinks = await GetAllEduLinks();
+        var posts = await GetAllPosts();
+
+        var jobOffersFiltered = jobOffers.Where((item) => (int)item.ArticleVisibilityPermissions <= userRoleId);
+        var eduLinksFiltered = eduLinks.Where((item) => (int)item.ArticleVisibilityPermissions <= userRoleId);
+        var postsOffersFiltered = posts.Where((item) => (int)item.ArticleVisibilityPermissions <= userRoleId);
+        
         return new ArticlesVm()
         {
-            JobOffers = await GetAllJobOffers(),
-            EduLinks = await GetAllEduLinks(),
-            Posts = await GetAllPosts(),
+            JobOffers = jobOffersFiltered,
+            EduLinks = eduLinksFiltered,
+            Posts = postsOffersFiltered,
         };
     }
 
@@ -41,6 +71,8 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      {Dbo.Posts}.{nameof(Post.Description)},
                      {Dbo.Posts}.{nameof(Post.Id)},
                      {Dbo.Posts}.{nameof(Post.Posted)},
+                     {Dbo.Posts}.{nameof(Post.CommentsPermissions)},
+                     {Dbo.Posts}.{nameof(Post.ArticleVisibilityPermissions)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail,
                      {Dbo.Users}.{nameof(User.Nickname)},
                      'Post' as Type,
@@ -92,6 +124,8 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      {Dbo.JobOffers}.{nameof(JobOffer.Description)},
                      {Dbo.JobOffers}.{nameof(JobOffer.Id)},
                      {Dbo.JobOffers}.{nameof(JobOffer.Posted)},
+                     {Dbo.JobOffers}.{nameof(JobOffer.CommentsPermissions)},
+                     {Dbo.JobOffers}.{nameof(JobOffer.ArticleVisibilityPermissions)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail,
                      {Dbo.Users}.{nameof(User.Nickname)},
                      'JobOffer' as Type,
@@ -143,6 +177,8 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      {Dbo.EduLinks}.{nameof(EduLink.Description)},
                      {Dbo.EduLinks}.{nameof(EduLink.Id)},
                      {Dbo.EduLinks}.{nameof(EduLink.Posted)},
+                     {Dbo.EduLinks}.{nameof(EduLink.CommentsPermissions)},
+                     {Dbo.EduLinks}.{nameof(EduLink.ArticleVisibilityPermissions)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail,
                      {Dbo.Users}.{nameof(User.Nickname)},
                      'EduLink' as Type,

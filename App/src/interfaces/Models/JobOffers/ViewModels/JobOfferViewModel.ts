@@ -11,5 +11,6 @@ export interface JobOfferViewModel {
   files: FileVm[];
   type: string;
   nickname: string;
+  prohibitedCommenting: boolean;
   comments: CommentVm[];
 }

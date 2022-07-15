@@ -1,4 +1,6 @@
-﻿namespace IBigDataPortal.Database.Entities;
+﻿using UserRole.Contracts.UserRoles;
+
+namespace IBigDataPortal.Database.Entities;
 
 public class JobOffer : BaseEntity
 {
@@ -10,5 +12,6 @@ public class JobOffer : BaseEntity
     public int IsDeleted { get; set; }
     public int? DeletedBy { get; set; }
     public DateTimeOffset? DeletedOn { get; set; }
-    public bool ProhibitedCommenting { get; set; }
+    public UserRoles CommentsPermissions { get; set; }
+    public UserRoles ArticleVisibilityPermissions { get; set; }
 }

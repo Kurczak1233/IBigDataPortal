@@ -65,47 +65,55 @@ const ArticlePage = () => {
                 })}
             </div>
           )}
-          <div className={styles.comments}>
-            <div className={styles.commentsTitle}>Comments</div>
-            <div>
-              {articleComments.map((item) => {
-                return (
-                  <ArticleComment
-                    key={item.commentId}
-                    comment={item}
-                    componentIntensiveColour={componentIntensiveColour}
-                    setArticleComments={setArticleComments}
+          {article.prohibitedCommenting && articleComments.length === 0 ? (
+            <div />
+          ) : (
+            <div className={styles.comments}>
+              <div className={styles.commentsTitle}>Comments</div>
+              <div>
+                {articleComments.map((item) => {
+                  return (
+                    <ArticleComment
+                      key={item.commentId}
+                      comment={item}
+                      componentIntensiveColour={componentIntensiveColour}
+                      setArticleComments={setArticleComments}
+                    />
+                  );
+                })}
+              </div>
+              {!article.prohibitedCommenting && (
+                <>
+                  <div className={styles.newComment}>New comment</div>
+                  <Controller
+                    control={control}
+                    name="content"
+                    rules={{ required: true }}
+                    render={({ field: { onChange, value: text } }) => (
+                      <ReactQuill
+                        style={{ width: "100%" }}
+                        value={text ? text : ""}
+                        onChange={onChange}
+                      />
+                    )}
                   />
-                );
-              })}
-            </div>
-            <div className={styles.newComment}>New comment</div>
-            <Controller
-              control={control}
-              name="content"
-              rules={{ required: true }}
-              render={({ field: { onChange, value: text } }) => (
-                <ReactQuill
-                  style={{ width: "100%" }}
-                  value={text ? text : ""}
-                  onChange={onChange}
-                />
+                  {errors.content && (
+                    <span className={styles.error}>
+                      You are not allowed to submit empty comments
+                    </span>
+                  )}
+                  <div className={styles.smallButton}>
+                    <SmallButton
+                      text={"Submit"}
+                      onClick={handleSubmit(handleCreateComment)}
+                      marginTop={"16px"}
+                      color={AvailableIntensiveColors.IntensiveOrange}
+                    />
+                  </div>
+                </>
               )}
-            />
-            {errors.content && (
-              <span className={styles.error}>
-                You are not allowed to submit empty comments
-              </span>
-            )}
-            <div className={styles.smallButton}>
-              <SmallButton
-                text={"Submit"}
-                onClick={handleSubmit(handleCreateComment)}
-                marginTop={"16px"}
-                color={AvailableIntensiveColors.IntensiveOrange}
-              />
             </div>
-          </div>
+          )}
         </div>
         <div className={styles.returnButton}>
           <BigButton

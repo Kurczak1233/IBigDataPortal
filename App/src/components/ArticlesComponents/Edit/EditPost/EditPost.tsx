@@ -67,7 +67,7 @@ const EditPost = ({
           />
         </div>
         <div className={styles.comments}>
-          <EditCommentsComponent />
+          {/* <EditCommentsComponent /> */}
         </div>
       </div>
       <SmallButton

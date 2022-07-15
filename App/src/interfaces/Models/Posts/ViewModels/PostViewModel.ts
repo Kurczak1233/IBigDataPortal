@@ -9,6 +9,7 @@ export interface PostViewModel {
   userEmail: string;
   files: FileVm[];
   type: string;
+  prohibitedCommenting: boolean;
   nickname: string;
   comments: CommentVm[];
 }

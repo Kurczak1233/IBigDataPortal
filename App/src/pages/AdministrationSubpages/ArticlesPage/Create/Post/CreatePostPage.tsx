@@ -9,6 +9,7 @@ import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Controller } from "react-hook-form";
+import EditCommentsComponent from "components/ArticlesComponents/ArticlesFiles/EditCommentsComponent/EditCommentsComponent";
 
 const CreatePostPage = () => {
   const {
@@ -20,6 +21,10 @@ const CreatePostPage = () => {
     control,
     postFiles,
     isPostCreating,
+    visibilityPermissions,
+    setCommentsPermission,
+    setVisibilityPermissions,
+    commentsPermission,
   } = CreatePostPageLogic();
 
   return (
@@ -58,12 +63,23 @@ const CreatePostPage = () => {
               )}
             />
           </div>
-          <AddFileComponent
-            setPostsFiles={setPostsFiles}
-            postFiles={postFiles}
-            module={FileModuleEnum.postsFiles}
-            componentTitle={"Posts files"}
-          />
+          <div className={styles.commentsAndFiles}>
+            <AddFileComponent
+              setPostsFiles={setPostsFiles}
+              postFiles={postFiles}
+              module={FileModuleEnum.postsFiles}
+              componentTitle={"Posts files"}
+            />
+            <div className={styles.comments}>
+              <EditCommentsComponent
+                visibilityPermissions={visibilityPermissions}
+                setCommentsPermission={setCommentsPermission}
+                setVisibilityPermissions={setVisibilityPermissions}
+                commentsPermission={commentsPermission}
+                intensiveColor={AvailableIntensiveColors.IntensiveOrange}
+              />
+            </div>
+          </div>
           <SmallButton
             marginTop="16px"
             text={"Save"}

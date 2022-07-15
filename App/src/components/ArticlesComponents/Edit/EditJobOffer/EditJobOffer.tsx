@@ -67,7 +67,7 @@ const EditJobOffer = ({
           />
         </div>
         <div className={styles.comments}>
-          <EditCommentsComponent />
+          {/* <EditCommentsComponent /> */}
         </div>
       </div>
       <SmallButton

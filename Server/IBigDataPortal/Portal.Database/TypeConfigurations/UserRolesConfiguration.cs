@@ -4,27 +4,27 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace IBigDataPortal.Database.TypeConfigurations;
 
-public class UserRolesConfiguration : IEntityTypeConfiguration<UserRole>
+public class UserRolesConfiguration : IEntityTypeConfiguration<Entities.UserRole>
 {
-    public void Configure(EntityTypeBuilder<UserRole> builder)
+    public void Configure(EntityTypeBuilder<Entities.UserRole> builder)
     {
         builder.HasData(
-            new UserRole()
+            new Entities.UserRole()
             {
                 Id = 1,
                 RoleName = "Admin"
             },
-            new UserRole()
+            new Entities.UserRole()
             {
                 Id = 2,
                 RoleName = "HEI"
             },
-            new UserRole()
+            new Entities.UserRole()
             {
                 Id = 3,
                 RoleName = "Employee"
             },
-            new UserRole()
+            new Entities.UserRole()
             {
                 Id = 4,
                 RoleName = "Student/Business"
