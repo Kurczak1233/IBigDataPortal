@@ -1,6 +1,9 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { getAllArticles } from "api/ArticlesClient";
 import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
 
 const MainPageLogic = () => {
   const [initialArticlesModel, setOriginalArticlesModel] =
@@ -8,16 +11,25 @@ const MainPageLogic = () => {
   const [articles, setArticles] = useState<ArticlesVm>();
   const [numberOfArticlesVisible, setNumberOfArticlesVisible] =
     useState<number>(8);
+  const accessTokenWasSet = useSelector(
+    (state: RootState) => state.accessTokenReducer.accessTokenSet
+  );
 
-  const handleGetAllArticles = async () => {
-    const articles = await getAllArticles();
-    setArticles(articles);
-    setOriginalArticlesModel({ ...articles });
-  };
+  const { isLoading, user } = useAuth0();
+
+  const handleGetAllArticles = useCallback(async () => {
+    if ((accessTokenWasSet && user) || user === undefined) {
+      const articles = await getAllArticles();
+      setArticles(articles);
+      setOriginalArticlesModel({ ...articles });
+    }
+  }, [accessTokenWasSet, user]);
 
   useEffect(() => {
-    handleGetAllArticles();
-  }, []);
+    if (!isLoading) {
+      handleGetAllArticles();
+    }
+  }, [handleGetAllArticles, isLoading, accessTokenWasSet, user]);
 
   return {
     articles,

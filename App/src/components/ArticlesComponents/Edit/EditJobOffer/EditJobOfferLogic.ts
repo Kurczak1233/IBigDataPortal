@@ -7,12 +7,14 @@ import {
   articlesRoute,
   jobOffersRoute,
 } from "constants/apiRoutes";
+import { UserRoles } from "enums/UserRoles";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { IEditJobOfferForm } from "./IEditJobOfferForm";
+import { isHtmlStringEmpty } from "utils/IsHtmlStringEmpty/isHtmlStringEmpty";
+import { IEditJobOfferForm, IEditJobOfferRequest } from "./IEditJobOfferForm";
 interface IEditPostPageLogic {
   jobOffer: JobOfferViewModel;
   jobOfferFiles: File[];
@@ -20,12 +22,19 @@ interface IEditPostPageLogic {
 
 const EditPostPageLogic = ({ jobOffer, jobOfferFiles }: IEditPostPageLogic) => {
   const [isSaving, setIsSaving] = useState<boolean>(false);
-
+  const [commentsPermission, setCommentsPermission] = useState<UserRoles>(
+    jobOffer.commentsPermissions
+  );
+  const [visibilityPermissions, setVisibilityPermissions] = useState<UserRoles>(
+    jobOffer.articleVisibilityPermissions
+  );
   const navigate = useNavigate();
   const {
     register,
     setValue,
+    control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<IEditJobOfferForm>();
 
@@ -39,9 +48,18 @@ const EditPostPageLogic = ({ jobOffer, jobOfferFiles }: IEditPostPageLogic) => {
   };
 
   const submitForm = async (data: IEditJobOfferForm) => {
+    if (isHtmlStringEmpty(data.description)) {
+      return setError("description", { type: "required" });
+    }
+    const request: IEditJobOfferRequest = {
+      ...data,
+      postId: jobOffer.id,
+      commentsPermissions: commentsPermission,
+      visibilityPermissions: visibilityPermissions,
+    };
     setIsSaving(true);
     await handleAddFiles(jobOfferFiles);
-    await editJobOffer(data);
+    await editJobOffer(request);
     setIsSaving(false);
     navigate(`/${administrationRoute}/${articlesRoute}/${jobOffersRoute}`);
     SyncToast({
@@ -67,7 +85,18 @@ const EditPostPageLogic = ({ jobOffer, jobOfferFiles }: IEditPostPageLogic) => {
     setPostEditValues();
   }, [setPostEditValues]);
 
-  return { submitForm, register, handleSubmit, errors, isSaving };
+  return {
+    submitForm,
+    register,
+    control,
+    handleSubmit,
+    errors,
+    isSaving,
+    setCommentsPermission,
+    commentsPermission,
+    setVisibilityPermissions,
+    visibilityPermissions,
+  };
 };
 
 export default EditPostPageLogic;

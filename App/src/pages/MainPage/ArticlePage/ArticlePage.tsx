@@ -1,9 +1,16 @@
 import BigButton from "components/common/Buttons/BigButtons/BigButton";
-import BigLoader from "components/common/Loaders/BigLoader";
 import SeparationSmallBar from "components/common/SeparationSmallGreenBar/SeparationSmallGreenBar";
 import { format } from "date-fns";
 import styles from "./ArticlePage.module.scss";
 import ArticlePageLogic from "./ArticlePageLogic";
+import parse from "html-react-parser";
+import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
+import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
+import ReactQuill from "react-quill";
+import { Controller } from "react-hook-form";
+import ArticlePageCommentsLogic from "./ArticlePageCommentsLogic";
+import ArticleComment from "./ArticleComment/ArticleComment";
+import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
 
 const ArticlePage = () => {
   const {
@@ -13,7 +20,15 @@ const ArticlePage = () => {
     componentIntensiveColour,
     navigateBack,
     filesLoading,
+    articleComments,
+    appUser,
+    setArticleComments,
   } = ArticlePageLogic();
+  const { control, errors, handleCreateComment, handleSubmit } =
+    ArticlePageCommentsLogic(setArticleComments);
+  if (!article) {
+    return <BigLoader />;
+  }
   return (
     <div className={styles.articlePage}>
       <div className={styles.mainContainer}>
@@ -34,7 +49,7 @@ const ArticlePage = () => {
             marginBottom={"8px"}
             color={componentIntensiveColour}
           />
-          <div>{article.description}</div>
+          <div>{parse(article.description)}</div>
           {filesLoading ? (
             <BigLoader />
           ) : (
@@ -49,6 +64,55 @@ const ArticlePage = () => {
                     />
                   );
                 })}
+            </div>
+          )}
+          {article.commentsPermissions === 0 && articleComments.length === 0 ? (
+            <div />
+          ) : (
+            <div className={styles.comments}>
+              <div className={styles.commentsTitle}>Comments</div>
+              <div>
+                {articleComments.map((item) => {
+                  return (
+                    <ArticleComment
+                      key={item.commentId}
+                      comment={item}
+                      componentIntensiveColour={componentIntensiveColour}
+                      setArticleComments={setArticleComments}
+                    />
+                  );
+                })}
+              </div>
+              {appUser && article.commentsPermissions >= appUser?.userRoleId && (
+                <>
+                  <div className={styles.newComment}>New comment</div>
+                  <Controller
+                    control={control}
+                    name="content"
+                    rules={{ required: true }}
+                    render={({ field: { onChange, value: text } }) => (
+                      <ReactQuill
+                        style={{ width: "100%" }}
+                        value={text ? text : ""}
+                        onChange={onChange}
+                      />
+                    )}
+                  />
+                  {errors.content && (
+                    <span className={styles.error}>
+                      You are not allowed to submit empty comments
+                    </span>
+                  )}
+                  <div className={styles.smallButton}>
+                    <SmallButton
+                      text={"Submit"}
+                      onClick={handleSubmit(handleCreateComment)}
+                      marginTop={"16px"}
+                      color={AvailableIntensiveColors.IntensiveOrange}
+                    />
+                  </div>
+                </>
+              )}
             </div>
           )}
         </div>

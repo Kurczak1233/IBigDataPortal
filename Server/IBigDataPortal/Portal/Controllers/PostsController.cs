@@ -24,6 +24,8 @@ public class PostsController : ControllerBase
         _user = user;
     }
     
+
+    
     [HttpGet]
     public async Task<ActionResult<IEnumerable<PostViewModel>>> GetAllPosts()
     {

@@ -25,7 +25,7 @@ public class EduLinksController : ControllerBase
         _mediator = mediator;
         _user = user;
     }
-
+    
     [HttpPost]
     public async Task<ActionResult> CreateEduLink(CreateEduLinkRequest body)
     {
