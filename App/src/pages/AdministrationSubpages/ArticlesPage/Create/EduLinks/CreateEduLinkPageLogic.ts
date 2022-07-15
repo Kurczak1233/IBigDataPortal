@@ -11,12 +11,19 @@ import { ToastModes } from "interfaces/General/ToastModes";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { ICreateEduLink } from "./ICreateEduLinkForm";
+import { ICreateEduLink, ICreateEduLinkRequest } from "./ICreateEduLinkForm";
 import { isHtmlStringEmpty } from "utils/IsHtmlStringEmpty/isHtmlStringEmpty";
+import { UserRoles } from "enums/UserRoles";
 
 const CreateEduLinkPageLogic = () => {
   const [eduLinksFiles, setEduLinksFiles] = useState<File[]>([]);
   const [isEduLinkCreating, setIsEduLinkCreating] = useState<boolean>(false);
+  const [commentsPermission, setCommentsPermission] = useState<UserRoles>(
+    UserRoles.StudentOrBusiness
+  );
+  const [visibilityPermissions, setVisibilityPermissions] = useState<UserRoles>(
+    UserRoles.Everybody
+  );
   const navigate = useNavigate();
   const {
     register,
@@ -29,8 +36,13 @@ const CreateEduLinkPageLogic = () => {
     if (isHtmlStringEmpty(data.description)) {
       return setError("description", { type: "required" });
     }
+    const request: ICreateEduLinkRequest = {
+      ...data,
+      commentsPermissions: commentsPermission,
+      visibilityPermissions: visibilityPermissions,
+    };
     setIsEduLinkCreating(true);
-    const eduLinkId = await createEduLink(data);
+    const eduLinkId = await createEduLink(request);
     await handleUploadFiles(eduLinkId);
     setIsEduLinkCreating(false);
     navigate(`/${administrationRoute}/${articlesRoute}/${eduLinksRoute}`);
@@ -63,6 +75,10 @@ const CreateEduLinkPageLogic = () => {
     setEduLinksFiles,
     control,
     isEduLinkCreating,
+    setCommentsPermission,
+    commentsPermission,
+    setVisibilityPermissions,
+    visibilityPermissions,
   };
 };
 

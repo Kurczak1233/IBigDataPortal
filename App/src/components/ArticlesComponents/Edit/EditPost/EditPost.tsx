@@ -24,8 +24,18 @@ const EditPost = ({
   postFilesWithMetadata,
   setPostFiles,
 }: IEditPost) => {
-  const { submitForm, register, control, handleSubmit, errors, isSaving } =
-    EditPostLogic(post, postFiles);
+  const {
+    submitForm,
+    register,
+    control,
+    handleSubmit,
+    errors,
+    isSaving,
+    setCommentsPermission,
+    commentsPermission,
+    setVisibilityPermissions,
+    visibilityPermissions,
+  } = EditPostLogic(post, postFiles);
   return (
     <>
       <InputWithLabel
@@ -67,7 +77,13 @@ const EditPost = ({
           />
         </div>
         <div className={styles.comments}>
-          {/* <EditCommentsComponent /> */}
+          <EditCommentsComponent
+            visibilityPermissions={visibilityPermissions}
+            setCommentsPermission={setCommentsPermission}
+            setVisibilityPermissions={setVisibilityPermissions}
+            commentsPermission={commentsPermission}
+            intensiveColor={AvailableIntensiveColors.IntensiveOrange}
+          />
         </div>
       </div>
       <SmallButton

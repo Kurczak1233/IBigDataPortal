@@ -8,6 +8,17 @@
     margin-right: 16px;
     width: 100%;
   }
+  .commentsAndFiles {
+    display: flex;
+    .comments {
+      margin-top: 32px;
+      margin-left: 16px;
+      .title {
+        margin-bottom: 32px;
+        @include fontSizeTwentyFive;
+      }
+    }
+  }
 }
 .richText {
   width: 100%;

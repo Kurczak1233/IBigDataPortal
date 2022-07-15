@@ -24,8 +24,18 @@ const EditJobOffer = ({
   postFilesWithMetadata,
   setJobOfferFiles,
 }: IEditJobOffer) => {
-  const { submitForm, register, handleSubmit, control, errors, isSaving } =
-    EditJobOfferLogic({ jobOffer, jobOfferFiles });
+  const {
+    submitForm,
+    register,
+    handleSubmit,
+    control,
+    errors,
+    isSaving,
+    setCommentsPermission,
+    commentsPermission,
+    setVisibilityPermissions,
+    visibilityPermissions,
+  } = EditJobOfferLogic({ jobOffer, jobOfferFiles });
   return (
     <form className={styles.editForm}>
       <InputWithLabel
@@ -67,7 +77,13 @@ const EditJobOffer = ({
           />
         </div>
         <div className={styles.comments}>
-          {/* <EditCommentsComponent /> */}
+          <EditCommentsComponent
+            visibilityPermissions={visibilityPermissions}
+            setCommentsPermission={setCommentsPermission}
+            setVisibilityPermissions={setVisibilityPermissions}
+            commentsPermission={commentsPermission}
+            intensiveColor={AvailableIntensiveColors.IntensiveOrange}
+          />
         </div>
       </div>
       <SmallButton

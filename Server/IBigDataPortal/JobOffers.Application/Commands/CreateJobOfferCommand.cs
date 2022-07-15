@@ -37,14 +37,24 @@ public class CreateJobOfferCommandHandler : IRequestHandler<CreateJobOfferComman
         var nowDate = DateTimeOffset.Now;
         var connection = await _connectionService.GetAsync();
         var sql =
-            $@"INSERT INTO {Dbo.JobOffers} ({nameof(JobOffer.Title)}, {nameof(JobOffer.Description)}, {nameof(JobOffer.CreatorId)}, {nameof(JobOffer.Posted)})
+            $@"INSERT INTO {Dbo.JobOffers} 
+                    ({nameof(JobOffer.Title)},
+                    {nameof(JobOffer.Description)},
+                    {nameof(JobOffer.CreatorId)},
+                    {nameof(JobOffer.Posted)},
+                    {nameof(JobOffer.CommentsPermissions)},
+                    {nameof(JobOffer.ArticleVisibilityPermissions)})
                OUTPUT INSERTED.[Id]
-               VALUES (@title, @description, @userId, @dateNow)";
+               VALUES (@title, @description, @userId, @dateNow, @commentsPermission, @visibilityPermission)";
         var jobOfferId = await connection.QuerySingleAsync<int>(sql,
             new
             {
-                title = request.Body.Title, description = request.Body.Description, userId = request.CurrentUserId,
-                dateNow = nowDate
+                title = request.Body.Title,
+                description = request.Body.Description,
+                userId = request.CurrentUserId,
+                dateNow = nowDate,
+                commentsPermission = request.Body.CommentsPermissions,
+                visibilityPermission = request.Body.VisibilityPermissions
             });
         return jobOfferId;
     }

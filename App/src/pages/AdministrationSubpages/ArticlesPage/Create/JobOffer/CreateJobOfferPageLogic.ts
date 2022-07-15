@@ -7,16 +7,23 @@ import {
   articlesRoute,
   jobOffersRoute,
 } from "constants/apiRoutes";
+import { UserRoles } from "enums/UserRoles";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { isHtmlStringEmpty } from "utils/IsHtmlStringEmpty/isHtmlStringEmpty";
-import { ICreateJobOffer } from "./ICreateJobOfferForm";
+import { ICreateJobOffer, ICreateJobOfferRequest } from "./ICreateJobOfferForm";
 
 const CreateJobOfferPageLogic = () => {
   const [jobOfferFiles, setJobOffersFiles] = useState<File[]>([]);
   const [isJobOfferCreating, setIsjobOfferreating] = useState<boolean>(false);
+  const [commentsPermission, setCommentsPermission] = useState<UserRoles>(
+    UserRoles.StudentOrBusiness
+  );
+  const [visibilityPermissions, setVisibilityPermissions] = useState<UserRoles>(
+    UserRoles.Everybody
+  );
   const navigate = useNavigate();
   const {
     register,
@@ -29,8 +36,13 @@ const CreateJobOfferPageLogic = () => {
     if (isHtmlStringEmpty(data.description)) {
       return setError("description", { type: "required" });
     }
+    const request: ICreateJobOfferRequest = {
+      ...data,
+      commentsPermissions: commentsPermission,
+      visibilityPermissions: visibilityPermissions,
+    };
     setIsjobOfferreating(true);
-    const newJobOfferId = await createJobOffer(data);
+    const newJobOfferId = await createJobOffer(request);
     await handleUploadFiles(newJobOfferId);
     setIsjobOfferreating(false);
     navigate(`/${administrationRoute}/${articlesRoute}/${jobOffersRoute}`);
@@ -63,6 +75,10 @@ const CreateJobOfferPageLogic = () => {
     setJobOffersFiles,
     jobOfferFiles,
     isJobOfferCreating,
+    setCommentsPermission,
+    commentsPermission,
+    setVisibilityPermissions,
+    visibilityPermissions,
   };
 };
 export default CreateJobOfferPageLogic;

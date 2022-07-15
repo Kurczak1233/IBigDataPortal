@@ -8,6 +8,7 @@ import styles from "./CreateEduLinkPage.module.scss";
 import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import { Controller } from "react-hook-form";
 import ReactQuill from "react-quill";
+import EditCommentsComponent from "components/ArticlesComponents/ArticlesFiles/EditCommentsComponent/EditCommentsComponent";
 
 const CreateEduLinkPage = () => {
   const {
@@ -19,6 +20,10 @@ const CreateEduLinkPage = () => {
     eduLinksFiles,
     control,
     isEduLinkCreating,
+    setCommentsPermission,
+    commentsPermission,
+    setVisibilityPermissions,
+    visibilityPermissions,
   } = CreateEduLinkPageLogic();
 
   return (
@@ -57,12 +62,23 @@ const CreateEduLinkPage = () => {
               )}
             />
           </div>
-          <AddFileComponent
-            setPostsFiles={setEduLinksFiles}
-            postFiles={eduLinksFiles}
-            module={FileModuleEnum.eduLinksFiles}
-            componentTitle={"Edu link files"}
-          />
+          <div className={styles.commentsAndFiles}>
+            <AddFileComponent
+              setPostsFiles={setEduLinksFiles}
+              postFiles={eduLinksFiles}
+              module={FileModuleEnum.eduLinksFiles}
+              componentTitle={"Edu link files"}
+            />
+            <div className={styles.comments}>
+              <EditCommentsComponent
+                visibilityPermissions={visibilityPermissions}
+                setCommentsPermission={setCommentsPermission}
+                setVisibilityPermissions={setVisibilityPermissions}
+                commentsPermission={commentsPermission}
+                intensiveColor={AvailableIntensiveColors.IntensiveOrange}
+              />
+            </div>
+          </div>
           <SmallButton
             marginTop="16px"
             text={"Save"}

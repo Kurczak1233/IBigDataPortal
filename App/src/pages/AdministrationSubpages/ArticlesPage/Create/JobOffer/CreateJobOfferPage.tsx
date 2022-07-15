@@ -8,6 +8,7 @@ import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import styles from "./CreateJobOfferPage.module.scss";
 import { Controller } from "react-hook-form";
 import ReactQuill from "react-quill";
+import EditCommentsComponent from "components/ArticlesComponents/ArticlesFiles/EditCommentsComponent/EditCommentsComponent";
 
 const CreateJobOfferPage = () => {
   const {
@@ -19,6 +20,10 @@ const CreateJobOfferPage = () => {
     setJobOffersFiles,
     jobOfferFiles,
     isJobOfferCreating,
+    setCommentsPermission,
+    commentsPermission,
+    setVisibilityPermissions,
+    visibilityPermissions,
   } = CreateJobOfferPageLogic();
   return (
     <div>
@@ -56,12 +61,23 @@ const CreateJobOfferPage = () => {
               )}
             />
           </div>
-          <AddFileComponent
-            setPostsFiles={setJobOffersFiles}
-            postFiles={jobOfferFiles}
-            module={FileModuleEnum.jobOffersFiles}
-            componentTitle={"Job offer files"}
-          />
+          <div className={styles.commentsAndFiles}>
+            <AddFileComponent
+              setPostsFiles={setJobOffersFiles}
+              postFiles={jobOfferFiles}
+              module={FileModuleEnum.jobOffersFiles}
+              componentTitle={"Job offer files"}
+            />
+            <div className={styles.comments}>
+              <EditCommentsComponent
+                visibilityPermissions={visibilityPermissions}
+                setCommentsPermission={setCommentsPermission}
+                setVisibilityPermissions={setVisibilityPermissions}
+                commentsPermission={commentsPermission}
+                intensiveColor={AvailableIntensiveColors.IntensiveOrange}
+              />
+            </div>
+          </div>
           <SmallButton
             marginTop="16px"
             text={"Save"}

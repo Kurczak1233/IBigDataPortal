@@ -39,14 +39,18 @@ public class UpdateEduLinkCommandHandler : IRequestHandler<UpdateEduLinkCommand>
         var sql =
             $@"UPDATE {Dbo.EduLinks}
                     SET  {nameof(EduLink.Title)} = @title,
-                    {nameof(EduLink.Description)} = @description
+                    {nameof(EduLink.Description)} = @description,
+                    {nameof(EduLink.CommentsPermissions)} = @commentsPermission,
+                    {nameof(EduLink.ArticleVisibilityPermissions)} = @visibilityPermission
                 WHERE {nameof(EduLink.Id)} = @eduLinkId";
         await connection.ExecuteAsync(sql,
             new
             {
                 title = request.Body.Title,
                 description = request.Body.Description,
-                eduLinkId = request.Body.EduLinkId
+                eduLinkId = request.Body.EduLinkId,
+                commentsPermission = request.Body.CommentsPermissions,
+                visibilityPermission = request.Body.VisibilityPermissions,
             });
         return Unit.Value;
     }

@@ -24,11 +24,20 @@ const EditEduLink = ({
   postFilesWithMetadata,
   setEduLinkFiles,
 }: IEditEduLink) => {
-  const { submitForm, register, control, handleSubmit, errors } =
-    EditJobOfferLogic({
-      eduLink,
-      eduLinkFiles,
-    });
+  const {
+    submitForm,
+    register,
+    control,
+    handleSubmit,
+    errors,
+    setCommentsPermission,
+    commentsPermission,
+    setVisibilityPermissions,
+    visibilityPermissions,
+  } = EditJobOfferLogic({
+    eduLink,
+    eduLinkFiles,
+  });
   return (
     <form className={styles.editForm}>
       <InputWithLabel
@@ -71,7 +80,13 @@ const EditEduLink = ({
           />
         </div>
         <div className={styles.comments}>
-          {/* <EditCommentsComponent /> */}
+          <EditCommentsComponent
+            visibilityPermissions={visibilityPermissions}
+            setCommentsPermission={setCommentsPermission}
+            setVisibilityPermissions={setVisibilityPermissions}
+            commentsPermission={commentsPermission}
+            intensiveColor={AvailableIntensiveColors.IntensiveOrange}
+          />
         </div>
       </div>
       <SmallButton

@@ -38,14 +38,18 @@ public class UpdateJobOfferCommandHandler : IRequestHandler<UpdateJobOfferComman
         var sql =
             $@"UPDATE {Dbo.JobOffers}
             SET  {nameof(JobOffer.Title)} = @title,
-            {nameof(JobOffer.Description)} = @description
+            {nameof(JobOffer.Description)} = @description,
+            {nameof(JobOffer.CommentsPermissions)} = @commentsPermission,
+            {nameof(JobOffer.ArticleVisibilityPermissions)} = @visibilityPermission
         WHERE {nameof(JobOffer.Id)} = @jobOfferId";
         await connection.ExecuteAsync(sql,
             new
             {
                 title = request.Body.Title,
                 description = request.Body.Description,
-                jobOfferId = request.Body.JobOfferId
+                jobOfferId = request.Body.JobOfferId,
+                commentsPermission = request.Body.CommentsPermissions,
+                visibilityPermission = request.Body.VisibilityPermissions,
             });
         return Unit.Value;
     }
