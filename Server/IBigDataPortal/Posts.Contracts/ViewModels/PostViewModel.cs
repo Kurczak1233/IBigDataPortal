@@ -1,4 +1,5 @@
 ﻿using Files.Contracts.ViewModels;
+using IBigDataPortal.Database.Entities;
 
 namespace Posts.Contracts.ViewModels;
 
@@ -13,5 +14,6 @@ public class PostViewModel
 
     public DateTimeOffset Posted { get; set; }
     public List<FileVm?> Files { get; set; } = new();
+    public List<PostCommentViewModel> Comments { get; set; } = new();
 
 }

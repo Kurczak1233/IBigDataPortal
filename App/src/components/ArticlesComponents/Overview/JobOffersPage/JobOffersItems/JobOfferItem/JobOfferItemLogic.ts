@@ -43,10 +43,13 @@ const JobOfferItemLogic = (
     navigate(`/${administrationRoute}/${articlesRoute}/${jobOffersRoute}`);
     setJobOffers &&
       setJobOffers((oldJobOffers) => {
-        const foundJobOfferIndex = oldJobOffers?.findIndex(
+        if (!oldJobOffers) {
+          return oldJobOffers;
+        }
+        const foundJobOfferIndex = oldJobOffers.findIndex(
           (item) => item.id === jobOffer.id
         );
-        if (!foundJobOfferIndex || !oldJobOffers) {
+        if (foundJobOfferIndex === -1 || !oldJobOffers) {
           return oldJobOffers;
         }
         oldJobOffers.splice(foundJobOfferIndex, 1);

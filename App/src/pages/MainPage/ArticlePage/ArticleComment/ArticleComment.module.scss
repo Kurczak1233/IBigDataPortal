@@ -1,0 +1,28 @@
+@import "styles/Commons.scss";
+.comment {
+  color: $black-text;
+  border: 1px solid $gray-text;
+  border-radius: 12px;
+  padding: 12px;
+  padding-bottom: 0px;
+  margin-bottom: 12px;
+  .commentHeader {
+    display: flex;
+    @include fontSizeSixteen;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .buttons {
+    display: flex;
+    align-items: center;
+    .date {
+      min-width: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+  .editContent {
+    margin: 16px;
+  }
+}

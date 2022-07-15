@@ -11,6 +11,7 @@ public class UpdateEduLinkCommand : IRequest
 {
     public UpdateEduLinkRequest Body { get; set; }
     public int CurrentUserId { get; set; }
+
     public UpdateEduLinkCommand(UpdateEduLinkRequest body, int currentUserId)
     {
         Body = body;
@@ -18,36 +19,35 @@ public class UpdateEduLinkCommand : IRequest
         {
             throw new ArgumentException("User id cannot be 0!");
         }
+
         CurrentUserId = currentUserId;
     }
 }
 
 public class UpdateEduLinkCommandHandler : IRequestHandler<UpdateEduLinkCommand>
 {
-    private readonly ISqlConnectionService _connectionService;  
-    
+    private readonly ISqlConnectionService _connectionService;
+
     public UpdateEduLinkCommandHandler(ISqlConnectionService connectionService)
     {
         _connectionService = connectionService;
     }
-    
+
     public async Task<Unit> Handle(UpdateEduLinkCommand request, CancellationToken cancellationToken)
     {
-                var connection = await _connectionService.GetAsync();
-                var sql =
-                    $@"UPDATE {Dbo.EduLinks}
+        var connection = await _connectionService.GetAsync();
+        var sql =
+            $@"UPDATE {Dbo.EduLinks}
                     SET  {nameof(EduLink.Title)} = @title,
-                    {nameof(EduLink.Description)} = @description,
-                    {nameof(EduLink.Link)} = @link
+                    {nameof(EduLink.Description)} = @description
                 WHERE {nameof(EduLink.Id)} = @eduLinkId";
-                await connection.ExecuteAsync(sql,
-                    new
-                    {
-                        title = request.Body.Title,
-                        description = request.Body.Description,
-                        link = request.Body.Link,
-                        eduLinkId = request.Body.EduLinkId
-                    });
-                return Unit.Value;
+        await connection.ExecuteAsync(sql,
+            new
+            {
+                title = request.Body.Title,
+                description = request.Body.Description,
+                eduLinkId = request.Body.EduLinkId
+            });
+        return Unit.Value;
     }
 }

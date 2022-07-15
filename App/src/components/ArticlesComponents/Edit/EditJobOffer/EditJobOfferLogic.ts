@@ -12,6 +12,7 @@ import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOff
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { isHtmlStringEmpty } from "utils/IsHtmlStringEmpty/isHtmlStringEmpty";
 import { IEditJobOfferForm } from "./IEditJobOfferForm";
 interface IEditPostPageLogic {
   jobOffer: JobOfferViewModel;
@@ -25,7 +26,9 @@ const EditPostPageLogic = ({ jobOffer, jobOfferFiles }: IEditPostPageLogic) => {
   const {
     register,
     setValue,
+    control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<IEditJobOfferForm>();
 
@@ -39,6 +42,9 @@ const EditPostPageLogic = ({ jobOffer, jobOfferFiles }: IEditPostPageLogic) => {
   };
 
   const submitForm = async (data: IEditJobOfferForm) => {
+    if (isHtmlStringEmpty(data.description)) {
+      return setError("description", { type: "required" });
+    }
     setIsSaving(true);
     await handleAddFiles(jobOfferFiles);
     await editJobOffer(data);
@@ -67,7 +73,7 @@ const EditPostPageLogic = ({ jobOffer, jobOfferFiles }: IEditPostPageLogic) => {
     setPostEditValues();
   }, [setPostEditValues]);
 
-  return { submitForm, register, handleSubmit, errors, isSaving };
+  return { submitForm, register, control, handleSubmit, errors, isSaving };
 };
 
 export default EditPostPageLogic;
