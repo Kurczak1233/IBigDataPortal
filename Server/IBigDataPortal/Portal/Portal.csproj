@@ -26,6 +26,8 @@
     <ItemGroup>
       <ProjectReference Include="..\ApplicationUser\ApplicationUser.csproj" />
       <ProjectReference Include="..\Articles.Application\Articles.Application.csproj" />
+      <ProjectReference Include="..\Comments.Application\Comments.Application.csproj" />
+      <ProjectReference Include="..\Comments.Domain\Comments.Domain.csproj" />
       <ProjectReference Include="..\EduLinks.Application\EduLinks.Application.csproj" />
       <ProjectReference Include="..\Files.Application\Files.Application.csproj" />
       <ProjectReference Include="..\Files.Domain\Files.Domain.csproj" />
@@ -34,6 +36,8 @@
       <ProjectReference Include="..\Portal.Infrastructure\Portal.Infrastructure.csproj" />
       <ProjectReference Include="..\Posts.Application\Posts.Application.csproj" />
       <ProjectReference Include="..\Posts.Domain\Posts.Domain.csproj" />
+      <ProjectReference Include="..\UserRole.Application\UserRole.Application.csproj" />
+      <ProjectReference Include="..\UserRole.Domain\UserRole.Domain.csproj" />
       <ProjectReference Include="..\Users.Application\Users.Application.csproj" />
       <ProjectReference Include="..\Users.Domain\Users.Domain.csproj" />
     </ItemGroup>

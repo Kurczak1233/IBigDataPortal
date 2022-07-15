@@ -11,18 +11,25 @@ import { ToastModes } from "interfaces/General/ToastModes";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { isHtmlStringEmpty } from "utils/IsHtmlStringEmpty/isHtmlStringEmpty";
 import { ICreatePostForm } from "./ICreatePostForm";
 
 const CreatePostPageLogic = () => {
   const [postFiles, setPostsFiles] = useState<File[]>([]);
   const [isPostCreating, setIsPostCreating] = useState<boolean>(false);
+
   const navigate = useNavigate();
   const {
     register,
+    control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<ICreatePostForm>();
   const submitForm = async (data: ICreatePostForm) => {
+    if (isHtmlStringEmpty(data.description)) {
+      return setError("description", { type: "required" });
+    }
     setIsPostCreating(true);
     const newPostId = await createPost(data);
     await handleUploadFiles(newPostId);
@@ -52,6 +59,7 @@ const CreatePostPageLogic = () => {
     submitForm,
     register,
     handleSubmit,
+    control,
     errors,
     postFiles,
     setPostsFiles,

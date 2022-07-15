@@ -30,7 +30,8 @@ public class GetApplicationUserQueryHandler : IRequestHandler<GetApplicationUser
 
         var sql = $@"SELECT {nameof(User.Id)},
                             {nameof(User.Email)},
-                            {nameof(User.Nickname)}
+                            {nameof(User.Nickname)},
+                            {nameof(User.UserRoleId)}
                      FROM {Dbo.Users}
                      WHERE {nameof(User.Id)} = @id";
 

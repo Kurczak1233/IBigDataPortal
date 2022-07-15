@@ -3,7 +3,6 @@ import FileModal from "components/common/FileModal/FileModal";
 import FileModalItem from "components/common/FileModal/FileModalItem/FileModalItem";
 import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import ConfirmActionModal from "components/common/Modals/ConfirmActionModal/ConfirmActionModal";
-import SeparationSmallBar from "components/common/SeparationSmallGreenBar/SeparationSmallGreenBar";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { FileWithMetadata } from "interfaces/Models/FilesMetadata/ViewModels/FileWithMetadata";
 import styles from "./EditFileComponent.module.scss";
@@ -49,31 +48,12 @@ const EditFileComponent = ({
         currentFiles={postFiles.map((item) => item.file)}
       />
       <div className={styles.filesHeader}>
-        <div className={styles.files}>Documents</div>
+        <div className={styles.files}>Images</div>
         <SmallButton
           text={"Edit files"}
           onClick={openFileModal}
           color={AvailableIntensiveColors.IntensiveGreen}
         />
-      </div>
-      {postFiles.length > 0 ? (
-        postFiles
-          .filter((item) => !item.file.type.includes("image"))
-          .map((file) => {
-            return (
-              <FileModalItem
-                key={`${file.file.lastModified} ${file.file.name}`}
-                removeFile={() => handleRemoveFile(file)}
-                file={file.file}
-              />
-            );
-          })
-      ) : (
-        <div className={styles.noFilesOrImages}>None</div>
-      )}
-      <SeparationSmallBar marginTop="32px" marginBottom="32px" />
-      <div className={styles.filesHeader}>
-        <div className={styles.files}>Images</div>
       </div>
       {postFiles.length > 0 ? (
         postFiles

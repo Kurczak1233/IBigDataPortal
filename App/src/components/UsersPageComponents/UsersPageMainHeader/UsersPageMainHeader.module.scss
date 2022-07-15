@@ -1,0 +1,27 @@
+@import "styles/Commons.scss";
+.header {
+  @include fontSizeTwenty;
+  color: $black-text;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 0 12px;
+  .image {
+    margin-left: 4px;
+  }
+  .nickname {
+    @include nicknameColumnWidth;
+    display: flex;
+    align-items: center;
+  }
+  .email {
+    @include emailColumnWidth;
+    display: flex;
+    align-items: center;
+  }
+  .role {
+    @include roleColumnWidth;
+    display: flex;
+    align-items: center;
+  }
+}

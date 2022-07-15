@@ -4,11 +4,11 @@ import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
-import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
+import { ApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import { useCallback, useEffect, useState } from "react";
 
 const ProfilePageLogic = () => {
-  const [userProfile, setUserProfile] = useState<IApplicationUser>();
+  const [userProfile, setUserProfile] = useState<ApplicationUser>();
   const [profilePic, setProfilePic] = useState<FileVm>();
 
   const handleGetUserProfileRequest = async () => {

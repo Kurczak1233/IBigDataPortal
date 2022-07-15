@@ -1,4 +1,4 @@
-@import 'styles/Commons.scss';
+@import "styles/Commons.scss";
 .siteLayout {
   height: 100%;
   width: 100%;
@@ -47,5 +47,6 @@
     padding: 50px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 }
