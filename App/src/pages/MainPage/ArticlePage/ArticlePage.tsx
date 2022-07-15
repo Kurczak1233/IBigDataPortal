@@ -21,6 +21,7 @@ const ArticlePage = () => {
     navigateBack,
     filesLoading,
     articleComments,
+    appUser,
     setArticleComments,
   } = ArticlePageLogic();
   const { control, errors, handleCreateComment, handleSubmit } =
@@ -65,7 +66,7 @@ const ArticlePage = () => {
                 })}
             </div>
           )}
-          {article.prohibitedCommenting && articleComments.length === 0 ? (
+          {article.commentsPermissions === 0 && articleComments.length === 0 ? (
             <div />
           ) : (
             <div className={styles.comments}>
@@ -82,7 +83,7 @@ const ArticlePage = () => {
                   );
                 })}
               </div>
-              {!article.prohibitedCommenting && (
+              {appUser && article.commentsPermissions >= appUser?.userRoleId && (
                 <>
                   <div className={styles.newComment}>New comment</div>
                   <Controller

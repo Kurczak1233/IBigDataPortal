@@ -20,6 +20,9 @@ const ArticlePageLogic = () => {
   const article = useSelector(
     (state: RootState) => state.articlesReducer.chosenArticle
   );
+  const appUser = useSelector(
+    (state: RootState) => state.applicationUserReducer.user
+  );
 
   const [articleComments, setArticleComments] = useState<CommentVm[]>(
     article ? article.comments : []
@@ -100,6 +103,7 @@ const ArticlePageLogic = () => {
     componentColour,
     componentIntensiveColour,
     navigateBack,
+    appUser,
     filesLoading,
     articleComments,
     setArticleComments,

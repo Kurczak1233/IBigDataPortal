@@ -32,7 +32,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
     public async Task<ArticlesVm> Handle(GetAllArticlesQuery request, CancellationToken cancellationToken)
     {
         var connection = await _connectionService.GetAsync();
-        var userRoleId = (int)UserRoles.Nobody;
+        var userRoleId = (int)UserRoles.Everybody;
         if (_user.Id != 0)
         {
             var sql =
@@ -52,9 +52,9 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
         var eduLinks = await GetAllEduLinks();
         var posts = await GetAllPosts();
 
-        var jobOffersFiltered = jobOffers.Where((item) => (int)item.ArticleVisibilityPermissions <= userRoleId);
-        var eduLinksFiltered = eduLinks.Where((item) => (int)item.ArticleVisibilityPermissions <= userRoleId);
-        var postsOffersFiltered = posts.Where((item) => (int)item.ArticleVisibilityPermissions <= userRoleId);
+        var jobOffersFiltered = jobOffers.Where((item) => (int)item.ArticleVisibilityPermissions >= userRoleId);
+        var eduLinksFiltered = eduLinks.Where((item) => (int)item.ArticleVisibilityPermissions >= userRoleId);
+        var postsOffersFiltered = posts.Where((item) => (int)item.ArticleVisibilityPermissions >= userRoleId);
         
         return new ArticlesVm()
         {

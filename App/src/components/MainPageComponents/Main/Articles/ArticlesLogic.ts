@@ -1,4 +1,5 @@
 import { compareAsc } from "date-fns";
+import { UserRoles } from "enums/UserRoles";
 import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
 import { CommentVm } from "interfaces/Models/Comments/CommentVm";
 import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
@@ -17,7 +18,8 @@ export interface IMergedPosts {
   type: string;
   nickname: string;
   comments: CommentVm[];
-  prohibitedCommenting: boolean;
+  commentsPermissions: UserRoles;
+  articleVisibilityPermissions: UserRoles;
 }
 
 const ArticlesLogic = (
