@@ -50,6 +50,17 @@ const UsersPageMainItem = ({ user, setAllPortalUsers }: IUsersPageMainItem) => {
               ? AvailableIntensiveColors.IntensiveOrange
               : AvailableIntensiveColors.InactiveGray
           }
+        />{" "}
+        <SmallButton
+          width="23%"
+          text={"HEI"}
+          marginRight={"1%"}
+          onClick={() => handleOpenModal(UserRoles["HEI"])}
+          color={
+            user.userRoleId === UserRoles["HEI"]
+              ? AvailableIntensiveColors.IntensiveOrange
+              : AvailableIntensiveColors.InactiveGray
+          }
         />
         <SmallButton
           width="23%"
@@ -58,17 +69,6 @@ const UsersPageMainItem = ({ user, setAllPortalUsers }: IUsersPageMainItem) => {
           onClick={() => handleOpenModal(UserRoles["Employee"])}
           color={
             user.userRoleId === UserRoles["Employee"]
-              ? AvailableIntensiveColors.IntensiveOrange
-              : AvailableIntensiveColors.InactiveGray
-          }
-        />
-        <SmallButton
-          width="23%"
-          text={"HEI"}
-          marginRight={"1%"}
-          onClick={() => handleOpenModal(UserRoles["HEI"])}
-          color={
-            user.userRoleId === UserRoles["HEI"]
               ? AvailableIntensiveColors.IntensiveOrange
               : AvailableIntensiveColors.InactiveGray
           }

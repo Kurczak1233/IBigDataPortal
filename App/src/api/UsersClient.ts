@@ -7,10 +7,6 @@ import { AxiosClient } from "./AxiosClient";
 const base = application.baseUrl;
 const Users = "Users";
 
-const initMiddlewares = async (): Promise<ApplicationUser> => {
-  return AxiosClient(HttpRequestsMethods.GET, `${Users}/Initial`, base);
-};
-
 const getApplicationUser = async (): Promise<ApplicationUser> => {
   return AxiosClient(HttpRequestsMethods.GET, `${Users}/Current`, base);
 };
@@ -32,7 +28,6 @@ const deleteUser = async (userId: number): Promise<null> => {
 };
 
 export {
-  initMiddlewares,
   getApplicationUser,
   updateUserNickname,
   getAllPortalUsers,

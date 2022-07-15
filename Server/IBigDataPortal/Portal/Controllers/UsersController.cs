@@ -27,12 +27,6 @@ public class UsersController : ControllerBase
         _authorizationService = authorizationService;
     }
     
-    [HttpGet("Initial")]
-    public Task<ActionResult<ApplicationUserDto>> RunMiddlewares()
-    {
-        return Task.FromResult<ActionResult<ApplicationUserDto>>(Ok());
-    }
-    
     [HttpGet("Current")]
     public async Task<ActionResult<ApplicationUserDto>> GetCurrentApplicationUser()
     {
