@@ -1,4 +1,5 @@
 ﻿using Files.Contracts.ViewModels;
+using IBigDataPortal.Database.Entities;
 
 namespace EduLinks.Contracts.ViewModels;
 
@@ -12,5 +13,6 @@ public class EduLinkViewModel
     public string Type { get; set; }
     public DateTimeOffset Posted { get; set; } 
     public List<FileVm?> Files { get; set; } = new();
+    public List<Comment> Comments { get; set; } = new();
 
 }

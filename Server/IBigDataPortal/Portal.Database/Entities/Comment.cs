@@ -7,4 +7,6 @@ public class Comment : BaseEntity
     public User Creator { get; set; } = null!;
     public int CreatorId { get; set; }
     public DateTimeOffset CreatedOn { get; set; }
+    public int ArticleType { get; set; }
+    public int ArticleId { get; set; }
 }

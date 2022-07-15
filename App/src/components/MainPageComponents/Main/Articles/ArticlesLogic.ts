@@ -1,5 +1,6 @@
 import { compareAsc } from "date-fns";
 import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
+import { CommentVm } from "interfaces/Models/Comments/CommentVm";
 import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
 
 export interface IMergedPosts {
@@ -12,6 +13,7 @@ export interface IMergedPosts {
   files: FileVm[];
   type: string;
   nickname: string;
+  comments: CommentVm[];
 }
 
 const ArticlesLogic = (

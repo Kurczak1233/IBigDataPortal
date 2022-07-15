@@ -10,6 +10,5 @@ public class EduLink : BaseEntity
     public int IsDeleted { get; set; }
     public int? DeletedBy { get; set; }
     public DateTimeOffset? DeletedOn { get; set; }
-    public ICollection<Comment>? Comments { get; set; }
     public bool ProhibitedCommenting { get; set; }
 }

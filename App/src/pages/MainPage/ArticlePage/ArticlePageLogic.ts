@@ -3,6 +3,7 @@ import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import { IMergedPosts } from "components/MainPageComponents/Main/Articles/ArticlesLogic";
 import { ArticlesTypes } from "enums/ArticlesTypes";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
+import { CommentVm } from "interfaces/Models/Comments/CommentVm";
 import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -13,6 +14,9 @@ const ArticlePageLogic = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const article = location.state as IMergedPosts;
+  const [articleComments, setArticleComments] = useState<CommentVm[]>(
+    article.comments
+  );
 
   const findArticleColour = (type: string): AvailableIntensiveColors => {
     switch (type) {
@@ -83,6 +87,8 @@ const ArticlePageLogic = () => {
     componentIntensiveColour,
     navigateBack,
     filesLoading,
+    articleComments,
+    setArticleComments,
   };
 };
 

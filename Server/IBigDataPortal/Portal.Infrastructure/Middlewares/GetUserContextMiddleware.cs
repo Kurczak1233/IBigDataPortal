@@ -25,6 +25,7 @@ public class GetUserContextMiddleware
     public async Task Invoke(HttpContext context, IUsersServiceQueries usersServiceQueries)
     {
         var userEmail = context.User.Claims.FirstOrDefault(c => c.Type == IUserMetadata.Email)?.Value;
+        var userNickname = context.User.Claims.FirstOrDefault(c => c.Type == IUserMetadata.Username)?.Value;
 
         //Cache userId for 20 seconds
         var id = context.User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
@@ -59,7 +60,7 @@ public class GetUserContextMiddleware
             }
             else
             {
-                var command = new CreateNewUserCommand(userEmail, "nickname");
+                var command = new CreateNewUserCommand(userEmail, userNickname);
                 await _mediator.Send(command);
                 var createdUser = await usersServiceQueries.GetApplicationUserByEmail(userEmail);
                 memoryCache.Set($"USER_{id}", createdUser.Id);

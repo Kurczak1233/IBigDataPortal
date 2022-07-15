@@ -1,3 +1,4 @@
+using Articles.Contracts.Enums;
 using Articles.Domain.ArticlesAggregate.ViewModels;
 using Dapper;
 using EduLinks.Contracts.ViewModels;
@@ -52,13 +53,42 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      {Dbo.Posts}.{nameof(Post.Posted)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail,
                      {Dbo.Users}.{nameof(User.Nickname)},
-                     'Post' as Type
+                     'Post' as Type,
+                     {Dbo.Comments}.{nameof(Comment.Id)} as CommentId,
+                     {Dbo.Comments}.{nameof(Comment.Content)},
+                     {Dbo.Comments}.{nameof(Comment.CreatedOn)},
+                     CommentUsers.Nickname as CommentatorNickname,
+                     CommentUsers.Email as CommentatorEmail
                      FROM {Dbo.Posts} JOIN {Dbo.Users}
                      ON {Dbo.Posts}.{nameof(Post.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}
-                     WHERE {Dbo.Posts}.{nameof(Post.IsDeleted)} = 0";
+                     LEFT JOIN {Dbo.Comments} ON {Dbo.Posts}.{nameof(Post.Id)} = {Dbo.Comments}.{nameof(Comment.ArticleId)}
+                     LEFT JOIN {Dbo.Users} as CommentUsers ON CommentUsers.{nameof(User.Id)} = {Dbo.Comments}.{nameof(Comment.CreatorId)}
+                     WHERE {Dbo.Posts}.{nameof(Post.IsDeleted)} = 0
+                     AND ({Dbo.Comments}.{nameof(Comment.ArticleType)} = {(int)ArticlesEnum.Post} OR {Dbo.Comments}.{nameof(Comment.ArticleType)} IS NULL)
+                     AND ({Dbo.Comments}.{nameof(Comment.IsDeleted)} = 0 OR {Dbo.Comments}.{nameof(Comment.IsDeleted)} IS NULL    )";
 
         var jobOffers = await connection.QueryAsync<JobOfferViewModel>(jobOffersSql);
-        var posts = await connection.QueryAsync<PostViewModel>(postsSql);
+        
+        var result = await connection.QueryAsync<PostViewModel, PostCommentViewModel, PostViewModel>(postsSql, (post, comment) =>
+        {
+            if (comment != null)
+            {
+                post.Comments.Add(comment);
+            }
+            return post;
+        },  splitOn: "CommentId");
+
+        var posts = result.GroupBy(p => p.Id).Select(g =>
+        {
+            var groupedPost = g.First();
+            var foundComments= g.Select(p => p.Comments.Count != 0 ? p.Comments.Single() : null).ToList();
+            var allComments = foundComments.FindAll(item => item != null);
+            if (allComments.Count != 0)
+            {
+                groupedPost.Comments = allComments;
+            }
+            return groupedPost;
+        });
         var eduLinks = await connection.QueryAsync<EduLinkViewModel>(eduLinksSql);
 
         return new ArticlesVm()

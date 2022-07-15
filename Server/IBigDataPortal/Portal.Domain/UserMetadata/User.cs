@@ -39,7 +39,7 @@ public class User : IUser
         get
         {
             var userLastName =
-                _accessor.HttpContext?.User?.Claims?.FirstOrDefault(c => c.Type == IUserMetadata.Nickname);
+                _accessor.HttpContext?.User?.Claims?.FirstOrDefault(c => c.Type == IUserMetadata.Username);
 
             return userLastName?.Value!;
         }

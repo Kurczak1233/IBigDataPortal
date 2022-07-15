@@ -32,20 +32,11 @@ public class CommentsController  : ControllerBase
         return Ok(commentId);
     }
     
-    //TODO Możemy pobierać komenatarze z dostępnego API (zrobić) 1. Wcisnąć do góry, (lepsze) 2. Tutaj
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<PostViewModel>>> GetAllArticleComments()
-    {
-        var result = await _mediator.Send(new
-            GetAllEduLinksQuery());
-        return Ok(result);
-    }
-    
     [Authorize]
     [HttpPut]
     public async Task<ActionResult> UpdateComment(UpdateCommentRequest body)
     {
-        await _mediator.Send(new UpdateCommentCommand(_user.Id, body));
+        await _mediator.Send(new UpdateCommentCommand(body));
         return Ok();
     }
     

@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Files.Contracts\Files.Contracts.csproj" />
+      <ProjectReference Include="..\Portal.Database\Portal.Database.csproj" />
     </ItemGroup>
 
 </Project>

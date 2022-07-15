@@ -36,6 +36,24 @@
           border-radius: 16px;
         }
       }
+      .comments {
+        margin-top: 32px;
+        .commentsTitle {
+          @include fontSizeTwenty;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 16px;
+        }
+        .smallButton {
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+        }
+      }
+      .newComment {
+        @include fontSizeFourteen;
+      }
     }
     .returnButton {
       width: 100%;
@@ -43,5 +61,9 @@
       align-items: center;
       justify-content: space-evenly;
     }
+  }
+  .error {
+    @include fontSizeFourteen;
+    color: $intensive-red;
   }
 }

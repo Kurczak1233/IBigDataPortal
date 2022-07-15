@@ -1,4 +1,7 @@
 using Comments.Domain.CommentsAggregate.Requests;
+using Dapper;
+using IBigDataPortal.Database;
+using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Infrastructure;
 using MediatR;
 
@@ -6,16 +9,9 @@ namespace Comments.Application.Commands;
 
 public class UpdateCommentCommand : IRequest
 {
-    public int UserId { get; set; }
     public UpdateCommentRequest Body { get; set; }
-    public UpdateCommentCommand(int userId, UpdateCommentRequest body)
+    public UpdateCommentCommand(UpdateCommentRequest body)
     {
-        if (userId == 0)
-        {
-            throw new ArgumentException("User id cannot be 0", userId.ToString());
-        }
-
-        UserId = userId;
         Body = body;
     }
 }
@@ -29,8 +25,19 @@ public class UpdateCommentCommandHandler : IRequestHandler<UpdateCommentCommand>
         _connectionService = connectionService;
     }
 
-    public Task<Unit> Handle(UpdateCommentCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UpdateCommentCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var connection = await _connectionService.GetAsync();
+        var sql =
+            $@"UPDATE {Dbo.Comments}
+               SET  {nameof(Comment.Content)} = @content
+               WHERE {nameof(Comment.Id)} = @commentId";
+        await connection.ExecuteAsync(sql,
+            new
+            {
+                content = request.Body.Content,
+                commentId = request.Body.CommentId,
+            });
+        return Unit.Value;
     }
 }
