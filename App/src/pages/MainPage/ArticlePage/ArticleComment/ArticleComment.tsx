@@ -63,8 +63,9 @@ const ArticleComment = ({
             onClick={handleOpenDeleteModal}
             color={AvailableIntensiveColors.IntensiveRed}
           />
-
-          {format(new Date(itemComment.createdOn), standarizedFormatWithTime)}
+          <span className={styles.date}>
+            {format(new Date(itemComment.createdOn), standarizedFormatWithTime)}
+          </span>
         </div>
       </div>
       <div className={styles.content}>

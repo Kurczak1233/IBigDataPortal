@@ -15,6 +15,12 @@
   .buttons {
     display: flex;
     align-items: center;
+    .date {
+      min-width: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
   }
   .editContent {
     margin: 16px;
