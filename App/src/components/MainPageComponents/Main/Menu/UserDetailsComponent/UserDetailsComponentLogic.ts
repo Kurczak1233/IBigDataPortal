@@ -8,7 +8,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getApplicationUser } from "api/UsersClient";
-import { ApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import {
   removeApplicationUser,
   updateApplicationUser,
@@ -18,7 +17,8 @@ import { RootState } from "redux/store";
 import { UserRoles } from "enums/UserRoles";
 
 const UserDetailsComponentLogic = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [wasLoaded, setWasLoaded] = useState<boolean>(false);
+  const { isLoading, user } = useAuth0();
   const appUser = useSelector(
     (state: RootState) => state.applicationUserReducer.user
   );
@@ -26,8 +26,6 @@ const UserDetailsComponentLogic = () => {
     (state: RootState) => state.accessTokenReducer.accessTokenSet
   );
 
-  const [applicationUser, setApplicationUser] =
-    useState<ApplicationUser | null>(appUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -50,41 +48,42 @@ const UserDetailsComponentLogic = () => {
   };
 
   const getUserDetailsAndSaveThoseInRedux = useCallback(async () => {
-    if (accessTokenWasSet) {
+    if (accessTokenWasSet && user) {
       try {
         let user = await getApplicationUser();
         //First registered (and initialized user)
         if (!user) {
           user = await getApplicationUser();
         }
-        setApplicationUser(user);
         dispatch(updateApplicationUser(user));
+        setWasLoaded(true);
       } catch {
         return;
       }
-    } else {
+    } else if (user === undefined) {
       dispatch(removeApplicationUser());
-      setApplicationUser(null);
+      setWasLoaded(true);
     }
-    setIsLoading(false);
-  }, [dispatch, accessTokenWasSet]);
+  }, [accessTokenWasSet, user, dispatch]);
 
   const hasAccessToPortal = useMemo(() => {
     return appUser && appUser.userRoleId <= UserRoles.Employee;
   }, [appUser]);
 
   useEffect(() => {
-    getUserDetailsAndSaveThoseInRedux();
-  }, [getUserDetailsAndSaveThoseInRedux, accessTokenWasSet]);
+    if (!isLoading) {
+      getUserDetailsAndSaveThoseInRedux();
+    }
+  }, [getUserDetailsAndSaveThoseInRedux, accessTokenWasSet, isLoading]);
 
   return {
     handleClickOnLogin,
     handleClickOnRegister,
     handleLogOut,
     handleMoveToThePortal,
-    applicationUser,
+    appUser,
     accessTokenWasSet,
-    isLoading,
+    wasLoaded,
     hasAccessToPortal,
   };
 };

@@ -1,5 +1,4 @@
 import BigButton from "components/common/Buttons/BigButtons/BigButton";
-import BigLoader from "components/common/Loaders/BigLoader";
 import SeparationSmallBar from "components/common/SeparationSmallGreenBar/SeparationSmallGreenBar";
 import { format } from "date-fns";
 import styles from "./ArticlePage.module.scss";
@@ -11,6 +10,7 @@ import ReactQuill from "react-quill";
 import { Controller } from "react-hook-form";
 import ArticlePageCommentsLogic from "./ArticlePageCommentsLogic";
 import ArticleComment from "./ArticleComment/ArticleComment";
+import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
 
 const ArticlePage = () => {
   const {

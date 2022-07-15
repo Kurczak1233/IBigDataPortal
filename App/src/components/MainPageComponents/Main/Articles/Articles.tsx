@@ -1,4 +1,3 @@
-import BigLoader from "components/common/Loaders/BigLoader";
 import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
 import ArticleItem from "./ArticleItem/ArticleItem";
 import styles from "./Articles.module.scss";
@@ -6,6 +5,7 @@ import ArticlesLogic from "./ArticlesLogic";
 import GreenFeatherIcon from "public/PostsIcons/GreenFeatherIcon.svg";
 import BigButton from "components/common/Buttons/BigButtons/BigButton";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
+import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
 
 interface IArticles {
   articles: ArticlesVm | undefined;
