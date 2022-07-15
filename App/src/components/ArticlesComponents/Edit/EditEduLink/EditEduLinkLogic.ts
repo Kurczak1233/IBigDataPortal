@@ -12,6 +12,7 @@ import { EduLinkViewModel } from "interfaces/Models/EduLinks/ViewModels/EduLinkV
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { isHtmlStringEmpty } from "utils/IsHtmlStringEmpty/isHtmlStringEmpty";
 import { IEditEduLinkForm } from "./IEditEduLinkForm";
 
 interface IEditEduLinkLogic {
@@ -26,10 +27,14 @@ const EditEduLinkLogic = ({ eduLink, eduLinkFiles }: IEditEduLinkLogic) => {
     register,
     setValue,
     handleSubmit,
+    setError,
     control,
     formState: { errors },
   } = useForm<IEditEduLinkForm>();
   const submitForm = async (data: IEditEduLinkForm) => {
+    if (isHtmlStringEmpty(data.description)) {
+      return setError("description", { type: "required" });
+    }
     const handleAddFiles = async (newFiles: File[]) => {
       const filesToAdd = newFiles.filter((item) => "path" in item);
       await Promise.all(

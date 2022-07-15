@@ -41,10 +41,18 @@ const EditEduLink = ({
         registerOptions={{ required: true }}
       />
       <div className={styles.richText}>
-        <label>Description</label>
+        <div className={styles.richTextLabel}>
+          <span className={styles.label}>Description</span>
+          {errors.description && (
+            <span className={styles.error}>
+              You are not allowed to submit empty description
+            </span>
+          )}
+        </div>
         <Controller
           control={control}
           name="description"
+          rules={{ required: true }}
           render={({ field: { onChange, value: text } }) => (
             <ReactQuill
               style={{ width: "100%", height: 210 }}

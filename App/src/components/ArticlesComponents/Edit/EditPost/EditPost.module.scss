@@ -2,12 +2,21 @@
 .richText {
   width: 100%;
   height: 260px;
-  label {
+  .label {
     @include fontSizeSixteen;
     margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  .richTextLabel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .error {
+    @include fontSizeFourteen;
+    color: $intensive-red;
   }
 }
 .commentsAndFiles {

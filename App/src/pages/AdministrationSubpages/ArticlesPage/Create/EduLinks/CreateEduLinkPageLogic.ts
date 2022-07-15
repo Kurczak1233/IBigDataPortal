@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { ICreateEduLink } from "./ICreateEduLinkForm";
+import { isHtmlStringEmpty } from "utils/IsHtmlStringEmpty/isHtmlStringEmpty";
 
 const CreateEduLinkPageLogic = () => {
   const [eduLinksFiles, setEduLinksFiles] = useState<File[]>([]);
@@ -20,10 +21,14 @@ const CreateEduLinkPageLogic = () => {
   const {
     register,
     handleSubmit,
+    setError,
     control,
     formState: { errors },
   } = useForm<ICreateEduLink>();
   const submitForm = async (data: ICreateEduLink) => {
+    if (isHtmlStringEmpty(data.description)) {
+      return setError("description", { type: "required" });
+    }
     setIsEduLinkCreating(true);
     const eduLinkId = await createEduLink(data);
     await handleUploadFiles(eduLinkId);

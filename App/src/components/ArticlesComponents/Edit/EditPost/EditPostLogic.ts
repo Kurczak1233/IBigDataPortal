@@ -12,6 +12,7 @@ import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel"
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { isHtmlStringEmpty } from "utils/IsHtmlStringEmpty/isHtmlStringEmpty";
 import { IEditPostForm } from "./IEditPostForm";
 
 const EditPostLogic = (post: PostViewModel, postFiles: File[]) => {
@@ -22,6 +23,7 @@ const EditPostLogic = (post: PostViewModel, postFiles: File[]) => {
     setValue,
     control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<IEditPostForm>();
 
@@ -35,6 +37,9 @@ const EditPostLogic = (post: PostViewModel, postFiles: File[]) => {
   };
 
   const submitForm = async (data: IEditPostForm) => {
+    if (isHtmlStringEmpty(data.description)) {
+      return setError("description", { type: "required" });
+    }
     setIsSaving(true);
     await handleAddFiles(postFiles);
     await editPost(data);
