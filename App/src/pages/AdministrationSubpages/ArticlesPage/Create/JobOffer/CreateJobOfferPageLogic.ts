@@ -11,6 +11,7 @@ import { ToastModes } from "interfaces/General/ToastModes";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { isHtmlStringEmpty } from "utils/IsHtmlStringEmpty/isHtmlStringEmpty";
 import { ICreateJobOffer } from "./ICreateJobOfferForm";
 
 const CreateJobOfferPageLogic = () => {
@@ -19,10 +20,15 @@ const CreateJobOfferPageLogic = () => {
   const navigate = useNavigate();
   const {
     register,
+    setError,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<ICreateJobOffer>();
   const submitForm = async (data: ICreateJobOffer) => {
+    if (isHtmlStringEmpty(data.description)) {
+      return setError("description", { type: "required" });
+    }
     setIsjobOfferreating(true);
     const newJobOfferId = await createJobOffer(data);
     await handleUploadFiles(newJobOfferId);
@@ -53,6 +59,7 @@ const CreateJobOfferPageLogic = () => {
     register,
     handleSubmit,
     errors,
+    control,
     setJobOffersFiles,
     jobOfferFiles,
     isJobOfferCreating,

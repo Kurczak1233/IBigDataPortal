@@ -3,6 +3,7 @@ using System.Text;
 using IBigDataPortal;
 using IBigDataPortal.Infrastructure;
 using IBigDataPortal.Infrastructure.Middlewares;
+using IBigDataPortal.Infrastructure.ResourceBasedAuthorization.Dependencies;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -18,6 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 var connectionString = builder.Configuration.GetConnectionString("SqlConnectionString");
 builder.Services.AddDependencies(connectionString);
+builder.Services.AddPermissionDependencies();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
