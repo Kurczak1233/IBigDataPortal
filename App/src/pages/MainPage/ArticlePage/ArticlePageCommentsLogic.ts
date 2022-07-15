@@ -1,19 +1,18 @@
 import { createComment } from "api/CommentsClient";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
-import { IMergedPosts } from "components/MainPageComponents/Main/Articles/ArticlesLogic";
 import { ArticlesTypes } from "enums/ArticlesTypes";
 import { ArticlesTypesNumbers } from "enums/ArticlesTypesNumbers";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { useForm } from "react-hook-form";
-import { useLocation } from "react-router-dom";
 import {
   ICreateCommentForm,
   ICreateCommentRequest,
 } from "./ICreateCommentForm";
 import { isHtmlStringEmpty } from "utils/IsHtmlStringEmpty/isHtmlStringEmpty";
 import { CommentVm } from "interfaces/Models/Comments/CommentVm";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { setChosenArticleComments } from "redux/slices/articlesSlice";
 
 const ArticlePageCommentsLogic = (
   setArticleComments: React.Dispatch<React.SetStateAction<CommentVm[]>>
@@ -24,11 +23,13 @@ const ArticlePageCommentsLogic = (
     handleSubmit,
     formState: { errors },
   } = useForm<ICreateCommentForm>();
+  const dispatch = useDispatch();
   const appUser = useSelector(
     (state: RootState) => state.applicationUserReducer
   );
-  const location = useLocation();
-  const article = location.state as IMergedPosts;
+  const article = useSelector(
+    (state: RootState) => state.articlesReducer.chosenArticle
+  );
 
   const convertArticleTypeStringToInt = (articleType: string): number => {
     switch (articleType) {
@@ -53,6 +54,12 @@ const ArticlePageCommentsLogic = (
         description: "You cannot post an empty comment",
       });
     }
+    if (!article) {
+      return SyncToast({
+        mode: ToastModes.Info,
+        description: "Article was not found",
+      });
+    }
     const articleTypeId = convertArticleTypeStringToInt(article.type);
     if (articleTypeId === -1) {
       return SyncToast({
@@ -73,16 +80,23 @@ const ArticlePageCommentsLogic = (
           description: "User was not found",
         });
       }
-      const newArticle: CommentVm = {
+      const newComment: CommentVm = {
         commentId: newCommentId,
         content: data.content,
         createdOn: new Date(),
         commentatorEmail: appUser.user.email,
         commentatorNickname: appUser.user.nickname,
       };
-      setArticleComments((oldItems) => {
-        return [...oldItems, newArticle];
+      let updatedComments: CommentVm[] = [];
+      await setArticleComments((oldItems) => {
+        const mergedComments = [...oldItems, newComment];
+        updatedComments = mergedComments;
+        return mergedComments;
       });
+      const mappedObject = updatedComments.map((item) => {
+        return { ...item, createdOn: item.createdOn.toString() };
+      });
+      dispatch(setChosenArticleComments(mappedObject));
     } catch {
       return SyncToast({
         mode: ToastModes.Info,

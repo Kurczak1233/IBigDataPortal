@@ -13,10 +13,13 @@ import storage from "redux-persist/lib/storage";
 import applicationUserReducer from "./slices/applicationUserSlice";
 import accessTokenReducer from "./slices/accessTokenSlice";
 import resetFiltersFlags from "./slices/resetFiltersFlags";
+import articlesReducer from "./slices/articlesSlice";
+
 const reducers = combineReducers({
   applicationUserReducer,
   accessTokenReducer,
   resetFiltersFlags,
+  articlesReducer,
 });
 
 const persistConfig = {

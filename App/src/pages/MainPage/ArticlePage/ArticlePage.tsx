@@ -25,6 +25,9 @@ const ArticlePage = () => {
   } = ArticlePageLogic();
   const { control, errors, handleCreateComment, handleSubmit } =
     ArticlePageCommentsLogic(setArticleComments);
+  if (!article) {
+    return <BigLoader />;
+  }
   return (
     <div className={styles.articlePage}>
       <div className={styles.mainContainer}>
