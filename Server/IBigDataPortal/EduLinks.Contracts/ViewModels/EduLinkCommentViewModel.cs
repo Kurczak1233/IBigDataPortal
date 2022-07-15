@@ -1,6 +1,6 @@
-namespace Posts.Contracts.ViewModels;
+namespace EduLinks.Contracts.ViewModels;
 
-public class PostCommentViewModel
+public class EduLinkCommentViewModel
 {
     public int CommentId { get; set; }
     public string CommentatorNickname { get; set; }

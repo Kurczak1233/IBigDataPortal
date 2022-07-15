@@ -48,13 +48,13 @@ const articlesSlice = createSlice({
       if (!state.chosenArticle) {
         return;
       }
-      const foundComment = state.chosenArticle.comments.findIndex(
+      const foundCommentIndex = state.chosenArticle.comments.findIndex(
         (item) => item.commentId === action.payload
       );
-      if (!foundComment) {
+      if (foundCommentIndex === -1) {
         return;
       }
-      state.chosenArticle.comments.splice(foundComment, 1);
+      state.chosenArticle.comments.splice(foundCommentIndex, 1);
     },
   },
 });

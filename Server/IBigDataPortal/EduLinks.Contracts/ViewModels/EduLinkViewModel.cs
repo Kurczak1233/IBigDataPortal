@@ -13,6 +13,6 @@ public class EduLinkViewModel
     public string Type { get; set; }
     public DateTimeOffset Posted { get; set; } 
     public List<FileVm?> Files { get; set; } = new();
-    public List<Comment> Comments { get; set; } = new();
+    public List<EduLinkCommentViewModel> Comments { get; set; } = new();
 
 }

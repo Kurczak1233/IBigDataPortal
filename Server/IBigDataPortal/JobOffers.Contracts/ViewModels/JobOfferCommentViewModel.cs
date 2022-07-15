@@ -1,6 +1,6 @@
-namespace Posts.Contracts.ViewModels;
+namespace JobOffers.Contracts.ViewModels;
 
-public class PostCommentViewModel
+public class JobOfferCommentViewModel
 {
     public int CommentId { get; set; }
     public string CommentatorNickname { get; set; }
@@ -8,4 +8,5 @@ public class PostCommentViewModel
     public DateTimeOffset CreatedOn { get; set; }
     public string Content { get; set; }
     public bool IsDeleted { get; set; }
+
 }

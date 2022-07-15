@@ -12,4 +12,5 @@ public class JobOfferViewModel
     public string Type { get; set; }
     public DateTimeOffset Posted { get; set; } 
     public List<FileVm?> Files { get; set; } = new();
+    public List<JobOfferCommentViewModel> Comments { get; set; } = new();
 }

@@ -26,27 +26,17 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
 
     public async Task<ArticlesVm> Handle(GetAllArticlesQuery request, CancellationToken cancellationToken)
     {
+        return new ArticlesVm()
+        {
+            JobOffers = await GetAllJobOffers(),
+            EduLinks = await GetAllEduLinks(),
+            Posts = await GetAllPosts(),
+        };
+    }
+
+    private async Task<IEnumerable<PostViewModel>> GetAllPosts()
+    {
         var connection = await _connectionService.GetAsync();
-        var jobOffersSql = $@"SELECT {Dbo.JobOffers}.{nameof(JobOffer.Title)},
-                     {Dbo.JobOffers}.{nameof(JobOffer.Description)},
-                     {Dbo.JobOffers}.{nameof(JobOffer.Id)},
-                     {Dbo.JobOffers}.{nameof(JobOffer.Posted)},
-                     {Dbo.Users}.{nameof(User.Email)} as UserEmail,
-                     {Dbo.Users}.{nameof(User.Nickname)},
-                     'JobOffer' as Type
-                     FROM {Dbo.JobOffers} JOIN {Dbo.Users}
-                     ON {Dbo.JobOffers}.{nameof(JobOffer.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}";
-
-        var eduLinksSql = $@"SELECT {Dbo.EduLinks}.{nameof(EduLink.Title)},
-                     {Dbo.EduLinks}.{nameof(EduLink.Description)},
-                     {Dbo.EduLinks}.{nameof(EduLink.Id)},
-                     {Dbo.EduLinks}.{nameof(EduLink.Posted)},
-                     {Dbo.Users}.{nameof(User.Email)} as UserEmail,
-                     {Dbo.Users}.{nameof(User.Nickname)},
-                     'EduLink' as Type
-                     FROM {Dbo.EduLinks} JOIN {Dbo.Users}
-                     ON {Dbo.EduLinks}.{nameof(EduLink.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}";
-
         var postsSql = $@"SELECT {Dbo.Posts}.{nameof(Post.Title)},
                      {Dbo.Posts}.{nameof(Post.Description)},
                      {Dbo.Posts}.{nameof(Post.Id)},
@@ -56,6 +46,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      'Post' as Type,
                      {Dbo.Comments}.{nameof(Comment.Id)} as CommentId,
                      {Dbo.Comments}.{nameof(Comment.Content)},
+                     {Dbo.Comments}.{nameof(Comment.IsDeleted)},
                      {Dbo.Comments}.{nameof(Comment.CreatedOn)},
                      CommentUsers.Nickname as CommentatorNickname,
                      CommentUsers.Email as CommentatorEmail
@@ -64,38 +55,134 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      LEFT JOIN {Dbo.Comments} ON {Dbo.Posts}.{nameof(Post.Id)} = {Dbo.Comments}.{nameof(Comment.ArticleId)}
                      LEFT JOIN {Dbo.Users} as CommentUsers ON CommentUsers.{nameof(User.Id)} = {Dbo.Comments}.{nameof(Comment.CreatorId)}
                      WHERE {Dbo.Posts}.{nameof(Post.IsDeleted)} = 0
-                     AND ({Dbo.Comments}.{nameof(Comment.ArticleType)} = {(int)ArticlesEnum.Post} OR {Dbo.Comments}.{nameof(Comment.ArticleType)} IS NULL)
-                     AND ({Dbo.Comments}.{nameof(Comment.IsDeleted)} = 0 OR {Dbo.Comments}.{nameof(Comment.IsDeleted)} IS NULL    )";
+                     AND ({Dbo.Comments}.{nameof(Comment.IsDeleted)} = 1 OR {Dbo.Comments}.{nameof(Comment.IsDeleted)} = 0 OR {Dbo.Comments}.{nameof(Comment.IsDeleted)} IS NULL)";
 
-        var jobOffers = await connection.QueryAsync<JobOfferViewModel>(jobOffersSql);
-        
-        var result = await connection.QueryAsync<PostViewModel, PostCommentViewModel, PostViewModel>(postsSql, (post, comment) =>
-        {
-            if (comment != null)
+        var result = await connection.QueryAsync<PostViewModel, PostCommentViewModel, PostViewModel>(postsSql,
+            (post, comment) =>
             {
-                post.Comments.Add(comment);
-            }
-            return post;
-        },  splitOn: "CommentId");
+                if (comment != null && comment.IsDeleted == false)
+                {
+                    post.Comments.Add(comment);
+                }
+
+                return post;
+            }, splitOn: "CommentId");
 
         var posts = result.GroupBy(p => p.Id).Select(g =>
         {
             var groupedPost = g.First();
-            var foundComments= g.Select(p => p.Comments.Count != 0 ? p.Comments.Single() : null).ToList();
+            var foundComments = g.Select(p => p.Comments.Count != 0 ? p.Comments.Single() : null).ToList();
             var allComments = foundComments.FindAll(item => item != null);
             if (allComments.Count != 0)
             {
                 groupedPost.Comments = allComments;
             }
+
             return groupedPost;
         });
-        var eduLinks = await connection.QueryAsync<EduLinkViewModel>(eduLinksSql);
 
-        return new ArticlesVm()
+        return posts;
+    }
+
+    private async Task<IEnumerable<JobOfferViewModel>> GetAllJobOffers()
+    {
+        var connection = await _connectionService.GetAsync();
+
+        var jobOfferSql = $@"SELECT {Dbo.JobOffers}.{nameof(JobOffer.Title)},
+                     {Dbo.JobOffers}.{nameof(JobOffer.Description)},
+                     {Dbo.JobOffers}.{nameof(JobOffer.Id)},
+                     {Dbo.JobOffers}.{nameof(JobOffer.Posted)},
+                     {Dbo.Users}.{nameof(User.Email)} as UserEmail,
+                     {Dbo.Users}.{nameof(User.Nickname)},
+                     'JobOffer' as Type,
+                     {Dbo.Comments}.{nameof(Comment.Id)} as CommentId,
+                     {Dbo.Comments}.{nameof(Comment.Content)},
+                     {Dbo.Comments}.{nameof(Comment.IsDeleted)},
+                     {Dbo.Comments}.{nameof(Comment.CreatedOn)},
+                     CommentUsers.Nickname as CommentatorNickname,
+                     CommentUsers.Email as CommentatorEmail
+                     FROM {Dbo.JobOffers} JOIN {Dbo.Users}
+                     ON {Dbo.JobOffers}.{nameof(JobOffer.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}
+                     LEFT JOIN {Dbo.Comments} ON {Dbo.JobOffers}.{nameof(JobOffer.Id)} = {Dbo.Comments}.{nameof(Comment.ArticleId)}
+                     LEFT JOIN {Dbo.Users} as CommentUsers ON CommentUsers.{nameof(User.Id)} = {Dbo.Comments}.{nameof(Comment.CreatorId)}
+                     WHERE {Dbo.JobOffers}.{nameof(JobOffer.IsDeleted)} = 0
+                     AND ({Dbo.Comments}.{nameof(Comment.IsDeleted)} = 1 OR {Dbo.Comments}.{nameof(Comment.IsDeleted)} = 0 OR {Dbo.Comments}.{nameof(Comment.IsDeleted)} IS NULL)";
+
+        var result = await connection.QueryAsync<JobOfferViewModel, JobOfferCommentViewModel, JobOfferViewModel>(
+            jobOfferSql, (jobOffer, comment) =>
+            {
+                if (comment != null && comment.IsDeleted == false)
+                {
+                    jobOffer.Comments.Add(comment);
+                }
+
+                return jobOffer;
+            }, splitOn: "CommentId");
+
+        var jobOffers = result.GroupBy(p => p.Id).Select(g =>
         {
-            JobOffers = jobOffers,
-            EduLinks = eduLinks,
-            Posts = posts,
-        };
+            var groupedPost = g.First();
+            var foundComments = g.Select(p => p.Comments.Count != 0 ? p.Comments.Single() : null).ToList();
+            var allComments = foundComments.FindAll(item => item != null);
+            if (allComments.Count != 0)
+            {
+                groupedPost.Comments = allComments;
+            }
+
+            return groupedPost;
+        });
+
+        return jobOffers;
+    }
+
+    private async Task<IEnumerable<EduLinkViewModel>> GetAllEduLinks()
+    {
+        var connection = await _connectionService.GetAsync();
+
+        var eduLinksSql = $@"SELECT {Dbo.EduLinks}.{nameof(EduLink.Title)},
+                     {Dbo.EduLinks}.{nameof(EduLink.Description)},
+                     {Dbo.EduLinks}.{nameof(EduLink.Id)},
+                     {Dbo.EduLinks}.{nameof(EduLink.Posted)},
+                     {Dbo.Users}.{nameof(User.Email)} as UserEmail,
+                     {Dbo.Users}.{nameof(User.Nickname)},
+                     'EduLink' as Type,
+                     {Dbo.Comments}.{nameof(Comment.Id)} as CommentId,
+                     {Dbo.Comments}.{nameof(Comment.Content)},
+                     {Dbo.Comments}.{nameof(Comment.IsDeleted)},
+                     {Dbo.Comments}.{nameof(Comment.CreatedOn)},
+                     CommentUsers.Nickname as CommentatorNickname,
+                     CommentUsers.Email as CommentatorEmail
+                     FROM {Dbo.EduLinks} JOIN {Dbo.Users}
+                     ON {Dbo.EduLinks}.{nameof(EduLink.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}
+                     LEFT JOIN {Dbo.Comments} ON {Dbo.EduLinks}.{nameof(EduLink.Id)} = {Dbo.Comments}.{nameof(Comment.ArticleId)}
+                     LEFT JOIN {Dbo.Users} as CommentUsers ON CommentUsers.{nameof(User.Id)} = {Dbo.Comments}.{nameof(Comment.CreatorId)}
+                     WHERE {Dbo.EduLinks}.{nameof(EduLink.IsDeleted)} = 0
+                     AND ({Dbo.Comments}.{nameof(Comment.IsDeleted)} = 1 OR {Dbo.Comments}.{nameof(Comment.IsDeleted)} = 0 OR {Dbo.Comments}.{nameof(Comment.IsDeleted)} IS NULL)";
+
+        var result = await connection.QueryAsync<EduLinkViewModel, EduLinkCommentViewModel, EduLinkViewModel>(
+            eduLinksSql, (eduLink, comment) =>
+            {
+                if (comment != null && comment.IsDeleted == false)
+                {
+                    eduLink.Comments.Add(comment);
+                }
+
+                return eduLink;
+            }, splitOn: "CommentId");
+
+        var eduLinks = result.GroupBy(p => p.Id).Select(g =>
+        {
+            var groupedPost = g.First();
+            var foundComments = g.Select(p => p.Comments.Count != 0 ? p.Comments.Single() : null).ToList();
+            var allComments = foundComments.FindAll(item => item != null);
+            if (allComments.Count != 0)
+            {
+                groupedPost.Comments = allComments;
+            }
+
+            return groupedPost;
+        });
+
+        return eduLinks;
     }
 }

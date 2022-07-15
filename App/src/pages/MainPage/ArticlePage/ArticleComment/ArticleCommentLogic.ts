@@ -30,8 +30,8 @@ const ArticleCommentLogic = (
   };
 
   const handleDeleteComment = async (commentId: number) => {
-    await deleteComment(commentId);
     dispatch(deleteArticleComment(commentId));
+    await deleteComment(commentId);
     await setArticleComments((comments) => {
       const foundCommentIndex = comments.findIndex(
         (item) => item.commentId === commentId
