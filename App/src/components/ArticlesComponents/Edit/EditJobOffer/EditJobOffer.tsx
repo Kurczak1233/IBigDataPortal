@@ -1,18 +1,30 @@
 import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import InputWithLabel from "components/common/Forms/InputWithLabel/InputWithLabel";
-import TextareaWithLabel from "components/common/Forms/TextareaWithLabel/TextareaWithLabel";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
 import EditJobOfferLogic from "./EditJobOfferLogic";
 import styles from "./EditJobOffer.module.scss";
+import { Controller } from "react-hook-form";
+import ReactQuill from "react-quill";
+import EditFileComponent from "components/ArticlesComponents/ArticlesFiles/EditFileComponent/EditFileComponent";
+import EditCommentsComponent from "components/ArticlesComponents/ArticlesFiles/EditCommentsComponent/EditCommentsComponent";
+import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
+import { FileWithMetadata } from "interfaces/Models/FilesMetadata/ViewModels/FileWithMetadata";
 
 interface IEditJobOffer {
   jobOffer: JobOfferViewModel;
   jobOfferFiles: File[];
+  postFilesWithMetadata: FileWithMetadata[];
+  setJobOfferFiles: React.Dispatch<React.SetStateAction<FileWithMetadata[]>>;
 }
 
-const EditJobOffer = ({ jobOffer, jobOfferFiles }: IEditJobOffer) => {
-  const { submitForm, register, handleSubmit, errors, isSaving } =
+const EditJobOffer = ({
+  jobOffer,
+  jobOfferFiles,
+  postFilesWithMetadata,
+  setJobOfferFiles,
+}: IEditJobOffer) => {
+  const { submitForm, register, handleSubmit, control, errors, isSaving } =
     EditJobOfferLogic({ jobOffer, jobOfferFiles });
   return (
     <form className={styles.editForm}>
@@ -25,25 +37,32 @@ const EditJobOffer = ({ jobOffer, jobOfferFiles }: IEditJobOffer) => {
         registerName={"title"}
         registerOptions={{ required: true }}
       />
-      <InputWithLabel
-        register={register}
-        errors={errors}
-        errorMessage={"This field is required"}
-        label={"Link"}
-        placeholder={"Enter link..."}
-        registerName={"link"}
-        registerOptions={{ required: true }}
-      />
-      <TextareaWithLabel
-        register={register}
-        errors={errors}
-        errorMessage={"This field is required"}
-        label={"Description"}
-        placeholder={"Enter description..."}
-        registerName={"description"}
-        registerOptions={{ required: true }}
-      />
-
+      <div className={styles.richText}>
+        <label>Description</label>
+        <Controller
+          control={control}
+          name="description"
+          render={({ field: { onChange, value: text } }) => (
+            <ReactQuill
+              style={{ width: "100%", height: 210 }}
+              value={text ? text : ""}
+              onChange={onChange}
+            />
+          )}
+        />
+      </div>
+      <div className={styles.commentsAndFiles}>
+        <div className={styles.files}>
+          <EditFileComponent
+            setPostsFiles={setJobOfferFiles}
+            postFiles={postFilesWithMetadata}
+            module={FileModuleEnum.postsFiles}
+          />
+        </div>
+        <div className={styles.comments}>
+          <EditCommentsComponent />
+        </div>
+      </div>
       <SmallButton
         marginTop="16px"
         text={"Save"}

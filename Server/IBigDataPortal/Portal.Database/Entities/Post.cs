@@ -10,4 +10,5 @@ public class Post : BaseEntity
     public int IsDeleted { get; set; }
     public int? DeletedBy { get; set; }
     public DateTimeOffset? DeletedOn { get; set; }
+    public bool ProhibitedCommenting { get; set; }
 }

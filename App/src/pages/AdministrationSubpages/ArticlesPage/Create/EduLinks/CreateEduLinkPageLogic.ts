@@ -20,6 +20,7 @@ const CreateEduLinkPageLogic = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<ICreateEduLink>();
   const submitForm = async (data: ICreateEduLink) => {
@@ -55,6 +56,7 @@ const CreateEduLinkPageLogic = () => {
     errors,
     eduLinksFiles,
     setEduLinksFiles,
+    control,
     isEduLinkCreating,
   };
 };

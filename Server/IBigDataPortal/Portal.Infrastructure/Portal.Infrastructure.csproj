@@ -10,6 +10,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Portal.Database\Portal.Database.csproj" />
       <ProjectReference Include="..\Portal.Domain\Portal.Domain.csproj" />
+      <ProjectReference Include="..\UserRole.Contracts\UserRole.Contracts.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -23,6 +24,10 @@
       <PackageReference Include="MediatR" Version="10.0.1" />
       <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
       <PackageReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="ResourceBasedAuthorization\Handlers\Articles" />
     </ItemGroup>
 
 </Project>

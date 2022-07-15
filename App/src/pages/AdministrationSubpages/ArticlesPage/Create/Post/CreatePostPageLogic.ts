@@ -16,9 +16,11 @@ import { ICreatePostForm } from "./ICreatePostForm";
 const CreatePostPageLogic = () => {
   const [postFiles, setPostsFiles] = useState<File[]>([]);
   const [isPostCreating, setIsPostCreating] = useState<boolean>(false);
+
   const navigate = useNavigate();
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<ICreatePostForm>();
@@ -52,6 +54,7 @@ const CreatePostPageLogic = () => {
     submitForm,
     register,
     handleSubmit,
+    control,
     errors,
     postFiles,
     setPostsFiles,

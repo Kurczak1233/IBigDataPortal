@@ -20,6 +20,7 @@ const EditPostLogic = (post: PostViewModel, postFiles: File[]) => {
   const {
     register,
     setValue,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<IEditPostForm>();
@@ -60,6 +61,7 @@ const EditPostLogic = (post: PostViewModel, postFiles: File[]) => {
     register,
     handleSubmit,
     errors,
+    control,
     isSaving,
   };
 };
