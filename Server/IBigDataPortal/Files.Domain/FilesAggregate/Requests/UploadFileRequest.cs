@@ -1,4 +1,4 @@
-﻿using Files.Domain.FilesAggregate.Enums;
+﻿using Files.Contracts.Enums;
 using Microsoft.AspNetCore.Http;
 
 namespace Files.Domain.FilesAggregate.Requests;

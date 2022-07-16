@@ -1,0 +1,20 @@
+@import "styles/Commons.scss";
+.permissionsWrapper {
+  display: flex;
+  .commentsSection {
+    margin-right: 32px;
+    margin-left: 32px;
+    align-items: center;
+    display: flex;
+    flex-direction: column
+  }
+  .articleSection {
+    align-items: center;
+    display: flex;
+    flex-direction: column
+  }
+  .title {
+    @include fontSizeEighteen;
+    margin-bottom: 16px;
+  }
+}

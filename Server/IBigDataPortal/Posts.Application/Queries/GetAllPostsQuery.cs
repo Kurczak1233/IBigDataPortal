@@ -1,6 +1,6 @@
 ﻿using Dapper;
+using Files.Contracts.Enums;
 using Files.Contracts.ViewModels;
-using Files.Domain.FilesAggregate.Enums;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Infrastructure;
@@ -29,6 +29,8 @@ public class GetAllPostsQueryHandler : IRequestHandler<GetAllPostsQuery, IEnumer
                      {Dbo.Posts}.{nameof(Post.Description)},
                      {Dbo.Posts}.{nameof(Post.Id)},
                      {Dbo.Posts}.{nameof(Post.Posted)},
+                     {Dbo.Posts}.{nameof(Post.CommentsPermissions)},
+                     {Dbo.Posts}.{nameof(Post.ArticleVisibilityPermissions)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail,
                      {Dbo.FilesMetadata}.{nameof(FileMetadata.Guid)},
                      {Dbo.FilesMetadata}.{nameof(FileMetadata.CreatedById)},

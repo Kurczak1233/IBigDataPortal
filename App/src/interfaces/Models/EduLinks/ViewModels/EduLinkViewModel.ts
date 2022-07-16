@@ -1,3 +1,5 @@
+import { UserRoles } from "enums/UserRoles";
+import { CommentVm } from "interfaces/Models/Comments/CommentVm";
 import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
 
 export interface EduLinkViewModel {
@@ -9,5 +11,9 @@ export interface EduLinkViewModel {
   userEmail: string;
   files: FileVm[];
   type: string;
+  creatorId: number;
+  commentsPermissions: UserRoles;
+  articleVisibilityPermissions: UserRoles;
   nickname: string;
+  comments: CommentVm[];
 }

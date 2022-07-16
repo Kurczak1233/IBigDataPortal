@@ -1,7 +1,7 @@
-import { IEditJobOfferForm } from "components/ArticlesComponents/Edit/EditJobOffer/IEditJobOfferForm";
+import { IEditJobOfferRequest } from "components/ArticlesComponents/Edit/EditJobOffer/IEditJobOfferForm";
 import { HttpRequestsMethods } from "interfaces/General/HttpRequestsMethods";
 import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
-import { ICreatePostForm } from "pages/AdministrationSubpages/ArticlesPage/Create/Post/ICreatePostForm";
+import { ICreateJobOfferRequest } from "pages/AdministrationSubpages/ArticlesPage/Create/JobOffer/ICreateJobOfferForm";
 import application from "../authenticationConfig.json";
 import { AxiosClient } from "./AxiosClient";
 
@@ -12,11 +12,13 @@ const getAllJobOffers = async (): Promise<JobOfferViewModel[]> => {
   return AxiosClient(HttpRequestsMethods.GET, `${JobOffers}`, base);
 };
 
-const createJobOffer = async (body: ICreatePostForm): Promise<number> => {
+const createJobOffer = async (
+  body: ICreateJobOfferRequest
+): Promise<number> => {
   return AxiosClient(HttpRequestsMethods.POST, `${JobOffers}`, base, { body });
 };
 
-const editJobOffer = async (body: IEditJobOfferForm): Promise<null> => {
+const editJobOffer = async (body: IEditJobOfferRequest): Promise<null> => {
   return AxiosClient(HttpRequestsMethods.PUT, `${JobOffers}`, base, { body });
 };
 

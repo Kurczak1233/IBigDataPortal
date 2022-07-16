@@ -1,12 +1,14 @@
 import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import InputWithLabel from "components/common/Forms/InputWithLabel/InputWithLabel";
-import TextareaWithLabel from "components/common/Forms/TextareaWithLabel/TextareaWithLabel";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import CreateJobOfferPageLogic from "./CreateJobOfferPageLogic";
 import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 import AddFileComponent from "components/ArticlesComponents/ArticlesFiles/AddFileComponent/AddFileComponent";
 import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import styles from "./CreateJobOfferPage.module.scss";
+import { Controller } from "react-hook-form";
+import ReactQuill from "react-quill";
+import EditCommentsComponent from "components/ArticlesComponents/ArticlesFiles/EditCommentsComponent/EditCommentsComponent";
 
 const CreateJobOfferPage = () => {
   const {
@@ -14,9 +16,14 @@ const CreateJobOfferPage = () => {
     handleSubmit,
     submitForm,
     errors,
+    control,
     setJobOffersFiles,
     jobOfferFiles,
     isJobOfferCreating,
+    setCommentsPermission,
+    commentsPermission,
+    setVisibilityPermissions,
+    visibilityPermissions,
   } = CreateJobOfferPageLogic();
   return (
     <div>
@@ -32,24 +39,45 @@ const CreateJobOfferPage = () => {
             registerName={"title"}
             registerOptions={{ required: true }}
           />
-          <InputWithLabel
-            register={register}
-            errors={errors}
-            errorMessage={"This field is required"}
-            label={"Link"}
-            placeholder={"Enter link..."}
-            registerName={"link"}
-            registerOptions={{ required: true }}
-          />
-          <TextareaWithLabel
-            register={register}
-            errors={errors}
-            errorMessage={"This field is required"}
-            label={"Description"}
-            placeholder={"Enter description..."}
-            registerName={"description"}
-            registerOptions={{ required: true }}
-          />
+          <div className={styles.richText}>
+            <div className={styles.richTextLabel}>
+              <span className={styles.label}>Description</span>
+              {errors.description && (
+                <span className={styles.error}>
+                  You are not allowed to submit empty description
+                </span>
+              )}
+            </div>
+            <Controller
+              control={control}
+              name="description"
+              rules={{ required: true }}
+              render={({ field: { onChange, value: text } }) => (
+                <ReactQuill
+                  style={{ width: "100%", height: 250 }}
+                  value={text ? text : ""}
+                  onChange={onChange}
+                />
+              )}
+            />
+          </div>
+          <div className={styles.commentsAndFiles}>
+            <AddFileComponent
+              setPostsFiles={setJobOffersFiles}
+              postFiles={jobOfferFiles}
+              module={FileModuleEnum.jobOffersFiles}
+              componentTitle={"Job offer files"}
+            />
+            <div className={styles.comments}>
+              <EditCommentsComponent
+                visibilityPermissions={visibilityPermissions}
+                setCommentsPermission={setCommentsPermission}
+                setVisibilityPermissions={setVisibilityPermissions}
+                commentsPermission={commentsPermission}
+                intensiveColor={AvailableIntensiveColors.IntensiveOrange}
+              />
+            </div>
+          </div>
           <SmallButton
             marginTop="16px"
             text={"Save"}
@@ -58,12 +86,6 @@ const CreateJobOfferPage = () => {
             isLoading={isJobOfferCreating}
           />
         </form>
-        <AddFileComponent
-          setPostsFiles={setJobOffersFiles}
-          postFiles={jobOfferFiles}
-          module={FileModuleEnum.jobOffersFiles}
-          componentTitle={"Job offer files"}
-        />
       </div>
     </div>
   );

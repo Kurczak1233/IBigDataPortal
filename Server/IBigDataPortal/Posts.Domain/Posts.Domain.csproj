@@ -7,7 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Articles.Contracts\Articles.Contracts.csproj" />
       <ProjectReference Include="..\Files.Contracts\Files.Contracts.csproj" />
+      <ProjectReference Include="..\Portal.Database\Portal.Database.csproj" />
+      <ProjectReference Include="..\UserRole.Contracts\UserRole.Contracts.csproj" />
     </ItemGroup>
 
 </Project>
