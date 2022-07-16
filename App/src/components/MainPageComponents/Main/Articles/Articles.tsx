@@ -1,4 +1,3 @@
-import BigLoader from "components/common/Loaders/BigLoader";
 import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
 import ArticleItem from "./ArticleItem/ArticleItem";
 import styles from "./Articles.module.scss";
@@ -6,6 +5,7 @@ import ArticlesLogic from "./ArticlesLogic";
 import GreenFeatherIcon from "public/PostsIcons/GreenFeatherIcon.svg";
 import BigButton from "components/common/Buttons/BigButtons/BigButton";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
+import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
 
 interface IArticles {
   articles: ArticlesVm | undefined;
@@ -18,8 +18,9 @@ const Articles = ({
   numberOfArticlesVisible,
   setNumberOfArticlesVisible,
 }: IArticles) => {
-  const { sortArticles, multiplyNumbersOfArticles } = ArticlesLogic(
-    setNumberOfArticlesVisible
+  const { sortedArticles, multiplyNumbersOfArticles } = ArticlesLogic(
+    setNumberOfArticlesVisible,
+    articles
   );
   return (
     <main className={styles.articlesSite}>
@@ -27,14 +28,12 @@ const Articles = ({
       {articles ? (
         <>
           <main className={styles.mainWrapper}>
-            {sortArticles(articles).length > 0 ? (
-              sortArticles(articles)
-                .slice(0, numberOfArticlesVisible)
-                .map((item) => {
-                  return (
-                    <ArticleItem key={item.posted.toString()} article={item} />
-                  );
-                })
+            {sortedArticles.length > 0 ? (
+              sortedArticles.slice(0, numberOfArticlesVisible).map((item) => {
+                return (
+                  <ArticleItem key={item.posted.toString()} article={item} />
+                );
+              })
             ) : (
               <div className={styles.noArticlesComponent}>
                 There are no articles here
@@ -49,7 +48,7 @@ const Articles = ({
               </div>
             )}
           </main>
-          {sortArticles(articles).length > numberOfArticlesVisible && (
+          {sortedArticles.length > numberOfArticlesVisible && (
             <div className={styles.showMoreArticles}>
               <BigButton
                 text={"Load more..."}

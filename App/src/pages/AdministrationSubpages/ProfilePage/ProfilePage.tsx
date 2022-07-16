@@ -1,5 +1,5 @@
 import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
-import BigLoader from "components/common/Loaders/BigLoader";
+import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
 import ProfilePageMain from "components/ProfilePageComponents/ProfilePageMain/ProfilePageMain";
 import ProfilePageLogic from "./ProfilePageLogic";
 

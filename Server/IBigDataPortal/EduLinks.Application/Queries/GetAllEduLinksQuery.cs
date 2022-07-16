@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using EduLinks.Contracts.ViewModels;
+using Files.Contracts.Enums;
 using Files.Contracts.ViewModels;
-using Files.Domain.FilesAggregate.Enums;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Infrastructure;
@@ -29,7 +29,8 @@ public class GetAllEduLinksQueryHandler : IRequestHandler<GetAllEduLinksQuery, I
         var sql = $@"SELECT {Dbo.EduLinks}.{nameof(EduLink.Title)},
                      {Dbo.EduLinks}.{nameof(EduLink.Description)},
                      {Dbo.EduLinks}.{nameof(EduLink.Id)},
-                     {Dbo.EduLinks}.{nameof(EduLink.Link)},
+                     {Dbo.EduLinks}.{nameof(EduLink.CommentsPermissions)},
+                     {Dbo.EduLinks}.{nameof(EduLink.ArticleVisibilityPermissions)},
                      {Dbo.EduLinks}.{nameof(EduLink.Posted)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail,
                      {Dbo.FilesMetadata}.{nameof(FileMetadata.Guid)},

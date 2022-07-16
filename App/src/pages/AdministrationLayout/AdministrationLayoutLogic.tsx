@@ -18,9 +18,16 @@ import {
   profileRoute,
   usersRoute,
 } from "constants/apiRoutes";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
+import { UserRoles } from "enums/UserRoles";
 
 const AdministrationLayoutLogic = () => {
   const { pathname } = useLocation();
+  const appUser = useSelector(
+    (states: RootState) => states.applicationUserReducer.user
+  );
+
   const administrationRoutes = [
     {
       routeUrl: `/${administrationRoute}/${articlesRoute}/${postsRoute}`,
@@ -28,6 +35,7 @@ const AdministrationLayoutLogic = () => {
       imgActive: ItemsListsActive,
       isActive: pathname.includes(articlesRoute),
       alt: "Items lists icon",
+      hasPermissionsToView: appUser && appUser.userRoleId <= UserRoles.Employee,
     },
     {
       routeUrl: `/${administrationRoute}/${profileRoute}`,
@@ -35,6 +43,7 @@ const AdministrationLayoutLogic = () => {
       imgActive: UserIconActive,
       isActive: pathname === `/${administrationRoute}/${profileRoute}`,
       alt: "User icon",
+      hasPermissionsToView: appUser && appUser.userRoleId <= UserRoles.Employee,
     },
     {
       routeUrl: `/${administrationRoute}/${dashboardRoute}`,
@@ -42,6 +51,7 @@ const AdministrationLayoutLogic = () => {
       imgActive: DashboardIconActive,
       isActive: pathname === `/${administrationRoute}/${dashboardRoute}`,
       alt: "Dashboard icon",
+      hasPermissionsToView: appUser && appUser.userRoleId <= UserRoles.Admin,
     },
     {
       routeUrl: `/${administrationRoute}/${usersRoute}`,
@@ -49,6 +59,7 @@ const AdministrationLayoutLogic = () => {
       imgActive: UsersIconActive,
       isActive: pathname === `/${administrationRoute}/${usersRoute}`,
       alt: "Users icon",
+      hasPermissionsToView: appUser && appUser.userRoleId <= UserRoles.Admin,
     },
     {
       routeUrl: `/${administrationRoute}/${invitationsRoute}`,
@@ -56,6 +67,7 @@ const AdministrationLayoutLogic = () => {
       imgActive: MailIconActive,
       isActive: pathname === `/${administrationRoute}/${invitationsRoute}`,
       alt: "Mail icon",
+      hasPermissionsToView: appUser && appUser.userRoleId <= UserRoles.Admin,
     },
   ];
 

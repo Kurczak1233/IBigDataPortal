@@ -14,6 +14,10 @@ public class UpdateUserNicknameCommand : IRequest
     public UpdateUserNicknameCommand(UpdateNicknameRequest request, int userId)
     {
         Request = request;
+        if (userId == 0)
+        {
+            throw new ArgumentException("User id cannot be 0", userId.ToString());
+        }
         UserId = userId;
     }
 }
