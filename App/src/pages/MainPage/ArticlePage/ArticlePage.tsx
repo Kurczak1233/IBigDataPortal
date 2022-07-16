@@ -77,6 +77,7 @@ const ArticlePage = () => {
                     <ArticleComment
                       key={item.commentId}
                       comment={item}
+                      article={article}
                       componentIntensiveColour={componentIntensiveColour}
                       setArticleComments={setArticleComments}
                     />

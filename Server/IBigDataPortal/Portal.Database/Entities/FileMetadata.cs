@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Files.Domain.FilesAggregate.Enums;
+using Files.Contracts.Enums;
 
 namespace IBigDataPortal.Database.Entities;
 

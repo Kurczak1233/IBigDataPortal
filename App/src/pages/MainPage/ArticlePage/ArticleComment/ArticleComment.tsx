@@ -9,17 +9,20 @@ import ArticleCommentLogic from "./ArticleCommentLogic";
 import ConfirmActionModal from "components/common/Modals/ConfirmActionModal/ConfirmActionModal";
 import { Controller } from "react-hook-form";
 import ReactQuill from "react-quill";
+import { IMergedPosts } from "components/MainPageComponents/Main/Articles/ArticlesLogic";
 
 interface IArticleComment {
   comment: CommentVm;
   componentIntensiveColour: AvailableIntensiveColors;
   setArticleComments: React.Dispatch<React.SetStateAction<CommentVm[]>>;
+  article: IMergedPosts;
 }
 
 const ArticleComment = ({
   comment,
   componentIntensiveColour,
   setArticleComments,
+  article,
 }: IArticleComment) => {
   const {
     isDeleteModalOpen,
@@ -33,7 +36,7 @@ const ArticleComment = ({
     errors,
     editMode,
     itemComment,
-  } = ArticleCommentLogic(comment, setArticleComments);
+  } = ArticleCommentLogic(comment, article, setArticleComments);
   return (
     <div className={styles.comment}>
       <ConfirmActionModal

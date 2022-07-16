@@ -1,7 +1,6 @@
 using IBigDataPortal.Infrastructure.ExceptionExtensions;
 using IBigDataPortal.Infrastructure.ResourceBasedAuthorization.Utils;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using UserRole.Contracts.UserRoles;
 
 namespace IBigDataPortal.Infrastructure.ResourceBasedAuthorization.Handlers.Users;
@@ -21,14 +20,12 @@ public class UsersAuthorizationRequirement : IAuthorizationRequirement
 
 public class UsersAuthorizationHandler : AuthorizationHandler<UsersAuthorizationRequirement>
 {
-    private readonly ISqlConnectionService _connectionService;
     private readonly GetUsersRoleUtils _usersRolesUtils;
-    public UsersAuthorizationHandler(ISqlConnectionService connectionService, GetUsersRoleUtils usersRolesUtils)
+
+    public UsersAuthorizationHandler(GetUsersRoleUtils usersRolesUtils)
     {
-        _connectionService = connectionService;
         _usersRolesUtils = usersRolesUtils;
     }
-
     
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, UsersAuthorizationRequirement requirement)
     {

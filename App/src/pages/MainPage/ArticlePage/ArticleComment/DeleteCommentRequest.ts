@@ -1,8 +1,7 @@
 import { ArticlesTypesNumbers } from "enums/ArticlesTypesNumbers";
 
-export interface IUpdateCommentRequest {
+export interface IDeleteCommentRequest {
   commentId: number;
-  content: string;
   articleId: number;
   articleType: ArticlesTypesNumbers;
 }

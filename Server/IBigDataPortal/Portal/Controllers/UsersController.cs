@@ -37,6 +37,7 @@ public class UsersController : ControllerBase
     [HttpGet("All")]
     public async Task<ActionResult<IEnumerable<ApplicationUserDto>>> GetAllPortalUsers()
     {
+        await _authorizationService.AuthorizeAsync(_user.UserClaims, "", new UsersAuthorizationRequirement(_user.Id));
         var result = await _mediator.Send(new GetAllPortalUsersQuery());
         return Ok(result);
     }

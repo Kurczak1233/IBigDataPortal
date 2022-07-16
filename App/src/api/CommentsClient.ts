@@ -1,4 +1,5 @@
 import { HttpRequestsMethods } from "interfaces/General/HttpRequestsMethods";
+import { IDeleteCommentRequest } from "pages/MainPage/ArticlePage/ArticleComment/DeleteCommentRequest";
 import { IUpdateCommentRequest } from "pages/MainPage/ArticlePage/ArticleComment/UpdateCommentRequest";
 import { ICreateCommentRequest } from "pages/MainPage/ArticlePage/ICreateCommentForm";
 import application from "../authenticationConfig.json";
@@ -17,12 +18,10 @@ const updateCommentText = async (
   return AxiosClient(HttpRequestsMethods.PUT, `${Comments}`, base, { body });
 };
 
-const deleteComment = async (commentId: number): Promise<number> => {
-  return AxiosClient(
-    HttpRequestsMethods.PUT,
-    `${Comments}/Delete/${commentId}`,
-    base
-  );
+const deleteComment = async (body: IDeleteCommentRequest): Promise<number> => {
+  return AxiosClient(HttpRequestsMethods.PUT, `${Comments}/Delete`, base, {
+    body,
+  });
 };
 
 export { createComment, updateCommentText, deleteComment };

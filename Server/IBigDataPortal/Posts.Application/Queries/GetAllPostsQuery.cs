@@ -1,6 +1,6 @@
 ﻿using Dapper;
+using Files.Contracts.Enums;
 using Files.Contracts.ViewModels;
-using Files.Domain.FilesAggregate.Enums;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Infrastructure;

@@ -1,6 +1,6 @@
 ﻿using Dapper;
+using Files.Contracts.Enums;
 using Files.Contracts.ViewModels;
-using Files.Domain.FilesAggregate.Enums;
 using Files.Infrastructure;
 using Google.Cloud.Storage.V1;
 using IBigDataPortal.Database;

@@ -1,50 +1,50 @@
 using Comments.Application.Commands;
 using Comments.Domain.CommentsAggregate.Requests;
-using EduLinks.Application.Commands;
-using EduLinks.Application.Queries;
-using EduLinks.Domain.EduLinksAggregate.Requests;
 using IBigDataPortal.Domain.UserMetadata;
+using IBigDataPortal.Infrastructure.ResourceBasedAuthorization.Handlers.Comments;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Posts.Contracts.ViewModels;
 
 namespace IBigDataPortal.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("[controller]")]
 public class CommentsController  : ControllerBase
 {
     private readonly IMediator _mediator;
     private readonly IUser _user;
+    private readonly IAuthorizationService _authorizationService;
     
-    public CommentsController(IMediator mediator, IUser user)
+    public CommentsController(IMediator mediator, IUser user, IAuthorizationService authorizationService)
     {
         _mediator = mediator;
         _user = user;
+        _authorizationService = authorizationService;
     }
     
-    [Authorize]
     [HttpPost]
     public async Task<ActionResult> CreateComment(CreateCommentRequest body)
     {
+        await _authorizationService.AuthorizeAsync(_user.UserClaims, body, new CommentsAuthorizationRequirement(body.ArticleId, _user.Id, body.ArticleType));
         var commentId = await _mediator.Send(new CreateCommentCommand(_user.Id, body));
         return Ok(commentId);
     }
     
-    [Authorize]
     [HttpPut]
     public async Task<ActionResult> UpdateComment(UpdateCommentRequest body)
     {
+        await _authorizationService.AuthorizeAsync(_user.UserClaims, body, new CommentsAuthorizationRequirement(body.ArticleId, _user.Id, body.ArticleType));
         await _mediator.Send(new UpdateCommentCommand(body));
         return Ok();
     }
     
-    [Authorize]
-    [HttpPut("Delete/{commentId}")]
-    public async Task<ActionResult> DeleteComment(int commentId)
+    [HttpPut("Delete")]
+    public async Task<ActionResult> DeleteComment(DeleteCommentRequest body)
     {
-        await _mediator.Send(new DeleteCommentCommand(commentId));
+        await _authorizationService.AuthorizeAsync(_user.UserClaims, body, new CommentsAuthorizationRequirement(body.ArticleId, _user.Id, body.ArticleType));
+        await _mediator.Send(new DeleteCommentCommand(body.CommentId));
         return Ok();
     }
 }

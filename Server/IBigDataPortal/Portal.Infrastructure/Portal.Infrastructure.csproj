@@ -26,8 +26,4 @@
       <PackageReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="ResourceBasedAuthorization\Handlers\Articles" />
-    </ItemGroup>
-
 </Project>

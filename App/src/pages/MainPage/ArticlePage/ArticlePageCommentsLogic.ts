@@ -1,7 +1,5 @@
 import { createComment } from "api/CommentsClient";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
-import { ArticlesTypes } from "enums/ArticlesTypes";
-import { ArticlesTypesNumbers } from "enums/ArticlesTypesNumbers";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { useForm } from "react-hook-form";
 import {
@@ -13,6 +11,7 @@ import { CommentVm } from "interfaces/Models/Comments/CommentVm";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { setChosenArticleComments } from "redux/slices/articlesSlice";
+import { convertArticleTypeStringToInt } from "./ConvertArticleTypeStringToInt";
 
 const ArticlePageCommentsLogic = (
   setArticleComments: React.Dispatch<React.SetStateAction<CommentVm[]>>
@@ -30,22 +29,6 @@ const ArticlePageCommentsLogic = (
   const article = useSelector(
     (state: RootState) => state.articlesReducer.chosenArticle
   );
-
-  const convertArticleTypeStringToInt = (articleType: string): number => {
-    switch (articleType) {
-      case ArticlesTypes.Post: {
-        return ArticlesTypesNumbers.Post;
-      }
-      case ArticlesTypes.JobOffer: {
-        return ArticlesTypesNumbers.JobOffer;
-      }
-      case ArticlesTypes.EduLink: {
-        return ArticlesTypesNumbers.EduLink;
-      }
-      default:
-        return -1;
-    }
-  };
 
   const handleCreateComment = async (data: ICreateCommentForm) => {
     if (isHtmlStringEmpty(data.content)) {
