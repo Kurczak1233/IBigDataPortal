@@ -14,7 +14,7 @@ public static class AddAuthorizationDependencies
     {
         services.AddTransient<GetUsersRoleUtils>();
         services.AddTransient<GetArticlesPermissions>();
-        services.AddTransient<GetUsersRoleUtils>();
+        services.AddTransient<GetFilesUtils>();
         services.AddSingleton<IAuthorizationHandler, UsersAuthorizationHandler>();
         services.AddSingleton<IAuthorizationHandler, CreateCommentsAuthorizationRequirementHandler>();
         services.AddSingleton<IAuthorizationHandler, ArticlesAuthorizationRequirementHandler>();
