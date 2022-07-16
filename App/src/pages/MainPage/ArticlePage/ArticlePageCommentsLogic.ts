@@ -67,6 +67,7 @@ const ArticlePageCommentsLogic = (
         commentId: newCommentId,
         content: data.content,
         createdOn: new Date(),
+        creatorId: appUser.user.id,
         commentatorEmail: appUser.user.email,
         commentatorNickname: appUser.user.nickname,
       };

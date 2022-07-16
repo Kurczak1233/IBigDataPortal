@@ -12,6 +12,7 @@ export interface JobOfferViewModel {
   files: FileVm[];
   type: string;
   nickname: string;
+  creatorId: number;
   commentsPermissions: UserRoles;
   articleVisibilityPermissions: UserRoles;
   comments: CommentVm[];

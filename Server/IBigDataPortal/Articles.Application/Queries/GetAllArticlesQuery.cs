@@ -71,6 +71,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      {Dbo.Posts}.{nameof(Post.Description)},
                      {Dbo.Posts}.{nameof(Post.Id)},
                      {Dbo.Posts}.{nameof(Post.Posted)},
+                     {Dbo.Posts}.{nameof(Post.CreatorId)},
                      {Dbo.Posts}.{nameof(Post.CommentsPermissions)},
                      {Dbo.Posts}.{nameof(Post.ArticleVisibilityPermissions)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail,
@@ -80,6 +81,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      {Dbo.Comments}.{nameof(Comment.Content)},
                      {Dbo.Comments}.{nameof(Comment.IsDeleted)},
                      {Dbo.Comments}.{nameof(Comment.CreatedOn)},
+                     {Dbo.Comments}.{nameof(Comment.CreatorId)},
                      CommentUsers.Nickname as CommentatorNickname,
                      CommentUsers.Email as CommentatorEmail
                      FROM {Dbo.Posts} JOIN {Dbo.Users}
@@ -123,6 +125,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
         var jobOfferSql = $@"SELECT {Dbo.JobOffers}.{nameof(JobOffer.Title)},
                      {Dbo.JobOffers}.{nameof(JobOffer.Description)},
                      {Dbo.JobOffers}.{nameof(JobOffer.Id)},
+                     {Dbo.JobOffers}.{nameof(JobOffer.CreatorId)},
                      {Dbo.JobOffers}.{nameof(JobOffer.Posted)},
                      {Dbo.JobOffers}.{nameof(JobOffer.CommentsPermissions)},
                      {Dbo.JobOffers}.{nameof(JobOffer.ArticleVisibilityPermissions)},
@@ -133,6 +136,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      {Dbo.Comments}.{nameof(Comment.Content)},
                      {Dbo.Comments}.{nameof(Comment.IsDeleted)},
                      {Dbo.Comments}.{nameof(Comment.CreatedOn)},
+                     {Dbo.Comments}.{nameof(Comment.CreatorId)},
                      CommentUsers.Nickname as CommentatorNickname,
                      CommentUsers.Email as CommentatorEmail
                      FROM {Dbo.JobOffers} JOIN {Dbo.Users}
@@ -176,6 +180,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
         var eduLinksSql = $@"SELECT {Dbo.EduLinks}.{nameof(EduLink.Title)},
                      {Dbo.EduLinks}.{nameof(EduLink.Description)},
                      {Dbo.EduLinks}.{nameof(EduLink.Id)},
+                     {Dbo.EduLinks}.{nameof(EduLink.CreatorId)},
                      {Dbo.EduLinks}.{nameof(EduLink.Posted)},
                      {Dbo.EduLinks}.{nameof(EduLink.CommentsPermissions)},
                      {Dbo.EduLinks}.{nameof(EduLink.ArticleVisibilityPermissions)},
@@ -186,6 +191,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      {Dbo.Comments}.{nameof(Comment.Content)},
                      {Dbo.Comments}.{nameof(Comment.IsDeleted)},
                      {Dbo.Comments}.{nameof(Comment.CreatedOn)},
+                     {Dbo.Comments}.{nameof(Comment.CreatorId)},
                      CommentUsers.Nickname as CommentatorNickname,
                      CommentUsers.Email as CommentatorEmail
                      FROM {Dbo.EduLinks} JOIN {Dbo.Users}

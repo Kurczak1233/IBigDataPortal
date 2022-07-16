@@ -11,6 +11,7 @@ export interface EduLinkViewModel {
   userEmail: string;
   files: FileVm[];
   type: string;
+  creatorId: number;
   commentsPermissions: UserRoles;
   articleVisibilityPermissions: UserRoles;
   nickname: string;

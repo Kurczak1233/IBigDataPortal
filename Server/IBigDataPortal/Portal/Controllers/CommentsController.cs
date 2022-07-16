@@ -27,7 +27,7 @@ public class CommentsController  : ControllerBase
     [HttpPost]
     public async Task<ActionResult> CreateComment(CreateCommentRequest body)
     {
-        await _authorizationService.AuthorizeAsync(_user.UserClaims, body, new CommentsAuthorizationRequirement(body.ArticleId, _user.Id, body.ArticleType));
+        await _authorizationService.AuthorizeAsync(_user.UserClaims, body, new CreateCommentsAuthorizationRequirement(body.ArticleId, _user.Id, body.ArticleType));
         var commentId = await _mediator.Send(new CreateCommentCommand(_user.Id, body));
         return Ok(commentId);
     }
@@ -35,7 +35,7 @@ public class CommentsController  : ControllerBase
     [HttpPut]
     public async Task<ActionResult> UpdateComment(UpdateCommentRequest body)
     {
-        await _authorizationService.AuthorizeAsync(_user.UserClaims, body, new CommentsAuthorizationRequirement(body.ArticleId, _user.Id, body.ArticleType));
+        await _authorizationService.AuthorizeAsync(_user.UserClaims, body, new CreateCommentsAuthorizationRequirement(body.ArticleId, _user.Id, body.ArticleType));
         await _mediator.Send(new UpdateCommentCommand(body));
         return Ok();
     }
@@ -43,7 +43,7 @@ public class CommentsController  : ControllerBase
     [HttpPut("Delete")]
     public async Task<ActionResult> DeleteComment(DeleteCommentRequest body)
     {
-        await _authorizationService.AuthorizeAsync(_user.UserClaims, body, new CommentsAuthorizationRequirement(body.ArticleId, _user.Id, body.ArticleType));
+        await _authorizationService.AuthorizeAsync(_user.UserClaims, body, new CreateCommentsAuthorizationRequirement(body.ArticleId, _user.Id, body.ArticleType));
         await _mediator.Send(new DeleteCommentCommand(body.CommentId));
         return Ok();
     }

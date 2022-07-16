@@ -7,6 +7,7 @@ namespace Posts.Contracts.ViewModels;
 public class PostViewModel
 {
     public int Id { get; set; }
+    public int CreatorId { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
     public string UserEmail { get; set; }

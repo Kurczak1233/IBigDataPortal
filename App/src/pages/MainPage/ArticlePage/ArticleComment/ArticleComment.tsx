@@ -36,6 +36,7 @@ const ArticleComment = ({
     errors,
     editMode,
     itemComment,
+    isAbleToEditComment,
   } = ArticleCommentLogic(comment, article, setArticleComments);
   return (
     <div className={styles.comment}>
@@ -49,27 +50,34 @@ const ArticleComment = ({
         {itemComment.commentatorNickname === "nickname"
           ? itemComment.commentatorEmail
           : itemComment.commentatorNickname}
-        <div className={styles.buttons}>
-          <SmallButton
-            text={editMode ? "Save" : "Edit"}
-            width={"75px"}
-            marginRight={"16px"}
-            onClick={
-              editMode ? handleSubmit(updateCommentContent) : handleEditComment
-            }
-            color={componentIntensiveColour}
-          />
-          <SmallButton
-            text={"Delete"}
-            width={"75px"}
-            marginRight={"16px"}
-            onClick={handleOpenDeleteModal}
-            color={AvailableIntensiveColors.IntensiveRed}
-          />
-          <span className={styles.date}>
-            {format(new Date(itemComment.createdOn), standarizedFormatWithTime)}
-          </span>
-        </div>
+        {isAbleToEditComment && (
+          <div className={styles.buttons}>
+            <SmallButton
+              text={editMode ? "Save" : "Edit"}
+              width={"75px"}
+              marginRight={"16px"}
+              onClick={
+                editMode
+                  ? handleSubmit(updateCommentContent)
+                  : handleEditComment
+              }
+              color={componentIntensiveColour}
+            />
+            <SmallButton
+              text={"Delete"}
+              width={"75px"}
+              marginRight={"16px"}
+              onClick={handleOpenDeleteModal}
+              color={AvailableIntensiveColors.IntensiveRed}
+            />
+            <span className={styles.date}>
+              {format(
+                new Date(itemComment.createdOn),
+                standarizedFormatWithTime
+              )}
+            </span>
+          </div>
+        )}
       </div>
       <div className={styles.content}>
         {editMode ? (

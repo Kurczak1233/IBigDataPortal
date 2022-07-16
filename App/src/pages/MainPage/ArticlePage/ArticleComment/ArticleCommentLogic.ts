@@ -1,15 +1,17 @@
 import { deleteComment, updateCommentText } from "api/CommentsClient";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import { IMergedPosts } from "components/MainPageComponents/Main/Articles/ArticlesLogic";
+import { UserRoles } from "enums/UserRoles";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { CommentVm } from "interfaces/Models/Comments/CommentVm";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   deleteArticleComment,
   updateArticleComment,
 } from "redux/slices/articlesSlice";
+import { RootState } from "redux/store";
 import { convertArticleTypeStringToInt } from "../ConvertArticleTypeStringToInt";
 import { ICreateCommentForm } from "../ICreateCommentForm";
 import { IDeleteCommentRequest } from "./DeleteCommentRequest";
@@ -22,8 +24,14 @@ const ArticleCommentLogic = (
 ) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [editMode, setEditMode] = useState<boolean>(false);
+  const [isAbleToEditComment, setIsAbleToEditComment] =
+    useState<boolean>(false);
   const [itemComment, setItemComment] = useState<CommentVm>(comment);
   const dispatch = useDispatch();
+  const appUser = useSelector(
+    (state: RootState) => state.applicationUserReducer.user
+  );
+
   const {
     setValue,
     control,
@@ -98,6 +106,32 @@ const ArticleCommentLogic = (
     setItemComment(comment);
   }, [comment]);
 
+  const handleUserPermissions = useCallback(() => {
+    if (!appUser) {
+      return setIsAbleToEditComment(false);
+    }
+    if (appUser.userRoleId === UserRoles.Admin) {
+      return setIsAbleToEditComment(true);
+    } else if (
+      appUser.userRoleId === UserRoles.Employee ||
+      appUser.userRoleId === UserRoles.HEI
+    ) {
+      if (article.creatorId === appUser.id) {
+        return setIsAbleToEditComment(true);
+      } else if (comment.creatorId === appUser.id) {
+        return setIsAbleToEditComment(true);
+      } else {
+        setIsAbleToEditComment(false);
+      }
+    } else if (appUser.userRoleId === UserRoles.StudentOrBusiness) {
+      if (comment.creatorId === appUser.id) {
+        return setIsAbleToEditComment(true);
+      } else {
+        setIsAbleToEditComment(false);
+      }
+    }
+  }, [appUser, article.creatorId, comment.creatorId]);
+
   useEffect(() => {
     if (comment) {
       updateComment();
@@ -107,6 +141,10 @@ const ArticleCommentLogic = (
   useEffect(() => {
     handleSetQuillContent();
   }, [handleSetQuillContent]);
+
+  useEffect(() => {
+    handleUserPermissions();
+  }, [handleUserPermissions]);
 
   return {
     isDeleteModalOpen,
@@ -120,6 +158,7 @@ const ArticleCommentLogic = (
     errors,
     editMode,
     itemComment,
+    isAbleToEditComment,
   };
 };
 

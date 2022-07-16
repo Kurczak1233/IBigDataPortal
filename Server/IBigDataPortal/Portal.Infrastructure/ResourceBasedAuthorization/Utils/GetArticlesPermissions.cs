@@ -8,10 +8,27 @@ namespace IBigDataPortal.Infrastructure.ResourceBasedAuthorization.Utils;
 
 public class GetArticlesPermissions
 {
-    private readonly ISqlConnectionService _connectionService;  
+    private readonly ISqlConnectionService _connectionService;
+
     public GetArticlesPermissions(ISqlConnectionService connectionService)
     {
         _connectionService = connectionService;
+    }
+
+
+    public async Task<int> HandleGetCommentOwner(int commentId)
+    {
+        var connection = await _connectionService.GetAsync();
+
+        var sql =
+            $@"SELECT {Dbo.Comments}.{nameof(Comment.Id)}
+                FROM {Dbo.Comments}
+                WHERE {Dbo.Comments}.{nameof(Comment.Id)} = @commentId";
+        return await connection.QuerySingleOrDefaultAsync<int>(sql,
+            new
+            {
+                commentId,
+            });
     }
 
     public async Task<ArticlePermissionsModel> HandleGetArticlesPermissions(ArticlesEnum articleType, int articleId)
@@ -34,13 +51,16 @@ public class GetArticlesPermissions
                 permissionsModel = await GetEduLinksPermissions(articleId);
                 break;
             }
-        };
+        }
+
+        ;
         return permissionsModel;
     }
+
     private async Task<ArticlePermissionsModel> GetPostPermissions(int articleId)
     {
         var connection = await _connectionService.GetAsync();
-        
+
         var sql =
             $@"SELECT {Dbo.Posts}.{nameof(Post.CommentsPermissions)},
                 {Dbo.Posts}.{nameof(Post.ArticleVisibilityPermissions)},
@@ -54,11 +74,11 @@ public class GetArticlesPermissions
                 articleId,
             });
     }
-    
+
     private async Task<ArticlePermissionsModel> GetJobOfferPermissions(int articleId)
     {
         var connection = await _connectionService.GetAsync();
-        
+
         var sql =
             $@"SELECT {Dbo.JobOffers}.{nameof(JobOffer.CommentsPermissions)},
                 {Dbo.JobOffers}.{nameof(JobOffer.ArticleVisibilityPermissions)},
@@ -72,11 +92,11 @@ public class GetArticlesPermissions
                 articleId,
             });
     }
-    
+
     private async Task<ArticlePermissionsModel> GetEduLinksPermissions(int articleId)
     {
         var connection = await _connectionService.GetAsync();
-        
+
         var sql =
             $@"SELECT {Dbo.EduLinks}.{nameof(EduLink.CommentsPermissions)},
                 {Dbo.EduLinks}.{nameof(EduLink.ArticleVisibilityPermissions)},

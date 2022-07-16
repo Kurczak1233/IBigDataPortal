@@ -8,5 +8,6 @@ public class JobOfferCommentViewModel
     public DateTimeOffset CreatedOn { get; set; }
     public string Content { get; set; }
     public bool IsDeleted { get; set; }
+    public int CreatorId { get; set; }
 
 }

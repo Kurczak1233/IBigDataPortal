@@ -11,6 +11,7 @@ export interface IMergedPosts {
   title: string;
   link?: string;
   id: number;
+  creatorId: number;
   description: string;
   posted: Date;
   userEmail: string;

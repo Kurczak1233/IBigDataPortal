@@ -16,9 +16,10 @@ public static class AddAuthorizationDependencies
         services.AddTransient<GetArticlesPermissions>();
         services.AddTransient<GetUsersRoleUtils>();
         services.AddSingleton<IAuthorizationHandler, UsersAuthorizationHandler>();
-        services.AddSingleton<IAuthorizationHandler, CommentsAuthorizationRequirementHandler>();
+        services.AddSingleton<IAuthorizationHandler, CreateCommentsAuthorizationRequirementHandler>();
         services.AddSingleton<IAuthorizationHandler, ArticlesAuthorizationRequirementHandler>();
         services.AddSingleton<IAuthorizationHandler, PortalAccessAuthorizationRequirementHandler>();
         services.AddSingleton<IAuthorizationHandler, FileAuthorizationRequirementHandler>();
+        services.AddSingleton<IAuthorizationHandler, EditCommentsAuthorizationRequirementHandler>();
     }
 }

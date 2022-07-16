@@ -6,12 +6,12 @@ using UserRole.Contracts.UserRoles;
 
 namespace IBigDataPortal.Infrastructure.ResourceBasedAuthorization.Handlers.Comments;
 
-public class CommentsAuthorizationRequirement : IAuthorizationRequirement
+public class CreateCommentsAuthorizationRequirement : IAuthorizationRequirement
 {
     public int UserId { get; set; }
     public int ArticleId { get; set; }
     public ArticlesEnum ArticleType { get; set; }
-    public CommentsAuthorizationRequirement(int articleId, int userId, ArticlesEnum articleType)
+    public CreateCommentsAuthorizationRequirement(int articleId, int userId, ArticlesEnum articleType)
     {
         if (userId == 0)
         {
@@ -29,21 +29,22 @@ public class CommentsAuthorizationRequirement : IAuthorizationRequirement
     }
 }
 
-public class CommentsAuthorizationRequirementHandler : AuthorizationHandler<CommentsAuthorizationRequirement>
+public class CreateCommentsAuthorizationRequirementHandler : AuthorizationHandler<CreateCommentsAuthorizationRequirement>
 {
     private readonly GetUsersRoleUtils _usersRolesUtils;
     private readonly GetArticlesPermissions _articlesPermissions;
-    public CommentsAuthorizationRequirementHandler(GetUsersRoleUtils usersRolesUtils, GetArticlesPermissions articlesPermissions)
+    public CreateCommentsAuthorizationRequirementHandler(GetUsersRoleUtils usersRolesUtils, GetArticlesPermissions articlesPermissions)
     {
         _usersRolesUtils = usersRolesUtils;
         _articlesPermissions = articlesPermissions;
     }
     
-    protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, CommentsAuthorizationRequirement requirement)
+    protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, CreateCommentsAuthorizationRequirement requirement)
     {
         var userRole = await _usersRolesUtils.GetUserRole(requirement.UserId);
         var articlesPermissions = await _articlesPermissions.HandleGetArticlesPermissions(requirement.ArticleType, requirement.ArticleId);
         
+         //User nie może edytować przecież wszystkich nie?
         if ((int)articlesPermissions.CommentsPermissions >= userRole.Id)
         {
             context.Succeed(requirement);
