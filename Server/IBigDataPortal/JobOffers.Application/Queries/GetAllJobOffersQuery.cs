@@ -1,6 +1,6 @@
 ﻿using Dapper;
+using Files.Contracts.Enums;
 using Files.Contracts.ViewModels;
-using Files.Domain.FilesAggregate.Enums;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Infrastructure;
@@ -28,8 +28,9 @@ public class GetAllJobOffersQueryHandler : IRequestHandler<GetAllJobOffersQuery,
         var sql = $@"SELECT {Dbo.JobOffers}.{nameof(JobOffer.Title)},
                      {Dbo.JobOffers}.{nameof(JobOffer.Description)},
                      {Dbo.JobOffers}.{nameof(JobOffer.Id)},
-                     {Dbo.JobOffers}.{nameof(JobOffer.Link)},
                      {Dbo.JobOffers}.{nameof(JobOffer.Posted)},
+                     {Dbo.JobOffers}.{nameof(JobOffer.CommentsPermissions)},
+                     {Dbo.JobOffers}.{nameof(JobOffer.ArticleVisibilityPermissions)},
                      {Dbo.Users}.{nameof(User.Email)} as UserEmail,
                      {Dbo.FilesMetadata}.{nameof(FileMetadata.Guid)},
                      {Dbo.FilesMetadata}.{nameof(FileMetadata.CreatedById)},

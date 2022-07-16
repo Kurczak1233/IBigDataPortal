@@ -10,6 +10,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Portal.Database\Portal.Database.csproj" />
       <ProjectReference Include="..\Portal.Domain\Portal.Domain.csproj" />
+      <ProjectReference Include="..\UserRole.Contracts\UserRole.Contracts.csproj" />
     </ItemGroup>
 
     <ItemGroup>

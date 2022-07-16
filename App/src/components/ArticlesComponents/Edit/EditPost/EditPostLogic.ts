@@ -7,20 +7,30 @@ import {
   articlesRoute,
   postsRoute,
 } from "constants/apiRoutes";
+import { UserRoles } from "enums/UserRoles";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { IEditPostForm } from "./IEditPostForm";
+import { isHtmlStringEmpty } from "utils/IsHtmlStringEmpty/isHtmlStringEmpty";
+import { IEditPostForm, IEditPostRequest } from "./IEditPostForm";
 
 const EditPostLogic = (post: PostViewModel, postFiles: File[]) => {
   const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [commentsPermission, setCommentsPermission] = useState<UserRoles>(
+    post.commentsPermissions
+  );
+  const [visibilityPermissions, setVisibilityPermissions] = useState<UserRoles>(
+    post.articleVisibilityPermissions
+  );
   const navigate = useNavigate();
   const {
     register,
     setValue,
+    control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<IEditPostForm>();
 
@@ -34,9 +44,18 @@ const EditPostLogic = (post: PostViewModel, postFiles: File[]) => {
   };
 
   const submitForm = async (data: IEditPostForm) => {
+    if (isHtmlStringEmpty(data.description)) {
+      return setError("description", { type: "required" });
+    }
+    const request: IEditPostRequest = {
+      ...data,
+      postId: post.id,
+      commentsPermissions: commentsPermission,
+      visibilityPermissions: visibilityPermissions,
+    };
     setIsSaving(true);
     await handleAddFiles(postFiles);
-    await editPost(data);
+    await editPost(request);
     setIsSaving(false);
     navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
     SyncToast({
@@ -60,7 +79,12 @@ const EditPostLogic = (post: PostViewModel, postFiles: File[]) => {
     register,
     handleSubmit,
     errors,
+    control,
     isSaving,
+    setCommentsPermission,
+    commentsPermission,
+    setVisibilityPermissions,
+    visibilityPermissions,
   };
 };
 

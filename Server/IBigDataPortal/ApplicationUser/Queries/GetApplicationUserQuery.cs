@@ -12,6 +12,10 @@ public class GetApplicationUserQuery : IRequest<ApplicationUserDto>
     public int UserId { get; set; }
     public GetApplicationUserQuery(int userId)
     {
+        if (userId == 0)
+        {
+            throw new ArgumentException("User id cannot be 0", userId.ToString());
+        }
         UserId = userId;
     }
 }
@@ -30,7 +34,8 @@ public class GetApplicationUserQueryHandler : IRequestHandler<GetApplicationUser
 
         var sql = $@"SELECT {nameof(User.Id)},
                             {nameof(User.Email)},
-                            {nameof(User.Nickname)}
+                            {nameof(User.Nickname)},
+                            {nameof(User.UserRoleId)}
                      FROM {Dbo.Users}
                      WHERE {nameof(User.Id)} = @id";
 

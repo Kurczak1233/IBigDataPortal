@@ -1,4 +1,4 @@
-﻿using Files.Domain.FilesAggregate.Enums;
+﻿using Files.Contracts.Enums;
 
 namespace Files.Contracts.ViewModels;
 

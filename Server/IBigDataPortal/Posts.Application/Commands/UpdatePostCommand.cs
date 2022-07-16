@@ -38,14 +38,18 @@ public class UpdatePostCommandHandler : IRequestHandler<UpdatePostCommand>
         var sql =
             $@"UPDATE {Dbo.Posts}
             SET  {nameof(Post.Title)} = @title,
-            {nameof(Post.Description)} = @description
+            {nameof(Post.Description)} = @description,
+            {nameof(Post.CommentsPermissions)} = @commentsPermission,
+            {nameof(Post.ArticleVisibilityPermissions)} = @visibilityPermission
         WHERE {nameof(Post.Id)} = @postId";
         await connection.ExecuteAsync(sql,
             new
             {
                 title = request.Body.Title,
                 description = request.Body.Description,
-                postId = request.Body.PostId
+                postId = request.Body.PostId,
+                commentsPermission = request.Body.CommentsPermissions,
+                visibilityPermission = request.Body.VisibilityPermissions,
             });
         return Unit.Value;
     }

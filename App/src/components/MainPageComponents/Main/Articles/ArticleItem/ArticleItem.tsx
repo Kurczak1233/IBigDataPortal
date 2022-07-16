@@ -4,6 +4,8 @@ import { format } from "date-fns";
 import { IMergedPosts } from "../ArticlesLogic";
 import styles from "./ArticleItem.module.scss";
 import ArticleItemLogic from "./ArticleItemLogic";
+import parse from "html-react-parser";
+import { htmlSubstring } from "utils/HtmlSubstring/HtmlSubstring";
 
 interface IArticleItem {
   article: IMergedPosts;
@@ -32,9 +34,9 @@ const ArticleItem = ({ article }: IArticleItem) => {
       />
       <div>
         {article.description.length >= 500 ? (
-          <span>{article.description.substring(0, 500)}...</span>
+          <span>{parse(htmlSubstring(article.description, 500))}</span>
         ) : (
-          article.description
+          parse(article.description)
         )}
       </div>
       <div className={styles.readMoreButton}>
