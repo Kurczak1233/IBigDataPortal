@@ -1,25 +1,24 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
 import {
   administrationRoute,
   articlesRoute,
   postsRoute,
 } from "constants/apiRoutes";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import application from "authenticationConfig.json";
 import { useDispatch, useSelector } from "react-redux";
 import { getApplicationUser } from "api/UsersClient";
-import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import {
   removeApplicationUser,
   updateApplicationUser,
 } from "redux/slices/applicationUserSlice";
 import { updateAccessTokenWasSet } from "redux/slices/accessTokenSlice";
 import { RootState } from "redux/store";
+import { UserRoles } from "enums/UserRoles";
 
 const UserDetailsComponentLogic = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [wasLoaded, setWasLoaded] = useState<boolean>(false);
+  const { isLoading, user } = useAuth0();
   const appUser = useSelector(
     (state: RootState) => state.applicationUserReducer.user
   );
@@ -27,13 +26,10 @@ const UserDetailsComponentLogic = () => {
     (state: RootState) => state.accessTokenReducer.accessTokenSet
   );
 
-  const [applicationUser, setApplicationUser] =
-    useState<IApplicationUser | null>(appUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { loginWithRedirect, logout, user, getAccessTokenSilently } =
-    useAuth0();
+  const { loginWithRedirect, logout } = useAuth0();
   const handleClickOnLogin = () => {
     loginWithRedirect();
   };
@@ -51,55 +47,44 @@ const UserDetailsComponentLogic = () => {
     navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
   };
 
-  const runInitialMiddleware = useCallback(async () => {
-    const accessToken = await getAccessTokenSilently();
-    const base = application.baseUrl;
-    await axios({
-      method: "GET",
-      url: `${base}/Users/Initial`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  }, [getAccessTokenSilently]);
-
-  useEffect(() => {
-    if (user) {
-      runInitialMiddleware();
-    }
-  }, [runInitialMiddleware, user]);
-
   const getUserDetailsAndSaveThoseInRedux = useCallback(async () => {
-    if (accessTokenWasSet) {
+    if (accessTokenWasSet && user) {
       try {
-        const user = await getApplicationUser();
-        setApplicationUser(user);
+        let user = await getApplicationUser();
+        //First registered (and initialized user)
+        if (!user) {
+          user = await getApplicationUser();
+        }
         dispatch(updateApplicationUser(user));
+        setWasLoaded(true);
       } catch {
-        //TODO Redirect to error page.
         return;
       }
-    } else {
+    } else if (user === undefined) {
       dispatch(removeApplicationUser());
-      setApplicationUser(null);
+      setWasLoaded(true);
     }
-    setIsLoading(false);
-  }, [dispatch, accessTokenWasSet]);
+  }, [accessTokenWasSet, user, dispatch]);
+
+  const hasAccessToPortal = useMemo(() => {
+    return appUser && appUser.userRoleId <= UserRoles.Employee;
+  }, [appUser]);
 
   useEffect(() => {
-    getUserDetailsAndSaveThoseInRedux();
-  }, [getUserDetailsAndSaveThoseInRedux, accessTokenWasSet]);
+    if (!isLoading) {
+      getUserDetailsAndSaveThoseInRedux();
+    }
+  }, [getUserDetailsAndSaveThoseInRedux, accessTokenWasSet, isLoading]);
 
   return {
     handleClickOnLogin,
     handleClickOnRegister,
     handleLogOut,
     handleMoveToThePortal,
-    applicationUser,
+    appUser,
     accessTokenWasSet,
-    isLoading,
+    wasLoaded,
+    hasAccessToPortal,
   };
 };
 

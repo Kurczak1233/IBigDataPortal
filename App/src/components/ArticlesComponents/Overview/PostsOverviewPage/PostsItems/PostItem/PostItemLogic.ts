@@ -42,10 +42,13 @@ const PostItemLogic = (
     navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
     setPosts &&
       setPosts((oldPosts) => {
-        const foundPostIndex = oldPosts?.findIndex(
+        if (!oldPosts) {
+          return oldPosts;
+        }
+        const foundPostIndex = oldPosts.findIndex(
           (item) => item.id === post.id
         );
-        if (!foundPostIndex || !oldPosts) {
+        if (foundPostIndex === -1 || !oldPosts) {
           return oldPosts;
         }
         oldPosts.splice(foundPostIndex, 1);

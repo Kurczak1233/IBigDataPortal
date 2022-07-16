@@ -1,5 +1,5 @@
 import EduLinksContent from "components/ArticlesComponents/Overview/EduLinksPage/EduLinksContent/EduLinksContent";
-import BigLoader from "components/common/Loaders/BigLoader";
+import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
 import EduLinksPageLogic from "./EduLinksPageLogic";
 
 const EduLinksPage = () => {

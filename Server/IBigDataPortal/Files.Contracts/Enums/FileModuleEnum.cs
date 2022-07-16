@@ -1,4 +1,4 @@
-﻿namespace Files.Domain.FilesAggregate.Enums;
+﻿namespace Files.Contracts.Enums;
 
 public enum FileModuleEnum
 {

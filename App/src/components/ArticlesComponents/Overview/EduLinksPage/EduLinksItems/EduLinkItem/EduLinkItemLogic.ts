@@ -42,10 +42,13 @@ const EduLinkItemLogic = (
     navigate(`/${administrationRoute}/${articlesRoute}/${eduLinksRoute}`);
     setEduLinks &&
       setEduLinks((oldEduLinks) => {
-        const foundEduLinkIndex = oldEduLinks?.findIndex(
+        if (!oldEduLinks) {
+          return oldEduLinks;
+        }
+        const foundEduLinkIndex = oldEduLinks.findIndex(
           (item) => item.id === eduLink.id
         );
-        if (!foundEduLinkIndex || !oldEduLinks) {
+        if (foundEduLinkIndex === -1 || !oldEduLinks) {
           return oldEduLinks;
         }
         oldEduLinks.splice(foundEduLinkIndex, 1);

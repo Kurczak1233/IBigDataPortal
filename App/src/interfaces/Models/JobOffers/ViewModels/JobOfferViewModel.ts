@@ -1,3 +1,5 @@
+import { UserRoles } from "enums/UserRoles";
+import { CommentVm } from "interfaces/Models/Comments/CommentVm";
 import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
 
 export interface JobOfferViewModel {
@@ -10,4 +12,8 @@ export interface JobOfferViewModel {
   files: FileVm[];
   type: string;
   nickname: string;
+  creatorId: number;
+  commentsPermissions: UserRoles;
+  articleVisibilityPermissions: UserRoles;
+  comments: CommentVm[];
 }

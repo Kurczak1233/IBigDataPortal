@@ -18,12 +18,14 @@ public class UsersServiceQueries : IUsersServiceQueries
     {
         var connection = await _connection.GetAsync();
         
-        var user = (await connection.QueryAsync<ApplicationUser>(GetApplicationUserByEmailSql(), new {userEmail = userEmail})).SingleOrDefault();
+        var user = (await connection.QueryAsync<ApplicationUser>(GetApplicationUserByEmailSql(), new {userEmail})).SingleOrDefault();
         return user;
     }
     
     private string GetApplicationUserByEmailSql() => $@"SELECT {nameof(User.Id)},
-                                 {nameof(User.Email)}
+                                 {nameof(User.Email)},
+                                 {nameof(User.Nickname)},
+                                 {nameof(User.UserRoleId)}
                                  FROM {(Dbo.Users)}  
                                  WHERE {nameof(User.Email)} = @userEmail";
     

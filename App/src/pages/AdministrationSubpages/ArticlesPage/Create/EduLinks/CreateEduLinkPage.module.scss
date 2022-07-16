@@ -1,10 +1,42 @@
 @import 'styles/Commons.scss';
 .eduLinksWrapper {
   display: flex;
+  width: 100%;
   .form {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
     margin-right: 16px;
+  }
+  .commentsAndFiles {
+    display: flex;
+    .comments {
+      margin-top: 32px;
+      margin-left: 16px;
+      .title {
+        margin-bottom: 32px;
+        @include fontSizeTwentyFive;
+      }
+    }
+  }
+}
+.richText {
+  width: 100%;
+  height: 300px;
+  .label {
+    @include fontSizeSixteen;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .richTextLabel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .error {
+    @include fontSizeFourteen;
+    color: $intensive-red;
   }
 }
