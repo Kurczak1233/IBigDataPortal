@@ -1,0 +1,2 @@
+The main concept behind implementing a separate menu for this feature is creating a place where the user may request a permissions from the admin.
+The second purpose of this is to communicate with other users on the portal. (In the future maybe?)
