@@ -1,10 +1,11 @@
+import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
+
 const InvitationsPage = () => {
   return (
-    // <PageLayout
-    //   menuContent={<div>Invitations Menu</div>}
-    //   content={}
-    // />
-    <div>Content</div>
+    <>
+      <AdministartionPageHeader pageTitle={"Cooperation invitations"} />
+      <div>Content</div>
+    </>
   );
 };
 export default InvitationsPage;
