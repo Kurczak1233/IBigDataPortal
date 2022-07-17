@@ -3,14 +3,9 @@
   background: $less-intensive-green;
   border-radius: 8px;
   padding: 16px;
-  .loggedAs {
-    @include fontSizeEighteen;
-    @include wrapLongText;
-    margin-top: 4px;
-  }
-  .buttons {
+  margin-top: 24px;
+  .roleRequest {
     display: flex;
-    margin-top: 16px;
     align-items: center;
     justify-content: space-between;
   }
