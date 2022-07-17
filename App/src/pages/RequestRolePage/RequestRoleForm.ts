@@ -1,5 +1,4 @@
 export interface RequestRoleForm {
-  name: string;
-  email: string;
+  topic: string;
   description: string;
 }

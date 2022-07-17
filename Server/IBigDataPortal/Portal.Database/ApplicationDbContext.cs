@@ -12,8 +12,8 @@ public class ApplicationDbContext : DbContext
     public virtual DbSet<FileMetadata> FilesMetadata { get; set; }
     public virtual DbSet<Comment> Comments { get; set; }
     public virtual DbSet<Entities.UserRole> UserRole { get; set; }
+    public virtual DbSet<Cooperation> Cooperations { get; set; }
 
-    
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {

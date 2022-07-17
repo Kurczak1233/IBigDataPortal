@@ -12,6 +12,7 @@ const MainPageMain = () => {
     numberOfArticlesVisible,
     setNumberOfArticlesVisible,
     articlesLoaded,
+    user,
   } = MainPageMainLogic();
   if (!articlesLoaded) {
     return <BigLoader />;
@@ -25,6 +26,7 @@ const MainPageMain = () => {
           setNumberOfArticlesVisible={setNumberOfArticlesVisible}
         />
         <Menu
+          user={user}
           setArticles={setArticles}
           initialArticlesModel={initialArticlesModel}
         />

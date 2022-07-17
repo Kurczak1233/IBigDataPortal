@@ -8,7 +8,8 @@ import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import BigButton from "components/common/Buttons/BigButtons/BigButton";
 
 const RequestRolePage = () => {
-  const { errors, register, navigateToMainPage } = RequestRolePageLogic();
+  const { errors, register, handleSubmit, navigateToMainPage, submitRequest } =
+    RequestRolePageLogic();
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.topBackground} />
@@ -16,7 +17,8 @@ const RequestRolePage = () => {
       <div className={styles.overlay}>
         <div className={styles.title}>GET IN TOUCH</div>
         <div className={styles.subtitle}>
-          Collaborate with big data specialists and gain access to the platform
+          Collaborate with big data specialists and gain an access to the
+          platform
         </div>
         <div className={styles.envelopeWrapper}>
           <div className={styles.wrapper}>
@@ -26,18 +28,9 @@ const RequestRolePage = () => {
                 register={register}
                 errors={errors}
                 errorMessage={"This field is required"}
-                label={"Name"}
-                placeholder={"Enter your name..."}
-                registerName={"title"}
-                registerOptions={{ required: true }}
-              />
-              <InputWithLabel
-                register={register}
-                errors={errors}
-                errorMessage={"This field is required"}
-                label={"Email"}
-                placeholder={"Enter email..."}
-                registerName={"title"}
+                label={"Topic"}
+                placeholder={"Enter request topic..."}
+                registerName={"topic"}
                 registerOptions={{ required: true }}
               />
               <TextareaWithLabel
@@ -54,10 +47,8 @@ const RequestRolePage = () => {
               <SmallButton
                 text={"Submit"}
                 marginTop={"16px"}
-                onClick={function (): void {
-                  throw new Error("Function not implemented.");
-                }}
-                color={AvailableIntensiveColors.IntensiveBlue}
+                onClick={handleSubmit(submitRequest)}
+                color={AvailableIntensiveColors.IntensiveGreen}
               />
             </div>
             <div className={styles.right}>
@@ -69,7 +60,7 @@ const RequestRolePage = () => {
           <BigButton
             text={"Return"}
             onClick={navigateToMainPage}
-            color={AvailableIntensiveColors.IntensiveBlue}
+            color={AvailableIntensiveColors.IntensiveGreen}
           />
         </div>
       </div>

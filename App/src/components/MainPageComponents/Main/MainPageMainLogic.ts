@@ -40,6 +40,7 @@ const MainPageLogic = () => {
     numberOfArticlesVisible,
     setNumberOfArticlesVisible,
     articlesLoaded,
+    user,
   };
 };
 

@@ -17,5 +17,6 @@ public static class Dbo
     public static string EduLinks { get; } = $"[{_schema}].[{nameof(EduLinks)}]";
     public static string UserRole { get; } = $"[{_schema}].[{nameof(UserRole)}]";
     public static string Comments { get; } = $"[{_schema}].[{nameof(Comments)}]";
+    public static string Cooperations { get; } = $"[{_schema}].[{nameof(Cooperations)}]";
   
 }
