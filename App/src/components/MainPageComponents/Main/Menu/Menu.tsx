@@ -1,6 +1,7 @@
 import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
 import AdvancedFilters from "./AdvancedFilters/AdvancedFilters";
 import FilterArticlesComponent from "./FilterArticlesComponent/FilterArticlesComponent";
+import InvitationsComponent from "./InvitationsComponent/InvitationsComponent";
 import styles from "./Menu.module.scss";
 import UserDetailsComponent from "./UserDetailsComponent/UserDetailsComponent";
 
@@ -14,6 +15,7 @@ const Menu = ({ setArticles, initialArticlesModel }: IMenu) => {
     <aside className={styles.menuSite}>
       <div className={styles.headerTitle}>Menu</div>
       <UserDetailsComponent />
+      <InvitationsComponent />
       <FilterArticlesComponent
         setArticles={setArticles}
         initialArticlesModel={initialArticlesModel}
