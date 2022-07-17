@@ -21,6 +21,7 @@ import {
   postsRoute,
   privacyRoute,
   profileRoute,
+  roleContactRoute,
   usersRoute,
 } from "constants/apiRoutes";
 import AdministrationLayout from "pages/AdministrationLayout/AdministrationLayout";
@@ -41,6 +42,7 @@ import AboutPage from "pages/MainPage/AboutPage/AboutPage";
 import ArticlePage from "pages/MainPage/ArticlePage/ArticlePage";
 import ContactPage from "pages/MainPage/ContactPage/ContactPage";
 import PrivacyPage from "pages/MainPage/PrivacyPage/PrivacyPage";
+import RequestRolePage from "pages/RequestRolePage/RequestRolePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AppLogic from "./AppLogic";
 import MainPage from "./pages/MainPage/MainPage";
@@ -61,7 +63,8 @@ function App() {
           />
           <Route path={`/`} element={<MainPageMain />} />
         </Route>
-        <Route path={`${errorRoute}`} element={<div>X2D</div>} />
+        <Route path={`${roleContactRoute}`} element={<RequestRolePage />} />
+        <Route path={`${errorRoute}`} element={<div>Error page</div>} />
         <Route
           path={`${administrationRoute}`}
           element={checkIfRouteIsAuthenticated(<AdministrationLayout />)}

@@ -1,9 +1,11 @@
 import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import MenuComponentTitle from "../MenuComponentTitle/MenuComponentTitle";
+import InvitaitonsComponentLogic from "./InvitaitonsComponentLogic";
 import styles from "./InvitationsComponent.module.scss";
 
 const InvitationsComponent = () => {
+  const { navigateToRoleRequest } = InvitaitonsComponentLogic();
   return (
     <section className={styles.menu}>
       <MenuComponentTitle name={"Interactions"} />
@@ -11,9 +13,7 @@ const InvitationsComponent = () => {
         <div>Request a role: </div>
         <SmallButton
           text={"Request"}
-          onClick={function (): void {
-            throw new Error("Function not implemented.");
-          }}
+          onClick={navigateToRoleRequest}
           width={"40%"}
           color={AvailableIntensiveColors.IntensiveBlue}
         />
