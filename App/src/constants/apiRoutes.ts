@@ -17,3 +17,4 @@ export const createJobOfferRoute = "create-job-offer";
 export const privacyRoute = "privacy";
 export const contactRoute = "contact";
 export const aboutRoute = "about";
+export const roleContactRoute = "contactRoute";
