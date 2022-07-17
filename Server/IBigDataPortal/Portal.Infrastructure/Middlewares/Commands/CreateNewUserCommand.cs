@@ -30,7 +30,8 @@ public class CreateNewUserCommandHandler : IRequestHandler<CreateNewUserCommand>
     public async Task<Unit> Handle(CreateNewUserCommand request, CancellationToken cancellationToken)
     {
         var connection = await _connection.GetAsync();
-        await connection.ExecuteAsync(CreateNewUserCommandSql(), new {email = request.Email, userRoleId = UserRoles.StudentOrBusiness, nickname = request.Nickname});
+        var nickname = request.Nickname != null ? request.Nickname : "nickname";
+        await connection.ExecuteAsync(CreateNewUserCommandSql(), new {email = request.Email, userRoleId = UserRoles.StudentOrBusiness, nickname });
         return Unit.Value;
     }
     
