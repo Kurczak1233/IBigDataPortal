@@ -8,8 +8,6 @@ const NavigationItemLogic = () => {
     (state: RootState) => state.cooperationsReducer.cooperationsCount
   );
 
-    console.log(cooperationsCount);
-
   const clickedOnNavigationItem = (itemUrl: string) => {
     navigate(itemUrl);
   };
