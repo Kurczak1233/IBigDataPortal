@@ -11,7 +11,7 @@ const CooperationsPageMain = () => {
     pageCount,
     currentItems,
     refContainer,
-    setAllCooperations,
+    showArchived,
   } = CooperationsPageMainLogic();
 
   return (
@@ -20,13 +20,25 @@ const CooperationsPageMain = () => {
       <div className={styles.contentContainer}>
         <div className={styles.content} ref={refContainer}>
           {currentItems.map((item) => {
-            return (
-              <CooperationsPageItem
-                key={item.id}
-                setAllCooperations={setAllCooperations}
-                cooperation={item}
-              />
-            );
+            if (item.isArchived && showArchived) {
+              return (
+                <CooperationsPageItem
+                  key={item.id}
+                  cooperation={item}
+                  archived={item.isArchived}
+                />
+              );
+            }
+            if (!showArchived && !item.isArchived) {
+              return (
+                <CooperationsPageItem
+                  key={item.id}
+                  cooperation={item}
+                  archived={item.isArchived}
+                />
+              );
+            }
+            return <div key={item.id} />;
           })}
         </div>
         <Pagination

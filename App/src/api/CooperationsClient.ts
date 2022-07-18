@@ -19,4 +19,14 @@ const getAllCooperations = async (): Promise<CooperationVm[]> => {
   return AxiosClient(HttpRequestsMethods.GET, `${Cooperations}`, base);
 };
 
-export { createCooperationRequest, getAllCooperations };
+const archiveCooperation = async (
+  cooperationId: number
+): Promise<CooperationVm[]> => {
+  return AxiosClient(
+    HttpRequestsMethods.PUT,
+    `${Cooperations}/${cooperationId}`,
+    base
+  );
+};
+
+export { createCooperationRequest, getAllCooperations, archiveCooperation };

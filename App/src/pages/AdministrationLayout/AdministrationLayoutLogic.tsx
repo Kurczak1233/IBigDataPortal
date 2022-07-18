@@ -65,7 +65,7 @@ const AdministrationLayoutLogic = () => {
       routeUrl: `/${administrationRoute}/${cooperationsRoute}`,
       imgNonActive: MailIconNonActive,
       imgActive: MailIconActive,
-      isActive: pathname === `/${administrationRoute}/${cooperationsRoute}`,
+      isActive: pathname.includes(cooperationsRoute),
       alt: "Mail icon",
       hasPermissionsToView: appUser && appUser.userRoleId <= UserRoles.Admin,
       showAmountOfInvitations: true,

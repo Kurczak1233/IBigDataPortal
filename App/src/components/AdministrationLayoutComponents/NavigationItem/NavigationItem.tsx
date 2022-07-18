@@ -18,8 +18,7 @@ const NavigationItem = ({
   routeUrl,
   showAmountOfInvitations,
 }: INavigationItem) => {
-  const { clickedOnNavigationItem, amountOfActiveCooperations } =
-    NavigationItemLogic();
+  const { clickedOnNavigationItem, cooperationsCount } = NavigationItemLogic();
   return (
     <div
       className={styles.navigationItem}
@@ -29,9 +28,9 @@ const NavigationItem = ({
         src={isActive ? activeRouteImgSrc : nonActiveRouteImgSrc}
         alt={alt}
       />
-      {showAmountOfInvitations && (
+      {showAmountOfInvitations && cooperationsCount > 0 && (
         <div className={styles.notificationAmount}>
-          <div className={styles.innerNumber}>{amountOfActiveCooperations}</div>
+          <div className={styles.innerNumber}>{cooperationsCount}</div>
         </div>
       )}
     </div>

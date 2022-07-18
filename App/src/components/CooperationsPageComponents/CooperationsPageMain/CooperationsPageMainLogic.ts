@@ -1,8 +1,9 @@
 import { getAllCooperations } from "api/CooperationsClient";
 import { CooperationVm } from "interfaces/Models/Cooperations/ViewModels/CooperationVm";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateCooperations } from "redux/slices/cooperationsSlice";
+import { RootState } from "redux/store";
 
 const CooperationsPageMainLogic = () => {
   const [allCooperations, setAllCooperations] = useState<CooperationVm[]>([]);
@@ -13,6 +14,12 @@ const CooperationsPageMainLogic = () => {
 
   const refContainer = useRef<HTMLDivElement>(null);
 
+  const cooperations = useSelector(
+    (state: RootState) => state.cooperationsReducer.cooperations
+  );
+  const showArchived = useSelector(
+    (state: RootState) => state.cooperationsReducer.showArchived
+  );
   const dispatch = useDispatch();
 
   const handlePageClick = (event: { selected: number }) => {
@@ -37,6 +44,12 @@ const CooperationsPageMainLogic = () => {
   }, [handleGetAllInvitations]);
 
   useEffect(() => {
+    if (allCooperations.length > 0) {
+      setAllCooperations(cooperations);
+    }
+  }, [allCooperations.length, cooperations]);
+
+  useEffect(() => {
     if (refContainer.current !== null) {
       calculateContainerHeight(refContainer.current);
     }
@@ -44,9 +57,12 @@ const CooperationsPageMainLogic = () => {
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(allCooperations.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(allCooperations.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, allCooperations]);
+    const filteredItems = allCooperations.filter((item) => {
+      return showArchived ? item.isArchived : !item.isArchived;
+    });
+    setCurrentItems(filteredItems.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(filteredItems.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, allCooperations, showArchived]);
 
   return {
     allCooperations,
@@ -55,6 +71,7 @@ const CooperationsPageMainLogic = () => {
     pageCount,
     currentItems,
     refContainer,
+    showArchived,
   };
 };
 

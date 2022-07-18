@@ -23,6 +23,8 @@ import {
   profileRoute,
   roleContactRoute,
   usersRoute,
+  detailsRoute,
+  cooperationId,
 } from "constants/apiRoutes";
 import AdministrationLayout from "pages/AdministrationLayout/AdministrationLayout";
 import CreateEduLinkPage from "pages/AdministrationSubpages/ArticlesPage/Create/EduLinks/CreateEduLinkPage";
@@ -47,6 +49,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AppLogic from "./AppLogic";
 import MainPage from "./pages/MainPage/MainPage";
 import CooperationsMenuContent from "components/common/ArticleCommonComponents/CooperationsMenuContent/CooperationsMenuContent";
+import CooperationsDetailsPage from "pages/AdministrationSubpages/CooperationsDetailsPage/CooperationsDetailsPage";
 
 function App() {
   const { checkIfRouteIsAuthenticated } = AppLogic();
@@ -137,7 +140,14 @@ function App() {
           >
             <Route path={``} element={<UsersPage />} />
           </Route>
-
+          <Route
+            path={`${cooperationsRoute}/:${cooperationId}/${detailsRoute}`}
+            element={checkIfRouteIsAuthenticated(
+              <AdminMenuLayout menuContent={<ProfilePageMenu />} />
+            )}
+          >
+            <Route path={``} element={<CooperationsDetailsPage />} />
+          </Route>
           <Route
             path={`${cooperationsRoute}`}
             element={checkIfRouteIsAuthenticated(

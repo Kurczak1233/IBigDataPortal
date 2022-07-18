@@ -25,7 +25,7 @@ public class CooperationsController : ControllerBase
         _user = user;
         _authorizationService = authorizationService;
     }
-    
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CooperationVm>>> GetAllCooperations()
     {
@@ -35,11 +35,21 @@ public class CooperationsController : ControllerBase
             GetAllCooperationsQuery());
         return Ok(result);
     }
-    
+
     [HttpPost]
     public async Task<ActionResult> CreateEduLink(RequestRoleForm body)
     {
         await _mediator.Send(new CreateCooperationRequest(body, _user.Id));
+        return Ok();
+    }
+
+    [HttpPut("{cooperationId}")]
+    public async Task<ActionResult> ArchiveCooperation(int cooperationId)
+    {
+        await _authorizationService.AuthorizeAsync(_user.UserClaims, "",
+            new CooperationsAuthorizationRequirement(_user.Id));
+        await _mediator.Send(new
+            ArchiveCooperationRequest(cooperationId));
         return Ok();
     }
 }

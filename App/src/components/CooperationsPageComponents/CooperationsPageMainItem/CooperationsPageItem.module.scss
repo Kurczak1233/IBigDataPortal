@@ -1,5 +1,5 @@
 @import "styles/Commons.scss";
-.item {
+@mixin itemContent {
   @include fontSizeSixteen;
   background-color: $less-intensive-green;
   color: $black-text;
@@ -10,6 +10,7 @@
   border-radius: 12px;
   height: 60px;
   padding: 0 16px;
+  padding-right: 32px;
   margin-top: 10px;
   .itemsWrapper {
     width: 100%;
@@ -25,6 +26,12 @@
       align-items: center;
     }
   }
+}
+.item {
+ @include itemContent;
+}
+.itemNoHover {
+  @include itemContent;
 }
 .item:hover  {
     cursor: pointer;

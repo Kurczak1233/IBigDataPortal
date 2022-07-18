@@ -4,33 +4,46 @@ import { format } from "date-fns";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { CooperationVm } from "interfaces/Models/Cooperations/ViewModels/CooperationVm";
 import styles from "./CooperationsPageItem.module.scss";
+import CooperationsPageItemLogic from "./CooperationsPageItemLogic";
 
 interface ICooperationsPageItem {
-  setAllCooperations: React.Dispatch<React.SetStateAction<CooperationVm[]>>;
   cooperation: CooperationVm;
+  archived: boolean;
+  clickActive?: boolean;
 }
 
 const CooperationsPageItem = ({
-  setAllCooperations,
   cooperation,
+  archived,
+  clickActive = true,
 }: ICooperationsPageItem) => {
+  const { archiveItem, navigateToDetails, deleteItemButton } =
+    CooperationsPageItemLogic(cooperation);
   return (
-    <div className={styles.item}>
+    <div
+      className={clickActive ? styles.item : styles.itemNoHover}
+      onClick={(e) => clickActive && navigateToDetails(e)}
+    >
       <div className={styles.itemsWrapper}>
         <div className={styles.creatorEmail}>{cooperation.creatorEmail}</div>
         <div className={styles.createdOn}>
           {format(new Date(cooperation.createdOn), standarizedFormat)}
         </div>
       </div>
-      <div className={styles.deleteButtonWrapper}>
-        <SmallButton
-          text={"Archive"}
-          onClick={() => null}
-          width={"100px"}
-          marginLeft={"16px"}
-          color={AvailableIntensiveColors.IntensiveRed}
-        />
-      </div>
+      {!archived ? (
+        <div className={styles.deleteButtonWrapper}>
+          <SmallButton
+            itemRef={deleteItemButton}
+            text={"Archive"}
+            onClick={archiveItem}
+            width={"100px"}
+            marginLeft={"16px"}
+            color={AvailableIntensiveColors.IntensiveRed}
+          />
+        </div>
+      ) : (
+        <div className={styles.deleteButtonWrapper} />
+      )}
     </div>
   );
 };

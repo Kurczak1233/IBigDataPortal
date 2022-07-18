@@ -15,6 +15,7 @@ import {
 import { updateAccessTokenWasSet } from "redux/slices/accessTokenSlice";
 import { RootState } from "redux/store";
 import { UserRoles } from "enums/UserRoles";
+import { calculateCooperationsLenght } from "redux/slices/cooperationsSlice";
 
 const UserDetailsComponentLogic = () => {
   const [wasLoaded, setWasLoaded] = useState<boolean>(false);
@@ -44,6 +45,7 @@ const UserDetailsComponentLogic = () => {
   };
 
   const handleMoveToThePortal = () => {
+    dispatch(calculateCooperationsLenght());
     navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
   };
 
