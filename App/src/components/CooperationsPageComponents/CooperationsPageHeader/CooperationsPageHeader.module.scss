@@ -1,0 +1,23 @@
+@import "styles/Commons.scss";
+.header {
+  @include fontSizeTwenty;
+  color: $black-text;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 0 12px;
+  margin-right: 116px;
+  .image {
+    margin-left: 4px;
+  }
+  .creatorEmail {
+    width: 40%;
+    display: flex;
+    align-items: center;
+  }
+  .createdOn {
+    width: 30%;
+    display: flex;
+    align-items: center;
+  }
+}

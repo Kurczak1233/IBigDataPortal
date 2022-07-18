@@ -18,6 +18,7 @@ const AdministrationLayout = () => {
                 alt={item.alt}
                 routeUrl={item.routeUrl}
                 isActive={item.isActive}
+                showAmountOfInvitations={item.showAmountOfInvitations}
               />
             )
           );

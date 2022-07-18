@@ -13,7 +13,7 @@ import {
   administrationRoute,
   articlesRoute,
   dashboardRoute,
-  invitationsRoute,
+  cooperationsRoute,
   postsRoute,
   profileRoute,
   usersRoute,
@@ -62,12 +62,13 @@ const AdministrationLayoutLogic = () => {
       hasPermissionsToView: appUser && appUser.userRoleId <= UserRoles.Admin,
     },
     {
-      routeUrl: `/${administrationRoute}/${invitationsRoute}`,
+      routeUrl: `/${administrationRoute}/${cooperationsRoute}`,
       imgNonActive: MailIconNonActive,
       imgActive: MailIconActive,
-      isActive: pathname === `/${administrationRoute}/${invitationsRoute}`,
+      isActive: pathname.includes(cooperationsRoute),
       alt: "Mail icon",
       hasPermissionsToView: appUser && appUser.userRoleId <= UserRoles.Admin,
+      showAmountOfInvitations: true,
     },
   ];
 
