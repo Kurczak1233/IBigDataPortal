@@ -1,3 +1,4 @@
+import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
 import Articles from "./Articles/Articles";
 import styles from "./MainPageMain.module.scss";
 import MainPageMainLogic from "./MainPageMainLogic";
@@ -10,7 +11,12 @@ const MainPageMain = () => {
     initialArticlesModel,
     numberOfArticlesVisible,
     setNumberOfArticlesVisible,
+    articlesLoaded,
+    user,
   } = MainPageMainLogic();
+  if (!articlesLoaded) {
+    return <BigLoader />;
+  }
   return (
     <div className={styles.mainPage}>
       <div className={styles.content}>
@@ -20,6 +26,7 @@ const MainPageMain = () => {
           setNumberOfArticlesVisible={setNumberOfArticlesVisible}
         />
         <Menu
+          user={user}
           setArticles={setArticles}
           initialArticlesModel={initialArticlesModel}
         />
