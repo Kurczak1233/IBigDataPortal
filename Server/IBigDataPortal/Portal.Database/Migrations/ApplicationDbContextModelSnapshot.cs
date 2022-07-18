@@ -56,6 +56,38 @@ namespace IBigDataPortal.Database.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.Cooperation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RequestTopic")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.ToTable("Cooperations");
+                });
+
             modelBuilder.Entity("IBigDataPortal.Database.Entities.EduLink", b =>
                 {
                     b.Property<int>("Id")
@@ -293,6 +325,17 @@ namespace IBigDataPortal.Database.Migrations
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.Comment", b =>
+                {
+                    b.HasOne("IBigDataPortal.Database.Entities.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
+                });
+
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.Cooperation", b =>
                 {
                     b.HasOne("IBigDataPortal.Database.Entities.User", "Creator")
                         .WithMany()

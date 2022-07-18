@@ -15,12 +15,13 @@ import {
   dashboardRoute,
   eduLinksRoute,
   errorRoute,
-  invitationsRoute,
+  cooperationsRoute,
   jobOffersRoute,
   postId,
   postsRoute,
   privacyRoute,
   profileRoute,
+  roleContactRoute,
   usersRoute,
 } from "constants/apiRoutes";
 import AdministrationLayout from "pages/AdministrationLayout/AdministrationLayout";
@@ -34,16 +35,18 @@ import EduLinksPage from "pages/AdministrationSubpages/ArticlesPage/Overview/Edu
 import JobOffersPage from "pages/AdministrationSubpages/ArticlesPage/Overview/JobOffers/JobOffersPage";
 import PostsPage from "pages/AdministrationSubpages/ArticlesPage/Overview/Posts/PostsPage";
 import DashboardPage from "pages/AdministrationSubpages/DashboardPage/DashboardPage";
-import InvitationsPage from "pages/AdministrationSubpages/InvitationsPage/InvitationsPage";
+import CooperationsPage from "pages/AdministrationSubpages/CooperationsPage/CooperationsPage";
 import ProfilePage from "pages/AdministrationSubpages/ProfilePage/ProfilePage";
 import UsersPage from "pages/AdministrationSubpages/UsersPage/UsersPage";
 import AboutPage from "pages/MainPage/AboutPage/AboutPage";
 import ArticlePage from "pages/MainPage/ArticlePage/ArticlePage";
 import ContactPage from "pages/MainPage/ContactPage/ContactPage";
 import PrivacyPage from "pages/MainPage/PrivacyPage/PrivacyPage";
+import RequestRolePage from "pages/RequestRolePage/RequestRolePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AppLogic from "./AppLogic";
 import MainPage from "./pages/MainPage/MainPage";
+import CooperationsMenuContent from "components/common/ArticleCommonComponents/CooperationsMenuContent/CooperationsMenuContent";
 
 function App() {
   const { checkIfRouteIsAuthenticated } = AppLogic();
@@ -61,7 +64,8 @@ function App() {
           />
           <Route path={`/`} element={<MainPageMain />} />
         </Route>
-        <Route path={`${errorRoute}`} element={<div>X2D</div>} />
+        <Route path={`${roleContactRoute}`} element={<RequestRolePage />} />
+        <Route path={`${errorRoute}`} element={<div>Error page</div>} />
         <Route
           path={`${administrationRoute}`}
           element={checkIfRouteIsAuthenticated(<AdministrationLayout />)}
@@ -135,12 +139,12 @@ function App() {
           </Route>
 
           <Route
-            path={`${invitationsRoute}`}
+            path={`${cooperationsRoute}`}
             element={checkIfRouteIsAuthenticated(
-              <AdminMenuLayout menuContent={<ProfilePageMenu />} />
+              <AdminMenuLayout menuContent={<CooperationsMenuContent />} />
             )}
           >
-            <Route path={``} element={<InvitationsPage />} />
+            <Route path={``} element={<CooperationsPage />} />
           </Route>
         </Route>
       </Routes>

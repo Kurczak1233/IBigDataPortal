@@ -8,6 +8,7 @@ import { RootState } from "redux/store";
 const MainPageLogic = () => {
   const [initialArticlesModel, setOriginalArticlesModel] =
     useState<ArticlesVm>();
+  const [articlesLoaded, setArticlesLoaded] = useState<boolean>(false);
   const [articles, setArticles] = useState<ArticlesVm>();
   const [numberOfArticlesVisible, setNumberOfArticlesVisible] =
     useState<number>(8);
@@ -22,6 +23,7 @@ const MainPageLogic = () => {
       const articles = await getAllArticles();
       setArticles(articles);
       setOriginalArticlesModel({ ...articles });
+      setArticlesLoaded(true);
     }
   }, [accessTokenWasSet, user]);
 
@@ -37,6 +39,8 @@ const MainPageLogic = () => {
     initialArticlesModel,
     numberOfArticlesVisible,
     setNumberOfArticlesVisible,
+    articlesLoaded,
+    user,
   };
 };
 

@@ -14,12 +14,14 @@ import applicationUserReducer from "./slices/applicationUserSlice";
 import accessTokenReducer from "./slices/accessTokenSlice";
 import resetFiltersFlags from "./slices/resetFiltersFlags";
 import articlesReducer from "./slices/articlesSlice";
+import cooperationsReducer from "./slices/cooperationsSlice";
 
 const reducers = combineReducers({
   applicationUserReducer,
   accessTokenReducer,
   resetFiltersFlags,
   articlesReducer,
+  cooperationsReducer,
 });
 
 const persistConfig = {
