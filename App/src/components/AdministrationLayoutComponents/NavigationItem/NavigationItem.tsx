@@ -7,6 +7,7 @@ interface INavigationItem {
   alt: string;
   isActive: boolean;
   routeUrl: string;
+  showAmountOfInvitations?: boolean;
 }
 
 const NavigationItem = ({
@@ -15,8 +16,10 @@ const NavigationItem = ({
   alt,
   isActive,
   routeUrl,
+  showAmountOfInvitations,
 }: INavigationItem) => {
-  const { clickedOnNavigationItem } = NavigationItemLogic();
+  const { clickedOnNavigationItem, amountOfActiveCooperations } =
+    NavigationItemLogic();
   return (
     <div
       className={styles.navigationItem}
@@ -26,6 +29,11 @@ const NavigationItem = ({
         src={isActive ? activeRouteImgSrc : nonActiveRouteImgSrc}
         alt={alt}
       />
+      {showAmountOfInvitations && (
+        <div className={styles.notificationAmount}>
+          <div className={styles.innerNumber}>{amountOfActiveCooperations}</div>
+        </div>
+      )}
     </div>
   );
 };

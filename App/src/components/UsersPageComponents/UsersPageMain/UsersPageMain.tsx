@@ -13,7 +13,6 @@ const UsersPageMain = () => {
     currentItems,
     refContainer,
   } = UsersPageMainLogic();
-  //TODO To trzeba ograniczyć
   return (
     <>
       <UsersPageMainHeader />

@@ -41,8 +41,8 @@ public class CreateCooperationRequestHandler : IRequestHandler<CreateCooperation
                {nameof(Cooperation.CreatorId)},
                {nameof(Cooperation.Description)},
                {nameof(Cooperation.CreatedOn)},
-               {nameof(Cooperation.WasRead)})
-               VALUES (@topic, @creatorId, @description, @createdOn, @wasRead)";
+               {nameof(Cooperation.IsArchived)})
+               VALUES (@topic, @creatorId, @description, @createdOn, @isArchived)";
         
         await connection.ExecuteAsync(sql,
             new
@@ -51,7 +51,7 @@ public class CreateCooperationRequestHandler : IRequestHandler<CreateCooperation
                 creatorId = request.UserId,
                 description = request.Body.Description,
                 createdOn = nowDate,
-                wasRead = false,
+                isArchived = false,
             });
         return Unit.Value;
     }

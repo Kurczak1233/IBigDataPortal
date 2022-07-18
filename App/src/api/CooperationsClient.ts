@@ -1,4 +1,5 @@
 import { HttpRequestsMethods } from "interfaces/General/HttpRequestsMethods";
+import { CooperationVm } from "interfaces/Models/Cooperations/ViewModels/CooperationVm";
 import { RequestRoleForm } from "pages/RequestRolePage/RequestRoleForm";
 import application from "../authenticationConfig.json";
 import { AxiosClient } from "./AxiosClient";
@@ -14,4 +15,8 @@ const createCooperationRequest = async (
   });
 };
 
-export { createCooperationRequest };
+const getAllCooperations = async (): Promise<CooperationVm[]> => {
+  return AxiosClient(HttpRequestsMethods.GET, `${Cooperations}`, base);
+};
+
+export { createCooperationRequest, getAllCooperations };

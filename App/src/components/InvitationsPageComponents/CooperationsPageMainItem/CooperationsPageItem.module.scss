@@ -1,0 +1,37 @@
+@import "styles/Commons.scss";
+.item {
+  @include fontSizeSixteen;
+  background-color: $less-intensive-green;
+  color: $black-text;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 2px 2px 8px 3px $gray-box-shadow;
+  border-radius: 12px;
+  height: 60px;
+  padding: 0 16px;
+  margin-top: 10px;
+  .itemsWrapper {
+    width: 100%;
+    display: flex;
+    .creatorEmail {
+      width: 40%;
+      display: flex;
+      align-items: center;
+    }
+    .createdOn {
+      width: 30%;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+.item:hover  {
+    cursor: pointer;
+    @include greenShadow;
+}
+.deleteButtonWrapper {
+  width: 100px;
+  max-width: 100px;
+  margin-right: 16px;
+}
