@@ -39,9 +39,6 @@ public class FilesController : ControllerBase
     [HttpGet("Item/{itemId}/Module/{moduleNumber}")]
     public async Task<IActionResult> GetAllItemsFiles(int itemId, FileModuleEnum moduleNumber)
     {
-        var articleType = (ArticlesEnum)moduleNumber - 1;
-        await _authorizationService.AuthorizeAsync(_user.UserClaims, itemId,
-            new ArticlesAuthorizationRequirement(itemId, _user.Id, articleType));
         var fileResult = await _mediator.Send(new GetAllFilesQuery(itemId, moduleNumber));
         return Ok(fileResult);
     }

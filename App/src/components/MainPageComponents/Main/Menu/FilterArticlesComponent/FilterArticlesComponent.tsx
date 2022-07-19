@@ -21,15 +21,20 @@ const FilterArticlesComponent = ({
     filterByPosts,
     filterByEduLinks,
     filterByJobOffers,
+    isMobile,
+    isTablet,
+    smallerLaptop,
   } = FilterArticlesComponentLogic({ setArticles, initialArticlesModel });
+
   return (
     <section className={styles.menu}>
       <MenuComponentTitle name={"Filter articles"} />
       <div className={styles.filterPosition}>
         Filter by posts:
         <SmallButton
-          width="40%"
           text={"Posts"}
+          maxWidth={isMobile || isTablet ? "120px" : "50%"}
+          width={smallerLaptop ? "60%" : "40%"}
           onClick={filterByPosts}
           color={
             arePostsVisible
@@ -41,8 +46,9 @@ const FilterArticlesComponent = ({
       <div className={styles.filterPosition}>
         Filter by job offers:
         <SmallButton
+          maxWidth={isMobile || isTablet ? "120px" : "50%"}
+          width={smallerLaptop ? "60%" : "40%"}
           text={"Job offers"}
-          width="40%"
           onClick={filterByJobOffers}
           color={
             areJobOffersVisible
@@ -54,8 +60,9 @@ const FilterArticlesComponent = ({
       <div className={styles.filterPosition}>
         Filter by edu links:
         <SmallButton
+          maxWidth={isMobile || isTablet ? "120px" : "50%"}
+          width={smallerLaptop ? "60%" : "40%"}
           text={"Edu links"}
-          width="40%"
           onClick={filterByEduLinks}
           color={
             areEduLinksVisible

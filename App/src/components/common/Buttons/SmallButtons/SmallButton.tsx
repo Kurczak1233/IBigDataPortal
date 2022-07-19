@@ -9,6 +9,7 @@ interface ISmallButton {
   color: AvailableIntensiveColors;
   isLoading?: boolean;
   width?: string;
+  maxWidth?: string;
   uppercase?: boolean;
   height?: string;
   marginTop?: string;
@@ -25,6 +26,7 @@ const SmallButton = ({
   marginBottom,
   marginLeft,
   marginRight,
+  maxWidth,
   uppercase = false,
   text,
   color,
@@ -38,6 +40,7 @@ const SmallButton = ({
       onClick={!isLoading ? onClick : () => null}
       style={{
         width: width,
+        maxWidth: maxWidth,
         height: height,
         marginTop: marginTop,
         marginBottom: marginBottom,
