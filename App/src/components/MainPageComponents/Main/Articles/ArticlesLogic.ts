@@ -1,6 +1,5 @@
 import { compareAsc } from "date-fns";
 import { UserRoles } from "enums/UserRoles";
-import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
 import { CommentVm } from "interfaces/Models/Comments/CommentVm";
 import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
@@ -28,7 +27,6 @@ const ArticlesLogic = (
   setNumberOfArticlesVisible: React.Dispatch<React.SetStateAction<number>>,
   articles: ArticlesVm | undefined
 ) => {
-  const { isMobile, isTablet } = useAppResponsiveness();
   const dispatch = useDispatch();
   const sortArticles = (articles: ArticlesVm | undefined): IMergedPosts[] => {
     if (articles) {
@@ -55,7 +53,7 @@ const ArticlesLogic = (
     setNumberOfArticlesVisible((oldValue) => oldValue + 8);
   };
 
-  return { sortedArticles, multiplyNumbersOfArticles, isMobile, isTablet };
+  return { sortedArticles, multiplyNumbersOfArticles };
 };
 
 export default ArticlesLogic;

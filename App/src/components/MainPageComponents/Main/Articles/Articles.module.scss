@@ -2,6 +2,8 @@
 .articlesSite {
   width: 75%;
   @media (max-width: $tabletMaxWidth) {
+    display: flex;
+    padding: 16px;
     width: 100%;
   }
   display: flex;

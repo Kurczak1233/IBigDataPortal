@@ -18,13 +18,13 @@ const Articles = ({
   numberOfArticlesVisible,
   setNumberOfArticlesVisible,
 }: IArticles) => {
-  const { sortedArticles, multiplyNumbersOfArticles, isMobile, isTablet } =
-    ArticlesLogic(setNumberOfArticlesVisible, articles);
+  const { sortedArticles, multiplyNumbersOfArticles } = ArticlesLogic(
+    setNumberOfArticlesVisible,
+    articles
+  );
   return (
     <main className={styles.articlesSite}>
-      {!(isMobile || isTablet) && (
-        <div className={styles.headerTitle}>Articles</div>
-      )}
+      <div className={styles.headerTitle}>Articles</div>
       {articles ? (
         <>
           <main className={styles.mainWrapper}>
