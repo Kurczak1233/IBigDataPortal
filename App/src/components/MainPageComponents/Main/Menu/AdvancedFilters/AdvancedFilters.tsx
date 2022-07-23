@@ -22,9 +22,8 @@ const AdvancedFilters = ({
   marginTop,
   marginBottom,
 }: IAdvancedFilters) => {
-  const { errors, register, handleSubmit, filterByText } = AdvancedFiltersLogic(
-    { setArticles, initialArticlesModel }
-  );
+  const { errors, register, handleSubmit, filterByText, resetAllFilters } =
+    AdvancedFiltersLogic({ setArticles, initialArticlesModel });
   return (
     <div
       className={styles.menu}
@@ -47,8 +46,15 @@ const AdvancedFilters = ({
       <div className={styles.buttonWrapper}>
         <SmallButton
           text={"Apply"}
+          width={"40%"}
           onClick={handleSubmit(filterByText)}
           color={AvailableIntensiveColors.IntensiveGreen}
+        />
+        <SmallButton
+          text={"Reset"}
+          width={"40%"}
+          onClick={resetAllFilters}
+          color={AvailableIntensiveColors.IntensiveRed}
         />
       </div>
       {showSeparationBar && (

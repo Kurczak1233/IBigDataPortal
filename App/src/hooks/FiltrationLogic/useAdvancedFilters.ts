@@ -68,7 +68,8 @@ export const useAdvancedFilters = (
   const handleResetAdvancedFilters = useCallback(() => {
     setValue("description", "");
     dispatch(updateResetAdvancedFilters(false));
-  }, [dispatch, setValue]);
+    setArticles(initialArticlesModel);
+  }, [dispatch, initialArticlesModel, setArticles, setValue]);
 
   useEffect(() => {
     if (advancedFiltersShouldReset) {
@@ -76,5 +77,11 @@ export const useAdvancedFilters = (
     }
   }, [advancedFiltersShouldReset, handleResetAdvancedFilters]);
 
-  return { handleSubmit, errors, register, filterByText };
+  return {
+    handleSubmit,
+    errors,
+    register,
+    filterByText,
+    handleResetAdvancedFilters,
+  };
 };
