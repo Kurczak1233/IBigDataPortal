@@ -1,5 +1,4 @@
 import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
-import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 import Articles from "./Articles/Articles";
 import styles from "./MainPageMain.module.scss";
 import MainPageMainLogic from "./MainPageMainLogic";
@@ -15,16 +14,22 @@ const MainPageMain = () => {
     setNumberOfArticlesVisible,
     articlesLoaded,
     user,
+    isMobile,
+    isTablet,
   } = MainPageMainLogic();
-
-  const { isMobile, isTablet } = useAppResponsiveness();
 
   if (!articlesLoaded) {
     return <BigLoader />;
   }
   return (
     <div className={styles.mainPage}>
-      {(isTablet || isMobile) && <MobileFiltrationsTopBar />}
+      {(isTablet || isMobile) && (
+        <MobileFiltrationsTopBar
+          user={user}
+          setArticles={setArticles}
+          initialArticlesModel={initialArticlesModel}
+        />
+      )}
       <div className={styles.content}>
         <Articles
           articles={articles}

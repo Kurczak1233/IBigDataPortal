@@ -10,17 +10,25 @@ import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
 interface IAdvancedFilters {
   setArticles: React.Dispatch<React.SetStateAction<ArticlesVm | undefined>>;
   initialArticlesModel: ArticlesVm | undefined;
+  showSeparationBar?: boolean;
+  marginTop?: string;
+  marginBottom?: string;
 }
 
 const AdvancedFilters = ({
   setArticles,
   initialArticlesModel,
+  showSeparationBar = true,
+  marginTop,
+  marginBottom,
 }: IAdvancedFilters) => {
-  const { errors, register, handleSubmit, filterByText } = AdvancedFiltersLogic(
-    { setArticles, initialArticlesModel }
-  );
+  const { errors, register, handleSubmit, filterByText, resetAllFilters } =
+    AdvancedFiltersLogic({ setArticles, initialArticlesModel });
   return (
-    <div className={styles.menu}>
+    <div
+      className={styles.menu}
+      style={{ marginBottom: marginBottom, marginTop: marginTop }}
+    >
       <MenuComponentTitle name={"Advanced filters"} />
       <div>Text filtration</div>
       <InputWithLabel
@@ -38,11 +46,20 @@ const AdvancedFilters = ({
       <div className={styles.buttonWrapper}>
         <SmallButton
           text={"Apply"}
+          width={"40%"}
           onClick={handleSubmit(filterByText)}
           color={AvailableIntensiveColors.IntensiveGreen}
         />
+        <SmallButton
+          text={"Reset"}
+          width={"40%"}
+          onClick={resetAllFilters}
+          color={AvailableIntensiveColors.IntensiveRed}
+        />
       </div>
-      <SeparationSmallBar marginBottom="16px" marginTop="16px" />
+      {showSeparationBar && (
+        <SeparationSmallBar marginBottom="16px" marginTop="16px" />
+      )}
     </div>
   );
 };

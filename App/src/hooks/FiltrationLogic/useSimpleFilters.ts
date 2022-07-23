@@ -7,7 +7,7 @@ import {
 } from "redux/slices/resetFiltersFlags";
 import { RootState } from "redux/store";
 
-export const useSimpleFilterByArticles = (
+export const useSimpleFilters = (
   setArticles: React.Dispatch<React.SetStateAction<ArticlesVm | undefined>>,
   initialArticlesModel: ArticlesVm | undefined
 ) => {
