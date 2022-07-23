@@ -8,7 +8,6 @@ const UserDetailsComponentLogic = () => {
     handleMoveToThePortal,
     appUser,
     accessTokenWasSet,
-    wasLoaded,
     hasAccessToPortal,
   } = useLoginFlow();
   return {
@@ -18,7 +17,6 @@ const UserDetailsComponentLogic = () => {
     handleMoveToThePortal,
     appUser,
     accessTokenWasSet,
-    wasLoaded,
     hasAccessToPortal,
   };
 };

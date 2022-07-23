@@ -1,5 +1,4 @@
 import { useAdvancedFilters } from "hooks/FiltrationLogic/useAdvancedFilters";
-import { useSimpleFilters } from "hooks/FiltrationLogic/useSimpleFilters";
 import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";

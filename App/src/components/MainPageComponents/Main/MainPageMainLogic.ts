@@ -1,9 +1,14 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { getAllArticles } from "api/ArticlesClient";
+import { getApplicationUser } from "api/UsersClient";
 import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
 import { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateApplicationUser,
+  removeApplicationUser,
+} from "redux/slices/applicationUserSlice";
 import { RootState } from "redux/store";
 
 const MainPageLogic = () => {
@@ -17,17 +22,35 @@ const MainPageLogic = () => {
     (state: RootState) => state.accessTokenReducer.accessTokenSet
   );
   const { isMobile, isTablet } = useAppResponsiveness();
-
+  const dispatch = useDispatch();
   const { isLoading, user } = useAuth0();
+
+  const getUserDetailsAndSaveThoseInRedux = useCallback(async () => {
+    if (accessTokenWasSet && user) {
+      try {
+        let user = await getApplicationUser();
+        //First registered (and initialized user)
+        if (!user) {
+          user = await getApplicationUser();
+        }
+        dispatch(updateApplicationUser(user));
+      } catch {
+        return;
+      }
+    } else if (user === undefined) {
+      dispatch(removeApplicationUser());
+    }
+  }, [accessTokenWasSet, user, dispatch]);
 
   const handleGetAllArticles = useCallback(async () => {
     if ((accessTokenWasSet && user) || user === undefined) {
       const articles = await getAllArticles();
+      getUserDetailsAndSaveThoseInRedux();
       setArticles(articles);
       setOriginalArticlesModel({ ...articles });
       setArticlesLoaded(true);
     }
-  }, [accessTokenWasSet, user]);
+  }, [accessTokenWasSet, getUserDetailsAndSaveThoseInRedux, user]);
 
   useEffect(() => {
     if (!isLoading) {
