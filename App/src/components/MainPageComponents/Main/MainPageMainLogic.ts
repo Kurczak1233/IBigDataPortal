@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { getAllArticles } from "api/ArticlesClient";
+import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -15,6 +16,7 @@ const MainPageLogic = () => {
   const accessTokenWasSet = useSelector(
     (state: RootState) => state.accessTokenReducer.accessTokenSet
   );
+  const { isMobile, isTablet } = useAppResponsiveness();
 
   const { isLoading, user } = useAuth0();
 
@@ -41,6 +43,8 @@ const MainPageLogic = () => {
     setNumberOfArticlesVisible,
     articlesLoaded,
     user,
+    isMobile,
+    isTablet,
   };
 };
 
