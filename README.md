@@ -8,7 +8,7 @@ The portal administration has reached MVP point of the development.
 
 From now on the process will consists on implementing features which give business value into the project and are required by the users.
 The users / testers give feedback and annotations about the page flow and functionalities.
-Some bugs may be still found due to the minor limit of the human resources.
+Some bugs may be still found due to the minor of the human resources.
 
 # MVP 1.0
 On the portal you are able to overlook the posts that are divided in 3 categories: Job offers, posts, edu links. Posts may be available to see for unregisted user.
