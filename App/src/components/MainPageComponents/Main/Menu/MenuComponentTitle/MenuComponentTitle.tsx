@@ -2,11 +2,20 @@ import styles from "./MenuComponentTitle.module.scss";
 
 interface IMenuComponentTitle {
   name: string;
+  marginTop?: string;
+  marginBottom?: string;
 }
 
-const MenuComponentTitle = ({ name }: IMenuComponentTitle) => {
+const MenuComponentTitle = ({
+  name,
+  marginTop,
+  marginBottom,
+}: IMenuComponentTitle) => {
   return (
-    <div className={styles.wrapper}>
+    <div
+      style={{ marginBottom: marginBottom, marginTop: marginTop }}
+      className={styles.wrapper}
+    >
       <div className={styles.name}>{name}</div>
       <div className={styles.menuTitleBottomBar} />
     </div>
