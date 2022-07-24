@@ -20,23 +20,23 @@ const MainPageFooter = () => {
           <SmallButton
             marginTop="8px"
             text={"About us"}
-            width={isMobile ? "110px" : "141px"}
+            width={isMobile ? "80px" : "141px"}
             onClick={navigateToAboutUs}
             color={AvailableIntensiveColors.IntensiveOrange}
           />
           <SmallButton
             marginTop="8px"
             marginLeft="16px"
-            width={isMobile ? "110px" : "141px"}
+            width={isMobile ? "80px" : "141px"}
             marginRight="16px"
             text={"Contact"}
             onClick={navigateToContact}
             color={AvailableIntensiveColors.IntensiveOrange}
           />
           <SmallButton
-            width={isMobile ? "110px" : "141px"}
+            width={isMobile ? "80px" : "141px"}
             marginTop="8px"
-            text={"Privacy policy"}
+            text={isMobile ? "Privacy" : "Privacy policy"}
             onClick={navigateToPrivacyPolicy}
             color={AvailableIntensiveColors.IntensiveOrange}
           />

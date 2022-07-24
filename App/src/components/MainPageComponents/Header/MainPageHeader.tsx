@@ -17,7 +17,6 @@ const MainPageHeader = () => {
     handleMoveToThePortal,
     appUser,
     hasAccessToPortal,
-    wasLoaded,
     dropdownRef,
     navigateToRoleRequest,
   } = MainPageHeaderLogic();
@@ -38,7 +37,7 @@ const MainPageHeader = () => {
               height={30}
               alt={"Burger menu"}
             />
-            {isDropdownOpen && wasLoaded && (
+            {isDropdownOpen && (
               <div className={styles.dropdown} ref={dropdownRef}>
                 {appUser ? (
                   <>

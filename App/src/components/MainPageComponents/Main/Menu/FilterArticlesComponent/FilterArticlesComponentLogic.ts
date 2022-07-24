@@ -1,5 +1,5 @@
 import { useAppResponsiveness } from "hooks/useAppResponsiveness";
-import { useSimpleFilterByArticles } from "hooks/useSimpleFilterByArticles";
+import { useSimpleFilters } from "hooks/FiltrationLogic/useSimpleFilters";
 import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
 
 interface IFilterArticlesComponentLogic {
@@ -18,7 +18,7 @@ const FilterArticlesComponentLogic = ({
     filterByPosts,
     filterByEduLinks,
     filterByJobOffers,
-  } = useSimpleFilterByArticles(setArticles, initialArticlesModel);
+  } = useSimpleFilters(setArticles, initialArticlesModel);
   const { isMobile, isTablet, smallerLaptop } = useAppResponsiveness();
 
   return {

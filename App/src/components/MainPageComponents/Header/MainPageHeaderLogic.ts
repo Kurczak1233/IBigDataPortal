@@ -42,7 +42,6 @@ const MainPageHeaderLogic = () => {
     handleMoveToThePortal,
     appUser,
     accessTokenWasSet,
-    wasLoaded,
     hasAccessToPortal,
   } = useLoginFlow();
 
@@ -57,7 +56,6 @@ const MainPageHeaderLogic = () => {
     dropdownRef,
     isDropdownOpen,
     accessTokenWasSet,
-    wasLoaded,
     hasAccessToPortal,
     navigateToRoleRequest,
   };
