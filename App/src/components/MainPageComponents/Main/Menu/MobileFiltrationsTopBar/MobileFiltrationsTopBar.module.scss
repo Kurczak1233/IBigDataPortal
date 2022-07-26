@@ -8,6 +8,9 @@
       background: $less-intensive-green;
       border-radius: 6px;
       padding: 16px;
+      @media (max-width: $mobileMaxSize) {
+        margin-top: 0px;
+      }
       .topBarWrapper {
         display: flex;
         justify-content: space-evenly;
