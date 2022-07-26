@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { updateAccessTokenWasSet } from "redux/slices/accessTokenSlice";
 import { calculateCooperationsLenght } from "redux/slices/cooperationsSlice";
 import { RootState } from "redux/store";
+import { useBaseUrl } from "./useBaseUrl";
 
 export const useLoginFlow = () => {
   const appUser = useSelector(
@@ -19,7 +20,7 @@ export const useLoginFlow = () => {
   const accessTokenWasSet = useSelector(
     (state: RootState) => state.accessTokenReducer.accessTokenSet
   );
-
+  const baseUrl = useBaseUrl();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -33,7 +34,7 @@ export const useLoginFlow = () => {
   };
 
   const handleLogOut = () => {
-    logout();
+    logout({ returnTo: baseUrl });
     dispatch(updateAccessTokenWasSet(false));
   };
 

@@ -29,12 +29,58 @@
         margin-bottom: 16px;
         text-align: justify;
         width: 60%;
+        @media (max-width: $tabletMaxWidth) {
+          width: 90%;
+        }
+      }
+      .erasmusIcon {
+        height: 300px;
+        @media (max-width: $tabletMaxWidth) {
+          height: 180px;
+        }
+        @media (max-width: $mobileMaxSize) {
+          width: 80vw;
+          height: auto;
+        }
       }
     }
     .logos {
       display: flex;
       align-items: center;
       justify-content: space-evenly;
+      .logoImageAth {
+        height: 275px;
+      }
+      .logoImageBNT {
+        height: 200px;
+      }
+      .logoImageKiev {
+        height: 225px;
+      }
+      .logoImageNis {
+        height: 275px;
+      }
+      @media (max-width: $mediumLaptopSizeMaxWidth) {
+        flex-wrap: wrap;
+        justify-items: center;
+        a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        img {
+          margin-top: 32px;
+          max-height: 200px;
+          height: auto !important;
+        }
+      }
+      @media (max-width: $mobileMaxSize) {
+        img {
+          margin-top: 32px;
+          max-width: 90%;
+          height: auto !important;
+        }
+      }
     }
   }
 }

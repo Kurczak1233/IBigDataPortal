@@ -18,6 +18,10 @@ const MainPageHeaderLogic = () => {
     navigate(`/${roleContactRoute}`);
   };
 
+  const naviagteToHome = () => {
+    navigate(`/`);
+  };
+
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const checkIfClickedOutside = (e: { target: any }) => {
@@ -55,6 +59,7 @@ const MainPageHeaderLogic = () => {
     appUser,
     dropdownRef,
     isDropdownOpen,
+    naviagteToHome,
     accessTokenWasSet,
     hasAccessToPortal,
     navigateToRoleRequest,
