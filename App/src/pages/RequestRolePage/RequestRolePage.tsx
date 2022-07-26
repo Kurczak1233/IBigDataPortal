@@ -52,7 +52,11 @@ const RequestRolePage = () => {
               />
             </div>
             <div className={styles.right}>
-              <img src={IBigWorldLogo} alt="Platform logo" width={"70%"} />
+              <img
+                className={styles.logo}
+                src={IBigWorldLogo}
+                alt="Platform logo"
+              />
             </div>
           </div>
         </div>

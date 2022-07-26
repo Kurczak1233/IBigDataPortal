@@ -51,25 +51,27 @@ const ArticleComment = ({
           ? itemComment.commentatorEmail
           : itemComment.commentatorNickname}
         {isAbleToEditComment && (
-          <div className={styles.buttons}>
-            <SmallButton
-              text={editMode ? "Save" : "Edit"}
-              width={"75px"}
-              marginRight={"16px"}
-              onClick={
-                editMode
-                  ? handleSubmit(updateCommentContent)
-                  : handleEditComment
-              }
-              color={componentIntensiveColour}
-            />
-            <SmallButton
-              text={"Delete"}
-              width={"75px"}
-              marginRight={"16px"}
-              onClick={handleOpenDeleteModal}
-              color={AvailableIntensiveColors.IntensiveRed}
-            />
+          <div className={styles.rightSide}>
+            <div className={styles.buttons}>
+              <SmallButton
+                text={editMode ? "Save" : "Edit"}
+                width={"75px"}
+                marginLeft={"16px"}
+                onClick={
+                  editMode
+                    ? handleSubmit(updateCommentContent)
+                    : handleEditComment
+                }
+                color={componentIntensiveColour}
+              />
+              <SmallButton
+                text={"Delete"}
+                width={"75px"}
+                marginLeft={"16px"}
+                onClick={handleOpenDeleteModal}
+                color={AvailableIntensiveColors.IntensiveRed}
+              />
+            </div>
             <span className={styles.date}>
               {format(
                 new Date(itemComment.createdOn),

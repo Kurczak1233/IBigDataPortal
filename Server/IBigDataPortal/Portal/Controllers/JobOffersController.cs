@@ -49,7 +49,7 @@ public class JobOffersController : ControllerBase
     public async Task<ActionResult> UpdateJobOffer(UpdateJobOfferRequest body)
     {
         await _authorizationService.AuthorizeAsync(_user.UserClaims, body,
-            new ArticlesAuthorizationRequirement(body.JobOfferId, _user.Id, ArticlesEnum.EduLink));
+            new ArticlesAuthorizationRequirement(body.JobOfferId, _user.Id, ArticlesEnum.JobOffer));
         await _mediator.Send(new UpdateJobOfferCommand(body, _user.Id));
         return Ok();
     }
@@ -58,7 +58,7 @@ public class JobOffersController : ControllerBase
     public async Task<ActionResult> DeleteJobOffer(int itemId)
     {
         await _authorizationService.AuthorizeAsync(_user.UserClaims, itemId,
-            new ArticlesAuthorizationRequirement(itemId, _user.Id, ArticlesEnum.EduLink));
+            new ArticlesAuthorizationRequirement(itemId, _user.Id, ArticlesEnum.JobOffer));
         await _mediator.Send(new DeleteJobOfferCommand(itemId, _user.Id));
         return Ok();
     }
