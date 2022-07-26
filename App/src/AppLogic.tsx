@@ -6,6 +6,7 @@ import { ToastModes } from "interfaces/General/ToastModes";
 import NoAccessComponent from "components/common/NoAccessComponent/NoAccessComponent";
 import { updateAccessTokenWasSet } from "redux/slices/accessTokenSlice";
 import { useDispatch } from "react-redux";
+import { useBaseUrl } from "hooks/useBaseUrl";
 
 const AppLogic = () => {
   const [isAccessTokenSet, setIsAccessTokenSet] = useState<boolean>(false);
@@ -14,6 +15,7 @@ const AppLogic = () => {
     useAuth0();
 
   const dispatch = useDispatch();
+  const baseUrl = useBaseUrl();
 
   const handleInitServerMiddleWareInOrderToCheckUser = useCallback(async () => {
     dispatch(updateAccessTokenWasSet(true));
@@ -46,11 +48,11 @@ const AppLogic = () => {
             mode: ToastModes.Error,
             description: "Cannot authorize, please login again",
           });
-          logout({ returnTo: "/" });
+          logout({ returnTo: baseUrl });
         }
       );
     },
-    [logout]
+    [baseUrl, logout]
   );
 
   const getAccessTokenAndSetAxiosInterceptors = useCallback(async () => {
