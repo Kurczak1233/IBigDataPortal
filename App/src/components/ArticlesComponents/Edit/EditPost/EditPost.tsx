@@ -87,7 +87,6 @@ const EditPost = ({
         </div>
       </div>
       <SmallButton
-        marginTop="16px"
         text={"Save"}
         color={AvailableIntensiveColors.IntensiveGreen}
         onClick={handleSubmit(submitForm)}

@@ -20,26 +20,41 @@
     @include fontSizeSeventy;
     margin-top: 5%;
     display: flex;
+    text-align: center;
     justify-content: center;
     align-items: center;
     color: $clear-white;
+    @media (max-width: $tabletMaxWidth) {
+      @include fontSizeThirtyTwo;
+      margin-bottom: 16px;
+      padding: 0 16px;
+    }
   }
   .subtitle {
     @include fontSizeThirtyTwo;
     margin-top: 32px;
     display: flex;
     justify-content: center;
+    text-align: center;
     align-items: center;
     color: $clear-white;
+    @media (max-width: $tabletMaxWidth) {
+      @include fontSizeTwentyFive;
+      padding: 0 16px;
+    }
   }
   .envelopeWrapper {
     width: 60%;
     height: 55%;
+    min-height: 400px;
     margin-top: 5vh;
     margin-left: 10vw;
     border-radius: 40px;
     box-shadow: 1px 1px 40px $black-box-shadow;
     background-color: $clear-white;
+    @media (max-width: $tabletMaxWidth) {
+      width: 80%;
+    }
     .wrapper {
       display: flex;
       align-items: center;
@@ -53,6 +68,13 @@
           @include fontSizeThirtyTwo;
           color: $intensive-green;
           margin-bottom: 16px;
+          @media (max-width: $tabletMaxWidth) {
+            @include fontSizeTwentyFive;
+            text-align: center;
+          }
+        }
+        @media (max-width: $tabletMaxWidth) {
+          width: 60vw;
         }
       }
       .right {
@@ -63,11 +85,18 @@
         align-items: center;
         justify-content: space-evenly;
         border-radius: 40px;
+        @media (max-width: $tabletMaxWidth) {
+          display: none;
+        }
+        .logo {
+          width: 70%;
+          min-width: 200px;
+        }
       }
     }
   }
   .return {
-    flex: 1; 
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;

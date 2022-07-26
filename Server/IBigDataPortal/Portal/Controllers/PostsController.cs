@@ -50,7 +50,7 @@ public class PostsController : ControllerBase
     public async Task<ActionResult> UpdatePost(UpdatePostRequest body)
     {
         await _authorizationService.AuthorizeAsync(_user.UserClaims, body,
-            new ArticlesAuthorizationRequirement(body.PostId, _user.Id, ArticlesEnum.EduLink));
+            new ArticlesAuthorizationRequirement(body.PostId, _user.Id, ArticlesEnum.Post));
         await _mediator.Send(new UpdatePostCommand(body, _user.Id));
         return Ok();
     }
@@ -59,7 +59,7 @@ public class PostsController : ControllerBase
     public async Task<ActionResult> DeletePost(int itemId)
     {
         await _authorizationService.AuthorizeAsync(_user.UserClaims, itemId,
-            new ArticlesAuthorizationRequirement(itemId, _user.Id, ArticlesEnum.EduLink));
+            new ArticlesAuthorizationRequirement(itemId, _user.Id, ArticlesEnum.Post));
         await _mediator.Send(new DeletePostCommand(itemId, _user.Id));
         return Ok();
     }
