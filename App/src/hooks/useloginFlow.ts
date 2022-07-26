@@ -33,7 +33,7 @@ export const useLoginFlow = () => {
   };
 
   const handleLogOut = () => {
-    logout();
+    logout({ returnTo: "/" });
     dispatch(updateAccessTokenWasSet(false));
   };
 

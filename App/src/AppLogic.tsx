@@ -46,7 +46,7 @@ const AppLogic = () => {
             mode: ToastModes.Error,
             description: "Cannot authorize, please login again",
           });
-          logout();
+          logout({ returnTo: "/" });
         }
       );
     },

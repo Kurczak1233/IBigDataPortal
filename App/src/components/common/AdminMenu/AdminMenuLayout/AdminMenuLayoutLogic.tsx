@@ -13,7 +13,7 @@ const CommonPageMenuLogic = () => {
   };
 
   const handleLogout = () => {
-    logout();
+    logout({ returnTo: "/" });
     dispatch(updateAccessTokenWasSet(false));
   };
 
