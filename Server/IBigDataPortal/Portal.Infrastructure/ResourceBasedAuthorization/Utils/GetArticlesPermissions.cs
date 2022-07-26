@@ -62,12 +62,12 @@ public class GetArticlesPermissions
         var connection = await _connectionService.GetAsync();
 
         var sql =
-            $@"SELECT {Dbo.Posts}.{nameof(Post.CommentsPermissions)},
-                {Dbo.Posts}.{nameof(Post.ArticleVisibilityPermissions)},
-                {Dbo.Posts}.{nameof(Post.CreatorId)},
-                {Dbo.Posts}.{nameof(Post.IsDeleted)}
+            $@"SELECT {nameof(Post.CommentsPermissions)},
+                {nameof(Post.ArticleVisibilityPermissions)},
+                {nameof(Post.CreatorId)},
+                {nameof(Post.IsDeleted)}
                 FROM {Dbo.Posts}
-                WHERE {Dbo.Posts}.{nameof(Post.Id)} = @articleId";
+                WHERE {nameof(Post.Id)} = @articleId";
         return await connection.QuerySingleOrDefaultAsync<ArticlePermissionsModel>(sql,
             new
             {

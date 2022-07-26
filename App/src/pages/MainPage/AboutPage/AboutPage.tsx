@@ -25,7 +25,11 @@ const AboutPage = () => {
             <div className={styles.bigDataSubtitle}>
               <b>BigData Smart JobHub</b>
             </div>
-            <img src={ErasmusIcon} height={300} alt="Erasmus plus" />
+            <img
+              src={ErasmusIcon}
+              className={styles.erasmusIcon}
+              alt="Erasmus plus"
+            />
             <div className={styles.mainTextColumn}>
               &emsp;<b>iBIGworld</b> is focused on identifying and ways to use
               Big Data as raised from via the internet, including social
@@ -85,16 +89,16 @@ const AboutPage = () => {
           </div>
           <div className={styles.logos}>
             <a href={"https://www.ath.bielsko.pl"}>
-              <img src={ATHLogo} height={275} alt="Erasmus plus" />
+              <img className={styles.logoImageAth} src={ATHLogo} alt="ATH" />
             </a>
             <a href={"https://www.unibit.bg"}>
-              <img src={BNTLogo} height={200} alt="Erasmus plus" />
+              <img className={styles.logoImageBNT} src={BNTLogo} alt="BNT" />
             </a>
             <a href={"http://www.univ.kiev.ua"}>
-              <img src={KievLogo} height={225} alt="Erasmus plus" />
+              <img className={styles.logoImageKiev} src={KievLogo} alt="Kiev" />
             </a>
             <a href={"https://www.ni.ac.rs"}>
-              <img src={NisLogo} height={275} alt="Erasmus plus" />
+              <img src={NisLogo} alt="Nis" className={styles.logoImageNis} />
             </a>
           </div>
         </div>

@@ -24,7 +24,8 @@
   .dropdown {
     position: absolute;
     top: 40px;
-    width: 280px;
+    max-width: 280px;
+    width: 80vw;
     border-radius: 8px;
     background-color: $clear-white;
     padding: 16px;

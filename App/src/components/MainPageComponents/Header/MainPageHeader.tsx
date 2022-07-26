@@ -15,6 +15,7 @@ const MainPageHeader = () => {
     handleClickOnRegister,
     handleLogOut,
     handleMoveToThePortal,
+    naviagteToHome,
     appUser,
     hasAccessToPortal,
     dropdownRef,
@@ -29,7 +30,7 @@ const MainPageHeader = () => {
         </header>
       ) : (
         <div className={styles.mobileHeader}>
-          <img src={Logo} height={80} alt={"Logo"} />
+          <img src={Logo} height={80} alt={"Logo"} onClick={naviagteToHome} />
           <div className={styles.image}>
             <img
               onClick={handleDropdownOpen}
