@@ -18,7 +18,7 @@ const MainPageLoginBarLogic = () => {
   };
 
   const handleLogOut = () => {
-    logout();
+    logout({ returnTo: "/" });
   };
 
   const handleMoveToThePortal = () => {
