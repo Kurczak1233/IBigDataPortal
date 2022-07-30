@@ -7,7 +7,7 @@ interface IPostsHeader {
 }
 
 const PostsHeader = ({ iconsColour }: IPostsHeader) => {
-  const { getApppriateImagesColours } = PostsHeaderLogic();
+  const { getApppriateImagesColours, isTablet, isMobile } = PostsHeaderLogic();
   const icons = getApppriateImagesColours(iconsColour);
   return (
     <div className={styles.header}>
@@ -27,10 +27,17 @@ const PostsHeader = ({ iconsColour }: IPostsHeader) => {
           alt={"Feather icon"}
         />
       </div>
-      <div className={styles.creator}>
-        Creator
-        <img className={styles.image} src={icons.lampIcon} alt={"Lamp icon"} />
-      </div>
+      {!(isTablet || isMobile) && (
+        <div className={styles.creator}>
+          Creator
+          <img
+            className={styles.image}
+            src={icons.lampIcon}
+            alt={"Lamp icon"}
+          />
+        </div>
+      )}
+      <div className={styles.emptyButtonSpace} />
     </div>
   );
 };

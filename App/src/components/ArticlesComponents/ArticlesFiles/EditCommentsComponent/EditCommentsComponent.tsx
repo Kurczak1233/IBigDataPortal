@@ -2,6 +2,7 @@ import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { UserRoles } from "enums/UserRoles";
 import styles from "./EditCommentsComponent.module.scss";
+import EditCommentsComponentLogic from "./EditCommentsComponentLogic";
 interface IEditCommentsComponent {
   visibilityPermissions: UserRoles;
   setCommentsPermission: React.Dispatch<React.SetStateAction<UserRoles>>;
@@ -17,11 +18,14 @@ const EditCommentsComponent = ({
   setCommentsPermission,
   intensiveColor,
 }: IEditCommentsComponent) => {
+  const { isSmallerThanMediumLaptop } = EditCommentsComponentLogic();
+
   return (
     <div className={styles.permissionsWrapper}>
       <div className={styles.commentsSection}>
         <div className={styles.title}>Comments</div>
         <SmallButton
+          width={isSmallerThanMediumLaptop ? "85px" : "150px"}
           text={"Users"}
           onClick={() => setCommentsPermission(UserRoles.StudentOrBusiness)}
           marginBottom={"12px"}
@@ -33,6 +37,7 @@ const EditCommentsComponent = ({
         />
         <SmallButton
           text={"Employee"}
+          width={isSmallerThanMediumLaptop ? "85px" : "150px"}
           onClick={() => setCommentsPermission(UserRoles.Employee)}
           marginBottom={"12px"}
           color={
@@ -42,6 +47,7 @@ const EditCommentsComponent = ({
           }
         />
         <SmallButton
+          width={isSmallerThanMediumLaptop ? "85px" : "150px"}
           text={"HEI"}
           onClick={() => setCommentsPermission(UserRoles.HEI)}
           marginBottom={"12px"}
@@ -52,6 +58,7 @@ const EditCommentsComponent = ({
           }
         />
         <SmallButton
+          width={isSmallerThanMediumLaptop ? "85px" : "150px"}
           text={"Prohibited"}
           onClick={() => setCommentsPermission(UserRoles.Nobody)}
           marginBottom={"12px"}
@@ -59,8 +66,9 @@ const EditCommentsComponent = ({
         />
       </div>
       <div className={styles.articleSection}>
-        <div className={styles.title}>Article visibility</div>
+        <div className={styles.title}>Visibility</div>
         <SmallButton
+          width={isSmallerThanMediumLaptop ? "85px" : "150px"}
           text={"Everybody"}
           onClick={() => setVisibilityPermissions(UserRoles.Everybody)}
           marginBottom={"12px"}
@@ -71,6 +79,7 @@ const EditCommentsComponent = ({
           }
         />
         <SmallButton
+          width={isSmallerThanMediumLaptop ? "85px" : "150px"}
           text={"Users"}
           onClick={() => setVisibilityPermissions(UserRoles.StudentOrBusiness)}
           marginBottom={"12px"}
@@ -81,6 +90,7 @@ const EditCommentsComponent = ({
           }
         />
         <SmallButton
+          width={isSmallerThanMediumLaptop ? "85px" : "150px"}
           text={"Employee"}
           onClick={() => setVisibilityPermissions(UserRoles.Employee)}
           marginBottom={"12px"}
@@ -91,6 +101,7 @@ const EditCommentsComponent = ({
           }
         />
         <SmallButton
+          width={isSmallerThanMediumLaptop ? "85px" : "150px"}
           text={"HEI"}
           onClick={() => setVisibilityPermissions(UserRoles.HEI)}
           marginBottom={"12px"}

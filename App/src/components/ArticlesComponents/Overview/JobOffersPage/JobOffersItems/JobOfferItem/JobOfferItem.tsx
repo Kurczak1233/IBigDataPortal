@@ -29,6 +29,8 @@ const JobOfferItem = ({
     isDeleteModalOpen,
     setIsDeleteModalOpen,
     handleDeleteItem,
+    isTablet,
+    isMobile,
   } = JobOfferItemLogic(jobOffer, setJobOffers);
   return (
     <>
@@ -51,11 +53,13 @@ const JobOfferItem = ({
           {format(new Date(jobOffer.posted), standarizedFormat)}
         </div>
         <div className={styles.title}>{jobOffer.title}</div>
-        <div className={styles.creator}>{jobOffer.userEmail}</div>
+        {!(isTablet || isMobile) && (
+          <div className={styles.creator}>{jobOffer.userEmail}</div>
+        )}
         <SmallButton
           itemRef={deleteItemButton}
           text={"Delete"}
-          width={"100px"}
+          width={!(isTablet || isMobile) ? "100px" : "75px"}
           onClick={openDeleteModal}
           color={AvailableIntensiveColors.IntensiveRed}
         />

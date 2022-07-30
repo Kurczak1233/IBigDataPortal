@@ -30,8 +30,11 @@
     overflow-x: auto;
   }
   .comments {
-    margin-left: 32px;
     max-height: 260px;
     overflow-x: auto;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
   }
 }

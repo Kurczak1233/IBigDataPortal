@@ -1,0 +1,10 @@
+@import "styles/Commons.scss";
+.mobileHeader {
+  background-color: $less-intensive-green;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  padding-left: 32px;
+  padding-right: 32px;
+  justify-content: space-between;
+}

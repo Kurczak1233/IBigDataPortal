@@ -5,6 +5,7 @@ import {
   articlesRoute,
   jobOffersRoute,
 } from "constants/apiRoutes";
+import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
 import { useRef, useState } from "react";
@@ -19,7 +20,7 @@ const JobOfferItemLogic = (
   const navigate = useNavigate();
   const deleteItemButton = useRef<HTMLDivElement>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
-
+  const { isTablet, isMobile } = useAppResponsiveness();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const naviateToItemOverview = (post: JobOfferViewModel, e: any) => {
     if (
@@ -68,6 +69,8 @@ const JobOfferItemLogic = (
     handleDeleteItem,
     isDeleteModalOpen,
     setIsDeleteModalOpen,
+    isTablet,
+    isMobile,
   };
 };
 

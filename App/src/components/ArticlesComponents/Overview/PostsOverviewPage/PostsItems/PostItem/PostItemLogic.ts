@@ -5,6 +5,7 @@ import {
   articlesRoute,
   postsRoute,
 } from "constants/apiRoutes";
+import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
 import { useRef, useState } from "react";
@@ -16,6 +17,7 @@ const PostItemLogic = (
     | React.Dispatch<React.SetStateAction<PostViewModel[] | undefined>>
     | undefined
 ) => {
+  const { isTablet, isMobile } = useAppResponsiveness();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const deleteItemButton = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -67,6 +69,8 @@ const PostItemLogic = (
     handleDeleteItem,
     openDeleteModal,
     deleteItemButton,
+    isTablet,
+    isMobile,
   };
 };
 

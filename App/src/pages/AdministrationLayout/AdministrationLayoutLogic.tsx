@@ -21,12 +21,14 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { UserRoles } from "enums/UserRoles";
+import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 
 const AdministrationLayoutLogic = () => {
   const { pathname } = useLocation();
   const appUser = useSelector(
     (states: RootState) => states.applicationUserReducer.user
   );
+  const { isTablet, isMobile } = useAppResponsiveness();
 
   const administrationRoutes = [
     {
@@ -72,7 +74,7 @@ const AdministrationLayoutLogic = () => {
     },
   ];
 
-  return { administrationRoutes };
+  return { administrationRoutes, isTablet, isMobile };
 };
 
 export default AdministrationLayoutLogic;

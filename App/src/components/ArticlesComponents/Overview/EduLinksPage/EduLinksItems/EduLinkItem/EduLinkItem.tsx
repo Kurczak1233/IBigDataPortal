@@ -29,6 +29,8 @@ const EduLinkItem = ({
     setIsDeleteModalOpen,
     handleDeleteItem,
     deleteItemButton,
+    isTablet,
+    isMobile,
   } = EduLinkItemLogic(eduLink, setEduLinks);
   return (
     <>
@@ -51,11 +53,13 @@ const EduLinkItem = ({
           {format(new Date(eduLink.posted), standarizedFormat)}
         </div>
         <div className={styles.title}>{eduLink.title}</div>
-        <div className={styles.creator}>{eduLink.userEmail}</div>
+        {!(isTablet || isMobile) && (
+          <div className={styles.creator}>{eduLink.userEmail}</div>
+        )}
         <SmallButton
           itemRef={deleteItemButton}
           text={"Delete"}
-          width={"100px"}
+          width={!(isTablet || isMobile) ? "100px" : "75px"}
           onClick={openDeleteModal}
           color={AvailableIntensiveColors.IntensiveRed}
         />
