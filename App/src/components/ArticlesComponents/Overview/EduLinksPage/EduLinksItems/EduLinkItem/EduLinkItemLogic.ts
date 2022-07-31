@@ -5,6 +5,7 @@ import {
   articlesRoute,
   eduLinksRoute,
 } from "constants/apiRoutes";
+import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { EduLinkViewModel } from "interfaces/Models/EduLinks/ViewModels/EduLinkViewModel";
 import { useRef, useState } from "react";
@@ -16,6 +17,7 @@ const EduLinkItemLogic = (
     | React.Dispatch<React.SetStateAction<EduLinkViewModel[] | undefined>>
     | undefined
 ) => {
+  const { isTablet, isMobile, isVerySmallMobile } = useAppResponsiveness();
   const navigate = useNavigate();
   const deleteItemButton = useRef<HTMLDivElement>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
@@ -67,6 +69,9 @@ const EduLinkItemLogic = (
     setIsDeleteModalOpen,
     handleDeleteItem,
     deleteItemButton,
+    isTablet,
+    isMobile,
+    isVerySmallMobile,
   };
 };
 

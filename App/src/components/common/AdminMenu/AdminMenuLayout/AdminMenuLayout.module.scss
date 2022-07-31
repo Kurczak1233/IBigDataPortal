@@ -3,6 +3,9 @@
   height: 100%;
   width: 100%;
   display: flex;
+  @media (max-width: $tabletMaxWidth) {
+    flex-direction: column;
+  }
   .menu {
     width: 255px;
     display: flex;
@@ -45,8 +48,14 @@
     background: $clear-white;
     border-radius: 50px 0 0 50px;
     padding: 50px;
+    @media (max-width: $tabletMaxWidth) {
+      padding: 32px;
+    }
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    @media (max-width: $mediumLaptopSize) {
+      overflow-y: auto;
+    }
   }
 }

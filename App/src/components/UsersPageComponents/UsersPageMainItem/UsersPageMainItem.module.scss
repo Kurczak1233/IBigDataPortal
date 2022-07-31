@@ -14,11 +14,17 @@
     @include nicknameColumnWidth;
     display: flex;
     align-items: center;
+    span {
+      @include wrapLongText;
+    }
   }
   .email {
     @include emailColumnWidth;
     display: flex;
     align-items: center;
+    span {
+      @include wrapLongText;
+    }
   }
   .role {
     @include roleColumnWidth;

@@ -1,7 +1,11 @@
-@import 'styles/Commons.scss';
+@import "styles/Commons.scss";
 .filesWrapper {
   width: 50%;
   margin-top: 32px;
+  @media (max-width: 500px) {
+    margin-top: 32px;
+    width: 100%;
+  }
   .filesHeader {
     display: flex;
     align-items: center;

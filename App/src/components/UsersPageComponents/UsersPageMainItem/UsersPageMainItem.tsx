@@ -22,6 +22,8 @@ const UsersPageMainItem = ({ user, setAllPortalUsers }: IUsersPageMainItem) => {
     isDeleteUserModalOpen,
     setIsDeleteUserModalOpen,
     isDeleteIconVisible,
+    isMobile,
+    isTablet,
   } = UsersPageMainItemLogic(setAllPortalUsers, user.id);
   return (
     <div className={styles.item}>
@@ -37,65 +39,82 @@ const UsersPageMainItem = ({ user, setAllPortalUsers }: IUsersPageMainItem) => {
         description={"delete this user"}
         handleConfirmAction={() => deleteUser(user.id)}
       />
-      <div className={styles.nickname}>{user.nickname}</div>
-      <div className={styles.email}>{user.email}</div>
-      <div className={styles.role}>
-        <SmallButton
-          width={"23%"}
-          text={"Admin"}
-          onClick={() => handleOpenModal(UserRoles["Admin"])}
-          marginRight={"1%"}
-          color={
-            user.userRoleId === UserRoles["Admin"]
-              ? AvailableIntensiveColors.IntensiveOrange
-              : AvailableIntensiveColors.InactiveGray
-          }
-        />{" "}
-        <SmallButton
-          width="23%"
-          text={"HEI"}
-          marginRight={"1%"}
-          onClick={() => handleOpenModal(UserRoles["HEI"])}
-          color={
-            user.userRoleId === UserRoles["HEI"]
-              ? AvailableIntensiveColors.IntensiveOrange
-              : AvailableIntensiveColors.InactiveGray
-          }
-        />
-        <SmallButton
-          width="23%"
-          text={"Employee"}
-          marginRight={"1%"}
-          onClick={() => handleOpenModal(UserRoles["Employee"])}
-          color={
-            user.userRoleId === UserRoles["Employee"]
-              ? AvailableIntensiveColors.IntensiveOrange
-              : AvailableIntensiveColors.InactiveGray
-          }
-        />
-        <SmallButton
-          width="23%"
-          text={"Stu/Bus"}
-          marginRight={"1%"}
-          onClick={() => handleOpenModal(UserRoles["StudentOrBusiness"])}
-          color={
-            user.userRoleId === UserRoles["StudentOrBusiness"]
-              ? AvailableIntensiveColors.IntensiveOrange
-              : AvailableIntensiveColors.InactiveGray
-          }
-        />
+      <div className={styles.nickname}>
+        <span>{user.nickname}</span>
       </div>
-      <div className={styles.deleteButtonWrapper}>
-        {isDeleteIconVisible && (
-          <SmallButton
-            text={"Delete"}
-            onClick={handleOpenDeleteModal}
-            width={"100px"}
-            marginLeft={"16px"}
-            color={AvailableIntensiveColors.IntensiveRed}
-          />
-        )}
+      <div className={styles.email}>
+        <span>{user.email}</span>
       </div>
+      {!(isMobile || isTablet) ? (
+        <>
+          <div className={styles.role}>
+            <SmallButton
+              width={"23%"}
+              text={"Admin"}
+              onClick={() => handleOpenModal(UserRoles["Admin"])}
+              marginRight={"1%"}
+              color={
+                user.userRoleId === UserRoles["Admin"]
+                  ? AvailableIntensiveColors.IntensiveOrange
+                  : AvailableIntensiveColors.InactiveGray
+              }
+            />{" "}
+            <SmallButton
+              width="23%"
+              text={"HEI"}
+              marginRight={"1%"}
+              onClick={() => handleOpenModal(UserRoles["HEI"])}
+              color={
+                user.userRoleId === UserRoles["HEI"]
+                  ? AvailableIntensiveColors.IntensiveOrange
+                  : AvailableIntensiveColors.InactiveGray
+              }
+            />
+            <SmallButton
+              width="23%"
+              text={"Employee"}
+              marginRight={"1%"}
+              onClick={() => handleOpenModal(UserRoles["Employee"])}
+              color={
+                user.userRoleId === UserRoles["Employee"]
+                  ? AvailableIntensiveColors.IntensiveOrange
+                  : AvailableIntensiveColors.InactiveGray
+              }
+            />
+            <SmallButton
+              width="23%"
+              text={"Stu/Bus"}
+              marginRight={"1%"}
+              onClick={() => handleOpenModal(UserRoles["StudentOrBusiness"])}
+              color={
+                user.userRoleId === UserRoles["StudentOrBusiness"]
+                  ? AvailableIntensiveColors.IntensiveOrange
+                  : AvailableIntensiveColors.InactiveGray
+              }
+            />
+          </div>
+          <div className={styles.deleteButtonWrapper}>
+            {isDeleteIconVisible && (
+              <SmallButton
+                text={"Delete"}
+                onClick={handleOpenDeleteModal}
+                width={"100px"}
+                marginLeft={"16px"}
+                color={AvailableIntensiveColors.IntensiveRed}
+              />
+            )}
+          </div>
+        </>
+      ) : (
+        <SmallButton
+          text={"Roles"}
+          width={"75px"}
+          onClick={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+          color={AvailableIntensiveColors.IntensiveOrange}
+        />
+      )}
     </div>
   );
 };
