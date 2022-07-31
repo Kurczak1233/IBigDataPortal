@@ -1,4 +1,4 @@
-@import 'styles/Commons.scss';
+@import "styles/Commons.scss";
 .item {
   @include fontSizeSixteen;
   color: $black-text;
@@ -24,6 +24,9 @@
     @include creatorColumnWidth;
     display: flex;
     align-items: center;
+    span {
+      @include wrapLongText;
+    }
   }
 }
 .item:global(#articlePostffe9bd):hover {

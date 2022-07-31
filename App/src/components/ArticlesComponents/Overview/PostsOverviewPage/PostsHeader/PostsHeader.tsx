@@ -7,18 +7,21 @@ interface IPostsHeader {
 }
 
 const PostsHeader = ({ iconsColour }: IPostsHeader) => {
-  const { getApppriateImagesColours } = PostsHeaderLogic();
+  const { getApppriateImagesColours, isTablet, isMobile, isVerySmallMobile } =
+    PostsHeaderLogic();
   const icons = getApppriateImagesColours(iconsColour);
   return (
     <div className={styles.header}>
-      <div className={styles.posted}>
-        Posted
-        <img
-          className={styles.image}
-          src={icons.calendarIcon}
-          alt={"Calendar icon"}
-        />
-      </div>
+      {!isVerySmallMobile && (
+        <div className={styles.posted}>
+          Posted
+          <img
+            className={styles.image}
+            src={icons.calendarIcon}
+            alt={"Calendar icon"}
+          />
+        </div>
+      )}
       <div className={styles.title}>
         Title
         <img
@@ -27,10 +30,17 @@ const PostsHeader = ({ iconsColour }: IPostsHeader) => {
           alt={"Feather icon"}
         />
       </div>
-      <div className={styles.creator}>
-        Creator
-        <img className={styles.image} src={icons.lampIcon} alt={"Lamp icon"} />
-      </div>
+      {!(isTablet || isMobile) && (
+        <div className={styles.creator}>
+          Creator
+          <img
+            className={styles.image}
+            src={icons.lampIcon}
+            alt={"Lamp icon"}
+          />
+        </div>
+      )}
+      <div className={styles.emptyButtonSpace} />
     </div>
   );
 };

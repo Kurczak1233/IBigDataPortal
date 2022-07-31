@@ -6,6 +6,7 @@ import {
   mediumLaptopSizeMaxWidth,
   mediumLaptopSize,
   desktopSize,
+  smallMobileMaxSize,
 } from "constants/mediaSizes";
 import { useMediaQuery } from "react-responsive";
 
@@ -32,5 +33,16 @@ export const useAppResponsiveness = () => {
   const isMobile = useMediaQuery({
     maxWidth: mobileMaxSize,
   });
-  return { isMobile, smallerLaptop, isDesktop, isTablet, isMediumLaptop };
+
+  const isVerySmallMobile = useMediaQuery({
+    maxWidth: smallMobileMaxSize,
+  });
+  return {
+    isMobile,
+    smallerLaptop,
+    isDesktop,
+    isTablet,
+    isMediumLaptop,
+    isVerySmallMobile,
+  };
 };

@@ -2,6 +2,7 @@ import { updateUserRole } from "api/UserRoleClient";
 import { deleteUser } from "api/UsersClient";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import { forbiddenException } from "constants/errorExceptions";
+import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { ApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import { useMemo, useState } from "react";
@@ -13,6 +14,7 @@ const UsersPageMainItem = (
   setAllPortalUsers: React.Dispatch<React.SetStateAction<ApplicationUser[]>>,
   userId: number
 ) => {
+  const { isMobile, isTablet } = useAppResponsiveness();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isDeleteUserModalOpen, setIsDeleteUserModalOpen] =
     useState<boolean>(false);
@@ -90,6 +92,8 @@ const UsersPageMainItem = (
     isDeleteUserModalOpen,
     setIsDeleteUserModalOpen,
     isDeleteIconVisible,
+    isMobile,
+    isTablet,
   };
 };
 

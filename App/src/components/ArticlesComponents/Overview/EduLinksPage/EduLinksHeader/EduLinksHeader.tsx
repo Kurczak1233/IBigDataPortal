@@ -7,18 +7,21 @@ interface IEduLinksHeader {
 }
 
 const EduLinksHeader = ({ iconsColour }: IEduLinksHeader) => {
-  const { getApppriateImagesColours } = EduLinksHeaderLogic();
+  const { getApppriateImagesColours, isTablet, isMobile, isVerySmallMobile } =
+    EduLinksHeaderLogic();
   const icons = getApppriateImagesColours(iconsColour);
   return (
     <div className={styles.header}>
-      <div className={styles.posted}>
-        Posted
-        <img
-          className={styles.image}
-          src={icons.calendarIcon}
-          alt={"Calendar icon"}
-        />
-      </div>
+      {!isVerySmallMobile && (
+        <div className={styles.posted}>
+          Posted
+          <img
+            className={styles.image}
+            src={icons.calendarIcon}
+            alt={"Calendar icon"}
+          />
+        </div>
+      )}
       <div className={styles.title}>
         Title
         <img
@@ -27,10 +30,17 @@ const EduLinksHeader = ({ iconsColour }: IEduLinksHeader) => {
           alt={"Feather icon"}
         />
       </div>
-      <div className={styles.creator}>
-        Creator
-        <img className={styles.image} src={icons.lampIcon} alt={"Lamp icon"} />
-      </div>
+      {!(isTablet || isMobile) && (
+        <div className={styles.creator}>
+          Creator
+          <img
+            className={styles.image}
+            src={icons.lampIcon}
+            alt={"Lamp icon"}
+          />
+        </div>
+      )}
+      <div className={styles.emptyButtonSpace} />
     </div>
   );
 };
