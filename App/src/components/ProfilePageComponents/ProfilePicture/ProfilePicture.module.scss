@@ -1,4 +1,4 @@
-@import 'styles/Commons.scss';
+@import "styles/Commons.scss";
 .buttons {
   display: flex;
 }
@@ -11,6 +11,10 @@
   align-items: center;
   justify-content: center;
   object-fit: cover;
+  @media (max-width: 500px) {
+    width: 200px;
+    height: 200px;
+  }
 }
 .pictureWrapper {
   display: flex;
@@ -18,6 +22,9 @@
   align-items: center;
   width: 250px;
   margin-bottom: 32px;
+  @media (max-width: 500px) {
+    width: 200px;
+  }
 }
 .noPictureWrapper {
   width: 250px;
@@ -29,4 +36,8 @@
   justify-content: center;
   background-color: $gray-box-shadow;
   @include fontSizeSixteen;
+  @media (max-width: 500px) {
+    width: 200px;
+    height: 200px;
+  }
 }

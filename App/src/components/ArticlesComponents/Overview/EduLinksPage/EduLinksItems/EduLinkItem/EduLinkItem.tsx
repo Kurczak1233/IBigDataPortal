@@ -31,6 +31,7 @@ const EduLinkItem = ({
     deleteItemButton,
     isTablet,
     isMobile,
+    isVerySmallMobile,
   } = EduLinkItemLogic(eduLink, setEduLinks);
   return (
     <>
@@ -49,9 +50,11 @@ const EduLinkItem = ({
         id={interactive ? `articlePost${eduLinkColor}` : ""}
         onClick={(e) => naviateToItemOverview(eduLink, e)}
       >
-        <div className={styles.posted}>
-          {format(new Date(eduLink.posted), standarizedFormat)}
-        </div>
+        {!isVerySmallMobile && (
+          <div className={styles.posted}>
+            {format(new Date(eduLink.posted), standarizedFormat)}
+          </div>
+        )}
         <div className={styles.title}>{eduLink.title}</div>
         {!(isTablet || isMobile) && (
           <div className={styles.creator}>{eduLink.userEmail}</div>

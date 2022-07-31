@@ -9,6 +9,9 @@
   @media (max-width: $tabletMaxWidth) {
     width: 50%;
   }
+  @media (max-width: $smallMobileMaxSize) {
+    width: 90%;
+  }
 }
 @mixin creatorColumnWidth {
   width: 35%;

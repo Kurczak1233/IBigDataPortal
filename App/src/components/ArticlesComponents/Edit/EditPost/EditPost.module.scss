@@ -23,11 +23,20 @@
   margin-top: 32px;
   flex: 1;
   display: flex;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+  }
   .files {
     width: 47%;
     padding-right: 16px;
     max-height: 260px;
     overflow-x: auto;
+    @media (max-width: 500px) {
+      margin-top: 32px;
+      width: 100%;
+    }
   }
   .comments {
     max-height: 260px;
@@ -36,5 +45,9 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    @media (max-width: 500px) {
+      margin-top: 32px;
+      width: 100%;
+    }
   }
 }

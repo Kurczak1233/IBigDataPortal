@@ -17,7 +17,7 @@ const EduLinkItemLogic = (
     | React.Dispatch<React.SetStateAction<EduLinkViewModel[] | undefined>>
     | undefined
 ) => {
-  const { isTablet, isMobile } = useAppResponsiveness();
+  const { isTablet, isMobile, isVerySmallMobile } = useAppResponsiveness();
   const navigate = useNavigate();
   const deleteItemButton = useRef<HTMLDivElement>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
@@ -71,6 +71,7 @@ const EduLinkItemLogic = (
     deleteItemButton,
     isTablet,
     isMobile,
+    isVerySmallMobile,
   };
 };
 

@@ -31,6 +31,7 @@ const JobOfferItem = ({
     handleDeleteItem,
     isTablet,
     isMobile,
+    isVerySmallMobile,
   } = JobOfferItemLogic(jobOffer, setJobOffers);
   return (
     <>
@@ -49,9 +50,11 @@ const JobOfferItem = ({
         id={interactive ? `articlePost${jobOfferColor}` : ""}
         onClick={(e) => naviateToItemOverview(jobOffer, e)}
       >
-        <div className={styles.posted}>
-          {format(new Date(jobOffer.posted), standarizedFormat)}
-        </div>
+        {!isVerySmallMobile && (
+          <div className={styles.posted}>
+            {format(new Date(jobOffer.posted), standarizedFormat)}
+          </div>
+        )}
         <div className={styles.title}>{jobOffer.title}</div>
         {!(isTablet || isMobile) && (
           <div className={styles.creator}>{jobOffer.userEmail}</div>

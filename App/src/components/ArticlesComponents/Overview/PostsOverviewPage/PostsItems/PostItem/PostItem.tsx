@@ -28,6 +28,7 @@ const PostItem = ({
     openDeleteModal,
     deleteItemButton,
     isTablet,
+    isVerySmallMobile,
     isMobile,
   } = PostItemLogic(post, setPosts);
   return (
@@ -47,9 +48,11 @@ const PostItem = ({
         id={interactive ? `articlePost${postsColor}` : ""}
         onClick={(e) => naviateToItemOverview(post, e)}
       >
-        <div className={styles.posted}>
-          {format(new Date(post.posted), standarizedFormat)}
-        </div>
+        {!isVerySmallMobile && (
+          <div className={styles.posted}>
+            {format(new Date(post.posted), standarizedFormat)}
+          </div>
+        )}
         <div className={styles.title}>{post.title}</div>
         {!(isTablet || isMobile) && (
           <div className={styles.creator}>

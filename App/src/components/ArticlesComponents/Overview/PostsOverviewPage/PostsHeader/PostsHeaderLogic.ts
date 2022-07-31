@@ -11,7 +11,7 @@ import GreenLampIcon from "public/PostsIcons/GreenLampIcon.svg";
 import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 
 const PostsHeaderLogic = () => {
-  const { isTablet, isMobile } = useAppResponsiveness();
+  const { isTablet, isMobile, isVerySmallMobile } = useAppResponsiveness();
   const getApppriateImagesColours = (color: AvailableIntensiveColors) => {
     switch (color) {
       case AvailableIntensiveColors.IntensiveOrange: {
@@ -44,7 +44,7 @@ const PostsHeaderLogic = () => {
       }
     }
   };
-  return { getApppriateImagesColours, isTablet, isMobile };
+  return { getApppriateImagesColours, isTablet, isMobile, isVerySmallMobile };
 };
 
 export default PostsHeaderLogic;

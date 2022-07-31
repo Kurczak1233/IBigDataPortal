@@ -19,6 +19,9 @@
       width: 40%;
       display: flex;
       align-items: center;
+      span {
+        @include wrapLongText;
+      }
     }
     .createdOn {
       width: 30%;
@@ -28,14 +31,14 @@
   }
 }
 .item {
- @include itemContent;
+  @include itemContent;
 }
 .itemNoHover {
   @include itemContent;
 }
-.item:hover  {
-    cursor: pointer;
-    @include greenShadow;
+.item:hover {
+  cursor: pointer;
+  @include greenShadow;
 }
 .deleteButtonWrapper {
   width: 100px;

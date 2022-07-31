@@ -7,19 +7,21 @@ interface IEduLinksHeader {
 }
 
 const EduLinksHeader = ({ iconsColour }: IEduLinksHeader) => {
-  const { getApppriateImagesColours, isTablet, isMobile } =
+  const { getApppriateImagesColours, isTablet, isMobile, isVerySmallMobile } =
     EduLinksHeaderLogic();
   const icons = getApppriateImagesColours(iconsColour);
   return (
     <div className={styles.header}>
-      <div className={styles.posted}>
-        Posted
-        <img
-          className={styles.image}
-          src={icons.calendarIcon}
-          alt={"Calendar icon"}
-        />
-      </div>
+      {!isVerySmallMobile && (
+        <div className={styles.posted}>
+          Posted
+          <img
+            className={styles.image}
+            src={icons.calendarIcon}
+            alt={"Calendar icon"}
+          />
+        </div>
+      )}
       <div className={styles.title}>
         Title
         <img

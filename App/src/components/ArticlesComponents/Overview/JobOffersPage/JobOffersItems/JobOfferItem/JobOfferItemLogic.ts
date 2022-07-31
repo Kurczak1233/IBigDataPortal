@@ -20,7 +20,7 @@ const JobOfferItemLogic = (
   const navigate = useNavigate();
   const deleteItemButton = useRef<HTMLDivElement>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
-  const { isTablet, isMobile } = useAppResponsiveness();
+  const { isTablet, isMobile, isVerySmallMobile } = useAppResponsiveness();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const naviateToItemOverview = (post: JobOfferViewModel, e: any) => {
     if (
@@ -71,6 +71,7 @@ const JobOfferItemLogic = (
     setIsDeleteModalOpen,
     isTablet,
     isMobile,
+    isVerySmallMobile,
   };
 };
 

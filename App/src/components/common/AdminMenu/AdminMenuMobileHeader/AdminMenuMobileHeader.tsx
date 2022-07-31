@@ -2,21 +2,40 @@ import styles from "./AdminMenuMobileHeader.module.scss";
 import Logo from "public/IBigWorldLogo.png";
 import AdminMenuMobileHeaderLogic from "./AdminMenuMobileHeaderLogic";
 import BurgerMenu from "public/MobileAppIcons/GreenBurgerMenu.svg";
+import MenuComponentTitle from "components/MainPageComponents/Main/Menu/MenuComponentTitle/MenuComponentTitle";
+import MobileNavigationItem from "./MobileNavigationItem/MobileNavigationItem";
 
 const AdminMenuMobileHeader = () => {
-  const { naviagteToHome, handleDropdownOpen, isDropdownOpen } =
-    AdminMenuMobileHeaderLogic();
+  const {
+    naviagteToHome,
+    handleDropdownOpen,
+    isDropdownOpen,
+    administrationRoutes,
+    dropdownRef,
+  } = AdminMenuMobileHeaderLogic();
+
   return (
     <header className={styles.mobileHeader}>
       <img src={Logo} height={80} alt={"Logo"} onClick={naviagteToHome} />
-      <div className={styles.image}>
+      <div className={styles.image} ref={dropdownRef}>
         <img
           onClick={handleDropdownOpen}
           src={BurgerMenu}
-          height={30}
+          className={styles.burgerMenu}
           alt={"Burger menu"}
         />
-        {isDropdownOpen && <div>Hello motherfu</div>}
+        {isDropdownOpen && (
+          <div className={styles.dropdownWrapper}>
+            <MenuComponentTitle name={"Navigation"} />
+            {administrationRoutes.map((item) => {
+              return (
+                item.hasPermissionsToView && (
+                  <MobileNavigationItem key={item.routeUrl} item={item} />
+                )
+              );
+            })}
+          </div>
+        )}
       </div>
     </header>
   );

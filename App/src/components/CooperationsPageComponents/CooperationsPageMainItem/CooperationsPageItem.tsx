@@ -25,7 +25,9 @@ const CooperationsPageItem = ({
       onClick={(e) => clickActive && navigateToDetails(e)}
     >
       <div className={styles.itemsWrapper}>
-        <div className={styles.creatorEmail}>{cooperation.creatorEmail}</div>
+        <div className={styles.creatorEmail}>
+          <span>{cooperation.creatorEmail}</span>
+        </div>
         <div className={styles.createdOn}>
           {format(new Date(cooperation.createdOn), standarizedFormat)}
         </div>

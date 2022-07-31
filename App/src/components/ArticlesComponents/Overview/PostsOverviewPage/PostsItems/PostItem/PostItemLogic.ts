@@ -17,7 +17,7 @@ const PostItemLogic = (
     | React.Dispatch<React.SetStateAction<PostViewModel[] | undefined>>
     | undefined
 ) => {
-  const { isTablet, isMobile } = useAppResponsiveness();
+  const { isTablet, isMobile, isVerySmallMobile } = useAppResponsiveness();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const deleteItemButton = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -71,6 +71,7 @@ const PostItemLogic = (
     deleteItemButton,
     isTablet,
     isMobile,
+    isVerySmallMobile,
   };
 };
 

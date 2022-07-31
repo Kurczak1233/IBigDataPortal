@@ -1,12 +1,14 @@
 import { roleContactRoute } from "constants/apiRoutes";
+import { useCheckIfItemShouldBeClosed } from "hooks/ClickEvents/useCheckIfItemShouldBeClosed";
 import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 import { useLoginFlow } from "hooks/useloginFlow";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MainPageHeaderLogic = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  useCheckIfItemShouldBeClosed(isDropdownOpen, dropdownRef, setIsDropdownOpen);
   const navigate = useNavigate();
   const { isMobile } = useAppResponsiveness();
 
@@ -22,22 +24,22 @@ const MainPageHeaderLogic = () => {
     navigate(`/`);
   };
 
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const checkIfClickedOutside = (e: { target: any }) => {
-      if (
-        isDropdownOpen &&
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", checkIfClickedOutside);
-    return () => {
-      document.removeEventListener("mousedown", checkIfClickedOutside);
-    };
-  }, [isDropdownOpen]);
+  // useEffect(() => {
+  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //   const checkIfClickedOutside = (e: { target: any }) => {
+  //     if (
+  //       isDropdownOpen &&
+  //       dropdownRef.current &&
+  //       !dropdownRef.current.contains(e.target)
+  //     ) {
+  //       setIsDropdownOpen(false);
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", checkIfClickedOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", checkIfClickedOutside);
+  //   };
+  // }, [isDropdownOpen]);
 
   const {
     handleClickOnLogin,

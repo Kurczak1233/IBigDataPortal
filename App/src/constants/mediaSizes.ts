@@ -6,3 +6,4 @@ export const smallLaptopWidth = "1024px";
 export const tabletMaxWidth = "1023px";
 export const tabletWidth = "768px";
 export const mobileMaxSize = "767px";
+export const smallMobileMaxSize = "360px";
