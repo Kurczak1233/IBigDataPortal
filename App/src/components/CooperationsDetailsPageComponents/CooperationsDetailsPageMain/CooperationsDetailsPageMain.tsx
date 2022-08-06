@@ -4,9 +4,11 @@ import CooperationsDetailsPageMainLogic from "./CooperationsDetailsPageMainLogic
 import styles from "./CooperationsDetailsPageMain.module.scss";
 import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
+import { format } from "date-fns";
+import { standarizedFormat } from "constants/dateFormats";
 
 const CooperationsDetailsPageMain = () => {
-  const { selectedCooperation, returnBack } =
+  const { selectedCooperation, returnBack, isMobile } =
     CooperationsDetailsPageMainLogic();
 
   if (!selectedCooperation) {
@@ -21,6 +23,14 @@ const CooperationsDetailsPageMain = () => {
         archived={selectedCooperation?.isArchived}
         clickActive={false}
       />
+      {isMobile && (
+        <>
+          <div className={styles.header}>Created on</div>
+          <div className={styles.createdOn}>
+            {format(new Date(selectedCooperation.createdOn), standarizedFormat)}
+          </div>
+        </>
+      )}
       <div className={styles.header}>Description</div>
       <div className={styles.description}>
         {selectedCooperation.description}

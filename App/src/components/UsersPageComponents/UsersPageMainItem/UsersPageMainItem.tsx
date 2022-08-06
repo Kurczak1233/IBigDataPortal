@@ -3,6 +3,7 @@ import ConfirmActionModal from "components/common/Modals/ConfirmActionModal/Conf
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { UserRoles } from "enums/UserRoles";
 import { ApplicationUser } from "interfaces/Models/Users/IApplicationUser";
+import UsersActionsDropdown from "./UsersActionsDropdown/UsersActionsDropdown";
 import styles from "./UsersPageMainItem.module.scss";
 import UsersPageMainItemLogic from "./UsersPageMainItemLogic";
 
@@ -11,7 +12,10 @@ interface IUsersPageMainItem {
   setAllPortalUsers: React.Dispatch<React.SetStateAction<ApplicationUser[]>>;
 }
 
-const UsersPageMainItem = ({ user, setAllPortalUsers }: IUsersPageMainItem) => {
+const UsersPageMainItem = ({
+  user: applicationUser,
+  setAllPortalUsers,
+}: IUsersPageMainItem) => {
   const {
     handleUpdateUserRole,
     isModalOpen,
@@ -24,75 +28,79 @@ const UsersPageMainItem = ({ user, setAllPortalUsers }: IUsersPageMainItem) => {
     isDeleteIconVisible,
     isMobile,
     isTablet,
-  } = UsersPageMainItemLogic(setAllPortalUsers, user.id);
+    smallerLaptop,
+    user,
+  } = UsersPageMainItemLogic(setAllPortalUsers, applicationUser.id);
   return (
     <div className={styles.item}>
       <ConfirmActionModal
         isConfimActionModalOpen={isModalOpen}
         setIsConfirmActionModalOpen={setIsModalOpen}
         description={"change this role"}
-        handleConfirmAction={() => handleUpdateUserRole(user.id)}
+        handleConfirmAction={() => handleUpdateUserRole(applicationUser.id)}
       />
       <ConfirmActionModal
         isConfimActionModalOpen={isDeleteUserModalOpen}
         setIsConfirmActionModalOpen={setIsDeleteUserModalOpen}
         description={"delete this user"}
-        handleConfirmAction={() => deleteUser(user.id)}
+        handleConfirmAction={() => deleteUser(applicationUser.id)}
       />
       <div className={styles.nickname}>
-        <span>{user.nickname}</span>
+        <span>{applicationUser.nickname}</span>
       </div>
       <div className={styles.email}>
-        <span>{user.email}</span>
+        <span>{applicationUser.email}</span>
       </div>
-      {!(isMobile || isTablet) ? (
+      {!(isMobile || isTablet || smallerLaptop) ? (
         <>
-          <div className={styles.role}>
-            <SmallButton
-              width={"23%"}
-              text={"Admin"}
-              onClick={() => handleOpenModal(UserRoles["Admin"])}
-              marginRight={"1%"}
-              color={
-                user.userRoleId === UserRoles["Admin"]
-                  ? AvailableIntensiveColors.IntensiveOrange
-                  : AvailableIntensiveColors.InactiveGray
-              }
-            />{" "}
-            <SmallButton
-              width="23%"
-              text={"HEI"}
-              marginRight={"1%"}
-              onClick={() => handleOpenModal(UserRoles["HEI"])}
-              color={
-                user.userRoleId === UserRoles["HEI"]
-                  ? AvailableIntensiveColors.IntensiveOrange
-                  : AvailableIntensiveColors.InactiveGray
-              }
-            />
-            <SmallButton
-              width="23%"
-              text={"Employee"}
-              marginRight={"1%"}
-              onClick={() => handleOpenModal(UserRoles["Employee"])}
-              color={
-                user.userRoleId === UserRoles["Employee"]
-                  ? AvailableIntensiveColors.IntensiveOrange
-                  : AvailableIntensiveColors.InactiveGray
-              }
-            />
-            <SmallButton
-              width="23%"
-              text={"Stu/Bus"}
-              marginRight={"1%"}
-              onClick={() => handleOpenModal(UserRoles["StudentOrBusiness"])}
-              color={
-                user.userRoleId === UserRoles["StudentOrBusiness"]
-                  ? AvailableIntensiveColors.IntensiveOrange
-                  : AvailableIntensiveColors.InactiveGray
-              }
-            />
-          </div>
+          {user?.email !== applicationUser.email && (
+            <div className={styles.role}>
+              <SmallButton
+                width={"23%"}
+                text={"Admin"}
+                onClick={() => handleOpenModal(UserRoles["Admin"])}
+                marginRight={"1%"}
+                color={
+                  applicationUser.userRoleId === UserRoles["Admin"]
+                    ? AvailableIntensiveColors.IntensiveOrange
+                    : AvailableIntensiveColors.InactiveGray
+                }
+              />{" "}
+              <SmallButton
+                width="23%"
+                text={"HEI"}
+                marginRight={"1%"}
+                onClick={() => handleOpenModal(UserRoles["HEI"])}
+                color={
+                  applicationUser.userRoleId === UserRoles["HEI"]
+                    ? AvailableIntensiveColors.IntensiveOrange
+                    : AvailableIntensiveColors.InactiveGray
+                }
+              />
+              <SmallButton
+                width="23%"
+                text={"Employee"}
+                marginRight={"1%"}
+                onClick={() => handleOpenModal(UserRoles["Employee"])}
+                color={
+                  applicationUser.userRoleId === UserRoles["Employee"]
+                    ? AvailableIntensiveColors.IntensiveOrange
+                    : AvailableIntensiveColors.InactiveGray
+                }
+              />
+              <SmallButton
+                width="23%"
+                text={"Stu/Bus"}
+                marginRight={"1%"}
+                onClick={() => handleOpenModal(UserRoles["StudentOrBusiness"])}
+                color={
+                  applicationUser.userRoleId === UserRoles["StudentOrBusiness"]
+                    ? AvailableIntensiveColors.IntensiveOrange
+                    : AvailableIntensiveColors.InactiveGray
+                }
+              />
+            </div>
+          )}
           <div className={styles.deleteButtonWrapper}>
             {isDeleteIconVisible && (
               <SmallButton
@@ -106,13 +114,10 @@ const UsersPageMainItem = ({ user, setAllPortalUsers }: IUsersPageMainItem) => {
           </div>
         </>
       ) : (
-        <SmallButton
-          text={"Roles"}
-          width={"75px"}
-          onClick={function (): void {
-            throw new Error("Function not implemented.");
-          }}
-          color={AvailableIntensiveColors.IntensiveOrange}
+        <UsersActionsDropdown
+          handleOpenModal={handleOpenModal}
+          user={applicationUser}
+          handleOpenDeleteModal={handleOpenDeleteModal}
         />
       )}
     </div>

@@ -23,6 +23,10 @@ const AdminMenuMobileHeaderLogic = () => {
     setIsDropdownOpen(true);
   };
 
+  const handleCloseDropdown = () => {
+    setIsDropdownOpen(false);
+  };
+
   const navigate = useNavigate();
   const naviagteToHome = () => {
     navigate(`/`);
@@ -34,6 +38,7 @@ const AdminMenuMobileHeaderLogic = () => {
     isDropdownOpen,
     administrationRoutes,
     dropdownRef,
+    handleCloseDropdown,
   };
 };
 

@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { updateUserRole } from "api/UserRoleClient";
 import { deleteUser } from "api/UsersClient";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
@@ -14,7 +15,8 @@ const UsersPageMainItem = (
   setAllPortalUsers: React.Dispatch<React.SetStateAction<ApplicationUser[]>>,
   userId: number
 ) => {
-  const { isMobile, isTablet } = useAppResponsiveness();
+  const { isMobile, isTablet, smallerLaptop } = useAppResponsiveness();
+  const { user } = useAuth0();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isDeleteUserModalOpen, setIsDeleteUserModalOpen] =
     useState<boolean>(false);
@@ -94,6 +96,8 @@ const UsersPageMainItem = (
     isDeleteIconVisible,
     isMobile,
     isTablet,
+    smallerLaptop,
+    user,
   };
 };
 
