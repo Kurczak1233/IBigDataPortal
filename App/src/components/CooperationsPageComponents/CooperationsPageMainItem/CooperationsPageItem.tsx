@@ -45,7 +45,6 @@ const CooperationsPageItem = ({
             text={"Archive"}
             onClick={archiveItem}
             width={isMobile ? "70px" : "100px"}
-            marginLeft={isMobile ? "0" : "16px"}
             color={AvailableIntensiveColors.IntensiveRed}
           />
         </div>

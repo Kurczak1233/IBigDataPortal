@@ -20,8 +20,9 @@ const CooperationsPageItemLogic = (cooperation: CooperationVm) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const navigateToDetails = (e: any) => {
     if (
-      deleteItemButton.current &&
-      !deleteItemButton.current.contains(e.target)
+      (deleteItemButton.current &&
+        !deleteItemButton.current.contains(e.target)) ||
+      cooperation.isArchived
     ) {
       navigate(`${cooperation.id}/${detailsRoute}`);
     }

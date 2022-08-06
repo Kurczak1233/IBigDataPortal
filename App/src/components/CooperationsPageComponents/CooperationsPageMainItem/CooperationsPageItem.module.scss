@@ -10,13 +10,9 @@
   border-radius: 12px;
   height: 60px;
   padding: 0 16px;
-  padding-right: 32px;
   margin-top: 10px;
-  @media (max-width: $mobileMaxSize) {
-    padding-right: 16px;
-  }
   .itemsWrapper {
-    width: 100%;
+    width: 90%;
     display: flex;
     .createdOn {
       width: 30%;
@@ -45,7 +41,6 @@
 .deleteButtonWrapper {
   width: 100px;
   max-width: 100px;
-  margin-right: 16px;
   @media (max-width: $mobileMaxSize) {
     width: 70px;
     max-width: 70px;
