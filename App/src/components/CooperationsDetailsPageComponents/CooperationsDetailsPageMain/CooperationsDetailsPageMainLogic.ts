@@ -1,3 +1,4 @@
+import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -7,6 +8,7 @@ import { RootState } from "redux/store";
 const CooperationsDetailsPageMainLogic = () => {
   const dispatch = useDispatch();
   const { cooperationId } = useParams();
+  const { isMobile } = useAppResponsiveness();
   const selectedCooperation = useSelector(
     (state: RootState) => state.cooperationsReducer.selectedCoopreation
   );
@@ -23,7 +25,7 @@ const CooperationsDetailsPageMainLogic = () => {
     navigate(-1);
   };
 
-  return { selectedCooperation, returnBack };
+  return { selectedCooperation, returnBack, isMobile };
 };
 
 export default CooperationsDetailsPageMainLogic;

@@ -17,6 +17,9 @@
     span {
       @include wrapLongText;
     }
+    @media (max-width: 500px) {
+      display: none;
+    }
   }
   .email {
     @include emailColumnWidth;
@@ -24,6 +27,12 @@
     align-items: center;
     span {
       @include wrapLongText;
+    }
+    @media (max-width: $smallLaptopMaxWidth) {
+      width: 70%;
+    }
+    @media (max-width: 500px) {
+      width: 90%;
     }
   }
   .role {

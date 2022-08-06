@@ -7,6 +7,9 @@
   margin-bottom: 12px;
   padding: 0 12px;
   margin-right: 116px;
+  @media (max-width: $mobileMaxSize) {
+    width: 100%;
+  }
   .image {
     margin-left: 4px;
   }
@@ -14,6 +17,9 @@
     width: 40%;
     display: flex;
     align-items: center;
+    @media (max-width: $mobileMaxSize) {
+      width: 100%;
+    }
   }
   .createdOn {
     width: 30%;

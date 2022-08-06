@@ -10,3 +10,7 @@
 .separationBar {
   margin-top: 22px;
 }
+.createdOn {
+  @include fontSizeFourteen;
+  margin-top: 16px;
+}
