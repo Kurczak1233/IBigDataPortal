@@ -17,6 +17,8 @@ const FileIcon = ({ contentType }: IFileIcon) => {
       return <img src={PngIcon} alt="PNG" />;
     case "application/msword":
       return <img src={WordIcon} alt="Word" />;
+    case "application/vnd.oasis.opendocument.text":
+      return <img src={WordIcon} alt="Word" />;
     case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
       return <img src={WordIcon} alt="Word" />;
     case "application/vnd.ms-excel":
@@ -33,4 +35,5 @@ const FileIcon = ({ contentType }: IFileIcon) => {
       return <img src={JpgIcon} alt="File" />;
   }
 };
+
 export default FileIcon;

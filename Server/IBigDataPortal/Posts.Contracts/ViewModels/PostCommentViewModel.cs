@@ -9,4 +9,5 @@ public class PostCommentViewModel
     public string Content { get; set; }
     public bool IsDeleted { get; set; }
     public int CreatorId { get; set; }
+    public int ArticleType { get; set; }
 }
