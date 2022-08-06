@@ -56,7 +56,8 @@ public class FilesController : ControllerBase
     [HttpPut("File/{fileId}")]
     public async Task<IActionResult> RemoveFile(string fileId)
     {
-        //User file auth (admin / hei + employee)
+        await _authorizationService.AuthorizeAsync(_user.UserClaims, "",
+            new PortalAccessAuthorizationRequirement(_user.Id));
         await _mediator.Send(new DeleteFileCommand(fileId));
         return Ok();
     }

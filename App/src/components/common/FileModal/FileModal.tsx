@@ -61,13 +61,6 @@ const FileModal = ({
     multiple,
     currentFiles,
   });
-  // console.log(    setIsModalOpen,
-  //   moduleId,
-  //   acceptedFilesExtensions,
-  //   itemId,
-  //   updatePicture,
-  //   multiple,
-  //   currentFiles);
 
   return (
     <Modal
@@ -131,15 +124,21 @@ const FileModal = ({
         />
         <div className={styles.uploadedFiles}>
           <div className={styles.uploadedFilesText}>Uploaded files</div>
-          {myFiles.map((file) => {
-            return (
-              <FileModalItem
-                key={`${file.lastModified} ${file.name}`}
-                removeFile={removeFile}
-                file={file}
-              />
-            );
-          })}
+          {myFiles
+            .filter((item) =>
+              acceptedFilesExtensions !== imageExtensions
+                ? !item.type.includes("image")
+                : item.type.includes("image")
+            )
+            .map((file) => {
+              return (
+                <FileModalItem
+                  key={`${file.lastModified} ${file.name}`}
+                  removeFile={removeFile}
+                  file={file}
+                />
+              );
+            })}
         </div>
         <div className={styles.saveButton}>
           <SmallButton

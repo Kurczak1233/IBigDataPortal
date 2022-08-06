@@ -6,6 +6,7 @@ interface ICreatePostFilesLogic {
 
 const CreatePostFilesLogic = ({ setPostsFiles }: ICreatePostFilesLogic) => {
   const [isFileModalOpen, setIsFileModalOpen] = useState<boolean>(false);
+  const [comesFromImages, setComesFromDocuments] = useState<boolean>(true);
 
   const openFileModal = () => {
     setIsFileModalOpen(true);
@@ -29,6 +30,8 @@ const CreatePostFilesLogic = ({ setPostsFiles }: ICreatePostFilesLogic) => {
     isFileModalOpen,
     temporaryGatherFiles,
     handleRemoveFile,
+    comesFromImages,
+    setComesFromDocuments,
   };
 };
 
