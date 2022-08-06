@@ -5,7 +5,7 @@ import GreenEmailIcon from "public/GreenEmailIcon.svg";
 import { UsersPageMainHeaderLogic } from "./UsersPageMainHeaderLogic";
 
 const UsersPageMainHeader = () => {
-  const { isMobile, isTablet } = UsersPageMainHeaderLogic();
+  const { isMobile, isTablet, smallerLaptop } = UsersPageMainHeaderLogic();
   return (
     <div className={styles.header}>
       <div className={styles.nickname}>
@@ -20,7 +20,7 @@ const UsersPageMainHeader = () => {
         Email
         <img className={styles.image} src={GreenEmailIcon} alt={"Email icon"} />
       </div>
-      {!(isMobile || isTablet) ? (
+      {!(isMobile || isTablet || smallerLaptop) ? (
         <div className={styles.role}>
           Role
           <img

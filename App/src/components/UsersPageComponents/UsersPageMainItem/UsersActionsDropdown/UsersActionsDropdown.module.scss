@@ -1,0 +1,28 @@
+@import "styles/Commons.scss";
+.dropdownWrapper {
+  background-color: $clear-white;
+  position: absolute;
+  top: 40px;
+  max-width: 250px;
+  width: 80vw;
+  border-radius: 8px;
+  background-color: $clear-white;
+  padding: 16px;
+  box-shadow: 1px 1px 40px $black-box-shadow;
+  @media (max-width: $mobileMaxSize) {
+    max-width: 200px;
+  }
+  z-index: 2;
+  .roleButtons {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+  }
+}
+.dropdownButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

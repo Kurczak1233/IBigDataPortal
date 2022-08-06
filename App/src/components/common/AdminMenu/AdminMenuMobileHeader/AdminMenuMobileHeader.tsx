@@ -12,6 +12,7 @@ const AdminMenuMobileHeader = () => {
     isDropdownOpen,
     administrationRoutes,
     dropdownRef,
+    handleCloseDropdown,
   } = AdminMenuMobileHeaderLogic();
 
   return (
@@ -30,7 +31,11 @@ const AdminMenuMobileHeader = () => {
             {administrationRoutes.map((item) => {
               return (
                 item.hasPermissionsToView && (
-                  <MobileNavigationItem key={item.routeUrl} item={item} />
+                  <MobileNavigationItem
+                    key={item.routeUrl}
+                    item={item}
+                    handleCloseDropdown={handleCloseDropdown}
+                  />
                 )
               );
             })}
