@@ -1,5 +1,6 @@
 import { archiveCooperation } from "api/CooperationsClient";
 import { detailsRoute } from "constants/apiRoutes";
+import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 import { CooperationVm } from "interfaces/Models/Cooperations/ViewModels/CooperationVm";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
@@ -9,6 +10,7 @@ import { updateCooperationsIsArchived } from "redux/slices/cooperationsSlice";
 const CooperationsPageItemLogic = (cooperation: CooperationVm) => {
   const deleteItemButton = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
+  const { isMobile } = useAppResponsiveness();
   const navigate = useNavigate();
   const archiveItem = async () => {
     await archiveCooperation(cooperation.id);
@@ -25,7 +27,7 @@ const CooperationsPageItemLogic = (cooperation: CooperationVm) => {
     }
   };
 
-  return { archiveItem, navigateToDetails, deleteItemButton };
+  return { archiveItem, navigateToDetails, deleteItemButton, isMobile };
 };
 
 export default CooperationsPageItemLogic;
