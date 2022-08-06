@@ -1,4 +1,4 @@
-@import 'styles/Commons.scss';
+@import "styles/Commons.scss";
 #pagination {
   height: 38px;
   display: flex;
@@ -7,6 +7,7 @@
 }
 #pagination ul {
   display: flex;
+  margin: 0;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -32,7 +33,7 @@
   width: 32px;
   margin: 5px;
   background: $less-intensive-green;
-  border-radius: 8px; 
+  border-radius: 8px;
 }
 .orange li:hover {
   @include orangeShadow;
@@ -48,6 +49,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  min-height: 48px;
 }
 #root #pagination .previous {
   background-color: transparent;
