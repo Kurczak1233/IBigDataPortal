@@ -20,3 +20,5 @@ export const privacyRoute = "privacy";
 export const contactRoute = "contact";
 export const aboutRoute = "about";
 export const roleContactRoute = "contactRoute";
+export const activeRoute = "activeRoute";
+export const archiveRoute = "archiveRoute";
