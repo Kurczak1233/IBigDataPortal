@@ -18,7 +18,10 @@ const ArticlePage = () => {
     articleFiles,
     componentColour,
     componentIntensiveColour,
+    downloadIconOnHover,
     navigateBack,
+    downloadFile,
+    articleDocuments,
     filesLoading,
     articleComments,
     appUser,
@@ -26,6 +29,7 @@ const ArticlePage = () => {
   } = ArticlePageLogic();
   const { control, errors, handleCreateComment, handleSubmit } =
     ArticlePageCommentsLogic(setArticleComments);
+
   if (!article) {
     return <BigLoader />;
   }
@@ -53,18 +57,36 @@ const ArticlePage = () => {
           {filesLoading ? (
             <BigLoader />
           ) : (
-            <div className={styles.imageContainer}>
-              {articleFiles &&
-                articleFiles.map((item) => {
+            <>
+              <div className={styles.documentsContainer}>
+                Documents:
+                {articleDocuments.map((document) => {
                   return (
-                    <img
-                      key={item.guid}
-                      src={`data:image/png;base64,${item.base64FileString}`}
-                      alt={"User item"}
-                    />
+                    <div
+                      style={{ borderColor: `#${componentIntensiveColour}` }}
+                      className={styles.documents}
+                      onClick={() => downloadFile(document)}
+                      key={document.guid}
+                    >
+                      {document.fileName}
+                      <img src={downloadIconOnHover} alt={"Download icon"} />
+                    </div>
                   );
                 })}
-            </div>
+              </div>
+              <div className={styles.imageContainer}>
+                {articleFiles &&
+                  articleFiles.map((item) => {
+                    return (
+                      <img
+                        key={item.guid}
+                        src={`data:image/png;base64,${item.base64FileString}`}
+                        alt={"User item"}
+                      />
+                    );
+                  })}
+              </div>
+            </>
           )}
           {article.commentsPermissions === 0 && articleComments.length === 0 ? (
             <div />

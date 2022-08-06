@@ -3,6 +3,10 @@ import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import FileModal from "components/common/FileModal/FileModal";
 import FileModalItem from "components/common/FileModal/FileModalItem/FileModalItem";
 import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
+import {
+  imageExtensions,
+  documentsExtensions,
+} from "components/common/FileModal/SupportedExtensions";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import styles from "./AddFileComponent.module.scss";
 import CreatePostFilesLogic from "./AddFileComponentLogic";
@@ -26,6 +30,8 @@ const AddFileComponent = ({
     isFileModalOpen,
     temporaryGatherFiles,
     handleRemoveFile,
+    comesFromImages,
+    setComesFromDocuments,
   } = CreatePostFilesLogic({ setPostsFiles });
 
   return (
@@ -35,6 +41,9 @@ const AddFileComponent = ({
         setIsModalOpen={setIsFileModalOpen}
         moduleId={module}
         itemId={0}
+        acceptedFilesExtensions={
+          comesFromImages ? imageExtensions : documentsExtensions
+        }
         customUploadFiles={temporaryGatherFiles}
         multiple
         currentFiles={postFiles}
@@ -44,26 +53,14 @@ const AddFileComponent = ({
         <div className={styles.files}>Images</div>
         <SmallButton
           text={"Add files"}
-          onClick={openFileModal}
+          onClick={() => {
+            setComesFromDocuments(true);
+            openFileModal();
+          }}
           color={AvailableIntensiveColors.IntensiveGreen}
         />
       </div>
-      {/* {postFiles.length > 0 ? (
-        postFiles
-          .filter((item) => !item.type.includes("image"))
-          .map((file) => {
-            return (
-              <FileModalItem
-                key={`${file.lastModified} ${file.name}`}
-                removeFile={() => handleRemoveFile(file)}
-                file={file}
-              />
-            );
-          })
-      ) : (
-        <div className={styles.noFilesOrImages}>None</div>
-      )} */}
-      {postFiles.length > 0 ? (
+      {postFiles.filter((item) => item.type.includes("image")).length > 0 ? (
         postFiles
           .filter((item) => item.type.includes("image"))
           .map((file) => {
@@ -77,6 +74,32 @@ const AddFileComponent = ({
           })
       ) : (
         <div className={styles.noImages}>None</div>
+      )}
+      <div className={styles.filesHeader}>
+        <div className={styles.files}>Documents</div>
+        <SmallButton
+          text={"Add documents"}
+          onClick={() => {
+            setComesFromDocuments(false);
+            openFileModal();
+          }}
+          color={AvailableIntensiveColors.IntensiveGreen}
+        />
+      </div>
+      {postFiles.filter((item) => !item.type.includes("image")).length > 0 ? (
+        postFiles
+          .filter((item) => !item.type.includes("image"))
+          .map((file) => {
+            return (
+              <FileModalItem
+                key={`${file.lastModified} ${file.name}`}
+                removeFile={() => handleRemoveFile(file)}
+                file={file}
+              />
+            );
+          })
+      ) : (
+        <div className={styles.noFilesOrImages}>None</div>
       )}
     </div>
   );

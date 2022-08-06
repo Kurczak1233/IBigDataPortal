@@ -73,7 +73,7 @@ const EditJobOffer = ({
           <EditFileComponent
             setPostsFiles={setJobOfferFiles}
             postFiles={postFilesWithMetadata}
-            module={FileModuleEnum.postsFiles}
+            module={FileModuleEnum.jobOffersFiles}
           />
         </div>
         <div className={styles.comments}>
