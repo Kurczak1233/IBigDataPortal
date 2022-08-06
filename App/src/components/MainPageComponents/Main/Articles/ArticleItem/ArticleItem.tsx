@@ -24,8 +24,9 @@ const ArticleItem = ({ article }: IArticleItem) => {
         className={styles.subtitle}
         style={{ color: `#${componentIntensiveColour}` }}
       >
-        By {article.nickname} | On{" "}
-        {format(new Date(article.posted), "dd/MMMM/yyyy")}
+        By{" "}
+        {article.nickname === "nickname" ? article.userEmail : article.nickname}{" "}
+        | On {format(new Date(article.posted), "dd/MMMM/yyyy")}
       </div>
       <SeparationSmallBar
         marginTop={"4px"}
