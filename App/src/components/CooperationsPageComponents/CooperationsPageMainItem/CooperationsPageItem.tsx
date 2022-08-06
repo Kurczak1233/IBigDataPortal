@@ -17,29 +17,35 @@ const CooperationsPageItem = ({
   archived,
   clickActive = true,
 }: ICooperationsPageItem) => {
-  const { archiveItem, navigateToDetails, deleteItemButton } =
+  const { archiveItem, navigateToDetails, deleteItemButton, isMobile } =
     CooperationsPageItemLogic(cooperation);
   return (
     <div
       className={clickActive ? styles.item : styles.itemNoHover}
       onClick={(e) => clickActive && navigateToDetails(e)}
     >
-      <div className={styles.itemsWrapper}>
+      {!isMobile ? (
+        <div className={styles.itemsWrapper}>
+          <div className={styles.creatorEmail}>
+            <span>{cooperation.creatorEmail}</span>
+          </div>
+          <div className={styles.createdOn}>
+            {format(new Date(cooperation.createdOn), standarizedFormat)}
+          </div>
+        </div>
+      ) : (
         <div className={styles.creatorEmail}>
           <span>{cooperation.creatorEmail}</span>
         </div>
-        <div className={styles.createdOn}>
-          {format(new Date(cooperation.createdOn), standarizedFormat)}
-        </div>
-      </div>
+      )}
       {!archived ? (
         <div className={styles.deleteButtonWrapper}>
           <SmallButton
             itemRef={deleteItemButton}
             text={"Archive"}
             onClick={archiveItem}
-            width={"100px"}
-            marginLeft={"16px"}
+            width={isMobile ? "70px" : "100px"}
+            marginLeft={isMobile ? "0" : "16px"}
             color={AvailableIntensiveColors.IntensiveRed}
           />
         </div>

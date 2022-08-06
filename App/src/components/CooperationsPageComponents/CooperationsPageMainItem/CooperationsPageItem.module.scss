@@ -12,21 +12,23 @@
   padding: 0 16px;
   padding-right: 32px;
   margin-top: 10px;
+  @media (max-width: $mobileMaxSize) {
+    padding-right: 16px;
+  }
   .itemsWrapper {
     width: 100%;
     display: flex;
-    .creatorEmail {
-      width: 40%;
-      display: flex;
-      align-items: center;
-      span {
-        @include wrapLongText;
-      }
-    }
     .createdOn {
       width: 30%;
       display: flex;
       align-items: center;
+    }
+  }
+  .creatorEmail {
+    width: 40%;
+    @include wrapLongText;
+    @media (max-width: $mobileMaxSize) {
+      width: 90%;
     }
   }
 }
@@ -44,4 +46,9 @@
   width: 100px;
   max-width: 100px;
   margin-right: 16px;
+  @media (max-width: $mobileMaxSize) {
+    width: 70px;
+    max-width: 70px;
+    margin-right: 0px;
+  }
 }
