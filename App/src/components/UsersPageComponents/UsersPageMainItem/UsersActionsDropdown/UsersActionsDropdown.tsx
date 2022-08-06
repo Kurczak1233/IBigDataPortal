@@ -17,10 +17,15 @@ const UsersActionsDropdown = ({
   handleOpenModal,
   handleOpenDeleteModal,
 }: IUsersActionsDropdown) => {
-  const { handleOpenDropdown, isDropdownOpen, dropdownRef } =
-    UsersActionsDropdownLogic();
+  const {
+    handleOpenDropdown,
+    isDropdownOpen,
+    dropdownRef,
+    itemRef,
+    showDropdownTopPosition,
+  } = UsersActionsDropdownLogic();
   return (
-    <div className={styles.dropdownButton}>
+    <div className={styles.dropdownButton} ref={itemRef}>
       <SmallButton
         text={"Actions"}
         width={"70px"}
@@ -28,57 +33,65 @@ const UsersActionsDropdown = ({
         color={AvailableIntensiveColors.IntensiveOrange}
       />
       {isDropdownOpen && (
-        <div className={styles.dropdownWrapper} ref={dropdownRef}>
+        <div
+          className={styles.dropdownWrapper}
+          ref={dropdownRef}
+          style={{ top: showDropdownTopPosition ? "-260px" : "40px" }}
+        >
           <MenuComponentTitle name={"Roles"} />
           <div className={styles.roleButtons}>
-            <SmallButton
-              width={"80%"}
-              text={"Admin"}
-              onClick={() => handleOpenModal(UserRoles["Admin"])}
-              marginRight={"1%"}
-              marginTop={"8px"}
-              color={
-                user.userRoleId === UserRoles["Admin"]
-                  ? AvailableIntensiveColors.IntensiveOrange
-                  : AvailableIntensiveColors.InactiveGray
-              }
-            />{" "}
-            <SmallButton
-              width="80%"
-              marginTop={"8px"}
-              text={"HEI"}
-              marginRight={"1%"}
-              onClick={() => handleOpenModal(UserRoles["HEI"])}
-              color={
-                user.userRoleId === UserRoles["HEI"]
-                  ? AvailableIntensiveColors.IntensiveOrange
-                  : AvailableIntensiveColors.InactiveGray
-              }
-            />
-            <SmallButton
-              width="80%"
-              marginTop={"8px"}
-              text={"Employee"}
-              marginRight={"1%"}
-              onClick={() => handleOpenModal(UserRoles["Employee"])}
-              color={
-                user.userRoleId === UserRoles["Employee"]
-                  ? AvailableIntensiveColors.IntensiveOrange
-                  : AvailableIntensiveColors.InactiveGray
-              }
-            />
-            <SmallButton
-              width="80%"
-              marginTop={"8px"}
-              text={"Stu/Bus"}
-              marginRight={"1%"}
-              onClick={() => handleOpenModal(UserRoles["StudentOrBusiness"])}
-              color={
-                user.userRoleId === UserRoles["StudentOrBusiness"]
-                  ? AvailableIntensiveColors.IntensiveOrange
-                  : AvailableIntensiveColors.InactiveGray
-              }
-            />
+            <div className={styles.row}>
+              <SmallButton
+                width={"70%"}
+                text={"Admin"}
+                onClick={() => handleOpenModal(UserRoles["Admin"])}
+                marginRight={"1%"}
+                marginTop={"8px"}
+                color={
+                  user.userRoleId === UserRoles["Admin"]
+                    ? AvailableIntensiveColors.IntensiveOrange
+                    : AvailableIntensiveColors.InactiveGray
+                }
+              />{" "}
+              <SmallButton
+                width="70%"
+                marginTop={"8px"}
+                text={"HEI"}
+                marginRight={"1%"}
+                onClick={() => handleOpenModal(UserRoles["HEI"])}
+                color={
+                  user.userRoleId === UserRoles["HEI"]
+                    ? AvailableIntensiveColors.IntensiveOrange
+                    : AvailableIntensiveColors.InactiveGray
+                }
+              />
+            </div>
+            <div className={styles.row}>
+              <SmallButton
+                width="70%"
+                marginTop={"8px"}
+                text={"Employee"}
+                marginRight={"1%"}
+                onClick={() => handleOpenModal(UserRoles["Employee"])}
+                color={
+                  user.userRoleId === UserRoles["Employee"]
+                    ? AvailableIntensiveColors.IntensiveOrange
+                    : AvailableIntensiveColors.InactiveGray
+                }
+              />
+              <SmallButton
+                width="70%"
+                marginTop={"8px"}
+                text={"Stu/Bus"}
+                marginRight={"1%"}
+                onClick={() => handleOpenModal(UserRoles["StudentOrBusiness"])}
+                color={
+                  user.userRoleId === UserRoles["StudentOrBusiness"]
+                    ? AvailableIntensiveColors.IntensiveOrange
+                    : AvailableIntensiveColors.InactiveGray
+                }
+              />
+            </div>
           </div>
           <MenuComponentTitle name={"Delete"} />
           <div className={styles.roleButtons}>

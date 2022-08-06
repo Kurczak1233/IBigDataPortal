@@ -2,7 +2,6 @@
 .dropdownWrapper {
   background-color: $clear-white;
   position: absolute;
-  top: 40px;
   max-width: 250px;
   width: 80vw;
   border-radius: 8px;
@@ -18,6 +17,11 @@
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
+  }
+  .row {
+    width: 100%;
+    display: flex;
+    align-items: center;
   }
 }
 .dropdownButton {
