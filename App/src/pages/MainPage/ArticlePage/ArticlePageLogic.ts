@@ -11,9 +11,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setChosenArticle } from "redux/slices/articlesSlice";
 import { RootState } from "redux/store";
+import DownloadIcon from "public/DownloadIcons/DownloadIcon.svg";
+import GreenDownloadIcon from "public/DownloadIcons/GreenDownloadIcon.svg";
+import BlueDownloadIcon from "public/DownloadIcons/BlueDownloadIcon.svg";
+import OrangeDownloadIcon from "public/DownloadIcons/OrangeDownloadIcon.svg";
 
 const ArticlePageLogic = () => {
   const [articleFiles, setArticleFiles] = useState<FileVm[]>([]);
+  const [articleDocuments, setArticleDocuments] = useState<FileVm[]>([]);
   const [filesLoading, setFilesLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -54,9 +59,20 @@ const ArticlePageLogic = () => {
     }
   };
 
-  const findIntensiveArticleColour = (
-    type: string
-  ): AvailableIntensiveColors => {
+  const findDownloadIcon = (type: string): string => {
+    switch (type) {
+      case ArticlesTypes.Post:
+        return OrangeDownloadIcon;
+      case ArticlesTypes.EduLink:
+        return GreenDownloadIcon;
+      case ArticlesTypes.JobOffer:
+        return BlueDownloadIcon;
+      default:
+        return DownloadIcon;
+    }
+  };
+
+  const findIntensiveArticleColour = (type: string) => {
     switch (type) {
       case ArticlesTypes.Post:
         return AvailableIntensiveColors.IntensiveOrange;
@@ -68,12 +84,6 @@ const ArticlePageLogic = () => {
         return AvailableIntensiveColors.IntensiveOrange;
     }
   };
-  const componentColour = useMemo(() => {
-    return findArticleColour(article ? article.type : "");
-  }, [article]);
-  const componentIntensiveColour = useMemo(() => {
-    return findIntensiveArticleColour(article ? article.type : "");
-  }, [article]);
 
   const handleItemFiles = useCallback(async () => {
     if (!article) {
@@ -83,8 +93,15 @@ const ArticlePageLogic = () => {
       });
     }
     const type = findModuleEnum(article.type);
-    const reuslt = await getAllItemsFiles(article.id, type);
-    await setArticleFiles(reuslt);
+    const result = await getAllItemsFiles(article.id, type);
+    const documents = result.filter(
+      (item) => item.fileType !== "image/jpeg" && item.fileType !== "image/png"
+    );
+    const images = result.filter(
+      (item) => item.fileType === "image/jpeg" || item.fileType === "image/png"
+    );
+    await setArticleDocuments(documents);
+    await setArticleFiles(images);
     setFilesLoading(false);
   }, [article]);
 
@@ -92,6 +109,44 @@ const ArticlePageLogic = () => {
     dispatch(setChosenArticle(null));
     navigate("/");
   };
+
+  const downloadFile = (file: FileVm) => {
+    const blob = b64toBlob(file.base64FileString, file.fileType);
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = file.fileName;
+    link.click();
+  };
+
+  const b64toBlob = (b64Data: string, contentType = "", sliceSize = 512) => {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: contentType });
+    return blob;
+  };
+
+  const componentColour = useMemo(() => {
+    return findArticleColour(article ? article.type : "");
+  }, [article]);
+  const componentIntensiveColour = useMemo(() => {
+    return findIntensiveArticleColour(article ? article.type : "");
+  }, [article]);
+  const downloadIconOnHover = useMemo(() => {
+    return findDownloadIcon(article ? article.type : "");
+  }, [article]);
 
   useEffect(() => {
     handleItemFiles();
@@ -102,10 +157,13 @@ const ArticlePageLogic = () => {
     articleFiles,
     componentColour,
     componentIntensiveColour,
+    downloadIconOnHover,
     navigateBack,
+    downloadFile,
     appUser,
     filesLoading,
     articleComments,
+    articleDocuments,
     setArticleComments,
   };
 };

@@ -76,7 +76,7 @@ const EditEduLink = ({
           <EditFileComponent
             setPostsFiles={setEduLinkFiles}
             postFiles={postFilesWithMetadata}
-            module={FileModuleEnum.postsFiles}
+            module={FileModuleEnum.eduLinksFiles}
           />
         </div>
         <div className={styles.comments}>

@@ -11,6 +11,7 @@ interface ICreatePostFilesLogic {
 const CreatePostFilesLogic = ({ setPostsFiles }: ICreatePostFilesLogic) => {
   const [isFileModalOpen, setIsFileModalOpen] = useState<boolean>(false);
   const [fileToDelete, setFileToDelete] = useState<FileWithMetadata>();
+  const [comesFromImages, setComesFromDocuments] = useState<boolean>(true);
   const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
     useState<boolean>(false);
 
@@ -59,6 +60,8 @@ const CreatePostFilesLogic = ({ setPostsFiles }: ICreatePostFilesLogic) => {
     setIsConfirmDeleteModalOpen,
     handleRemoveFile,
     confirmDeleteFile,
+    comesFromImages,
+    setComesFromDocuments,
   };
 };
 

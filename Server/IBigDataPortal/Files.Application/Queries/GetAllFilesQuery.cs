@@ -56,8 +56,10 @@ public class GetAllFilesQueryHandler : IRequestHandler<GetAllFilesQuery, List<Fi
                         {nameof(FileMetadata.IsDeleted)},
                         {nameof(FileMetadata.FileName)}
                         FROM {Dbo.FilesMetadata}
-                        WHERE {nameof(FileMetadata.RefId)} = @refId AND {nameof(FileMetadata.ModuleEnum)} = @moduleEnum     
-                        ORDER BY {nameof(FileMetadata.CreatedOn)} DESC";
+                        WHERE {nameof(FileMetadata.RefId)} = @refId 
+                        AND {nameof(FileMetadata.ModuleEnum)} = @moduleEnum     
+                        AND {nameof(FileMetadata.IsDeleted)} = 0
+                        ORDER BY {nameof(FileMetadata.CreatedOn)} DESC ";
         
         
         var result = await connection.QueryAsync<FileVm>(sql,

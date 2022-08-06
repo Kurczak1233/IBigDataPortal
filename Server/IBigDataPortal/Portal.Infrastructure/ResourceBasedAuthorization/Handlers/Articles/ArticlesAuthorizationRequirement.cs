@@ -1,6 +1,5 @@
 using Articles.Contracts.Enums;
 using IBigDataPortal.Infrastructure.ExceptionExtensions;
-using IBigDataPortal.Infrastructure.ResourceBasedAuthorization.Handlers.Comments;
 using IBigDataPortal.Infrastructure.ResourceBasedAuthorization.Utils;
 using Microsoft.AspNetCore.Authorization;
 using UserRole.Contracts.UserRoles;
