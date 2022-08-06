@@ -5,15 +5,19 @@ import MobileNavigationItemLogic from "./MobileNavigationItemLogic";
 
 interface IMobileNavigationItem {
   item: IAdministrationRoute;
+  handleCloseDropdown: () => void;
 }
 
-const MobileNavigationItem = ({ item }: IMobileNavigationItem) => {
+const MobileNavigationItem = ({
+  item,
+  handleCloseDropdown,
+}: IMobileNavigationItem) => {
   const {
     navigateToItem,
     adminMenuNavigationCreateContents,
     adminMenuNavigationOverviewContents,
     navigateToArticlesSubPage,
-  } = MobileNavigationItemLogic(item);
+  } = MobileNavigationItemLogic(item, handleCloseDropdown);
   return (
     <>
       <div

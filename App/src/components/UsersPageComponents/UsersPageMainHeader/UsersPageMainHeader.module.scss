@@ -13,6 +13,9 @@
     @include nicknameColumnWidth;
     display: flex;
     align-items: center;
+    @media (max-width: 500px) {
+      display: none;
+    }
   }
   .email {
     @include emailColumnWidth;
