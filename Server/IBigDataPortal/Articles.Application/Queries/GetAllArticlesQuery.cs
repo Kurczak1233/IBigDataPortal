@@ -1,3 +1,4 @@
+using Articles.Contracts.Enums;
 using Articles.Domain.ArticlesAggregate.ViewModels;
 using Dapper;
 using EduLinks.Contracts.ViewModels;
@@ -80,6 +81,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      {Dbo.Comments}.{nameof(Comment.Id)} as CommentId,
                      {Dbo.Comments}.{nameof(Comment.Content)},
                      {Dbo.Comments}.{nameof(Comment.IsDeleted)},
+                     {Dbo.Comments}.{nameof(Comment.ArticleType)},
                      {Dbo.Comments}.{nameof(Comment.CreatedOn)},
                      {Dbo.Comments}.{nameof(Comment.CreatorId)},
                      CommentUsers.Nickname as CommentatorNickname,
@@ -94,7 +96,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
         var result = await connection.QueryAsync<PostViewModel, PostCommentViewModel, PostViewModel>(postsSql,
             (post, comment) =>
             {
-                if (comment != null && comment.IsDeleted == false)
+                if (comment != null && comment.IsDeleted == false && comment.ArticleType == (int)ArticlesEnum.Post)
                 {
                     post.Comments.Add(comment);
                 }
@@ -136,6 +138,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      {Dbo.Comments}.{nameof(Comment.Content)},
                      {Dbo.Comments}.{nameof(Comment.IsDeleted)},
                      {Dbo.Comments}.{nameof(Comment.CreatedOn)},
+                     {Dbo.Comments}.{nameof(Comment.ArticleType)},
                      {Dbo.Comments}.{nameof(Comment.CreatorId)},
                      CommentUsers.Nickname as CommentatorNickname,
                      CommentUsers.Email as CommentatorEmail
@@ -149,7 +152,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
         var result = await connection.QueryAsync<JobOfferViewModel, JobOfferCommentViewModel, JobOfferViewModel>(
             jobOfferSql, (jobOffer, comment) =>
             {
-                if (comment != null && comment.IsDeleted == false)
+                if (comment != null && comment.IsDeleted == false && comment.ArticleType == (int)ArticlesEnum.JobOffer)
                 {
                     jobOffer.Comments.Add(comment);
                 }
@@ -191,6 +194,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      {Dbo.Comments}.{nameof(Comment.Content)},
                      {Dbo.Comments}.{nameof(Comment.IsDeleted)},
                      {Dbo.Comments}.{nameof(Comment.CreatedOn)},
+                     {Dbo.Comments}.{nameof(Comment.ArticleType)},
                      {Dbo.Comments}.{nameof(Comment.CreatorId)},
                      CommentUsers.Nickname as CommentatorNickname,
                      CommentUsers.Email as CommentatorEmail
@@ -204,7 +208,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
         var result = await connection.QueryAsync<EduLinkViewModel, EduLinkCommentViewModel, EduLinkViewModel>(
             eduLinksSql, (eduLink, comment) =>
             {
-                if (comment != null && comment.IsDeleted == false)
+                if (comment != null && comment.IsDeleted == false && comment.ArticleType == (int)ArticlesEnum.EduLink)
                 {
                     eduLink.Comments.Add(comment);
                 }

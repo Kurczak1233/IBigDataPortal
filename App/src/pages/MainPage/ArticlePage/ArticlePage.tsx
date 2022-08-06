@@ -58,34 +58,43 @@ const ArticlePage = () => {
             <BigLoader />
           ) : (
             <>
-              <div className={styles.documentsContainer}>
-                Documents:
-                {articleDocuments.map((document) => {
-                  return (
-                    <div
-                      style={{ borderColor: `#${componentIntensiveColour}` }}
-                      className={styles.documents}
-                      onClick={() => downloadFile(document)}
-                      key={document.guid}
-                    >
-                      {document.fileName}
-                      <img src={downloadIconOnHover} alt={"Download icon"} />
-                    </div>
-                  );
-                })}
-              </div>
-              <div className={styles.imageContainer}>
-                {articleFiles &&
-                  articleFiles.map((item) => {
-                    return (
-                      <img
-                        key={item.guid}
-                        src={`data:image/png;base64,${item.base64FileString}`}
-                        alt={"User item"}
-                      />
-                    );
-                  })}
-              </div>
+              {articleDocuments.length > 0 && (
+                <>
+                  <div className={styles.documentsContainer}>
+                    Documents:
+                    {articleDocuments.map((document) => {
+                      return (
+                        <div
+                          style={{
+                            borderColor: `#${componentIntensiveColour}`,
+                          }}
+                          className={styles.documents}
+                          onClick={() => downloadFile(document)}
+                          key={document.guid}
+                        >
+                          {document.fileName}
+                          <img
+                            src={downloadIconOnHover}
+                            alt={"Download icon"}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className={styles.imageContainer}>
+                    {articleFiles &&
+                      articleFiles.map((item) => {
+                        return (
+                          <img
+                            key={item.guid}
+                            src={`data:image/png;base64,${item.base64FileString}`}
+                            alt={"User item"}
+                          />
+                        );
+                      })}
+                  </div>
+                </>
+              )}{" "}
             </>
           )}
           {article.commentsPermissions === 0 && articleComments.length === 0 ? (

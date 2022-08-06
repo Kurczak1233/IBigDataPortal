@@ -59,14 +59,15 @@ const ArticleCommentLogic = (
     };
     await deleteComment(request);
     await setArticleComments((comments) => {
-      const foundCommentIndex = comments.findIndex(
+      const modifiedComments = [...comments];
+      const foundCommentIndex = modifiedComments.findIndex(
         (item) => item.commentId === commentId
       );
       if (foundCommentIndex === -1) {
-        return comments;
+        return modifiedComments;
       }
-      comments.splice(foundCommentIndex, 1);
-      return [...comments];
+      modifiedComments.splice(foundCommentIndex, 1);
+      return modifiedComments;
     });
     setIsDeleteModalOpen(false);
   };
