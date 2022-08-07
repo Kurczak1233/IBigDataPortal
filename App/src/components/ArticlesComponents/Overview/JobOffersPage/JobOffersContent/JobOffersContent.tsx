@@ -25,7 +25,10 @@ const JobOffersContent = ({ jobOffers, setJobOffers }: IJobOffersContent) => {
         />
       ) : (
         <>
-          <AdministartionPageHeader pageTitle={"Overview job offers"} />
+          <AdministartionPageHeader
+            pageTitle={"Overview job offers"}
+            showFilterComponent
+          />
           <JobOffersHeader
             iconsColour={AvailableIntensiveColors.IntensiveBlue}
           />

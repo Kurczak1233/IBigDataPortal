@@ -25,7 +25,10 @@ const EduLinksContent = ({ eduLinks, setEduLinks }: IEduLinksContent) => {
         />
       ) : (
         <>
-          <AdministartionPageHeader pageTitle={"Overview posts"} />
+          <AdministartionPageHeader
+            pageTitle={"Overview posts"}
+            showFilterComponent
+          />
           <EduLinksHeader
             iconsColour={AvailableIntensiveColors.IntensiveGreen}
           />
