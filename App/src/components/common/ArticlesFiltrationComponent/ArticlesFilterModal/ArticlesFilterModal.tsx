@@ -1,12 +1,13 @@
 import Modal from "react-modal";
 import styles from "./ArticlesFilterModal.module.scss";
 import GrayExiticon from "public/GrayExitIcon.svg";
-import GreenExiticon from "public/GreenExitIcon.svg";
+import OrangeExiticon from "public/OrangeExitIcon.svg";
 import ArticlesFilterModalLogic from "./ArticlesFilterModalLogic";
 import { ArticlesTypes } from "enums/ArticlesTypes";
 import SeparationSmallBar from "components/common/SeparationSmallGreenBar/SeparationSmallGreenBar";
 import InputWithLabel from "components/common/Forms/InputWithLabel/InputWithLabel";
 import DatepickerWithLabel from "components/common/Forms/DatepickerWIthLabel/DatepickerWithLabel";
+import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 
 interface IArticlesFilterModal {
   isModalOpen: boolean;
@@ -35,11 +36,15 @@ const ArticlesFilterModal = ({
           onClick={onCloseModal}
           onMouseEnter={() => setIsExitHoverActive(true)}
           onMouseLeave={() => setIsExitHoverActive(false)}
-          src={isExitHoverActive ? GreenExiticon : GrayExiticon}
+          src={isExitHoverActive ? OrangeExiticon : GrayExiticon}
           alt="Close modal icon"
         />
       </header>
-      <SeparationSmallBar marginBottom="12px" marginTop="12px" />
+      <SeparationSmallBar
+        marginBottom="12px"
+        marginTop="12px"
+        color={AvailableIntensiveColors.IntensiveOrange}
+      />
       <div>
         <DatepickerWithLabel
           label={"From"}
