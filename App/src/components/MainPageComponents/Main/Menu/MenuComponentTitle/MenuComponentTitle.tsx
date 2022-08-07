@@ -1,3 +1,4 @@
+import SeparationLongBar from "components/common/SeparationLongBar/SeparationLongBar";
 import styles from "./MenuComponentTitle.module.scss";
 
 interface IMenuComponentTitle {
@@ -17,7 +18,7 @@ const MenuComponentTitle = ({
       className={styles.wrapper}
     >
       <div className={styles.name}>{name}</div>
-      <div className={styles.menuTitleBottomBar} />
+      <SeparationLongBar />
     </div>
   );
 };

@@ -49,3 +49,6 @@
 .react-datepicker__day--outside-month {
   color: $gray-text;
 }
+.react-datepicker__close-icon::after {
+  background-color: $intensive-orange;
+}

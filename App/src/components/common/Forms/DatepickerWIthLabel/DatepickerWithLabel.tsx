@@ -3,13 +3,12 @@ import styles from "./DatepickerWithLabel.module.scss";
 import DatePicker from "react-datepicker";
 import { Control, Controller } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
+import { enGbLocale } from "constants/dateFormatLocale";
 
 interface IDatepickerWithLabel {
   label: string;
   registerName: string;
   placeholder: string;
-  selected: Date | null;
-  handleDateChange: (date: Date | null) => void;
   control: Control<any, any>;
   marginBottom?: string;
   marginTop?: string;
@@ -22,8 +21,6 @@ const DatepickerWithLabel = ({
   marginBottom,
   control,
   marginTop,
-  handleDateChange,
-  selected,
 }: IDatepickerWithLabel) => {
   return (
     <div
@@ -52,18 +49,19 @@ const DatepickerWithLabel = ({
             // }
             // dateFormat={dateFormat}
             onChangeRaw={(e) => e.preventDefault()}
-            // locale={enGbLocale}
+            locale={enGbLocale}
+            isClearable
             // disabled={!selectedChangeEvent.editPermission}
-            // customInput={
-            //   <div className="deadline-date-button">
-            //     <span className="deadline-date-button--text">
-            //       {deadline
-            //         ? format(new Date(deadline), dateFormatSlashes)
-            //         : "Select date"}
-            //     </span>
-            //     <img src={CalendarIcon} alt={"Calendar icon"} />
-            //   </div>
-            // }
+            //   customInput={
+            //     <div className="deadline-date-button">
+            //       <span className="deadline-date-button--text">
+            //         {value
+            //           ? format(new Date(value), dateFormatSlashes)
+            //           : <span className={styles.placeholder}>{placeholder}</span>}
+            //       </span>
+            //       {/* <img src={CalendarIcon} alt={"Calendar icon"} /> */}
+            //     </div>
+            //   }
           />
         )}
       />

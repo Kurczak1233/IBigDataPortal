@@ -4,24 +4,35 @@ import GrayExiticon from "public/GrayExitIcon.svg";
 import OrangeExiticon from "public/OrangeExitIcon.svg";
 import ArticlesFilterModalLogic from "./ArticlesFilterModalLogic";
 import { ArticlesTypes } from "enums/ArticlesTypes";
-import SeparationSmallBar from "components/common/SeparationSmallGreenBar/SeparationSmallGreenBar";
 import InputWithLabel from "components/common/Forms/InputWithLabel/InputWithLabel";
 import DatepickerWithLabel from "components/common/Forms/DatepickerWIthLabel/DatepickerWithLabel";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
+import SeparationLongBar from "components/common/SeparationLongBar/SeparationLongBar";
+import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 
 interface IArticlesFilterModal {
   isModalOpen: boolean;
   onCloseModal: () => void;
   articleType: ArticlesTypes;
+  setFiltersSet?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ArticlesFilterModal = ({
   isModalOpen,
   onCloseModal,
   articleType,
+  setFiltersSet,
 }: IArticlesFilterModal) => {
-  const { isExitHoverActive, setIsExitHoverActive, register, errors, control } =
-    ArticlesFilterModalLogic();
+  const {
+    isExitHoverActive,
+    setIsExitHoverActive,
+    register,
+    errors,
+    control,
+    resetAndLeave,
+    handleSubmit,
+    filterItems,
+  } = ArticlesFilterModalLogic(onCloseModal, articleType, setFiltersSet);
   return (
     <Modal
       isOpen={isModalOpen}
@@ -40,10 +51,10 @@ const ArticlesFilterModal = ({
           alt="Close modal icon"
         />
       </header>
-      <SeparationSmallBar
+      <SeparationLongBar
         marginBottom="12px"
         marginTop="12px"
-        color={AvailableIntensiveColors.IntensiveOrange}
+        barColor={AvailableIntensiveColors.IntensiveOrange}
       />
       <div>
         <DatepickerWithLabel
@@ -51,40 +62,45 @@ const ArticlesFilterModal = ({
           control={control}
           registerName={"from"}
           placeholder={"Enter from date..."}
-          selected={null}
-          handleDateChange={function (date: Date | null): void {
-            throw new Error("Function not implemented.");
-          }}
         />
         <DatepickerWithLabel
           label={"To"}
           control={control}
           placeholder={"Enter to date..."}
           registerName={"to"}
-          selected={null}
-          handleDateChange={function (date: Date | null): void {
-            throw new Error("Function not implemented.");
-          }}
         />
       </div>
       <InputWithLabel
         register={register}
         errors={errors}
-        errorMessage={"This field is required"}
+        errorMessage={""}
         label={"Title"}
         placeholder={"Enter title..."}
         registerName={"title"}
-        registerOptions={{ required: true }}
       />
       <InputWithLabel
         register={register}
         errors={errors}
-        errorMessage={"This field is required"}
+        errorMessage={""}
         label={"Creator"}
         placeholder={"Search creator..."}
-        registerName={"title"}
-        registerOptions={{ required: true }}
+        registerName={"creator"}
       />
+      <footer className={styles.footer}>
+        <SmallButton
+          text={"Cancel"}
+          width={"100px"}
+          onClick={resetAndLeave}
+          color={AvailableIntensiveColors.InactiveGray}
+        />
+        <SmallButton
+          text={"Filter"}
+          marginLeft={"16px"}
+          width={"100px"}
+          onClick={handleSubmit(filterItems)}
+          color={AvailableIntensiveColors.IntensiveOrange}
+        />
+      </footer>
     </Modal>
   );
 };

@@ -22,7 +22,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 24px;
   .modalTitle {
     @include fontSizeSixteen;
   }
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }

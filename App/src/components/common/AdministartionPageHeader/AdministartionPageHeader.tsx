@@ -8,6 +8,7 @@ interface IAdministartionPageHeader {
   marginBottom?: string;
   showFilterComponent?: boolean;
   articleType?: ArticlesTypes;
+  setFiltersSet?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AdministartionPageHeader = ({
@@ -16,6 +17,7 @@ const AdministartionPageHeader = ({
   marginTop,
   showFilterComponent,
   articleType = ArticlesTypes.Post,
+  setFiltersSet,
 }: IAdministartionPageHeader) => {
   return (
     <div>
@@ -25,7 +27,10 @@ const AdministartionPageHeader = ({
       >
         <span>{pageTitle}</span>
         {showFilterComponent && (
-          <ArticlesFiltrationComponent articleType={articleType} />
+          <ArticlesFiltrationComponent
+            articleType={articleType}
+            setFiltersSet={setFiltersSet}
+          />
         )}
       </div>
     </div>

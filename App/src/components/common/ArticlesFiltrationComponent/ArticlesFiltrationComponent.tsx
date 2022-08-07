@@ -6,10 +6,12 @@ import { ArticlesTypes } from "enums/ArticlesTypes";
 
 interface IArticlesFiltrationComponent {
   articleType: ArticlesTypes;
+  setFiltersSet?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ArticlesFiltrationComponent = ({
   articleType,
+  setFiltersSet,
 }: IArticlesFiltrationComponent) => {
   const { handleCloseModal, handleOpenModal, isModalOpen } =
     ArticlesFiltrationComponentLogic();
@@ -19,6 +21,7 @@ const ArticlesFiltrationComponent = ({
         isModalOpen={isModalOpen}
         onCloseModal={handleCloseModal}
         articleType={articleType}
+        setFiltersSet={setFiltersSet}
       />
       <div className={styles.filterButton} onClick={handleOpenModal}>
         <span>Filter</span>

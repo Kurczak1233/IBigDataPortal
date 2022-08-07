@@ -13,7 +13,8 @@ interface IPostsContent {
 }
 
 const PostsContent = ({ posts, setPosts }: IPostsContent) => {
-  const { navigateToCreatePosts } = PostsContentLogic();
+  const { navigateToCreatePosts, filteredPosts, setFiltersSet, filtersSet } =
+    PostsContentLogic();
   return (
     <>
       {posts.length === 0 ? (
@@ -27,10 +28,11 @@ const PostsContent = ({ posts, setPosts }: IPostsContent) => {
             pageTitle={"Overview posts"}
             showFilterComponent
             articleType={ArticlesTypes.Post}
+            setFiltersSet={setFiltersSet}
           />
           <PostsHeader iconsColour={AvailableIntensiveColors.IntensiveOrange} />
           <PostsItems
-            posts={posts}
+            posts={filtersSet ? filteredPosts : posts}
             setPosts={setPosts}
             postsColor={AvailableIntensiveColors.LessIntensiveOrange}
             paginationColor={AvailablePaginationColors.orange}
