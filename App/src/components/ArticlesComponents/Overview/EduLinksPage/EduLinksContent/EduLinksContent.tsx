@@ -6,6 +6,7 @@ import { AvailablePaginationColors } from "components/common/ArticleCommonCompon
 import EduLinksHeader from "../EduLinksHeader/EduLinksHeader";
 import EduLinksItems from "../EduLinksItems/EduLinksItems";
 import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
+import { ArticlesTypes } from "enums/ArticlesTypes";
 
 interface IEduLinksContent {
   eduLinks: EduLinkViewModel[];
@@ -28,6 +29,7 @@ const EduLinksContent = ({ eduLinks, setEduLinks }: IEduLinksContent) => {
           <AdministartionPageHeader
             pageTitle={"Overview posts"}
             showFilterComponent
+            articleType={ArticlesTypes.EduLink}
           />
           <EduLinksHeader
             iconsColour={AvailableIntensiveColors.IntensiveGreen}

@@ -1,3 +1,4 @@
+import { ArticlesTypes } from "enums/ArticlesTypes";
 import ArticlesFiltrationComponent from "../ArticlesFiltrationComponent/ArticlesFiltrationComponent";
 import styles from "./AdministartionPageHeader.module.scss";
 
@@ -6,6 +7,7 @@ interface IAdministartionPageHeader {
   marginTop?: string;
   marginBottom?: string;
   showFilterComponent?: boolean;
+  articleType?: ArticlesTypes;
 }
 
 const AdministartionPageHeader = ({
@@ -13,6 +15,7 @@ const AdministartionPageHeader = ({
   marginBottom,
   marginTop,
   showFilterComponent,
+  articleType = ArticlesTypes.Post,
 }: IAdministartionPageHeader) => {
   return (
     <div>
@@ -21,7 +24,9 @@ const AdministartionPageHeader = ({
         style={{ marginTop: marginTop, marginBottom: marginBottom }}
       >
         <span>{pageTitle}</span>
-        {showFilterComponent && <ArticlesFiltrationComponent />}
+        {showFilterComponent && (
+          <ArticlesFiltrationComponent articleType={articleType} />
+        )}
       </div>
     </div>
   );

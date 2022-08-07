@@ -1,6 +1,7 @@
 import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 import NoItemsComponent from "components/common/ArticleCommonComponents/NoItemsComponent/NoItemsComponent";
 import { AvailablePaginationColors } from "components/common/ArticleCommonComponents/Pagination/AvailablePaginationColors";
+import { ArticlesTypes } from "enums/ArticlesTypes";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
 import PostsHeader from "../PostsHeader/PostsHeader";
@@ -25,6 +26,7 @@ const PostsContent = ({ posts, setPosts }: IPostsContent) => {
           <AdministartionPageHeader
             pageTitle={"Overview posts"}
             showFilterComponent
+            articleType={ArticlesTypes.Post}
           />
           <PostsHeader iconsColour={AvailableIntensiveColors.IntensiveOrange} />
           <PostsItems

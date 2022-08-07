@@ -1,6 +1,7 @@
 import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 import NoItemsComponent from "components/common/ArticleCommonComponents/NoItemsComponent/NoItemsComponent";
 import { AvailablePaginationColors } from "components/common/ArticleCommonComponents/Pagination/AvailablePaginationColors";
+import { ArticlesTypes } from "enums/ArticlesTypes";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
 import JobOffersHeader from "../JobOffersHeader/JobOffersHeader";
@@ -28,6 +29,7 @@ const JobOffersContent = ({ jobOffers, setJobOffers }: IJobOffersContent) => {
           <AdministartionPageHeader
             pageTitle={"Overview job offers"}
             showFilterComponent
+            articleType={ArticlesTypes.JobOffer}
           />
           <JobOffersHeader
             iconsColour={AvailableIntensiveColors.IntensiveBlue}
