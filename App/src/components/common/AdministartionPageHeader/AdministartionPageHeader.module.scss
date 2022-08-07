@@ -2,4 +2,7 @@
 .title {
   @include fontSizeTwentyFive;
   margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

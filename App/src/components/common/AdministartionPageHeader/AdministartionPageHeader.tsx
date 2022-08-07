@@ -1,15 +1,18 @@
+import ArticlesFiltrationComponent from "../ArticlesFiltrationComponent/ArticlesFiltrationComponent";
 import styles from "./AdministartionPageHeader.module.scss";
 
 interface IAdministartionPageHeader {
   pageTitle: string;
   marginTop?: string;
   marginBottom?: string;
+  showFilterComponent?: boolean;
 }
 
 const AdministartionPageHeader = ({
   pageTitle,
   marginBottom,
   marginTop,
+  showFilterComponent,
 }: IAdministartionPageHeader) => {
   return (
     <div>
@@ -17,7 +20,8 @@ const AdministartionPageHeader = ({
         className={styles.title}
         style={{ marginTop: marginTop, marginBottom: marginBottom }}
       >
-        {pageTitle}
+        <span>{pageTitle}</span>
+        {showFilterComponent && <ArticlesFiltrationComponent />}
       </div>
     </div>
   );

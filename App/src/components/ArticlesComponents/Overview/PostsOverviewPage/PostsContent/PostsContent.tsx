@@ -22,7 +22,10 @@ const PostsContent = ({ posts, setPosts }: IPostsContent) => {
         />
       ) : (
         <>
-          <AdministartionPageHeader pageTitle={"Overview posts"} />
+          <AdministartionPageHeader
+            pageTitle={"Overview posts"}
+            showFilterComponent
+          />
           <PostsHeader iconsColour={AvailableIntensiveColors.IntensiveOrange} />
           <PostsItems
             posts={posts}
