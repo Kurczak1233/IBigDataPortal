@@ -1,15 +1,17 @@
+import { IMergedPosts } from "components/MainPageComponents/Main/Articles/ArticlesLogic";
 import { ArticlesTypes } from "enums/ArticlesTypes";
 import { useState, useMemo, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  initializeEduLinksFilters,
-  initializeJobOffersFilters,
-  initializePostsFilters,
+  filterJobOffers,
+  filterEduLinks,
+  filterPosts,
 } from "redux/slices/articlesFiltersSlice";
 import { RootState } from "redux/store";
+import { FiltrationLogic } from "./FiltrationLogic/FiltrationLogic";
 
-interface IFilterArticles {
+export interface IFilterArticles {
   from: Date | null;
   to: Date | null;
   title: string;
@@ -54,16 +56,16 @@ const ArticlesFilterModalLogic = (
     (articleType: ArticlesTypes) => {
       switch (articleType) {
         case ArticlesTypes.Post: {
-          return { dispatcher: initializePostsFilters, articles: posts };
+          return { dispatcher: filterPosts, articles: posts };
         }
         case ArticlesTypes.JobOffer: {
           return {
-            dispatcher: initializeJobOffersFilters,
+            dispatcher: filterJobOffers,
             articles: jobOffers,
           };
         }
         case ArticlesTypes.EduLink: {
-          return { dispatcher: initializeEduLinksFilters, articles: eduLinks };
+          return { dispatcher: filterEduLinks, articles: eduLinks };
         }
       }
     },
@@ -76,9 +78,12 @@ const ArticlesFilterModalLogic = (
 
   const filterItems = (data: IFilterArticles) => {
     setFiltersSet && setFiltersSet(true);
-    dispatch(articlesSpecificProperites.dispatcher([]));
-    //TODO Not initialize (dispatch FILTER action)
-    //TODO Implement filtration logic - add unit tests, those are alwyas usefull.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const filterResult: any = FiltrationLogic(
+      data,
+      articlesSpecificProperites.articles as unknown as IMergedPosts[]
+    );
+    dispatch(articlesSpecificProperites.dispatcher(filterResult));
   };
 
   return {
