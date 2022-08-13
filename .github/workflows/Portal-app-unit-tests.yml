@@ -1,0 +1,26 @@
+name: Portal-app-unit-tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "App/**"
+      - ".github/workflows/Portal-app-unit-tests.yml"
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test using Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16'
+      - name: Install modules
+        working-directory: ./App
+        run: yarn
+      - name: Run tests
+        working-directory: ./App
+        run: yarn test
