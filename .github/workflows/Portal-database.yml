@@ -2,7 +2,7 @@ name: Portal - Database
 
 on:
   workflow_dispatch:
-  pull_request:
+  push:
     branches:
       - main
     paths:

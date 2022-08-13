@@ -1,0 +1,24 @@
+@import "styles/Commons.scss";
+.filterButton {
+  max-width: 300px;
+  height: 20px;
+  @include fontSizeSixteen;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid $intensive-green;
+  border-radius: 6px;
+  padding: 12px;
+  cursor: pointer;
+  color: $intensive-green;
+  @media (max-width: $mobileMaxSize) {
+    max-width: 200px;
+  }
+  .image {
+    margin-left: 12px;
+  }
+}
+.filterButton:hover {
+  @include greenShadow;
+}

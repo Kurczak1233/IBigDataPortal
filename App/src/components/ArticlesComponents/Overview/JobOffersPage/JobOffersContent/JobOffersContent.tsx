@@ -1,6 +1,7 @@
 import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 import NoItemsComponent from "components/common/ArticleCommonComponents/NoItemsComponent/NoItemsComponent";
 import { AvailablePaginationColors } from "components/common/ArticleCommonComponents/Pagination/AvailablePaginationColors";
+import { ArticlesTypes } from "enums/ArticlesTypes";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { JobOfferViewModel } from "interfaces/Models/JobOffers/ViewModels/JobOfferViewModel";
 import JobOffersHeader from "../JobOffersHeader/JobOffersHeader";
@@ -15,7 +16,12 @@ interface IJobOffersContent {
 }
 
 const JobOffersContent = ({ jobOffers, setJobOffers }: IJobOffersContent) => {
-  const { navigateToCreateJobOffer } = JobOfferContentLogic();
+  const {
+    navigateToCreateJobOffer,
+    filteredJobOffers,
+    filtersSet,
+    setFiltersSet,
+  } = JobOfferContentLogic();
   return (
     <>
       {jobOffers.length === 0 ? (
@@ -25,13 +31,18 @@ const JobOffersContent = ({ jobOffers, setJobOffers }: IJobOffersContent) => {
         />
       ) : (
         <>
-          <AdministartionPageHeader pageTitle={"Overview job offers"} />
+          <AdministartionPageHeader
+            pageTitle={"Overview job offers"}
+            showFilterComponent
+            articleType={ArticlesTypes.JobOffer}
+            setFiltersSet={setFiltersSet}
+          />
           <JobOffersHeader
             iconsColour={AvailableIntensiveColors.IntensiveBlue}
           />
           <JobOffersItems
             jobOfferColor={AvailableIntensiveColors.LessIntensiveBlue}
-            jobOffers={jobOffers}
+            jobOffers={filtersSet ? filteredJobOffers : jobOffers}
             paginationColor={AvailablePaginationColors.blue}
             setJobOffers={setJobOffers}
           />

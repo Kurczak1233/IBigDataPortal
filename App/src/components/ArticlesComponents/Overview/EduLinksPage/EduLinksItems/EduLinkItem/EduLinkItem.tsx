@@ -55,7 +55,9 @@ const EduLinkItem = ({
             {format(new Date(eduLink.posted), standarizedFormat)}
           </div>
         )}
-        <div className={styles.title}>{eduLink.title}</div>
+        <div className={styles.title}>
+          <span>{eduLink.title}</span>
+        </div>
         {!(isTablet || isMobile) && (
           <div className={styles.creator}>{eduLink.userEmail}</div>
         )}

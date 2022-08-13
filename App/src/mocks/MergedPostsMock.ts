@@ -1,0 +1,47 @@
+import { IMergedPosts } from "components/MainPageComponents/Main/Articles/ArticlesLogic";
+import { UserRoles } from "enums/UserRoles";
+
+export const mergedPostsMock: IMergedPosts[] = [
+  {
+    title: "FIRST",
+    id: 0,
+    creatorId: 0,
+    description: "",
+    posted: new Date(2022, 5, 15),
+    userEmail: "hahxdxd@wp.pl",
+    files: [],
+    type: "",
+    nickname: "",
+    comments: [],
+    commentsPermissions: UserRoles.Nobody,
+    articleVisibilityPermissions: UserRoles.Nobody,
+  },
+  {
+    title: "Second",
+    id: 0,
+    creatorId: 0,
+    description: "",
+    posted: new Date(2021, 5, 15),
+    userEmail: "hahxdxd@wp.pl",
+    files: [],
+    type: "",
+    nickname: "",
+    comments: [],
+    commentsPermissions: UserRoles.Nobody,
+    articleVisibilityPermissions: UserRoles.Nobody,
+  },
+  {
+    title: "Third",
+    id: 0,
+    creatorId: 0,
+    description: "",
+    posted: new Date(2023, 5, 15),
+    userEmail: "",
+    files: [],
+    type: "",
+    nickname: "",
+    comments: [],
+    commentsPermissions: UserRoles.Nobody,
+    articleVisibilityPermissions: UserRoles.Nobody,
+  },
+];
