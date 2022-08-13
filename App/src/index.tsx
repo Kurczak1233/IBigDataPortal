@@ -9,6 +9,11 @@ import { Toaster } from "react-hot-toast";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "redux/store";
 import { Provider } from "react-redux";
+import { registerLocale } from "react-datepicker";
+import { enGbLocale } from "constants/dateFormatLocale";
+import enGb from "date-fns/locale/en-GB";
+
+registerLocale(enGbLocale, enGb);
 
 ReactDOM.render(
   <Auth0Provider

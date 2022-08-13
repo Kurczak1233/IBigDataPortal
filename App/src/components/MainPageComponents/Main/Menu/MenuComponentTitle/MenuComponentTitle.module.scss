@@ -1,9 +1,5 @@
 @import "styles/Commons.scss";
 .wrapper {
-  .menuTitleBottomBar {
-    height: 2px;
-    background: $intensive-green;
-  }
   .name {
     @include fontSizeTwenty;
     margin-top: 8px;

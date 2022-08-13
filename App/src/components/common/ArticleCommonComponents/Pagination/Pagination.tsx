@@ -17,8 +17,12 @@ const Pagination = ({ pageCount, handlePageClick, colorName }: IPagination) => {
     <div id={"pagination"} className={`${colorName}`}>
       <ReactPaginate
         breakLabel="..."
-        nextLabel={<img src={icons.iconRight} alt={"Right arrow"} />}
-        previousLabel={<img src={icons.iconLeft} alt={"Left arrow"} />}
+        nextLabel={
+          pageCount > 0 && <img src={icons.iconRight} alt={"Right arrow"} />
+        }
+        previousLabel={
+          pageCount > 0 && <img src={icons.iconLeft} alt={"Left arrow"} />
+        }
         onPageChange={(event) => handlePageClick(event)}
         pageRangeDisplayed={5}
         pageCount={pageCount}
