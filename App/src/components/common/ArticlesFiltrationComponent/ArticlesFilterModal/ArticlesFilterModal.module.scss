@@ -7,6 +7,12 @@
   border-radius: 16px;
   padding: 32px;
   width: 400px;
+  @media (max-width: $mobileMaxSize) {
+    max-width: 300px;
+  }
+  @media (max-width: 500px) {
+    max-width: 70vw;
+  }
 }
 .fileModalOverlay {
   position: fixed;

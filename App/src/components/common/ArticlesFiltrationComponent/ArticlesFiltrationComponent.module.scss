@@ -12,6 +12,9 @@
   padding: 12px;
   cursor: pointer;
   color: $intensive-green;
+  @media (max-width: $mobileMaxSize) {
+    max-width: 200px;
+  }
   .image {
     margin-left: 12px;
   }
