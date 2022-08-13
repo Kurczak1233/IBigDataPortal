@@ -6,6 +6,7 @@ import { AvailablePaginationColors } from "components/common/ArticleCommonCompon
 import EduLinksHeader from "../EduLinksHeader/EduLinksHeader";
 import EduLinksItems from "../EduLinksItems/EduLinksItems";
 import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
+import { ArticlesTypes } from "enums/ArticlesTypes";
 
 interface IEduLinksContent {
   eduLinks: EduLinkViewModel[];
@@ -15,7 +16,12 @@ interface IEduLinksContent {
 }
 
 const EduLinksContent = ({ eduLinks, setEduLinks }: IEduLinksContent) => {
-  const { navigateToCreateEduLink } = EduLinksContentLogic();
+  const {
+    navigateToCreateEduLink,
+    filteredEduLinks,
+    filtersSet,
+    setFiltersSet,
+  } = EduLinksContentLogic();
   return (
     <>
       {eduLinks.length === 0 ? (
@@ -25,12 +31,17 @@ const EduLinksContent = ({ eduLinks, setEduLinks }: IEduLinksContent) => {
         />
       ) : (
         <>
-          <AdministartionPageHeader pageTitle={"Overview posts"} />
+          <AdministartionPageHeader
+            pageTitle={"Overview posts"}
+            showFilterComponent
+            articleType={ArticlesTypes.EduLink}
+            setFiltersSet={setFiltersSet}
+          />
           <EduLinksHeader
             iconsColour={AvailableIntensiveColors.IntensiveGreen}
           />
           <EduLinksItems
-            eduLinks={eduLinks}
+            eduLinks={filtersSet ? filteredEduLinks : eduLinks}
             eduLinkColor={AvailableIntensiveColors.LessIntensiveGreen}
             paginationColor={AvailablePaginationColors.green}
             setEduLinks={setEduLinks}

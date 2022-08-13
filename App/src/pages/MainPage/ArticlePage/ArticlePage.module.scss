@@ -80,6 +80,9 @@
         padding: 12px;
         cursor: pointer;
       }
+      .documents:hover {
+        @include greenShadow;
+      }
     }
   }
   .error {
