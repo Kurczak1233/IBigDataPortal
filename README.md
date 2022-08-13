@@ -18,8 +18,8 @@ In order to gain higher access to the portal the user can send a request to the 
 The posts can contain images.
 From the administration site, there are invitations to overlook, articles that can be edited an maintained, users management, user edit.
 The application is now responsive.
-Simple filtration system for administrations lists.
-Documents for articles
+There is simple filtration system implemented for administrations lists.
+There are now documents for articles
 
 
 In the future:
