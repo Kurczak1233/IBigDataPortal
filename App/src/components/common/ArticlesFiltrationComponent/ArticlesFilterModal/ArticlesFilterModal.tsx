@@ -88,10 +88,10 @@ const ArticlesFilterModal = ({
       />
       <footer className={styles.footer}>
         <SmallButton
-          text={"Cancel"}
+          text={"Clear"}
           width={"100px"}
           onClick={resetAndLeave}
-          color={AvailableIntensiveColors.InactiveGray}
+          color={AvailableIntensiveColors.IntensiveRed}
         />
         <SmallButton
           text={"Filter"}

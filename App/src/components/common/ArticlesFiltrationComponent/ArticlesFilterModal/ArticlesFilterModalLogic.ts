@@ -50,6 +50,19 @@ const ArticlesFilterModalLogic = (
       creator: "",
     });
     onCloseModal();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const filterResult: any = FiltrationLogic(
+      {
+        from: null,
+        to: null,
+        title: "",
+        creator: "",
+      },
+      articlesSpecificProperites.articles as unknown as IMergedPosts[]
+    );
+    onCloseModal();
+    setFiltersSet && setFiltersSet(false);
+    dispatch(articlesSpecificProperites.dispatcher(filterResult));
   };
 
   const getDispatchForArticle = useCallback(
@@ -83,6 +96,7 @@ const ArticlesFilterModalLogic = (
       data,
       articlesSpecificProperites.articles as unknown as IMergedPosts[]
     );
+    onCloseModal();
     dispatch(articlesSpecificProperites.dispatcher(filterResult));
   };
 

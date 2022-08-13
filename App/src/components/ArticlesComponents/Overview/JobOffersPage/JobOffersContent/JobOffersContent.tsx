@@ -16,7 +16,12 @@ interface IJobOffersContent {
 }
 
 const JobOffersContent = ({ jobOffers, setJobOffers }: IJobOffersContent) => {
-  const { navigateToCreateJobOffer } = JobOfferContentLogic();
+  const {
+    navigateToCreateJobOffer,
+    filteredJobOffers,
+    filtersSet,
+    setFiltersSet,
+  } = JobOfferContentLogic();
   return (
     <>
       {jobOffers.length === 0 ? (
@@ -30,13 +35,14 @@ const JobOffersContent = ({ jobOffers, setJobOffers }: IJobOffersContent) => {
             pageTitle={"Overview job offers"}
             showFilterComponent
             articleType={ArticlesTypes.JobOffer}
+            setFiltersSet={setFiltersSet}
           />
           <JobOffersHeader
             iconsColour={AvailableIntensiveColors.IntensiveBlue}
           />
           <JobOffersItems
             jobOfferColor={AvailableIntensiveColors.LessIntensiveBlue}
-            jobOffers={jobOffers}
+            jobOffers={filtersSet ? filteredJobOffers : jobOffers}
             paginationColor={AvailablePaginationColors.blue}
             setJobOffers={setJobOffers}
           />

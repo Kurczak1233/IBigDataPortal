@@ -16,7 +16,12 @@ interface IEduLinksContent {
 }
 
 const EduLinksContent = ({ eduLinks, setEduLinks }: IEduLinksContent) => {
-  const { navigateToCreateEduLink } = EduLinksContentLogic();
+  const {
+    navigateToCreateEduLink,
+    filteredEduLinks,
+    filtersSet,
+    setFiltersSet,
+  } = EduLinksContentLogic();
   return (
     <>
       {eduLinks.length === 0 ? (
@@ -30,12 +35,13 @@ const EduLinksContent = ({ eduLinks, setEduLinks }: IEduLinksContent) => {
             pageTitle={"Overview posts"}
             showFilterComponent
             articleType={ArticlesTypes.EduLink}
+            setFiltersSet={setFiltersSet}
           />
           <EduLinksHeader
             iconsColour={AvailableIntensiveColors.IntensiveGreen}
           />
           <EduLinksItems
-            eduLinks={eduLinks}
+            eduLinks={filtersSet ? filteredEduLinks : eduLinks}
             eduLinkColor={AvailableIntensiveColors.LessIntensiveGreen}
             paginationColor={AvailablePaginationColors.green}
             setEduLinks={setEduLinks}
