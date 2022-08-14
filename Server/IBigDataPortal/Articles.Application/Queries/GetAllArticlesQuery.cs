@@ -2,6 +2,8 @@ using Articles.Contracts.Enums;
 using Articles.Domain.ArticlesAggregate.ViewModels;
 using Dapper;
 using EduLinks.Contracts.ViewModels;
+using Files.Contracts.Enums;
+using Files.Contracts.ViewModels;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
 using IBigDataPortal.Domain.UserMetadata;
@@ -48,10 +50,23 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                     userId = _user.Id,
                 }); 
         }
+        
+        var allFilesQuery = $@"SELECT {Dbo.FilesMetadata}.{nameof(FileMetadata.Guid)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.CreatedById)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.CreatedOn)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.RefId)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.FileName)},
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.ModuleEnum)} as FileModule,
+                     {Dbo.FilesMetadata}.{nameof(FileMetadata.FileType)}
+                     FROM {Dbo.FilesMetadata}
+                     WHERE {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)} = 0";
 
-        var jobOffers = await GetAllJobOffers();
-        var eduLinks = await GetAllEduLinks();
-        var posts = await GetAllPosts();
+        var allFiles = await connection.QueryAsync<FileVm>(allFilesQuery);
+
+        var jobOffers = await GetAllJobOffers(allFiles);
+        var eduLinks = await GetAllEduLinks(allFiles);
+        var posts = await GetAllPosts(allFiles);
 
         var jobOffersFiltered = jobOffers.Where((item) => (int)item.ArticleVisibilityPermissions >= userRoleId);
         var eduLinksFiltered = eduLinks.Where((item) => (int)item.ArticleVisibilityPermissions >= userRoleId);
@@ -65,7 +80,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
         };
     }
 
-    private async Task<IEnumerable<PostViewModel>> GetAllPosts()
+    private async Task<IEnumerable<PostViewModel>> GetAllPosts(IEnumerable<FileVm>? allFiles)
     {
         var connection = await _connectionService.GetAsync();
         var postsSql = $@"SELECT {Dbo.Posts}.{nameof(Post.Title)},
@@ -113,6 +128,9 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
             {
                 groupedPost.Comments = allComments;
             }
+            
+            groupedPost.Files = allFiles.Where((item) => item.RefId == groupedPost.Id && item.FileModule == FileModuleEnum.PostsFiles).ToList();
+
 
             return groupedPost;
         });
@@ -120,7 +138,7 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
         return posts;
     }
 
-    private async Task<IEnumerable<JobOfferViewModel>> GetAllJobOffers()
+    private async Task<IEnumerable<JobOfferViewModel>> GetAllJobOffers(IEnumerable<FileVm>? allFiles)
     {
         var connection = await _connectionService.GetAsync();
 
@@ -162,21 +180,23 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
 
         var jobOffers = result.GroupBy(p => p.Id).Select(g =>
         {
-            var groupedPost = g.First();
+            var groupedJobOffers = g.First();
             var foundComments = g.Select(p => p.Comments.Count != 0 ? p.Comments.Single() : null).ToList();
             var allComments = foundComments.FindAll(item => item != null);
             if (allComments.Count != 0)
             {
-                groupedPost.Comments = allComments;
+                groupedJobOffers.Comments = allComments;
             }
 
-            return groupedPost;
+            groupedJobOffers.Files = allFiles.Where((item) => item.RefId == groupedJobOffers.Id && item.FileModule == FileModuleEnum.JobOffersFiles).ToList();
+            
+            return groupedJobOffers;
         });
 
         return jobOffers;
     }
 
-    private async Task<IEnumerable<EduLinkViewModel>> GetAllEduLinks()
+    private async Task<IEnumerable<EduLinkViewModel>> GetAllEduLinks(IEnumerable<FileVm>? allFiles)
     {
         var connection = await _connectionService.GetAsync();
 
@@ -200,11 +220,11 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
                      CommentUsers.Email as CommentatorEmail
                      FROM {Dbo.EduLinks} JOIN {Dbo.Users}
                      ON {Dbo.EduLinks}.{nameof(EduLink.CreatorId)} = {Dbo.Users}.{nameof(User.Id)}
+                     LEFT JOIN {Dbo.FilesMetadata} ON {Dbo.FilesMetadata}.{nameof(FileMetadata.RefId)} = {Dbo.EduLinks}.{nameof(EduLink.Id)}
                      LEFT JOIN {Dbo.Comments} ON {Dbo.EduLinks}.{nameof(EduLink.Id)} = {Dbo.Comments}.{nameof(Comment.ArticleId)}
                      LEFT JOIN {Dbo.Users} as CommentUsers ON CommentUsers.{nameof(User.Id)} = {Dbo.Comments}.{nameof(Comment.CreatorId)}
-                     WHERE {Dbo.EduLinks}.{nameof(EduLink.IsDeleted)} = 0
-                     AND ({Dbo.Comments}.{nameof(Comment.IsDeleted)} = 1 OR {Dbo.Comments}.{nameof(Comment.IsDeleted)} = 0 OR {Dbo.Comments}.{nameof(Comment.IsDeleted)} IS NULL)";
-
+                     WHERE {Dbo.EduLinks}.{nameof(EduLink.IsDeleted)} = 0";
+        
         var result = await connection.QueryAsync<EduLinkViewModel, EduLinkCommentViewModel, EduLinkViewModel>(
             eduLinksSql, (eduLink, comment) =>
             {
@@ -218,15 +238,17 @@ public class GetAllArticlesQueryHandler : IRequestHandler<GetAllArticlesQuery, A
 
         var eduLinks = result.GroupBy(p => p.Id).Select(g =>
         {
-            var groupedPost = g.First();
+            var groupedEduLink = g.First();
             var foundComments = g.Select(p => p.Comments.Count != 0 ? p.Comments.Single() : null).ToList();
             var allComments = foundComments.FindAll(item => item != null);
             if (allComments.Count != 0)
             {
-                groupedPost.Comments = allComments;
+                groupedEduLink.Comments = allComments;
             }
 
-            return groupedPost;
+            groupedEduLink.Files = allFiles.Where((item) => item.RefId == groupedEduLink.Id && item.FileModule == FileModuleEnum.EduLinksFiles).ToList();
+            
+            return groupedEduLink;
         });
 
         return eduLinks;

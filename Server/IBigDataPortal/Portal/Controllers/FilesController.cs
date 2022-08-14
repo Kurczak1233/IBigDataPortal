@@ -32,7 +32,16 @@ public class FilesController : ControllerBase
     {
         await _authorizationService.AuthorizeAsync(_user.UserClaims, "",
             new PortalAccessAuthorizationRequirement(_user.Id));
-        var fileResult = await _mediator.Send(new GetFileQuery(itemId, moduleNumber));
+        var fileResult = await _mediator.Send(new GetLastFileQuery(itemId, moduleNumber));
+        return Ok(fileResult);
+    }
+    
+    [HttpGet("Download/{guid}")]
+    public async Task<IActionResult> GetLastUploadedFileFromServer(Guid guid)
+    {
+        await _authorizationService.AuthorizeAsync(_user.UserClaims, "",
+            new PortalAccessAuthorizationRequirement(_user.Id));
+        var fileResult = await _mediator.Send(new GetFileByGuidQuery(guid));
         return Ok(fileResult);
     }
     
