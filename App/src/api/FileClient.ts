@@ -25,6 +25,14 @@ const getLastUploadedFileFromServer = async (
   );
 };
 
+const getFile = async (guid: string): Promise<FileVm> => {
+  return AxiosClient(
+    HttpRequestsMethods.GET,
+    `${Files}/Download/${guid}`,
+    base
+  );
+};
+
 const getAllItemsFiles = async (
   itemId: number,
   moduleNumber: FileModuleEnum
@@ -44,5 +52,6 @@ export {
   uploadFile,
   getLastUploadedFileFromServer,
   removeFile,
+  getFile,
   getAllItemsFiles,
 };

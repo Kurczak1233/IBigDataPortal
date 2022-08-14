@@ -11,5 +11,6 @@ public class FileVm
     public DateTimeOffset CreatedOn { get; set; }
     public string FileName { get; set; }
     public string FileType { get; set; }
+    public int RefId { get; set; }
     public FileModuleEnum FileModule { get; set; }
 }

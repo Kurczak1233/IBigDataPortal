@@ -10,18 +10,18 @@ using MediatR;
 
 namespace Files.Application.Queries;
 
-public class GetFileQuery : IRequest<FileVm?>
+public class GetLastFileQuery : IRequest<FileVm?>
 {
     public int FileId { get; set; }
     public FileModuleEnum ModuleId { get; set; }
-    public GetFileQuery(int fileId, FileModuleEnum moduleId)
+    public GetLastFileQuery(int fileId, FileModuleEnum moduleId)
     {
         FileId = fileId;
         ModuleId = moduleId;
     }
 }
 
-public class GetFileQueryHandler : IRequestHandler<GetFileQuery, FileVm?>
+public class GetFileQueryHandler : IRequestHandler<GetLastFileQuery, FileVm?>
 {
     private readonly ISqlConnectionService _connectionService;
 
@@ -31,7 +31,7 @@ public class GetFileQueryHandler : IRequestHandler<GetFileQuery, FileVm?>
 
     }
     
-    public async Task<FileVm?> Handle(GetFileQuery request, CancellationToken cancellationToken)
+    public async Task<FileVm?> Handle(GetLastFileQuery request, CancellationToken cancellationToken)
     {
         if (await GetFileMetadata(request) is { } fileMetadata)
         {
@@ -41,7 +41,7 @@ public class GetFileQueryHandler : IRequestHandler<GetFileQuery, FileVm?>
         return null;
     }
     
-    private async Task<FileVm> GetFileMetadata(GetFileQuery request) {
+    private async Task<FileVm> GetFileMetadata(GetLastFileQuery request) {
         var connection = await _connectionService.GetAsync();
         var sql = $@"SELECT TOP 1 {nameof(FileMetadata.Guid)}, 
                         {nameof(FileMetadata.CreatedById)},

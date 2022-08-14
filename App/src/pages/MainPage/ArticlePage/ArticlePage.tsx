@@ -11,25 +11,24 @@ import { Controller } from "react-hook-form";
 import ArticlePageCommentsLogic from "./ArticlePageCommentsLogic";
 import ArticleComment from "./ArticleComment/ArticleComment";
 import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
+import { filesStorageBaseUrl } from "constants/storageBaseUrl";
 
 const ArticlePage = () => {
   const {
     article,
-    articleFiles,
     componentColour,
     componentIntensiveColour,
     downloadIconOnHover,
     navigateBack,
     downloadFile,
     articleDocuments,
-    filesLoading,
+    articleFiles,
     articleComments,
     appUser,
     setArticleComments,
   } = ArticlePageLogic();
   const { control, errors, handleCreateComment, handleSubmit } =
     ArticlePageCommentsLogic(setArticleComments);
-
   if (!article) {
     return <BigLoader />;
   }
@@ -57,47 +56,38 @@ const ArticlePage = () => {
             color={componentIntensiveColour}
           />
           <div>{parse(article.description)}</div>
-          {filesLoading ? (
-            <BigLoader />
-          ) : (
+          {articleDocuments.length > 0 && (
             <>
-              {articleDocuments.length > 0 && (
-                <>
-                  <div className={styles.documentsContainer}>
-                    Documents:
-                    {articleDocuments.map((document) => {
-                      return (
-                        <div
-                          style={{
-                            borderColor: `#${componentIntensiveColour}`,
-                          }}
-                          className={styles.documents}
-                          onClick={() => downloadFile(document)}
-                          key={document.guid}
-                        >
-                          {document.fileName}
-                          <img
-                            src={downloadIconOnHover}
-                            alt={"Download icon"}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className={styles.imageContainer}>
-                    {articleFiles &&
-                      articleFiles.map((item) => {
-                        return (
-                          <img
-                            key={item.guid}
-                            src={`data:image/png;base64,${item.base64FileString}`}
-                            alt={"User item"}
-                          />
-                        );
-                      })}
-                  </div>
-                </>
-              )}{" "}
+              <div className={styles.documentsContainer}>
+                Documents:
+                {articleDocuments.map((document) => {
+                  return (
+                    <div
+                      style={{
+                        borderColor: `#${componentIntensiveColour}`,
+                      }}
+                      className={styles.documents}
+                      onClick={() => downloadFile(document)}
+                      key={document.guid}
+                    >
+                      {document.fileName}
+                      <img src={downloadIconOnHover} alt={"Download icon"} />
+                    </div>
+                  );
+                })}
+              </div>
+              <div className={styles.imageContainer}>
+                {articleFiles &&
+                  articleFiles.map((item) => {
+                    return (
+                      <img
+                        key={item.guid}
+                        src={`${filesStorageBaseUrl}${item.guid}`}
+                        alt={"Post file"}
+                      />
+                    );
+                  })}
+              </div>
             </>
           )}
           {article.commentsPermissions === 0 && articleComments.length === 0 ? (
