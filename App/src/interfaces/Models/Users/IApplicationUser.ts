@@ -3,4 +3,5 @@ export interface ApplicationUser {
   email: string;
   id: number;
   userRoleId: number;
+  profilePictureGuid: string;
 }

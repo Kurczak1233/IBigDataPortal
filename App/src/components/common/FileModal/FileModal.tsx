@@ -26,6 +26,8 @@ interface IFileModal {
   multiple?: boolean;
   customUploadFiles?: (file: File[]) => void;
   currentFiles?: File[];
+  lastProfilePicGuid?: string;
+  deleteLastImageBeforeUpload?: boolean;
 }
 
 const FileModal = ({
@@ -34,6 +36,8 @@ const FileModal = ({
   moduleId,
   itemId,
   multiple = false,
+  lastProfilePicGuid,
+  deleteLastImageBeforeUpload = false,
   acceptedFilesExtensions = imageExtensions,
   customUploadFiles,
   updatePicture,
@@ -60,6 +64,8 @@ const FileModal = ({
     updatePicture,
     multiple,
     currentFiles,
+    deleteLastImageBeforeUpload,
+    lastProfilePicGuid,
   });
 
   return (
