@@ -6,6 +6,7 @@ import { useState } from "react";
 
 const ProfilePictureLogic = (userProfile: ApplicationUser) => {
   const [isPictureModalOpen, setIsPictureModalOpen] = useState<boolean>(false);
+  const [pictureLoaded, setPictureLoaded] = useState<boolean>(false);
   const [isConfimActionModalOpen, setIsConfimrActionModalOpen] =
     useState<boolean>(false);
 
@@ -40,6 +41,8 @@ const ProfilePictureLogic = (userProfile: ApplicationUser) => {
     isConfimActionModalOpen,
     setIsConfimrActionModalOpen,
     deletePicture,
+    setPictureLoaded,
+    pictureLoaded,
   };
 };
 

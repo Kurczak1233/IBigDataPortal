@@ -2,6 +2,7 @@ import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import FileModal from "components/common/FileModal/FileModal";
 import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import { imageExtensions } from "components/common/FileModal/SupportedExtensions";
+import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
 import ConfirmActionModal from "components/common/Modals/ConfirmActionModal/ConfirmActionModal";
 import { filesStorageBaseUrl } from "constants/storageBaseUrl";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
@@ -26,6 +27,8 @@ const ProfilePicture = ({
     isConfimActionModalOpen,
     setIsConfimrActionModalOpen,
     deletePicture,
+    setPictureLoaded,
+    pictureLoaded,
   } = ProfilePictureLogic(userProfile);
   return (
     <>
@@ -50,12 +53,19 @@ const ProfilePicture = ({
         userProfile.profilePictureGuid !== "" ? (
           <>
             <img
+              style={pictureLoaded ? {} : { display: "none" }}
               className={styles.profilePictureFrame}
               src={`${filesStorageBaseUrl}${userProfile.profilePictureGuid}`}
               alt="Profile pic"
               width={250}
               height={250}
+              onLoad={() => setPictureLoaded(true)}
             />
+            {!pictureLoaded && (
+              <div className={styles.noPictureWrapper}>
+                <BigLoader />
+              </div>
+            )}
           </>
         ) : (
           <div className={styles.noPictureWrapper}>No picture</div>
