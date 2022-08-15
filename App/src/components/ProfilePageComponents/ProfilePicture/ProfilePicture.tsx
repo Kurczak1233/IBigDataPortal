@@ -4,6 +4,7 @@ import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import { imageExtensions } from "components/common/FileModal/SupportedExtensions";
 import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
 import ConfirmActionModal from "components/common/Modals/ConfirmActionModal/ConfirmActionModal";
+import { emptyGuid } from "constants/emptyGuid";
 import { filesStorageBaseUrl } from "constants/storageBaseUrl";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { ApplicationUser } from "interfaces/Models/Users/IApplicationUser";
@@ -13,11 +14,15 @@ import ProfilePictureLogic from "./ProfilePictureLogic";
 interface IProfilePicture {
   handleGetUserProfileRequest: () => Promise<void>;
   userProfile: ApplicationUser;
+  setUserProfile: React.Dispatch<
+    React.SetStateAction<ApplicationUser | undefined>
+  >;
 }
 
 const ProfilePicture = ({
   handleGetUserProfileRequest,
   userProfile,
+  setUserProfile,
 }: IProfilePicture) => {
   const {
     setIsPictureModalOpen,
@@ -29,7 +34,7 @@ const ProfilePicture = ({
     deletePicture,
     setPictureLoaded,
     pictureLoaded,
-  } = ProfilePictureLogic(userProfile);
+  } = ProfilePictureLogic(userProfile, setUserProfile);
   return (
     <>
       <FileModal
@@ -50,7 +55,7 @@ const ProfilePicture = ({
       />
       <div className={styles.pictureWrapper}>
         {userProfile.profilePictureGuid &&
-        userProfile.profilePictureGuid !== "" ? (
+        userProfile.profilePictureGuid !== emptyGuid ? (
           <>
             <img
               style={pictureLoaded ? {} : { display: "none" }}

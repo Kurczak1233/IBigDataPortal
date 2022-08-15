@@ -37,6 +37,7 @@ const ProfilePageMain = ({
       <ProfilePicture
         handleGetUserProfileRequest={handleGetUserProfileRequest}
         userProfile={userProfile}
+        setUserProfile={setUserProfile}
       />
       {!showEdit ? (
         <InputWthLabelReadonly

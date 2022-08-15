@@ -36,16 +36,20 @@ public class GetApplicationUserQueryHandler : IRequestHandler<GetApplicationUser
         var sql = $@"SELECT {nameof(User.Id)},
                             {nameof(User.Email)},
                             {nameof(User.Nickname)},
-                            {nameof(User.UserRoleId)},
-                            {nameof(FileMetadata.Guid)} as ProfilePictureGuid
+                            {nameof(User.UserRoleId)}
                      FROM {Dbo.Users}
-                     JOIN {Dbo.FilesMetadata} ON {Dbo.Users}.{nameof(User.Id)} = {Dbo.FilesMetadata}.{nameof(FileMetadata.RefId)}
-                     WHERE {nameof(User.Id)} = @id
-                     AND {Dbo.FilesMetadata}.{nameof(FileMetadata.ModuleEnum)} = {(int)FileModuleEnum.UserImage} 
-                     AND {Dbo.FilesMetadata}.{nameof(FileMetadata.IsDeleted)} = 0";
+                     WHERE {nameof(User.Id)} = @id";
 
         var foundUser = await connection.QuerySingleOrDefaultAsync<ApplicationUserDto>(sql,new { id = request.UserId});
+        
+        var imageSql = $@"SELECT {nameof(FileMetadata.Guid)} as ProfilePictureGuid
+                     FROM {Dbo.FilesMetadata}
+                     WHERE {nameof(FileMetadata.RefId)} = @id
+                     AND {nameof(FileMetadata.ModuleEnum)} = {(int)FileModuleEnum.UserImage} 
+                     AND {nameof(FileMetadata.IsDeleted)} = 0";
 
+        var foundUserImage = await connection.QuerySingleOrDefaultAsync<Guid>(imageSql,new { id = request.UserId});
+        foundUser.ProfilePictureGuid = foundUserImage;
         return foundUser;
     }
 }

@@ -1,10 +1,16 @@
 import { removeFile } from "api/FileClient";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
+import { emptyGuid } from "constants/emptyGuid";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { ApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import { useState } from "react";
 
-const ProfilePictureLogic = (userProfile: ApplicationUser) => {
+const ProfilePictureLogic = (
+  userProfile: ApplicationUser,
+  setUserProfile: React.Dispatch<
+    React.SetStateAction<ApplicationUser | undefined>
+  >
+) => {
   const [isPictureModalOpen, setIsPictureModalOpen] = useState<boolean>(false);
   const [pictureLoaded, setPictureLoaded] = useState<boolean>(false);
   const [isConfimActionModalOpen, setIsConfimrActionModalOpen] =
@@ -31,6 +37,12 @@ const ProfilePictureLogic = (userProfile: ApplicationUser) => {
     }
     await removeFile(userProfile.profilePictureGuid);
     handleCloseConfirmActionModal();
+    setUserProfile((oldUser) => {
+      if (!oldUser) {
+        return oldUser;
+      }
+      return { ...oldUser, profilePictureGuid: emptyGuid };
+    });
   };
 
   return {
