@@ -7,7 +7,7 @@ const UsersPageMainLogic = () => {
   const [pageCount, setPageCount] = useState<number>(0);
   const [itemOffset, setItemOffset] = useState<number>(0);
   const [currentItems, setCurrentItems] = useState<ApplicationUser[]>([]);
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(5);
 
   const refContainer = useRef<HTMLDivElement>(null);
 

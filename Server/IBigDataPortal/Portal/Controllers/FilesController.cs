@@ -37,7 +37,7 @@ public class FilesController : ControllerBase
     }
     
     [HttpGet("Download/{guid}")]
-    public async Task<IActionResult> GetLastUploadedFileFromServer(Guid guid)
+    public async Task<IActionResult> GetFileByGuid(Guid guid)
     {
         await _authorizationService.AuthorizeAsync(_user.UserClaims, "",
             new PortalAccessAuthorizationRequirement(_user.Id));

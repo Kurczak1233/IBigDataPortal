@@ -33,7 +33,7 @@ const EditFileComponent = ({
     setIsConfirmDeleteModalOpen,
     isConfirmDeleteModalOpen,
     comesFromImages,
-    setComesFromDocuments,
+    setComesFromImages,
     confirmDeleteFile,
   } = CreatePostFilesLogic({ setPostsFiles });
 
@@ -61,7 +61,10 @@ const EditFileComponent = ({
         <div className={styles.files}>Images</div>
         <SmallButton
           text={"Edit files"}
-          onClick={openFileModal}
+          onClick={() => {
+            setComesFromImages(true);
+            openFileModal();
+          }}
           color={AvailableIntensiveColors.IntensiveGreen}
         />
       </div>
@@ -99,7 +102,7 @@ const EditFileComponent = ({
         <SmallButton
           text={"Edit documents"}
           onClick={() => {
-            setComesFromDocuments(false);
+            setComesFromImages(false);
             openFileModal();
           }}
           color={AvailableIntensiveColors.IntensiveGreen}

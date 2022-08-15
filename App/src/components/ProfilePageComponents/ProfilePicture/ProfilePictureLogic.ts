@@ -1,19 +1,18 @@
 import { removeFile } from "api/FileClient";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
+import { emptyGuid } from "constants/emptyGuid";
 import { ToastModes } from "interfaces/General/ToastModes";
-import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
+import { ApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import { useState } from "react";
 
-interface IProfillePageMainLogic {
-  profilePic: FileVm | undefined;
-  setProfilePic: React.Dispatch<React.SetStateAction<FileVm | undefined>>;
-}
-
-const ProfilePictureLogic = ({
-  profilePic,
-  setProfilePic,
-}: IProfillePageMainLogic) => {
+const ProfilePictureLogic = (
+  userProfile: ApplicationUser,
+  setUserProfile: React.Dispatch<
+    React.SetStateAction<ApplicationUser | undefined>
+  >
+) => {
   const [isPictureModalOpen, setIsPictureModalOpen] = useState<boolean>(false);
+  const [pictureLoaded, setPictureLoaded] = useState<boolean>(false);
   const [isConfimActionModalOpen, setIsConfimrActionModalOpen] =
     useState<boolean>(false);
 
@@ -30,19 +29,19 @@ const ProfilePictureLogic = ({
   };
 
   const deletePicture = async () => {
-    if (!profilePic) {
+    if (!userProfile) {
       return SyncToast({
         mode: ToastModes.Error,
-        description: "File was not found",
+        description: "User was not found",
       });
     }
-    await removeFile(profilePic.guid);
+    await removeFile(userProfile.profilePictureGuid);
     handleCloseConfirmActionModal();
-    setProfilePic((oldPic) => {
-      if (!oldPic) {
-        return;
+    setUserProfile((oldUser) => {
+      if (!oldUser) {
+        return oldUser;
       }
-      return { ...oldPic, isDeleted: true };
+      return { ...oldUser, profilePictureGuid: emptyGuid };
     });
   };
 
@@ -54,6 +53,8 @@ const ProfilePictureLogic = ({
     isConfimActionModalOpen,
     setIsConfimrActionModalOpen,
     deletePicture,
+    setPictureLoaded,
+    pictureLoaded,
   };
 };
 
