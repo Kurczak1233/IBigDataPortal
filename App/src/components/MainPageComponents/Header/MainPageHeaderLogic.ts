@@ -24,23 +24,6 @@ const MainPageHeaderLogic = () => {
     navigate(`/`);
   };
 
-  // useEffect(() => {
-  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  //   const checkIfClickedOutside = (e: { target: any }) => {
-  //     if (
-  //       isDropdownOpen &&
-  //       dropdownRef.current &&
-  //       !dropdownRef.current.contains(e.target)
-  //     ) {
-  //       setIsDropdownOpen(false);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", checkIfClickedOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", checkIfClickedOutside);
-  //   };
-  // }, [isDropdownOpen]);
-
   const {
     handleClickOnLogin,
     handleClickOnRegister,
