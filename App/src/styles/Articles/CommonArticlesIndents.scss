@@ -1,9 +1,18 @@
 @mixin postedColumnWidth {
-    width: 10%;
+  width: 17%;
+  @media (max-width: $tabletMaxWidth) {
+    width: 40%;
+  }
 }
 @mixin titleColumnWidth {
-    width: 45%;
+  width: 37%;
+  @media (max-width: $tabletMaxWidth) {
+    width: 50%;
+  }
+  @media (max-width: $smallMobileMaxSize) {
+    width: 70%;
+  }
 }
 @mixin creatorColumnWidth {
-    width: 45%;
+  width: 35%;
 }

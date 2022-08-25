@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EduLinks.Application.Commands;
 
-public class CreateEduLinkCommand : IRequest
+public class CreateEduLinkCommand : IRequest<int>
 {
     public CreateEduLinkRequest Body { get; set; }
     public int CurrentUserId { get; set; }
@@ -22,9 +22,8 @@ public class CreateEduLinkCommand : IRequest
     }
 }
 
-public class CreateJobOfferCommandHandler : IRequestHandler<CreateEduLinkCommand>
+public class CreateJobOfferCommandHandler : IRequestHandler<CreateEduLinkCommand, int>
 {
-    
     private readonly ISqlConnectionService _connectionService;  
     
     public CreateJobOfferCommandHandler(ISqlConnectionService connectionService)
@@ -32,19 +31,31 @@ public class CreateJobOfferCommandHandler : IRequestHandler<CreateEduLinkCommand
         _connectionService = connectionService;
     }
 
-    public async Task<Unit> Handle(CreateEduLinkCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateEduLinkCommand request, CancellationToken cancellationToken)
     {
         var nowDate = DateTimeOffset.Now;
         var connection = await _connectionService.GetAsync();
         var sql =
-            $@"INSERT INTO {Dbo.EduLinks} ({nameof(EduLink.Title)}, {nameof(EduLink.Link)}, {nameof(EduLink.Description)}, {nameof(EduLink.CreatorId)}, {nameof(EduLink.Posted)})
-        VALUES (@title, @link, @description, @userId, @dateNow)";
-        await connection.ExecuteAsync(sql,
+            $@"INSERT INTO {Dbo.EduLinks}
+               ({nameof(EduLink.Title)}, 
+               {nameof(EduLink.Description)}, 
+               {nameof(EduLink.CreatorId)}, 
+               {nameof(EduLink.Posted)},
+               {nameof(JobOffer.CommentsPermissions)},
+               {nameof(JobOffer.ArticleVisibilityPermissions)})
+               OUTPUT INSERTED.[Id]
+               VALUES (@title, @description, @userId, @dateNow, @commentsPermission, @visibilityPermission)";
+        
+        var eduLinkId = await connection.QuerySingleAsync<int>(sql,
             new
             {
-                title = request.Body.Title, link = request.Body.Link, description = request.Body.Description, userId = request.CurrentUserId,
-                dateNow = nowDate
+                title = request.Body.Title,
+                description = request.Body.Description,
+                userId = request.CurrentUserId,
+                dateNow = nowDate,
+                commentsPermission = request.Body.CommentsPermissions,
+                visibilityPermission = request.Body.VisibilityPermissions
             });
-        return Unit.Value;
+        return eduLinkId;
     }
 }

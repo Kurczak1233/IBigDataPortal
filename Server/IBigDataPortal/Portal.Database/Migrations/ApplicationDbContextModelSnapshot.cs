@@ -22,13 +22,50 @@ namespace IBigDataPortal.Database.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("IBigDataPortal.Database.Entities.EduLink", b =>
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ArticleType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.Cooperation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<int>("CreatorId")
                         .HasColumnType("int");
@@ -37,9 +74,49 @@ namespace IBigDataPortal.Database.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Link")
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RequestTopic")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.ToTable("Cooperations");
+                });
+
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.EduLink", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ArticleVisibilityPermissions")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CommentsPermissions")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DeletedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("DeletedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IsDeleted")
+                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("Posted")
                         .HasColumnType("datetimeoffset");
@@ -71,6 +148,10 @@ namespace IBigDataPortal.Database.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FileType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -95,16 +176,27 @@ namespace IBigDataPortal.Database.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("ArticleVisibilityPermissions")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CommentsPermissions")
+                        .HasColumnType("int");
+
                     b.Property<int>("CreatorId")
                         .HasColumnType("int");
+
+                    b.Property<int?>("DeletedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("DeletedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Link")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("IsDeleted")
+                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("Posted")
                         .HasColumnType("datetimeoffset");
@@ -128,12 +220,27 @@ namespace IBigDataPortal.Database.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("ArticleVisibilityPermissions")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CommentsPermissions")
+                        .HasColumnType("int");
+
                     b.Property<int>("CreatorId")
                         .HasColumnType("int");
+
+                    b.Property<int?>("DeletedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("DeletedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IsDeleted")
+                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("Posted")
                         .HasColumnType("datetimeoffset");
@@ -161,13 +268,82 @@ namespace IBigDataPortal.Database.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Nickname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserRoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserRoleId");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.UserRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("RoleName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("UserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            RoleName = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            RoleName = "HEI"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            RoleName = "Employee"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            RoleName = "Student/Business"
+                        });
+                });
+
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.Comment", b =>
+                {
+                    b.HasOne("IBigDataPortal.Database.Entities.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
+                });
+
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.Cooperation", b =>
+                {
+                    b.HasOne("IBigDataPortal.Database.Entities.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.EduLink", b =>
@@ -212,6 +388,22 @@ namespace IBigDataPortal.Database.Migrations
                         .IsRequired();
 
                     b.Navigation("Creator");
+                });
+
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.User", b =>
+                {
+                    b.HasOne("IBigDataPortal.Database.Entities.UserRole", "UserRole")
+                        .WithMany("Users")
+                        .HasForeignKey("UserRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserRole");
+                });
+
+            modelBuilder.Entity("IBigDataPortal.Database.Entities.UserRole", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,8 +11,20 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import applicationUserReducer from "./slices/applicationUserSlice";
+import accessTokenReducer from "./slices/accessTokenSlice";
+import resetFiltersFlags from "./slices/resetFiltersFlags";
+import articlesReducer from "./slices/articlesSlice";
+import cooperationsReducer from "./slices/cooperationsSlice";
+import articlesFiltersReducer from "./slices/articlesFiltersSlice";
 
-const reducers = combineReducers({ applicationUserReducer });
+const reducers = combineReducers({
+  applicationUserReducer,
+  accessTokenReducer,
+  resetFiltersFlags,
+  articlesReducer,
+  cooperationsReducer,
+  articlesFiltersReducer,
+});
 
 const persistConfig = {
   key: "root",

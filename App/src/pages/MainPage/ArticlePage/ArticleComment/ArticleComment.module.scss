@@ -1,0 +1,55 @@
+@import "styles/Commons.scss";
+.comment {
+  color: $black-text;
+  border: 1px solid $gray-text;
+  border-radius: 12px;
+  padding: 12px;
+  padding-bottom: 0px;
+  margin-bottom: 12px;
+  .commentHeader {
+    display: flex;
+    @include fontSizeSixteen;
+    align-items: center;
+    justify-content: space-between;
+    @media (max-width: $tabletMaxWidth) {
+      align-items: flex-start;
+    }
+    @media (max-width: $mobileMaxSize) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .rightSide {
+    display: flex;
+    align-items: center;
+    @media (max-width: $tabletMaxWidth) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      @media (max-width: $tabletMaxWidth) {
+        margin-top: 8px;
+      }
+      @media (max-width: $mobileMaxSize) {
+        margin-right: 16px;
+      }
+    }
+    .date {
+      min-width: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      @media (max-width: $mobileMaxSize) {
+        margin-top: 8px;
+        justify-content: center;
+      }
+    }
+  }
+  .editContent {
+    margin: 16px;
+  }
+}

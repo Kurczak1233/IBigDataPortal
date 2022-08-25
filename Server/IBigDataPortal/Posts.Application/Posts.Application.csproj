@@ -19,6 +19,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Portal.Infrastructure\Portal.Infrastructure.csproj" />
+      <ProjectReference Include="..\Posts.Contracts\Posts.Contracts.csproj" />
       <ProjectReference Include="..\Posts.Domain\Posts.Domain.csproj" />
     </ItemGroup>
 

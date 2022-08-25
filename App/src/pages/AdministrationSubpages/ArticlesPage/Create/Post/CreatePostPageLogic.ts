@@ -7,26 +7,45 @@ import {
   articlesRoute,
   postsRoute,
 } from "constants/apiRoutes";
+import { UserRoles } from "enums/UserRoles";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { ICreatePostForm } from "./ICreatePostForm";
+import { isHtmlStringEmpty } from "utils/IsHtmlStringEmpty/isHtmlStringEmpty";
+import { ICreatePostForm, ICreatePostRequest } from "./ICreatePostForm";
 
 const CreatePostPageLogic = () => {
   const [postFiles, setPostsFiles] = useState<File[]>([]);
   const [isPostCreating, setIsPostCreating] = useState<boolean>(false);
+  const [commentsPermission, setCommentsPermission] = useState<UserRoles>(
+    UserRoles.StudentOrBusiness
+  );
+  const [visibilityPermissions, setVisibilityPermissions] = useState<UserRoles>(
+    UserRoles.Everybody
+  );
+
   const navigate = useNavigate();
   const {
     register,
+    control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<ICreatePostForm>();
   const submitForm = async (data: ICreatePostForm) => {
+    if (isHtmlStringEmpty(data.description)) {
+      return setError("description", { type: "required" });
+    }
     setIsPostCreating(true);
-    const newPostId = await createPost(data);
+    const request: ICreatePostRequest = {
+      ...data,
+      commentsPermissions: commentsPermission,
+      visibilityPermissions: visibilityPermissions,
+    };
+    const newPostId = await createPost(request);
     await handleUploadFiles(newPostId);
-    setIsPostCreating(false); //(update state when on different page) May be problematic.
+    setIsPostCreating(false);
     navigate(`/${administrationRoute}/${articlesRoute}/${postsRoute}`);
     SyncToast({
       mode: ToastModes.Success,
@@ -52,10 +71,15 @@ const CreatePostPageLogic = () => {
     submitForm,
     register,
     handleSubmit,
+    control,
     errors,
     postFiles,
     setPostsFiles,
     isPostCreating,
+    setCommentsPermission,
+    commentsPermission,
+    setVisibilityPermissions,
+    visibilityPermissions,
   };
 };
 

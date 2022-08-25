@@ -12,6 +12,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Files.Contracts\Files.Contracts.csproj" />
+      <ProjectReference Include="..\JobOffers.Contracts\JobOffers.Contracts.csproj" />
       <ProjectReference Include="..\JobOffers.Domain\JobOffers.Domain.csproj" />
       <ProjectReference Include="..\Portal.Infrastructure\Portal.Infrastructure.csproj" />
     </ItemGroup>

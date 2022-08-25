@@ -1,9 +1,9 @@
 ﻿using Dapper;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
-using IBigDataPortal.Domain.PostsAggregate.Requests;
 using IBigDataPortal.Infrastructure;
 using MediatR;
+using Posts.Domain.PostsAggregate.Requests;
 
 namespace PostsApplication.Commands;
 
@@ -36,13 +36,24 @@ public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, int>
         var nowDate = DateTimeOffset.Now;
         var connection = await _connectionService.GetAsync();
         var sql =
-            $@"INSERT INTO {Dbo.Posts} ({nameof(Post.Title)}, {nameof(Post.Description)}, {nameof(Post.CreatorId)}, {nameof(Post.Posted)})
-        VALUES (@title, @description, @userId, @dateNow)";
-        var postId = await connection.ExecuteAsync(sql,
+            $@"INSERT INTO {Dbo.Posts} 
+               ({nameof(Post.Title)},
+               {nameof(Post.Description)},
+               {nameof(Post.CreatorId)},
+               {nameof(Post.Posted)},
+               {nameof(Post.CommentsPermissions)},
+               {nameof(Post.ArticleVisibilityPermissions)})
+               OUTPUT INSERTED.[Id]
+               VALUES (@title, @description, @userId, @dateNow, @commentsPermission, @visibilityPermission)";
+        var postId = await connection.QuerySingleAsync<int>(sql,
             new
             {
-                title = request.Body.Title, description = request.Body.Description, userId = request.CurrentUserId,
-                dateNow = nowDate
+                title = request.Body.Title,
+                description = request.Body.Description,
+                userId = request.CurrentUserId,
+                dateNow = nowDate,
+                commentsPermission = request.Body.CommentsPermissions,
+                visibilityPermission = request.Body.VisibilityPermissions
             });
         return postId;
     }

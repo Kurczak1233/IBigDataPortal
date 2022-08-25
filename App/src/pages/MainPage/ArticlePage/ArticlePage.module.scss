@@ -1,0 +1,92 @@
+@import "styles/Commons.scss";
+.articlePage {
+  display: flex;
+  justify-content: space-evenly;
+  flex: 1;
+  .mainContainer {
+    width: 80%;
+    margin-top: 55px;
+    @media (max-width: $mobileMaxSize) {
+      margin-top: 16px;
+    }
+    .article {
+      border-radius: 8px;
+      margin-bottom: 24px;
+      padding: 16px;
+      .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        @include fontSizeTwenty;
+      }
+      .subtitle {
+        @include fontSizeSixteen;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
+      .imageContainer {
+        max-width: 100%;
+        margin-top: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-direction: column;
+        img {
+          max-width: -webkit-fill-available;
+          margin-top: 16px;
+          border-radius: 16px;
+        }
+      }
+      .comments {
+        margin-top: 32px;
+        .commentsTitle {
+          @include fontSizeTwenty;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 16px;
+        }
+        .smallButton {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+        }
+      }
+      .newComment {
+        @include fontSizeFourteen;
+      }
+    }
+    .returnButton {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+    .documentsContainer {
+      @include fontSizeEighteen;
+      .documents {
+        max-width: 300px;
+        height: 40px;
+        @include fontSizeSixteen;
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid red;
+        border-radius: 6px;
+        padding: 12px;
+        cursor: pointer;
+      }
+      .documents:hover {
+        @include greenShadow;
+      }
+    }
+  }
+  .error {
+    @include fontSizeFourteen;
+    color: $intensive-red;
+  }
+}

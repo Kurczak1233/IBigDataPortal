@@ -1,0 +1,10 @@
+.pageLayout {
+  display: flex;
+  flex-direction: column;
+  .formWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+  }
+}

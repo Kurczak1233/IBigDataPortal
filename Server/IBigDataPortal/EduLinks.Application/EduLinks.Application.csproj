@@ -12,7 +12,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\EduLinks.Contracts\EduLinks.Contracts.csproj" />
       <ProjectReference Include="..\EduLinks.Domain\EduLinks.Domain.csproj" />
+      <ProjectReference Include="..\Files.Contracts\Files.Contracts.csproj" />
       <ProjectReference Include="..\Portal.Infrastructure\Portal.Infrastructure.csproj" />
     </ItemGroup>
 

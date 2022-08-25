@@ -1,0 +1,18 @@
+@mixin nicknameColumnWidth {
+  width: 25%;
+  @media (max-width: $tabletMaxWidth) {
+    min-width: 40%;
+  }
+}
+@mixin emailColumnWidth {
+  width: 25%;
+  @media (max-width: $tabletMaxWidth) {
+    min-width: 45%;
+  }
+  @media (max-width: $smallMobileMaxSize) {
+    width: 90%;
+  }
+}
+@mixin roleColumnWidth {
+  width: 40%;
+}

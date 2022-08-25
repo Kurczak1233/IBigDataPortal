@@ -3,14 +3,13 @@ import PostsHeader from "components/ArticlesComponents/Overview/PostsOverviewPag
 import PostItem from "components/ArticlesComponents/Overview/PostsOverviewPage/PostsItems/PostItem/PostItem";
 import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
-import { useLocation } from "react-router-dom";
+import styles from "./EditPostPage.module.scss";
+import EditPostPageLogic from "./EditPostPageLogic";
 
 const EditPostPage = () => {
-  const location = useLocation();
-  const state = location.state as PostViewModel;
+  const { state, postFiles, setPostFiles } = EditPostPageLogic();
   return (
-    <div>
+    <div className={styles.pageLayout}>
       <AdministartionPageHeader pageTitle={"Edit post"} />
       <PostsHeader iconsColour={AvailableIntensiveColors.IntensiveOrange} />
       <PostItem
@@ -18,7 +17,14 @@ const EditPostPage = () => {
         postsColor={AvailableIntensiveColors.LessIntensiveOrange}
         interactive={false}
       />
-      <EditPost post={state} />
+      <div className={styles.formWrapper}>
+        <EditPost
+          setPostFiles={setPostFiles}
+          post={state}
+          postFiles={postFiles.map((item) => item.file)}
+          postFilesWithMetadata={postFiles}
+        />
+      </div>
     </div>
   );
 };

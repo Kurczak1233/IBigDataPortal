@@ -3,8 +3,10 @@ using System.Text;
 using IBigDataPortal;
 using IBigDataPortal.Infrastructure;
 using IBigDataPortal.Infrastructure.Middlewares;
+using IBigDataPortal.Infrastructure.ResourceBasedAuthorization.Dependencies;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -18,6 +20,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 var connectionString = builder.Configuration.GetConnectionString("SqlConnectionString");
 builder.Services.AddDependencies(connectionString);
+builder.Services.AddPermissionDependencies();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -26,6 +29,12 @@ builder.Services.AddAuthentication(options =>
 {
     options.Authority = "https://dev-lvcenvyd.us.auth0.com/";
     options.Audience = "https://i-big-data-auth-api.com/";
+});
+builder.Services.AddAuthorization(options =>
+{
+    options.DefaultPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
 });
 builder.Services.AddSwaggerGen(setup =>
 {
