@@ -2,13 +2,12 @@ name: Portal - API
 
 on:
   workflow_dispatch:
-  pull_request:
+  push:
     branches:
       - main
     paths:
       - "Server/**"
       - ".github/workflows/Portal-api.yml"
-  
 env:
   GCP_PROJECT: engineering-thesis-346319
   

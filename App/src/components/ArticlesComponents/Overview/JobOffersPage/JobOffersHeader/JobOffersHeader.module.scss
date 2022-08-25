@@ -1,4 +1,4 @@
-@import 'styles/Commons.scss';
+@import "styles/Commons.scss";
 .header {
   @include fontSizeTwenty;
   color: $black-text;
@@ -7,7 +7,7 @@
   margin-bottom: 12px;
   padding: 0 12px;
   .image {
-      margin-left: 4px;
+    margin-left: 4px;
   }
   .posted {
     @include postedColumnWidth;
@@ -23,5 +23,11 @@
     @include creatorColumnWidth;
     display: flex;
     align-items: center;
+  }
+  .emptyButtonSpace {
+    min-width: 100px;
+    @media (max-width: $tabletMaxWidth) {
+      min-width: 75px;
+    }
   }
 }

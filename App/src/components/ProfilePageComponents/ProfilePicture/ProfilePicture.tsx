@@ -2,25 +2,27 @@ import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import FileModal from "components/common/FileModal/FileModal";
 import { FileModuleEnum } from "components/common/FileModal/FileModuleEnum";
 import { imageExtensions } from "components/common/FileModal/SupportedExtensions";
+import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
 import ConfirmActionModal from "components/common/Modals/ConfirmActionModal/ConfirmActionModal";
+import { emptyGuid } from "constants/emptyGuid";
+import { filesStorageBaseUrl } from "constants/storageBaseUrl";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
-import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
+import { ApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import styles from "./ProfilePicture.module.scss";
 import ProfilePictureLogic from "./ProfilePictureLogic";
 
 interface IProfilePicture {
-  profilePic: FileVm | undefined;
-  updatePicture: () => void;
-  setProfilePic: React.Dispatch<React.SetStateAction<FileVm | undefined>>;
-  userProfile: IApplicationUser;
+  handleGetUserProfileRequest: () => Promise<void>;
+  userProfile: ApplicationUser;
+  setUserProfile: React.Dispatch<
+    React.SetStateAction<ApplicationUser | undefined>
+  >;
 }
 
 const ProfilePicture = ({
-  profilePic,
-  updatePicture,
-  setProfilePic,
+  handleGetUserProfileRequest,
   userProfile,
+  setUserProfile,
 }: IProfilePicture) => {
   const {
     setIsPictureModalOpen,
@@ -30,7 +32,9 @@ const ProfilePicture = ({
     isConfimActionModalOpen,
     setIsConfimrActionModalOpen,
     deletePicture,
-  } = ProfilePictureLogic({ profilePic, setProfilePic });
+    setPictureLoaded,
+    pictureLoaded,
+  } = ProfilePictureLogic(userProfile, setUserProfile);
   return (
     <>
       <FileModal
@@ -39,7 +43,9 @@ const ProfilePicture = ({
         moduleId={FileModuleEnum.userImage}
         itemId={userProfile.id}
         acceptedFilesExtensions={imageExtensions}
-        updatePicture={updatePicture}
+        updatePicture={handleGetUserProfileRequest}
+        lastProfilePicGuid={userProfile.profilePictureGuid}
+        deleteLastImageBeforeUpload={true}
       />
       <ConfirmActionModal
         isConfimActionModalOpen={isConfimActionModalOpen}
@@ -48,33 +54,51 @@ const ProfilePicture = ({
         handleConfirmAction={deletePicture}
       />
       <div className={styles.pictureWrapper}>
-        {profilePic && !profilePic.isDeleted ? (
-          <img
-            className={styles.profilePictureFrame}
-            src={`data:image/png;base64,${profilePic.base64FileString}`}
-            alt="Profile pic"
-          />
+        {userProfile.profilePictureGuid &&
+        userProfile.profilePictureGuid !== emptyGuid ? (
+          <>
+            <img
+              style={pictureLoaded ? {} : { display: "none" }}
+              className={styles.profilePictureFrame}
+              src={`${filesStorageBaseUrl}${userProfile.profilePictureGuid}`}
+              alt="Profile pic"
+              width={250}
+              height={250}
+              onLoad={() => setPictureLoaded(true)}
+            />
+            {!pictureLoaded && (
+              <div className={styles.noPictureWrapper}>
+                <BigLoader />
+              </div>
+            )}
+          </>
         ) : (
           <div className={styles.noPictureWrapper}>No picture</div>
         )}
         <div className={styles.buttons}>
           <SmallButton
             width="100px"
-            text={profilePic && !profilePic.isDeleted ? "Edit" : "Add"}
+            text={
+              userProfile.profilePictureGuid &&
+              userProfile.profilePictureGuid !== ""
+                ? "Edit"
+                : "Add"
+            }
             onClick={handleOpenPictureModal}
             color={AvailableIntensiveColors.IntensiveGreen}
             marginTop={"16px"}
           />
-          {profilePic && !profilePic.isDeleted && (
-            <SmallButton
-              marginLeft="16px"
-              width="100px"
-              text={"Delete"}
-              onClick={handleOpenConfirmActionModal}
-              color={AvailableIntensiveColors.IntensiveRed}
-              marginTop={"16px"}
-            />
-          )}
+          {userProfile.profilePictureGuid &&
+            userProfile.profilePictureGuid !== "" && (
+              <SmallButton
+                marginLeft="16px"
+                width="100px"
+                text={"Delete"}
+                onClick={handleOpenConfirmActionModal}
+                color={AvailableIntensiveColors.IntensiveRed}
+                marginTop={"16px"}
+              />
+            )}
         </div>
       </div>
     </>

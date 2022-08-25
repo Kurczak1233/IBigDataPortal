@@ -1,0 +1,26 @@
+@import "styles/Commons.scss";
+.permissionsWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  .commentsSection {
+    margin-right: 32px;
+    margin-left: 32px;
+    align-items: center;
+    @media (max-width: $mediumLaptopSize) {
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+    display: flex;
+    flex-direction: column;
+  }
+  .articleSection {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .title {
+    @include fontSizeEighteen;
+    margin-bottom: 16px;
+  }
+}

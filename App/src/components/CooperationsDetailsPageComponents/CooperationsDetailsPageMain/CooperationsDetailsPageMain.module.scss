@@ -1,0 +1,16 @@
+@import "styles/Commons.scss";
+.header {
+  @include fontSizeTwenty;
+  margin-top: 32px;
+}
+.description {
+  @include fontSizeFourteen;
+  margin-top: 16px;
+}
+.separationBar {
+  margin-top: 22px;
+}
+.createdOn {
+  @include fontSizeFourteen;
+  margin-top: 16px;
+}

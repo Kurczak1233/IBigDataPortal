@@ -1,3 +1,4 @@
+import { removeFile } from "api/FileClient";
 import { ToastModes } from "interfaces/General/ToastModes";
 import { useState, useCallback, useEffect } from "react";
 import { Accept, useDropzone } from "react-dropzone";
@@ -13,6 +14,8 @@ interface IFileModalLogic {
   updatePicture: (() => void) | undefined;
   multiple: boolean;
   currentFiles: File[] | undefined;
+  lastProfilePicGuid?: string;
+  deleteLastImageBeforeUpload?: boolean;
 }
 
 const FileModalLogic = ({
@@ -22,6 +25,8 @@ const FileModalLogic = ({
   itemId,
   updatePicture,
   multiple,
+  lastProfilePicGuid,
+  deleteLastImageBeforeUpload,
   currentFiles,
 }: IFileModalLogic) => {
   const [isExitHoverActive, setIsExitHoverActive] = useState<boolean>(false);
@@ -34,9 +39,13 @@ const FileModalLogic = ({
   const onDrop = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (acceptedFiles: any) => {
-      setMyFiles([...myFiles, ...acceptedFiles]);
+      if (multiple) {
+        setMyFiles([...myFiles, ...acceptedFiles]);
+      } else {
+        setMyFiles(acceptedFiles);
+      }
     },
-    [myFiles]
+    [multiple, myFiles]
   );
 
   const {
@@ -52,7 +61,7 @@ const FileModalLogic = ({
     accept: acceptedFilesExtensions,
   });
 
-  const removeFile = (file: File) => {
+  const handleRemoveFile = (file: File) => {
     const newFiles = [...myFiles];
     newFiles.splice(newFiles.indexOf(file), 1);
     setMyFiles(newFiles);
@@ -65,6 +74,9 @@ const FileModalLogic = ({
         mode: ToastModes.Error,
         description: "Item id was not found.",
       });
+    }
+    if (deleteLastImageBeforeUpload && lastProfilePicGuid) {
+      await removeFile(lastProfilePicGuid);
     }
     await Promise.all(
       myFiles.map(async (fileToUpload) => {
@@ -84,6 +96,10 @@ const FileModalLogic = ({
     }
   };
 
+  const updateMyFiles = (currentFiles: File[]) => {
+    setMyFiles(currentFiles);
+  };
+
   const handleDragReject = () => {
     return SyncToast({
       mode: ToastModes.Info,
@@ -97,10 +113,16 @@ const FileModalLogic = ({
     }
   }, [isDragReject, fileRejections]);
 
+  useEffect(() => {
+    if (currentFiles) {
+      updateMyFiles(currentFiles);
+    }
+  }, [currentFiles]);
+
   return {
     isExitHoverActive,
     uploadFiles,
-    removeFile,
+    removeFile: handleRemoveFile,
     getRootProps,
     getInputProps,
     isDragActive,

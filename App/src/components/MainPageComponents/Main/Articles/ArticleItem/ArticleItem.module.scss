@@ -1,0 +1,28 @@
+@import "styles/Commons.scss";
+.article {
+  border-radius: 8px;
+  margin-bottom: 24px;
+  padding: 16px;
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    @include fontSizeTwenty;
+  }
+  .subtitle {
+    @include fontSizeSixteen;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-evenly;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  .readMoreButton {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+}

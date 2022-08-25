@@ -1,6 +1,7 @@
 import AdministartionPageHeader from "components/common/AdministartionPageHeader/AdministartionPageHeader";
 import NoItemsComponent from "components/common/ArticleCommonComponents/NoItemsComponent/NoItemsComponent";
 import { AvailablePaginationColors } from "components/common/ArticleCommonComponents/Pagination/AvailablePaginationColors";
+import { ArticlesTypes } from "enums/ArticlesTypes";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
 import { PostViewModel } from "interfaces/Models/Posts/ViewModels/PostViewModel";
 import PostsHeader from "../PostsHeader/PostsHeader";
@@ -8,10 +9,12 @@ import PostsItems from "../PostsItems/PostsItems";
 import PostsContentLogic from "./PostsContentLogic";
 interface IPostsContent {
   posts: PostViewModel[];
+  setPosts: React.Dispatch<React.SetStateAction<PostViewModel[] | undefined>>;
 }
 
-const PostsContent = ({ posts }: IPostsContent) => {
-  const { navigateToCreatePosts } = PostsContentLogic();
+const PostsContent = ({ posts, setPosts }: IPostsContent) => {
+  const { navigateToCreatePosts, filteredPosts, setFiltersSet, filtersSet } =
+    PostsContentLogic();
   return (
     <>
       {posts.length === 0 ? (
@@ -21,10 +24,16 @@ const PostsContent = ({ posts }: IPostsContent) => {
         />
       ) : (
         <>
-          <AdministartionPageHeader pageTitle={"Overview posts"} />
+          <AdministartionPageHeader
+            pageTitle={"Overview posts"}
+            showFilterComponent
+            articleType={ArticlesTypes.Post}
+            setFiltersSet={setFiltersSet}
+          />
           <PostsHeader iconsColour={AvailableIntensiveColors.IntensiveOrange} />
           <PostsItems
-            posts={posts}
+            posts={filtersSet ? filteredPosts : posts}
+            setPosts={setPosts}
             postsColor={AvailableIntensiveColors.LessIntensiveOrange}
             paginationColor={AvailablePaginationColors.orange}
           />

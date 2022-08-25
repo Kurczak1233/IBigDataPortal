@@ -8,8 +8,10 @@ import BlueLampIcon from "public/PostsIcons/BlueLampIcon.svg";
 import GreenCalendarIcon from "public/PostsIcons/GreenCalendarIcon.svg";
 import GreenFeatherIcon from "public/PostsIcons/GreenFeatherIcon.svg";
 import GreenLampIcon from "public/PostsIcons/GreenLampIcon.svg";
+import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 
 const PostsHeaderLogic = () => {
+  const { isTablet, isMobile, isVerySmallMobile } = useAppResponsiveness();
   const getApppriateImagesColours = (color: AvailableIntensiveColors) => {
     switch (color) {
       case AvailableIntensiveColors.IntensiveOrange: {
@@ -42,7 +44,7 @@ const PostsHeaderLogic = () => {
       }
     }
   };
-  return { getApppriateImagesColours };
+  return { getApppriateImagesColours, isTablet, isMobile, isVerySmallMobile };
 };
 
 export default PostsHeaderLogic;

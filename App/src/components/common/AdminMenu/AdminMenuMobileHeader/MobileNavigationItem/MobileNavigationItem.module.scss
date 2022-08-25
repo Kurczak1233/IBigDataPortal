@@ -1,0 +1,18 @@
+@import "styles/Commons.scss";
+.navigationItem {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border: 1px solid $less-intensive-green;
+  border-radius: 6px;
+  padding: 0 8px;
+  margin-top: 8px;
+  @include fontSizeSixteen;
+  .image {
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+  }
+}

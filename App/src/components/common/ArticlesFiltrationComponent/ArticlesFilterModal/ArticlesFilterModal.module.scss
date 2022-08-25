@@ -1,0 +1,40 @@
+@import "styles/Commons.scss";
+.fileModal {
+  position: absolute;
+  outline: none;
+  background: $clear-white;
+  box-shadow: 0px 8px 40px $gray-box-shadow;
+  border-radius: 16px;
+  padding: 32px;
+  width: 400px;
+  @media (max-width: $mobileMaxSize) {
+    max-width: 300px;
+  }
+  @media (max-width: 500px) {
+    max-width: 70vw;
+  }
+}
+.fileModalOverlay {
+  position: fixed;
+  display: flex;
+  inset: 0px;
+  background-color: $modal-white-background;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  .modalTitle {
+    @include fontSizeSixteen;
+  }
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

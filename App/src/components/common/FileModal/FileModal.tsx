@@ -26,6 +26,8 @@ interface IFileModal {
   multiple?: boolean;
   customUploadFiles?: (file: File[]) => void;
   currentFiles?: File[];
+  lastProfilePicGuid?: string;
+  deleteLastImageBeforeUpload?: boolean;
 }
 
 const FileModal = ({
@@ -34,7 +36,9 @@ const FileModal = ({
   moduleId,
   itemId,
   multiple = false,
-  acceptedFilesExtensions,
+  lastProfilePicGuid,
+  deleteLastImageBeforeUpload = false,
+  acceptedFilesExtensions = imageExtensions,
   customUploadFiles,
   updatePicture,
   currentFiles,
@@ -60,7 +64,10 @@ const FileModal = ({
     updatePicture,
     multiple,
     currentFiles,
+    deleteLastImageBeforeUpload,
+    lastProfilePicGuid,
   });
+
   return (
     <Modal
       isOpen={isModalOpen}
@@ -123,15 +130,21 @@ const FileModal = ({
         />
         <div className={styles.uploadedFiles}>
           <div className={styles.uploadedFilesText}>Uploaded files</div>
-          {myFiles.map((file) => {
-            return (
-              <FileModalItem
-                key={file.lastModified}
-                removeFile={removeFile}
-                file={file}
-              />
-            );
-          })}
+          {myFiles
+            .filter((item) =>
+              acceptedFilesExtensions !== imageExtensions
+                ? !item.type.includes("image")
+                : item.type.includes("image")
+            )
+            .map((file) => {
+              return (
+                <FileModalItem
+                  key={`${file.lastModified} ${file.name}`}
+                  removeFile={removeFile}
+                  file={file}
+                />
+              );
+            })}
         </div>
         <div className={styles.saveButton}>
           <SmallButton

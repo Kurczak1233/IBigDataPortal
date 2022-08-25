@@ -1,0 +1,19 @@
+@import 'styles/Commons.scss';
+.filesWrapper {
+  .filesHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .files {
+      @include fontSizeSixteen;
+    }
+  }
+  .noFilesOrImages {
+    margin-top: 8px;
+    @include fontSizeSixteen;
+  }
+  .noImages {
+    @include fontSizeSixteen;
+    margin-top: 20px;
+  }
+}

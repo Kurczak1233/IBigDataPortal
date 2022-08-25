@@ -2,24 +2,22 @@ import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
 import InputWithLabel from "components/common/Forms/InputWithLabel/InputWithLabel";
 import InputWthLabelReadonly from "components/common/Forms/InputWthLabelReadonly/InputWthLabelReadonly";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
-import { FileVm } from "interfaces/Models/FilesMetadata/ViewModels/FileVm";
-import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
+import { ApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import styles from "./ProfilePageMain.module.scss";
 import ProfilePageMainLogic from "./ProfilePageMainLogic";
 
 interface IProfilePageMain {
-  userProfile: IApplicationUser;
-  handleGetProfilePicture: () => Promise<string | undefined>;
-  setProfilePic: React.Dispatch<React.SetStateAction<FileVm | undefined>>;
-  profilePic: FileVm;
+  userProfile: ApplicationUser;
+  handleGetUserProfileRequest: () => Promise<void>;
+  setUserProfile: React.Dispatch<
+    React.SetStateAction<ApplicationUser | undefined>
+  >;
 }
-
 const ProfilePageMain = ({
   userProfile,
-  handleGetProfilePicture,
-  setProfilePic,
-  profilePic,
+  handleGetUserProfileRequest,
+  setUserProfile,
 }: IProfilePageMain) => {
   const {
     register,
@@ -30,16 +28,16 @@ const ProfilePageMain = ({
     handleSubmit,
   } = ProfilePageMainLogic({
     userProfile,
+    setUserProfile,
   });
 
   return (
     <div>
       <div className={styles.myDetails}>My details</div>
       <ProfilePicture
-        profilePic={profilePic}
-        updatePicture={handleGetProfilePicture}
-        setProfilePic={setProfilePic}
+        handleGetUserProfileRequest={handleGetUserProfileRequest}
         userProfile={userProfile}
+        setUserProfile={setUserProfile}
       />
       {!showEdit ? (
         <InputWthLabelReadonly

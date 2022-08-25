@@ -1,0 +1,47 @@
+@import "styles/Commons.scss";
+.mobileHeader {
+  width: 100%;
+  .mobileMenuWrapper {
+    padding: 0 32px;
+    .simpleFiltersComponent {
+      margin-top: 24px;
+      background: $less-intensive-green;
+      border-radius: 6px;
+      padding: 16px;
+      @media (max-width: $mobileMaxSize) {
+        margin-top: 0px;
+      }
+      .topBarWrapper {
+        display: flex;
+        justify-content: space-evenly;
+        @media (max-width: 350px) {
+          flex-direction: column;
+        }
+        .filterPosition {
+          display: flex;
+          align-items: center;
+          margin-bottom: 16px;
+          width: 100%;
+          justify-content: space-evenly;
+        }
+      }
+    }
+  }
+}
+.menu {
+  background: $less-intensive-green;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 24px;
+  .filterPosition {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .buttonWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

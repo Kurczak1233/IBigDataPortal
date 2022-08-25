@@ -1,0 +1,12 @@
+@import "styles/Commons.scss";
+.menu {
+  background: $less-intensive-green;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 24px;
+  .roleRequest {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

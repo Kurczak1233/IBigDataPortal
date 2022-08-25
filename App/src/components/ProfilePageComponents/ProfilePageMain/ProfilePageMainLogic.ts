@@ -1,16 +1,22 @@
 import { updateUserNickname } from "api/UsersClient";
 import SyncToast from "components/common/Toasts/SyncToast/SyncToast";
 import { ToastModes } from "interfaces/General/ToastModes";
-import { IApplicationUser } from "interfaces/Models/Users/IApplicationUser";
+import { ApplicationUser } from "interfaces/Models/Users/IApplicationUser";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IUpdateProfileForm } from "./IUpdateProfileForm";
 
 interface IProfillePageMainLogic {
-  userProfile: IApplicationUser;
+  userProfile: ApplicationUser;
+  setUserProfile: React.Dispatch<
+    React.SetStateAction<ApplicationUser | undefined>
+  >;
 }
 
-const ProfilePageMainLogic = ({ userProfile }: IProfillePageMainLogic) => {
+const ProfilePageMainLogic = ({
+  userProfile,
+  setUserProfile,
+}: IProfillePageMainLogic) => {
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const {
     register,
@@ -20,7 +26,7 @@ const ProfilePageMainLogic = ({ userProfile }: IProfillePageMainLogic) => {
     formState: { errors },
   } = useForm<IUpdateProfileForm>();
   const handleSetInputsBasicValues = useCallback(
-    (userProfile: IApplicationUser) => {
+    (userProfile: ApplicationUser) => {
       setValue("nickname", userProfile.nickname);
     },
     [setValue]
@@ -39,6 +45,14 @@ const ProfilePageMainLogic = ({ userProfile }: IProfillePageMainLogic) => {
       mode: ToastModes.Success,
       description: "You have updated a nickname",
     });
+    setUserProfile((oldProfile) => {
+      if (!oldProfile) {
+        return oldProfile;
+      }
+      oldProfile.nickname = request.nickname;
+      return { ...oldProfile };
+    });
+    setValue("nickname", request.nickname);
     setShowEdit(false);
   };
 

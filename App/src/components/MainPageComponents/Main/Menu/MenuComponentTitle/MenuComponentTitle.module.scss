@@ -1,0 +1,9 @@
+@import "styles/Commons.scss";
+.wrapper {
+  .name {
+    @include fontSizeTwenty;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+  margin-bottom: 16px;
+}

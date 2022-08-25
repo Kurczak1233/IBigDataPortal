@@ -1,3 +1,5 @@
+import SmallButton from "components/common/Buttons/SmallButtons/SmallButton";
+import ConfirmActionModal from "components/common/Modals/ConfirmActionModal/ConfirmActionModal";
 import { standarizedFormat } from "constants/dateFormats";
 import { format } from "date-fns";
 import { AvailableIntensiveColors } from "enums/AvailableIntensiveColors";
@@ -9,26 +11,63 @@ interface IPostItem {
   post: PostViewModel;
   postsColor: AvailableIntensiveColors;
   interactive?: boolean;
+  setPosts?: React.Dispatch<React.SetStateAction<PostViewModel[] | undefined>>;
 }
 
-const PostItem = ({ post, postsColor, interactive = true }: IPostItem) => {
-  const { naviateToItemOverview } = PostItemLogic();
+const PostItem = ({
+  post,
+  postsColor,
+  setPosts,
+  interactive = true,
+}: IPostItem) => {
+  const {
+    naviateToItemOverview,
+    isDeleteModalOpen,
+    setIsDeleteModalOpen,
+    handleDeleteItem,
+    openDeleteModal,
+    deleteItemButton,
+    isTablet,
+    isVerySmallMobile,
+    isMobile,
+  } = PostItemLogic(post, setPosts);
   return (
-    <div
-      className={styles.item}
-      style={{
-        background: `#${postsColor}`,
-        cursor: interactive ? "pointer" : "initial",
-      }}
-      id={interactive ? `articlePost${postsColor}` : ""}
-      onClick={() => naviateToItemOverview(post)}
-    >
-      <div className={styles.posted}>
-        {format(new Date(post.posted), standarizedFormat)}
+    <>
+      <ConfirmActionModal
+        isConfimActionModalOpen={isDeleteModalOpen}
+        setIsConfirmActionModalOpen={setIsDeleteModalOpen}
+        description={"delete this post"}
+        handleConfirmAction={handleDeleteItem}
+      />
+      <div
+        className={styles.item}
+        style={{
+          background: `#${postsColor}`,
+          cursor: interactive ? "pointer" : "initial",
+        }}
+        id={interactive ? `articlePost${postsColor}` : ""}
+        onClick={(e) => naviateToItemOverview(post, e)}
+      >
+        {!isVerySmallMobile && (
+          <div className={styles.posted}>
+            {format(new Date(post.posted), standarizedFormat)}
+          </div>
+        )}
+        <div className={styles.title}>{post.title}</div>
+        {!(isTablet || isMobile) && (
+          <div className={styles.creator}>
+            <span>{post.userEmail}</span>
+          </div>
+        )}
+        <SmallButton
+          itemRef={deleteItemButton}
+          text={"Delete"}
+          width={!(isTablet || isMobile) ? "100px" : "75px"}
+          onClick={openDeleteModal}
+          color={AvailableIntensiveColors.IntensiveRed}
+        />
       </div>
-      <div className={styles.title}>{post.title}</div>
-      <div className={styles.creator}>{post.userEmail}</div>
-    </div>
+    </>
   );
 };
 

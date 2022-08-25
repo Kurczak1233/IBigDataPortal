@@ -1,0 +1,48 @@
+@import "styles/Commons.scss";
+.item {
+  @include fontSizeSixteen;
+  background-color: $less-intensive-green;
+  color: $black-text;
+  display: flex;
+  align-items: center;
+  box-shadow: 2px 2px 8px 3px $gray-box-shadow;
+  border-radius: 12px;
+  height: 60px;
+  padding: 0 16px;
+  margin-top: 10px;
+  .nickname {
+    @include nicknameColumnWidth;
+    display: flex;
+    align-items: center;
+    span {
+      @include wrapLongText;
+    }
+    @media (max-width: 500px) {
+      display: none;
+    }
+  }
+  .email {
+    @include emailColumnWidth;
+    display: flex;
+    align-items: center;
+    span {
+      @include wrapLongText;
+    }
+    @media (max-width: $smallLaptopMaxWidth) {
+      width: 70%;
+    }
+    @media (max-width: 500px) {
+      width: 90%;
+    }
+  }
+  .role {
+    @include roleColumnWidth;
+    display: flex;
+    align-items: center;
+  }
+}
+.deleteButtonWrapper {
+  width: 100px;
+  max-width: 100px;
+  margin-right: 16px;
+}
