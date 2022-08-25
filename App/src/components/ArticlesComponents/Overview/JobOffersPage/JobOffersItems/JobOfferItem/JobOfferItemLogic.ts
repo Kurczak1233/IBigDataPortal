@@ -47,14 +47,15 @@ const JobOfferItemLogic = (
         if (!oldJobOffers) {
           return oldJobOffers;
         }
-        const foundJobOfferIndex = oldJobOffers.findIndex(
+        const jobOffersCopy = [...oldJobOffers];
+        const foundJobOfferIndex = jobOffersCopy.findIndex(
           (item) => item.id === jobOffer.id
         );
-        if (foundJobOfferIndex === -1 || !oldJobOffers) {
+        if (foundJobOfferIndex === -1 || !jobOffersCopy) {
           return oldJobOffers;
         }
-        oldJobOffers.splice(foundJobOfferIndex, 1);
-        return [...oldJobOffers];
+        jobOffersCopy.splice(foundJobOfferIndex, 1);
+        return [...jobOffersCopy];
       });
     SyncToast({
       mode: ToastModes.Info,

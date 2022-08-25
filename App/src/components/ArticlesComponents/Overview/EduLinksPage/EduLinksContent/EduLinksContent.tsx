@@ -26,7 +26,7 @@ const EduLinksContent = ({ eduLinks, setEduLinks }: IEduLinksContent) => {
     <>
       {eduLinks.length === 0 ? (
         <NoItemsComponent
-          title={"There are no job offers"}
+          title={"There are no edu links"}
           navigateToPage={navigateToCreateEduLink}
         />
       ) : (

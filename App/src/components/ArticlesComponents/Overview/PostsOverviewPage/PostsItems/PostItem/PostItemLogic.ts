@@ -47,14 +47,15 @@ const PostItemLogic = (
         if (!oldPosts) {
           return oldPosts;
         }
-        const foundPostIndex = oldPosts.findIndex(
+        const postsCopy = [...oldPosts];
+        const foundPostIndex = postsCopy.findIndex(
           (item) => item.id === post.id
         );
-        if (foundPostIndex === -1 || !oldPosts) {
+        if (foundPostIndex === -1 || !postsCopy) {
           return oldPosts;
         }
-        oldPosts.splice(foundPostIndex, 1);
-        return [...oldPosts];
+        postsCopy.splice(foundPostIndex, 1);
+        return [...postsCopy];
       });
     SyncToast({
       mode: ToastModes.Info,

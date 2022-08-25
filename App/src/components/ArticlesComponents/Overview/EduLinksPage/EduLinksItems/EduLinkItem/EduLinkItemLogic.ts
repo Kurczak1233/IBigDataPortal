@@ -47,14 +47,15 @@ const EduLinkItemLogic = (
         if (!oldEduLinks) {
           return oldEduLinks;
         }
-        const foundEduLinkIndex = oldEduLinks.findIndex(
+        const eduLinksCopy = [...oldEduLinks];
+        const foundEduLinkIndex = eduLinksCopy.findIndex(
           (item) => item.id === eduLink.id
         );
-        if (foundEduLinkIndex === -1 || !oldEduLinks) {
+        if (foundEduLinkIndex === -1 || !eduLinksCopy) {
           return oldEduLinks;
         }
-        oldEduLinks.splice(foundEduLinkIndex, 1);
-        return [...oldEduLinks];
+        eduLinksCopy.splice(foundEduLinkIndex, 1);
+        return [...eduLinksCopy];
       });
     SyncToast({
       mode: ToastModes.Info,
