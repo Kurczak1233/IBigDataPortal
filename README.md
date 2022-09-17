@@ -10,7 +10,7 @@ From now on the process will consists on implementing features which give busine
 The users / testers give feedback and annotations about the page flow and functionalities.
 Some bugs may be still found due to the minor of the human resources.
 
-# MVP 1.2
+# MVP 1.3
 On the portal you are able to overlook the articles that are divided in 3 categories: Job offers, posts, edu links. Posts may be available to see for unregisted user.
 There is a comment system implemented. Only the registered users can comment the posts. Commenting may be restricted by post owner / adminstration, so not every post may be able to be commented.
 There are a few roles on the portal like: Administrators, HEI, Employee, Users. Depending on the role the user is able to perform actions on the platform.
