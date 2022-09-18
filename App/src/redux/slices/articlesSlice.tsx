@@ -1,17 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IMergedPosts } from "components/MainPageComponents/Main/Articles/ArticlesLogic";
-import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
 import { CommentVm } from "interfaces/Models/Comments/CommentVm";
 import { IUpdateCommentRequest } from "pages/MainPage/ArticlePage/ArticleComment/UpdateCommentRequest";
 
 interface IArticlesState {
-  initialArticles: ArticlesVm | null;
   articles: IMergedPosts[];
   chosenArticle: IMergedPosts | null;
 }
 
 const initialState: IArticlesState = {
-  initialArticles: null,
   articles: [],
   chosenArticle: null,
 };
@@ -20,9 +17,6 @@ const articlesSlice = createSlice({
   name: "articles",
   initialState,
   reducers: {
-    setAllArticles: (state, action: PayloadAction<ArticlesVm>) => {
-      state.initialArticles = action.payload;
-    },
     updateArticles: (state, action: PayloadAction<IMergedPosts[]>) => {
       state.articles = action.payload;
     },
@@ -66,7 +60,6 @@ const articlesSlice = createSlice({
 });
 
 export const {
-  setAllArticles,
   updateArticles,
   setChosenArticle,
   setChosenArticleComments,

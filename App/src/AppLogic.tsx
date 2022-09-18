@@ -7,8 +7,6 @@ import NoAccessComponent from "components/common/NoAccessComponent/NoAccessCompo
 import { updateAccessTokenWasSet } from "redux/slices/accessTokenSlice";
 import { useDispatch } from "react-redux";
 import { useBaseUrl } from "hooks/useBaseUrl";
-import { getAllArticles } from "api/ArticlesClient";
-import { setAllArticles } from "redux/slices/articlesSlice";
 
 const AppLogic = () => {
   const [isAccessTokenSet, setIsAccessTokenSet] = useState<boolean>(false);
@@ -75,14 +73,6 @@ const AppLogic = () => {
       <div />
     );
   };
-
-  const setUpArticlesBeforeAutorization = useCallback(async () => {
-    dispatch(setAllArticles(await getAllArticles()));
-  }, [dispatch]);
-
-  useEffect(() => {
-    setUpArticlesBeforeAutorization();
-  }, [setUpArticlesBeforeAutorization]);
 
   useEffect(() => {
     if (!isAccessTokenSet && isAuthenticated) {
