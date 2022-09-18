@@ -34,6 +34,12 @@ import ArticleMenuContent from "components/common/ArticleCommonComponents/Articl
 import ProfilePageMenu from "components/ProfilePageComponents/ProfilePageMenu/ProfillePageMenu";
 import CooperationsMenuContent from "components/common/ArticleCommonComponents/CooperationsMenuContent/CooperationsMenuContent";
 import MainPage from "./pages/MainPage/MainPage";
+import EduLinksPage from "pages/AdministrationSubpages/ArticlesPage/Overview/EduLinks/EduLinksPage";
+import JobOffersPage from "pages/AdministrationSubpages/ArticlesPage/Overview/JobOffers/JobOffersPage";
+import PostsPage from "pages/AdministrationSubpages/ArticlesPage/Overview/Posts/PostsPage";
+import EditEduLinkPage from "pages/AdministrationSubpages/ArticlesPage/Edit/EduLinks/EditEduLinkPage";
+import EditJobOfferPage from "pages/AdministrationSubpages/ArticlesPage/Edit/JobOffers/EditJobOfferPage";
+import EditPostPage from "pages/AdministrationSubpages/ArticlesPage/Edit/Posts/EditPostPage";
 
 function App() {
   const CreateEduLinkPage = React.lazy(
@@ -54,42 +60,7 @@ function App() {
         "pages/AdministrationSubpages/ArticlesPage/Create/Post/CreatePostPage"
       )
   );
-  const EditEduLinkPage = React.lazy(
-    () =>
-      import(
-        "pages/AdministrationSubpages/ArticlesPage/Edit/EduLinks/EditEduLinkPage"
-      )
-  );
-  const EditJobOfferPage = React.lazy(
-    () =>
-      import(
-        "pages/AdministrationSubpages/ArticlesPage/Edit/JobOffers/EditJobOfferPage"
-      )
-  );
-  const EditPostPage = React.lazy(
-    () =>
-      import(
-        "pages/AdministrationSubpages/ArticlesPage/Edit/Posts/EditPostPage"
-      )
-  );
-  const EduLinksPage = React.lazy(
-    () =>
-      import(
-        "pages/AdministrationSubpages/ArticlesPage/Overview/EduLinks/EduLinksPage"
-      )
-  );
-  const JobOffersPage = React.lazy(
-    () =>
-      import(
-        "pages/AdministrationSubpages/ArticlesPage/Overview/JobOffers/JobOffersPage"
-      )
-  );
-  const PostsPage = React.lazy(
-    () =>
-      import(
-        "pages/AdministrationSubpages/ArticlesPage/Overview/Posts/PostsPage"
-      )
-  );
+
   const DashboardPage = React.lazy(
     () => import("pages/AdministrationSubpages/DashboardPage/DashboardPage")
   );
