@@ -36,8 +36,7 @@ import MainPage from "./pages/MainPage/MainPage";
 import EditEduLinkPage from "pages/AdministrationSubpages/ArticlesPage/Edit/EduLinks/EditEduLinkPage";
 import EditJobOfferPage from "pages/AdministrationSubpages/ArticlesPage/Edit/JobOffers/EditJobOfferPage";
 import EditPostPage from "pages/AdministrationSubpages/ArticlesPage/Edit/Posts/EditPostPage";
-import styles from "./App.module.scss";
-import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
+import ArticlePage from "pages/MainPage/ArticlePage/ArticlePage";
 
 function App() {
   const CreateEduLinkPage = React.lazy(
@@ -83,10 +82,6 @@ function App() {
   );
   const RequestRolePage = React.lazy(
     () => import("pages/RequestRolePage/RequestRolePage")
-  );
-
-  const ArticlePage = React.lazy(
-    () => import("pages/MainPage/ArticlePage/ArticlePage")
   );
 
   const CooperationsDetailsPage = React.lazy(
@@ -147,17 +142,7 @@ function App() {
           />
           <Route
             path={`/${articleRoute}/:${articleId}`}
-            element={
-              <Suspense
-                fallback={
-                  <div className={styles.artcilePageWrapper}>
-                    <BigLoader />
-                  </div>
-                }
-              >
-                <ArticlePage />
-              </Suspense>
-            }
+            element={<ArticlePage />}
           />
           <Route path={`/`} element={<MainPageMain />} />
         </Route>
