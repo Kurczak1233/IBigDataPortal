@@ -1,4 +1,3 @@
-import HeaderBanner from "public/HeaderBanner.png";
 import styles from "./MainPageHeader.module.scss";
 import MainPageHeaderLogic from "./MainPageHeaderLogic";
 import Logo from "public/IBigWorldLogo.png";
@@ -26,7 +25,10 @@ const MainPageHeader = () => {
     <div>
       {!isMobile ? (
         <header className={styles.mainPageBanner}>
-          <img src={HeaderBanner} alt={"Header banner"} />
+          <img
+            src={process.env.PUBLIC_URL + "/HeaderBanner.png"}
+            alt={"Header banner"}
+          />
         </header>
       ) : (
         <div className={styles.mobileHeader}>
