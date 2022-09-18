@@ -28,18 +28,14 @@ import AppLogic from "./AppLogic";
 import { Suspense } from "react";
 import React from "react";
 import AdminMenuLayout from "components/common/AdminMenu/AdminMenuLayout/AdminMenuLayout";
-import ArticlePage from "pages/MainPage/ArticlePage/ArticlePage";
 import MainPageMain from "components/MainPageComponents/Main/MainPageMain";
 import ArticleMenuContent from "components/common/ArticleCommonComponents/ArticleMenuContent/ArticleMenuContent";
 import ProfilePageMenu from "components/ProfilePageComponents/ProfilePageMenu/ProfillePageMenu";
 import CooperationsMenuContent from "components/common/ArticleCommonComponents/CooperationsMenuContent/CooperationsMenuContent";
 import MainPage from "./pages/MainPage/MainPage";
-import EduLinksPage from "pages/AdministrationSubpages/ArticlesPage/Overview/EduLinks/EduLinksPage";
-import JobOffersPage from "pages/AdministrationSubpages/ArticlesPage/Overview/JobOffers/JobOffersPage";
-import PostsPage from "pages/AdministrationSubpages/ArticlesPage/Overview/Posts/PostsPage";
-import EditEduLinkPage from "pages/AdministrationSubpages/ArticlesPage/Edit/EduLinks/EditEduLinkPage";
-import EditJobOfferPage from "pages/AdministrationSubpages/ArticlesPage/Edit/JobOffers/EditJobOfferPage";
-import EditPostPage from "pages/AdministrationSubpages/ArticlesPage/Edit/Posts/EditPostPage";
+
+import styles from "./App.module.scss";
+import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
 
 function App() {
   const CreateEduLinkPage = React.lazy(
@@ -87,10 +83,51 @@ function App() {
     () => import("pages/RequestRolePage/RequestRolePage")
   );
 
+  const ArticlePage = React.lazy(
+    () => import("pages/MainPage/ArticlePage/ArticlePage")
+  );
+
   const CooperationsDetailsPage = React.lazy(
     () =>
       import(
         "pages/AdministrationSubpages/CooperationsDetailsPage/CooperationsDetailsPage"
+      )
+  );
+
+  const EduLinksPage = React.lazy(
+    () =>
+      import(
+        "pages/AdministrationSubpages/ArticlesPage/Overview/EduLinks/EduLinksPage"
+      )
+  );
+  const JobOffersPage = React.lazy(
+    () =>
+      import(
+        "pages/AdministrationSubpages/ArticlesPage/Overview/JobOffers/JobOffersPage"
+      )
+  );
+  const PostsPage = React.lazy(
+    () =>
+      import(
+        "pages/AdministrationSubpages/ArticlesPage/Overview/Posts/PostsPage"
+      )
+  );
+  const EditEduLinkPage = React.lazy(
+    () =>
+      import(
+        "pages/AdministrationSubpages/ArticlesPage/Edit/EduLinks/EditEduLinkPage"
+      )
+  );
+  const EditJobOfferPage = React.lazy(
+    () =>
+      import(
+        "pages/AdministrationSubpages/ArticlesPage/Edit/JobOffers/EditJobOfferPage"
+      )
+  );
+  const EditPostPage = React.lazy(
+    () =>
+      import(
+        "pages/AdministrationSubpages/ArticlesPage/Edit/Posts/EditPostPage"
       )
   );
 
@@ -126,7 +163,17 @@ function App() {
           />
           <Route
             path={`/${articleRoute}/:${articleId}`}
-            element={<ArticlePage />}
+            element={
+              <Suspense
+                fallback={
+                  <div className={styles.artcilePageWrapper}>
+                    <BigLoader />
+                  </div>
+                }
+              >
+                <ArticlePage />
+              </Suspense>
+            }
           />
           <Route path={`/`} element={<MainPageMain />} />
         </Route>
@@ -145,27 +192,51 @@ function App() {
           >
             <Route
               path={`${postsRoute}`}
-              element={checkIfRouteIsAuthenticated(<PostsPage />)}
+              element={checkIfRouteIsAuthenticated(
+                <Suspense fallback={<div />}>
+                  <PostsPage />{" "}
+                </Suspense>
+              )}
             />
             <Route
               path={`${jobOffersRoute}`}
-              element={checkIfRouteIsAuthenticated(<JobOffersPage />)}
+              element={checkIfRouteIsAuthenticated(
+                <Suspense fallback={<div />}>
+                  <JobOffersPage />{" "}
+                </Suspense>
+              )}
             />
             <Route
               path={`${eduLinksRoute}`}
-              element={checkIfRouteIsAuthenticated(<EduLinksPage />)}
+              element={checkIfRouteIsAuthenticated(
+                <Suspense fallback={<div />}>
+                  <EduLinksPage />{" "}
+                </Suspense>
+              )}
             />
             <Route
               path={`${postsRoute}/:${postId}`}
-              element={checkIfRouteIsAuthenticated(<EditPostPage />)}
+              element={checkIfRouteIsAuthenticated(
+                <Suspense fallback={<div />}>
+                  <EditPostPage />{" "}
+                </Suspense>
+              )}
             />
             <Route
               path={`${eduLinksRoute}/:${postId}`}
-              element={checkIfRouteIsAuthenticated(<EditEduLinkPage />)}
+              element={checkIfRouteIsAuthenticated(
+                <Suspense fallback={<div />}>
+                  <EditEduLinkPage />{" "}
+                </Suspense>
+              )}
             />
             <Route
               path={`${jobOffersRoute}/:${postId}`}
-              element={checkIfRouteIsAuthenticated(<EditJobOfferPage />)}
+              element={checkIfRouteIsAuthenticated(
+                <Suspense fallback={<div />}>
+                  <EditJobOfferPage />{" "}
+                </Suspense>
+              )}
             />
             <Route
               path={`${createPostRoute}`}
