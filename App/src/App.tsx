@@ -30,6 +30,10 @@ import React from "react";
 import AdminMenuLayout from "components/common/AdminMenu/AdminMenuLayout/AdminMenuLayout";
 import ArticlePage from "pages/MainPage/ArticlePage/ArticlePage";
 import MainPageMain from "components/MainPageComponents/Main/MainPageMain";
+import ArticleMenuContent from "components/common/ArticleCommonComponents/ArticleMenuContent/ArticleMenuContent";
+import ProfilePageMenu from "components/ProfilePageComponents/ProfilePageMenu/ProfillePageMenu";
+import CooperationsMenuContent from "components/common/ArticleCommonComponents/CooperationsMenuContent/CooperationsMenuContent";
+import MainPage from "./pages/MainPage/MainPage";
 
 function App() {
   const CreateEduLinkPage = React.lazy(
@@ -112,25 +116,6 @@ function App() {
     () => import("pages/RequestRolePage/RequestRolePage")
   );
 
-  const ArticleMenuContent = React.lazy(
-    () =>
-      import(
-        "components/common/ArticleCommonComponents/ArticleMenuContent/ArticleMenuContent"
-      )
-  );
-  const ProfilePageMenu = React.lazy(
-    () =>
-      import(
-        "components/ProfilePageComponents/ProfilePageMenu/ProfillePageMenu"
-      )
-  );
-  const MainPage = React.lazy(() => import("./pages/MainPage/MainPage"));
-  const CooperationsMenuContent = React.lazy(
-    () =>
-      import(
-        "components/common/ArticleCommonComponents/CooperationsMenuContent/CooperationsMenuContent"
-      )
-  );
   const CooperationsDetailsPage = React.lazy(
     () =>
       import(
