@@ -1,5 +1,4 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { getAllArticles } from "api/ArticlesClient";
 import { getApplicationUser } from "api/UsersClient";
 import { useAppResponsiveness } from "hooks/useAppResponsiveness";
 import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
@@ -23,6 +22,9 @@ const MainPageLogic = () => {
   );
   const { isMobile, isTablet } = useAppResponsiveness();
   const dispatch = useDispatch();
+  const initialArticles = useSelector(
+    (root: RootState) => root.articlesReducer.initialArticles
+  );
   const { isLoading, user } = useAuth0();
 
   const getUserDetailsAndSaveThoseInRedux = useCallback(async () => {
@@ -43,20 +45,29 @@ const MainPageLogic = () => {
   }, [accessTokenWasSet, user, dispatch]);
 
   const handleGetAllArticles = useCallback(async () => {
-    if ((accessTokenWasSet && user) || user === undefined) {
-      const articles = await getAllArticles();
-      getUserDetailsAndSaveThoseInRedux();
-      setArticles({ ...articles });
-      setOriginalArticlesModel({ ...articles });
+    if (
+      ((accessTokenWasSet && user) || user === undefined) &&
+      initialArticles
+    ) {
+      setArticles({ ...initialArticles });
+      setOriginalArticlesModel({ ...initialArticles });
       setArticlesLoaded(true);
     }
-  }, [accessTokenWasSet, getUserDetailsAndSaveThoseInRedux, user]);
+  }, [accessTokenWasSet, initialArticles, user]);
+
+  const handleGetUserDetails = useCallback(() => {
+    getUserDetailsAndSaveThoseInRedux();
+  }, [getUserDetailsAndSaveThoseInRedux]);
+
+  useEffect(() => {
+    handleGetAllArticles();
+  }, [handleGetAllArticles]);
 
   useEffect(() => {
     if (!isLoading) {
-      handleGetAllArticles();
+      handleGetUserDetails();
     }
-  }, [handleGetAllArticles, isLoading, accessTokenWasSet, user]);
+  }, [handleGetUserDetails, isLoading, accessTokenWasSet, user]);
 
   return {
     articles,

@@ -98,110 +98,177 @@ function App() {
 
   return (
     <Router>
-      <Suspense fallback={<div />}>
-        <Routes>
-          <Route path="/" element={<MainPage />}>
-            <Route path={`/${contactRoute}`} element={<ContactPage />} />
-            <Route path={`/${privacyRoute}`} element={<PrivacyPage />} />
-            <Route path={`/${aboutRoute}`} element={<AboutPage />} />
-            <Route
-              path={`/${articleRoute}/:${articleId}`}
-              element={<ArticlePage />}
-            />
-            <Route path={`/`} element={<MainPageMain />} />
-          </Route>
-          <Route path={`${roleContactRoute}`} element={<RequestRolePage />} />
-          <Route path={`${errorRoute}`} element={<div>Error page</div>} />
+      <Routes>
+        <Route path="/" element={<MainPage />}>
           <Route
-            path={`${administrationRoute}`}
-            element={checkIfRouteIsAuthenticated(<AdministrationLayout />)}
+            path={`/${contactRoute}`}
+            element={
+              <Suspense fallback={<div />}>
+                <ContactPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={`/${privacyRoute}`}
+            element={
+              <Suspense fallback={<div />}>
+                <PrivacyPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={`/${aboutRoute}`}
+            element={
+              <Suspense fallback={<div />}>
+                <AboutPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={`/${articleRoute}/:${articleId}`}
+            element={<ArticlePage />}
+          />
+          <Route path={`/`} element={<MainPageMain />} />
+        </Route>
+
+        <Route path={`${roleContactRoute}`} element={<RequestRolePage />} />
+        <Route path={`${errorRoute}`} element={<div>Error page</div>} />
+        <Route
+          path={`${administrationRoute}`}
+          element={checkIfRouteIsAuthenticated(<AdministrationLayout />)}
+        >
+          <Route
+            path={`${articlesRoute}`}
+            element={checkIfRouteIsAuthenticated(
+              <AdminMenuLayout menuContent={<ArticleMenuContent />} />
+            )}
           >
             <Route
-              path={`${articlesRoute}`}
-              element={checkIfRouteIsAuthenticated(
-                <AdminMenuLayout menuContent={<ArticleMenuContent />} />
-              )}
-            >
-              <Route
-                path={`${postsRoute}`}
-                element={checkIfRouteIsAuthenticated(<PostsPage />)}
-              />
-              <Route
-                path={`${jobOffersRoute}`}
-                element={checkIfRouteIsAuthenticated(<JobOffersPage />)}
-              />
-              <Route
-                path={`${eduLinksRoute}`}
-                element={checkIfRouteIsAuthenticated(<EduLinksPage />)}
-              />
-              <Route
-                path={`${postsRoute}/:${postId}`}
-                element={checkIfRouteIsAuthenticated(<EditPostPage />)}
-              />
-              <Route
-                path={`${eduLinksRoute}/:${postId}`}
-                element={checkIfRouteIsAuthenticated(<EditEduLinkPage />)}
-              />
-              <Route
-                path={`${jobOffersRoute}/:${postId}`}
-                element={checkIfRouteIsAuthenticated(<EditJobOfferPage />)}
-              />
-              <Route
-                path={`${createPostRoute}`}
-                element={checkIfRouteIsAuthenticated(<CreatePostPage />)}
-              />
-              <Route
-                path={`${createJobOfferRoute}`}
-                element={checkIfRouteIsAuthenticated(<CreateJobOfferPage />)}
-              />
-              <Route
-                path={`${createEduLinkRoute}`}
-                element={checkIfRouteIsAuthenticated(<CreateEduLinkPage />)}
-              />
-            </Route>
+              path={`${postsRoute}`}
+              element={checkIfRouteIsAuthenticated(<PostsPage />)}
+            />
             <Route
-              path={`${profileRoute}`}
-              element={checkIfRouteIsAuthenticated(
-                <AdminMenuLayout menuContent={<ProfilePageMenu />} />
-              )}
-            >
-              <Route path={""} element={<ProfilePage />} />
-            </Route>
+              path={`${jobOffersRoute}`}
+              element={checkIfRouteIsAuthenticated(<JobOffersPage />)}
+            />
             <Route
-              path={`${dashboardRoute}`}
-              element={checkIfRouteIsAuthenticated(
-                <AdminMenuLayout menuContent={<ProfilePageMenu />} />
-              )}
-            >
-              <Route path={``} element={<DashboardPage />} />
-            </Route>
+              path={`${eduLinksRoute}`}
+              element={checkIfRouteIsAuthenticated(<EduLinksPage />)}
+            />
             <Route
-              path={`${usersRoute}`}
-              element={checkIfRouteIsAuthenticated(
-                <AdminMenuLayout menuContent={<ProfilePageMenu />} />
-              )}
-            >
-              <Route path={``} element={<UsersPage />} />
-            </Route>
+              path={`${postsRoute}/:${postId}`}
+              element={checkIfRouteIsAuthenticated(<EditPostPage />)}
+            />
             <Route
-              path={`${cooperationsRoute}/:${cooperationId}/${detailsRoute}`}
-              element={checkIfRouteIsAuthenticated(
-                <AdminMenuLayout menuContent={<ProfilePageMenu />} />
-              )}
-            >
-              <Route path={``} element={<CooperationsDetailsPage />} />
-            </Route>
+              path={`${eduLinksRoute}/:${postId}`}
+              element={checkIfRouteIsAuthenticated(<EditEduLinkPage />)}
+            />
             <Route
-              path={`${cooperationsRoute}`}
+              path={`${jobOffersRoute}/:${postId}`}
+              element={checkIfRouteIsAuthenticated(<EditJobOfferPage />)}
+            />
+            <Route
+              path={`${createPostRoute}`}
               element={checkIfRouteIsAuthenticated(
-                <AdminMenuLayout menuContent={<CooperationsMenuContent />} />
+                <Suspense fallback={<div />}>
+                  <CreatePostPage />
+                </Suspense>
               )}
-            >
-              <Route path={``} element={<CooperationsPage />} />
-            </Route>
+            />
+            <Route
+              path={`${createJobOfferRoute}`}
+              element={checkIfRouteIsAuthenticated(
+                <Suspense fallback={<div />}>
+                  <CreateJobOfferPage />
+                </Suspense>
+              )}
+            />
+            <Route
+              path={`${createEduLinkRoute}`}
+              element={checkIfRouteIsAuthenticated(
+                <Suspense fallback={<div />}>
+                  <CreateEduLinkPage />
+                </Suspense>
+              )}
+            />
           </Route>
-        </Routes>
-      </Suspense>
+          <Route
+            path={`${profileRoute}`}
+            element={checkIfRouteIsAuthenticated(
+              <AdminMenuLayout menuContent={<ProfilePageMenu />} />
+            )}
+          >
+            <Route
+              path={""}
+              element={
+                <Suspense fallback={<div />}>
+                  <ProfilePage />
+                </Suspense>
+              }
+            />
+          </Route>
+          <Route
+            path={`${dashboardRoute}`}
+            element={checkIfRouteIsAuthenticated(
+              <AdminMenuLayout menuContent={<ProfilePageMenu />} />
+            )}
+          >
+            <Route
+              path={``}
+              element={
+                <Suspense fallback={<div />}>
+                  <DashboardPage />
+                </Suspense>
+              }
+            />
+          </Route>
+          <Route
+            path={`${usersRoute}`}
+            element={checkIfRouteIsAuthenticated(
+              <AdminMenuLayout menuContent={<ProfilePageMenu />} />
+            )}
+          >
+            <Route
+              path={``}
+              element={
+                <Suspense fallback={<div />}>
+                  <UsersPage />
+                </Suspense>
+              }
+            />
+          </Route>
+          <Route
+            path={`${cooperationsRoute}/:${cooperationId}/${detailsRoute}`}
+            element={checkIfRouteIsAuthenticated(
+              <AdminMenuLayout menuContent={<ProfilePageMenu />} />
+            )}
+          >
+            <Route
+              path={``}
+              element={
+                <Suspense fallback={<div />}>
+                  <CooperationsDetailsPage />
+                </Suspense>
+              }
+            />
+          </Route>
+          <Route
+            path={`${cooperationsRoute}`}
+            element={checkIfRouteIsAuthenticated(
+              <AdminMenuLayout menuContent={<CooperationsMenuContent />} />
+            )}
+          >
+            <Route
+              path={``}
+              element={
+                <Suspense fallback={<div />}>
+                  <CooperationsPage />
+                </Suspense>
+              }
+            />
+          </Route>
+        </Route>
+      </Routes>
     </Router>
   );
 }
