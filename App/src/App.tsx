@@ -27,6 +27,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AppLogic from "./AppLogic";
 import { Suspense } from "react";
 import React from "react";
+import AdminMenuLayout from "components/common/AdminMenu/AdminMenuLayout/AdminMenuLayout";
 
 function App() {
   const CreateEduLinkPage = React.lazy(
@@ -111,9 +112,7 @@ function App() {
   const RequestRolePage = React.lazy(
     () => import("pages/RequestRolePage/RequestRolePage")
   );
-  const AdminMenuLayout = React.lazy(
-    () => import("components/common/AdminMenu/AdminMenuLayout/AdminMenuLayout")
-  );
+
   const ArticleMenuContent = React.lazy(
     () =>
       import(
