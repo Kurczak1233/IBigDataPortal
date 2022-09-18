@@ -28,6 +28,8 @@ import AppLogic from "./AppLogic";
 import { Suspense } from "react";
 import React from "react";
 import AdminMenuLayout from "components/common/AdminMenu/AdminMenuLayout/AdminMenuLayout";
+import ArticlePage from "pages/MainPage/ArticlePage/ArticlePage";
+import MainPageMain from "components/MainPageComponents/Main/MainPageMain";
 
 function App() {
   const CreateEduLinkPage = React.lazy(
@@ -100,9 +102,6 @@ function App() {
   const AboutPage = React.lazy(
     () => import("pages/MainPage/AboutPage/AboutPage")
   );
-  const ArticlePage = React.lazy(
-    () => import("pages/MainPage/ArticlePage/ArticlePage")
-  );
   const ContactPage = React.lazy(
     () => import("pages/MainPage/ContactPage/ContactPage")
   );
@@ -118,9 +117,6 @@ function App() {
       import(
         "components/common/ArticleCommonComponents/ArticleMenuContent/ArticleMenuContent"
       )
-  );
-  const MainPageMain = React.lazy(
-    () => import("components/MainPageComponents/Main/MainPageMain")
   );
   const ProfilePageMenu = React.lazy(
     () =>
