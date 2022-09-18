@@ -68,7 +68,9 @@ export const useAdvancedFilters = (
   const handleResetAdvancedFilters = useCallback(() => {
     setValue("description", "");
     dispatch(updateResetAdvancedFilters(false));
-    setArticles(initialArticlesModel);
+    setArticles(
+      initialArticlesModel ? { ...initialArticlesModel } : initialArticlesModel
+    );
   }, [dispatch, initialArticlesModel, setArticles, setValue]);
 
   useEffect(() => {

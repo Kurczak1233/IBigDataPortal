@@ -1,6 +1,7 @@
 import { useAdvancedFilters } from "hooks/FiltrationLogic/useAdvancedFilters";
 import { ArticlesVm } from "interfaces/Models/Articles/ViewModels/ArticlesVm";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateResetSimpleFilters } from "redux/slices/resetFiltersFlags";
 import { RootState } from "redux/store";
 
 interface IAdvancedFiltersLogic {
@@ -15,6 +16,7 @@ const AdvancedFiltersLogic = ({
   const appUser = useSelector(
     (state: RootState) => state.applicationUserReducer.user
   );
+  const dispatch = useDispatch();
   const {
     handleSubmit,
     errors,
@@ -25,6 +27,7 @@ const AdvancedFiltersLogic = ({
 
   const resetAllFilters = () => {
     handleResetAdvancedFilters();
+    dispatch(updateResetSimpleFilters(true));
   };
 
   return {

@@ -46,7 +46,7 @@ const MainPageLogic = () => {
     if ((accessTokenWasSet && user) || user === undefined) {
       const articles = await getAllArticles();
       getUserDetailsAndSaveThoseInRedux();
-      setArticles(articles);
+      setArticles({ ...articles });
       setOriginalArticlesModel({ ...articles });
       setArticlesLoaded(true);
     }

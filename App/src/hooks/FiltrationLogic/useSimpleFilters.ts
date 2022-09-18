@@ -19,50 +19,92 @@ export const useSimpleFilters = (
   );
   const dispatch = useDispatch();
 
-  const filterByPosts = () => {
-    setArePostsVisible((oldValue) => !oldValue);
+  const filterByPosts = async () => {
+    await dispatch(updateResetAdvancedFilters(true));
+    let shouldFilterByPosts = false;
+    setArePostsVisible((oldValue) => {
+      shouldFilterByPosts = !oldValue;
+      return !oldValue;
+    });
     setArticles((oldArticles) => {
       if (!initialArticlesModel || !oldArticles) {
         return oldArticles;
       }
-      if (arePostsVisible) {
+      if (!areJobOffersVisible) {
+        oldArticles.jobOffers = [];
+      } else {
+        oldArticles.jobOffers = initialArticlesModel.jobOffers;
+      }
+      if (!areEduLinksVisible) {
+        oldArticles.eduLinks = [];
+      } else {
+        oldArticles.eduLinks = initialArticlesModel.eduLinks;
+      }
+      if (!shouldFilterByPosts) {
         oldArticles.posts = [];
       } else {
         oldArticles.posts = initialArticlesModel.posts;
       }
       return { ...oldArticles };
     });
-    dispatch(updateResetAdvancedFilters(true));
   };
-  const filterByJobOffers = () => {
-    setAreJobOffersVisible((oldValue) => !oldValue);
+  const filterByJobOffers = async () => {
+    await dispatch(updateResetAdvancedFilters(true));
+    let shouldFilterByJobOffers = false;
+    setAreJobOffersVisible((oldValue) => {
+      shouldFilterByJobOffers = !oldValue;
+      return !oldValue;
+    });
     setArticles((oldArticles) => {
       if (!initialArticlesModel || !oldArticles) {
         return oldArticles;
       }
-      if (areJobOffersVisible) {
+      if (!shouldFilterByJobOffers) {
         oldArticles.jobOffers = [];
       } else {
         oldArticles.jobOffers = initialArticlesModel.jobOffers;
       }
-      return { ...oldArticles };
-    });
-    dispatch(updateResetAdvancedFilters(true));
-  };
-  const filterByEduLinks = () => {
-    setAreEduLinksVisible((oldValue) => !oldValue);
-    setArticles((oldArticles) => {
-      if (!initialArticlesModel || !oldArticles) {
-        return oldArticles;
-      }
-      if (areEduLinksVisible) {
+      if (!areEduLinksVisible) {
         oldArticles.eduLinks = [];
       } else {
         oldArticles.eduLinks = initialArticlesModel.eduLinks;
       }
+      if (!arePostsVisible) {
+        oldArticles.posts = [];
+      } else {
+        oldArticles.posts = initialArticlesModel.posts;
+      }
       return { ...oldArticles };
     });
-    dispatch(updateResetAdvancedFilters(true));
+  };
+  const filterByEduLinks = async () => {
+    await dispatch(updateResetAdvancedFilters(true));
+    let shouldFilterByEduLinks = false;
+    await setAreEduLinksVisible((oldValue) => {
+      shouldFilterByEduLinks = !oldValue;
+      return !oldValue;
+    });
+    setArticles((oldArticles) => {
+      if (!initialArticlesModel || !oldArticles) {
+        return oldArticles;
+      }
+      if (!areJobOffersVisible) {
+        oldArticles.jobOffers = [];
+      } else {
+        oldArticles.jobOffers = initialArticlesModel.jobOffers;
+      }
+      if (!shouldFilterByEduLinks) {
+        oldArticles.eduLinks = [];
+      } else {
+        oldArticles.eduLinks = initialArticlesModel.eduLinks;
+      }
+      if (!arePostsVisible) {
+        oldArticles.posts = [];
+      } else {
+        oldArticles.posts = initialArticlesModel.posts;
+      }
+      return { ...oldArticles };
+    });
   };
 
   const resetSimpleFilters = useCallback(() => {
