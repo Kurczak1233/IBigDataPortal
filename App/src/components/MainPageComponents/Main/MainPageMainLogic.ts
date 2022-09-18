@@ -44,19 +44,26 @@ const MainPageLogic = () => {
 
   const handleGetAllArticles = useCallback(async () => {
     if ((accessTokenWasSet && user) || user === undefined) {
-      const articles = await getAllArticles();
-      getUserDetailsAndSaveThoseInRedux();
-      setArticles({ ...articles });
-      setOriginalArticlesModel({ ...articles });
+      const allArticles = await getAllArticles();
+      setArticles({ ...allArticles });
+      setOriginalArticlesModel({ ...allArticles });
       setArticlesLoaded(true);
     }
-  }, [accessTokenWasSet, getUserDetailsAndSaveThoseInRedux, user]);
+  }, [accessTokenWasSet, user]);
+
+  const handleGetUserDetails = useCallback(() => {
+    getUserDetailsAndSaveThoseInRedux();
+  }, [getUserDetailsAndSaveThoseInRedux]);
+
+  useEffect(() => {
+    handleGetAllArticles();
+  }, [handleGetAllArticles]);
 
   useEffect(() => {
     if (!isLoading) {
-      handleGetAllArticles();
+      handleGetUserDetails();
     }
-  }, [handleGetAllArticles, isLoading, accessTokenWasSet, user]);
+  }, [handleGetUserDetails, isLoading, accessTokenWasSet, user]);
 
   return {
     articles,
