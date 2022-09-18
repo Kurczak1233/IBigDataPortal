@@ -33,7 +33,9 @@ import ArticleMenuContent from "components/common/ArticleCommonComponents/Articl
 import ProfilePageMenu from "components/ProfilePageComponents/ProfilePageMenu/ProfillePageMenu";
 import CooperationsMenuContent from "components/common/ArticleCommonComponents/CooperationsMenuContent/CooperationsMenuContent";
 import MainPage from "./pages/MainPage/MainPage";
-
+import EditEduLinkPage from "pages/AdministrationSubpages/ArticlesPage/Edit/EduLinks/EditEduLinkPage";
+import EditJobOfferPage from "pages/AdministrationSubpages/ArticlesPage/Edit/JobOffers/EditJobOfferPage";
+import EditPostPage from "pages/AdministrationSubpages/ArticlesPage/Edit/Posts/EditPostPage";
 import styles from "./App.module.scss";
 import BigLoader from "components/common/Loaders/BigLoader/BigLoader";
 
@@ -112,24 +114,6 @@ function App() {
         "pages/AdministrationSubpages/ArticlesPage/Overview/Posts/PostsPage"
       )
   );
-  const EditEduLinkPage = React.lazy(
-    () =>
-      import(
-        "pages/AdministrationSubpages/ArticlesPage/Edit/EduLinks/EditEduLinkPage"
-      )
-  );
-  const EditJobOfferPage = React.lazy(
-    () =>
-      import(
-        "pages/AdministrationSubpages/ArticlesPage/Edit/JobOffers/EditJobOfferPage"
-      )
-  );
-  const EditPostPage = React.lazy(
-    () =>
-      import(
-        "pages/AdministrationSubpages/ArticlesPage/Edit/Posts/EditPostPage"
-      )
-  );
 
   const { checkIfRouteIsAuthenticated } = AppLogic();
 
@@ -194,7 +178,7 @@ function App() {
               path={`${postsRoute}`}
               element={checkIfRouteIsAuthenticated(
                 <Suspense fallback={<div />}>
-                  <PostsPage />{" "}
+                  <PostsPage />
                 </Suspense>
               )}
             />
@@ -202,7 +186,7 @@ function App() {
               path={`${jobOffersRoute}`}
               element={checkIfRouteIsAuthenticated(
                 <Suspense fallback={<div />}>
-                  <JobOffersPage />{" "}
+                  <JobOffersPage />
                 </Suspense>
               )}
             />
@@ -210,33 +194,21 @@ function App() {
               path={`${eduLinksRoute}`}
               element={checkIfRouteIsAuthenticated(
                 <Suspense fallback={<div />}>
-                  <EduLinksPage />{" "}
+                  <EduLinksPage />
                 </Suspense>
               )}
             />
             <Route
               path={`${postsRoute}/:${postId}`}
-              element={checkIfRouteIsAuthenticated(
-                <Suspense fallback={<div />}>
-                  <EditPostPage />{" "}
-                </Suspense>
-              )}
+              element={checkIfRouteIsAuthenticated(<EditPostPage />)}
             />
             <Route
               path={`${eduLinksRoute}/:${postId}`}
-              element={checkIfRouteIsAuthenticated(
-                <Suspense fallback={<div />}>
-                  <EditEduLinkPage />{" "}
-                </Suspense>
-              )}
+              element={checkIfRouteIsAuthenticated(<EditEduLinkPage />)}
             />
             <Route
               path={`${jobOffersRoute}/:${postId}`}
-              element={checkIfRouteIsAuthenticated(
-                <Suspense fallback={<div />}>
-                  <EditJobOfferPage />{" "}
-                </Suspense>
-              )}
+              element={checkIfRouteIsAuthenticated(<EditJobOfferPage />)}
             />
             <Route
               path={`${createPostRoute}`}
