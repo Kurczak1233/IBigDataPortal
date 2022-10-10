@@ -1,17 +1,11 @@
-using System.Reflection;
-using System.Text;
-using IBigDataPortal;
 using IBigDataPortal.Infrastructure;
 using IBigDataPortal.Infrastructure.Middlewares;
 using IBigDataPortal.Infrastructure.ResourceBasedAuthorization.Dependencies;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -88,3 +82,5 @@ app.UseMiddleware<GetUserContextMiddleware>(connectionString);
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
+
+public partial class Program {}

@@ -1,47 +1,69 @@
+using IBigDataPortal.Database;
+using IBigDataPortal.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
+using Portal.IntegrationTests.ClearDatabase;
+using Portal.IntegrationTests.SeedDatabase;
+
 namespace Portal.IntegrationTests;
 
-public class Startup
+public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
-    public class CustomWebApplicationFactory<TStartup>
-        : WebApplicationFactory<TStartup> where TStartup: class
+    #pragma warning disable CS8618
+    private IConfiguration Configuration { get; set; }
+    #pragma warning restore CS8618
+    
+    protected override IHost CreateHost(IHostBuilder builder)
     {
-        protected override void ConfigureWebHost(IWebHostBuilder builder)
+        builder.ConfigureAppConfiguration(config =>
         {
-            builder.ConfigureServices(services =>
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory +  "../../..")
+                .AddJsonFile("testsettings.json")
+                .Build();
+
+            config.AddConfiguration(Configuration);
+        });
+            
+        builder.ConfigureServices(services =>
+        {
+            services.RemoveAll(typeof(DbContextOptions<ApplicationDbContext>));
+            services.RemoveAll(typeof(ISqlConnectionService));
+            services.RemoveAll(typeof(SqlConnectionService));
+
+            var connectionString = Configuration.GetValue<string>("SqlTestingConnectionString");
+            
+            services.AddTransient<ISqlConnectionService, SqlConnectionService>(_ => new SqlConnectionService(connectionString));
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    connectionString));
+
+            var serviceProvider = services.BuildServiceProvider();
+            var scope = serviceProvider.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+            try
             {
-                var descriptor = services.SingleOrDefault(
-                    d => d.ServiceType ==
-                         typeof(DbContextOptions<ApplicationDbContext>));
+                PrepareDatabase(db).Wait();
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("An error occurred seeding " +
+                                            "the database with test messages. Error: {Message}", ex.Message);
+            }
+        });
 
-                services.Remove(descriptor);
+        return base.CreateHost(builder);
+    }
 
-                services.AddDbContext<ApplicationDbContext>(options =>
-                {
-                    options.UseInMemoryDatabase("InMemoryDbForTesting");
-                });
-
-                var sp = services.BuildServiceProvider();
-
-                using (var scope = sp.CreateScope())
-                {
-                    var scopedServices = scope.ServiceProvider;
-                    var db = scopedServices.GetRequiredService<ApplicationDbContext>();
-                    var logger = scopedServices
-                        .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
-
-                    db.Database.EnsureCreated();
-
-                    try
-                    {
-                        Utilities.InitializeDbForTests(db);
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.LogError(ex, "An error occurred seeding the " +
-                                            "database with test messages. Error: {Message}", ex.Message);
-                    }
-                }
-            });
-        }
+    private static async Task PrepareDatabase(ApplicationDbContext db)
+    {
+        await ClearDatabaseUtilities.ClearDatabase(db);
+        await db.Database.EnsureCreatedAsync();
+        await Utilities.InitializeDbForTests(db);
     }
 }
