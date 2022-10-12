@@ -22,7 +22,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="IntegrationTests\Cooperations" />
       <Folder Include="IntegrationTests\EduLinks" />
       <Folder Include="IntegrationTests\JobOffers" />
       <Folder Include="IntegrationTests\Posts" />
