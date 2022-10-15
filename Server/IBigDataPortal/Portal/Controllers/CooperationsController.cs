@@ -37,7 +37,7 @@ public class CooperationsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> CreateEduLink(RequestRoleForm body)
+    public async Task<ActionResult> CreateCooperation(RequestRoleForm body)
     {
         await _mediator.Send(new CreateCooperationRequest(body, _user.Id));
         return Ok();

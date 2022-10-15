@@ -14,14 +14,13 @@ public static class ClearDatabaseUtilities
             // THIS ORDER IS IMPORTANT
             var tableNames = new List<string>()
             {
-                $"{nameof(Dbo.UserRole)}",
-                $"{nameof(Dbo.Users)}",
                 $"{nameof(Dbo.Comments)}",
                 $"{nameof(Dbo.Posts)}",
                 $"{nameof(Dbo.JobOffers)}",
                 $"{nameof(Dbo.EduLinks)}",
                 $"{nameof(Dbo.Cooperations)}",
                 $"{nameof(Dbo.FilesMetadata)}",
+                $"{nameof(Dbo.Users)}",
             };
 
             foreach (var tableName in tableNames)

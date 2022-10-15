@@ -22,6 +22,7 @@ public static class Utilities
         StudentOrBusiness = 4,
         Everybody = 5,
     }
+
     public static int AdminId { get; set; }
     public static int UserId { get; set; }
     public static int DeletedUserId { get; set; }
@@ -36,24 +37,18 @@ public static class Utilities
     public static int DeletedEduLinkId { get; set; }
     public static int FirstCooperation { get; set; }
     public static int DeletedCooperation { get; set; }
+
     public static async Task InitializeDbForTests(ApplicationDbContext db)
     {
-        try
-        {
-            await UserRolesSeed.AddUserRolesToDb(db);
-            await UsersSeed.AddUsersToDb(db);
-            await PostsSeed.AddPostsToDb(db);
-            await JobOffersSeed.AddJobOffersToDb(db);
-            await EduLinksSeed.AddEduLinksToDb(db);
-            await CooperationsSeed.AddCooperationsToDb(db);
-            await CommentsSeed.AddCommentsToDb(db);
-        }
-        catch
-        {
-            throw new Exception("Seeding database failed");
-        }
+        await UserRolesSeed.AddUserRolesToDb(db);
+        await UsersSeed.AddUsersToDb(db);
+        await PostsSeed.AddPostsToDb(db);
+        await JobOffersSeed.AddJobOffersToDb(db);
+        await EduLinksSeed.AddEduLinksToDb(db);
+        await CooperationsSeed.AddCooperationsToDb(db);
+        await CommentsSeed.AddCommentsToDb(db);
     }
-    
+
     public static StringContent GetRequestContent(object obj)
     {
         return new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json");
