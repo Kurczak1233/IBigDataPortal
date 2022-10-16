@@ -27,9 +27,9 @@ public class CooperationsSeed
                 CreatedOn = DateTimeOffset.Now
             });
             await db.SaveChangesAsync();
-            Utilities.FirstCooperation =
+            Utilities.FirstCooperationId =
                 ((await db.Cooperations.FirstOrDefaultAsync((item) => item.RequestTopic == "First cooperation"))!).Id;
-            Utilities.DeletedCooperation =
+            Utilities.DeletedCooperationId =
                 ((await db.Cooperations.FirstOrDefaultAsync((item) => item.RequestTopic == "Deleted cooperation"))!).Id;
         }
         catch

@@ -9,7 +9,7 @@ public class Post : BaseEntity
     public User Creator { get; set; } = null!;
     public int CreatorId { get; set; }
     public DateTimeOffset Posted { get; set; }
-    public int IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
     public int? DeletedBy { get; set; }
     public DateTimeOffset? DeletedOn { get; set; }
     public UserRoles CommentsPermissions { get; set; }
