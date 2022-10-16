@@ -7,6 +7,7 @@ using Xunit.Abstractions;
 
 namespace Portal.IntegrationTests.IntegrationTests.Comments;
 
+[Collection("Sequential")]
 public class CreateComment : IntegrationTest
 {
     private readonly string Controller = "Comments"; 
@@ -17,15 +18,16 @@ public class CreateComment : IntegrationTest
     [Fact]
     public async void ShouldCreateComment()
     {
+        var commentContent = "Test comment"; 
         var request = new CreateCommentRequest
         {
-            Content = "Test comment",
+            Content = commentContent,
             ArticleId = Utilities.FirstEduLinkId,
             ArticleType = ArticlesEnum.EduLink
         };
 
         var response = await Client.PostAsync($"{Controller}", Utilities.GetRequestContent(request));
         response.EnsureSuccessStatusCode();
-        Context.Comments.Count().Should().Be(1);
+        Context.Comments.Count(item => item.Content == commentContent).Should().Be(1);
     }
 }

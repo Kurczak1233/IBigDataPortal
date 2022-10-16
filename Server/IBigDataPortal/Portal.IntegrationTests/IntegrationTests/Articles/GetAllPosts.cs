@@ -6,6 +6,7 @@ using Xunit.Abstractions;
 
 namespace Portal.IntegrationTests.IntegrationTests.Articles;
 
+[Collection("Sequential")]
 public class GetAllPosts : IntegrationTest
 {
     private readonly string Controller = "Articles"; 
@@ -20,6 +21,6 @@ public class GetAllPosts : IntegrationTest
         var response = await Client.GetAsync($"{Controller}");
         response.EnsureSuccessStatusCode();
         var articles = await Utilities.GetResponseContent<ArticlesVm>(response);
-        articles.Posts.Count().Should().Be(3);
+        articles.Posts.Count().Should().Be(2);
     }
 }

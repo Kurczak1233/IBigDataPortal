@@ -6,6 +6,7 @@ using Xunit.Abstractions;
 
 namespace Portal.IntegrationTests.IntegrationTests.Comments;
 
+[Collection("Sequential")]
 public class DeleteComment : IntegrationTest
 {
     private readonly string Controller = "Articles"; 
@@ -18,6 +19,6 @@ public class DeleteComment : IntegrationTest
     {
         var response = await Client.GetAsync($"{Controller}");
         var articles = await Utilities.GetResponseContent<ArticlesVm>(response);
-        articles.Posts.Count().Should().Be(1);
+        articles.Posts.Count().Should().Be(2);
     }
 }
