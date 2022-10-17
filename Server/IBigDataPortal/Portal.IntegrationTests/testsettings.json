@@ -1,3 +1,3 @@
 {
-   "SqlTestingConnectionString": "Server=localhost\\SQLEXPRESS;Database=IBigDataDatabaseTesting;Trusted_Connection=True;MultipleActiveResultSets=True"
+   "SqlTestingConnectionString": "Server=localhost,1433; Database=Master; User Id=SA; Password=change_this_password"
 }
