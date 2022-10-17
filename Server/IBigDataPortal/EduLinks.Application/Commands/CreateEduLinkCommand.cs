@@ -40,11 +40,12 @@ public class CreateJobOfferCommandHandler : IRequestHandler<CreateEduLinkCommand
                ({nameof(EduLink.Title)}, 
                {nameof(EduLink.Description)}, 
                {nameof(EduLink.CreatorId)}, 
+               {nameof(EduLink.IsDeleted)}, 
                {nameof(EduLink.Posted)},
                {nameof(JobOffer.CommentsPermissions)},
                {nameof(JobOffer.ArticleVisibilityPermissions)})
                OUTPUT INSERTED.[Id]
-               VALUES (@title, @description, @userId, @dateNow, @commentsPermission, @visibilityPermission)";
+               VALUES (@title, @description, @userId, @isDeleted, @dateNow, @commentsPermission, @visibilityPermission)";
         
         var eduLinkId = await connection.QuerySingleAsync<int>(sql,
             new
@@ -52,6 +53,7 @@ public class CreateJobOfferCommandHandler : IRequestHandler<CreateEduLinkCommand
                 title = request.Body.Title,
                 description = request.Body.Description,
                 userId = request.CurrentUserId,
+                isDeleted = 0,
                 dateNow = nowDate,
                 commentsPermission = request.Body.CommentsPermissions,
                 visibilityPermission = request.Body.VisibilityPermissions,
