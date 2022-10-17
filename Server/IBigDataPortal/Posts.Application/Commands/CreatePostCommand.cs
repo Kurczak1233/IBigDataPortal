@@ -40,17 +40,19 @@ public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, int>
                ({nameof(Post.Title)},
                {nameof(Post.Description)},
                {nameof(Post.CreatorId)},
+               {nameof(EduLink.IsDeleted)}, 
                {nameof(Post.Posted)},
                {nameof(Post.CommentsPermissions)},
                {nameof(Post.ArticleVisibilityPermissions)})
                OUTPUT INSERTED.[Id]
-               VALUES (@title, @description, @userId, @dateNow, @commentsPermission, @visibilityPermission)";
+               VALUES (@title, @description, @userId, @isDeleted, @dateNow, @commentsPermission, @visibilityPermission)";
         var postId = await connection.QuerySingleAsync<int>(sql,
             new
             {
                 title = request.Body.Title,
                 description = request.Body.Description,
                 userId = request.CurrentUserId,
+                isDeleted = 0,
                 dateNow = nowDate,
                 commentsPermission = request.Body.CommentsPermissions,
                 visibilityPermission = request.Body.VisibilityPermissions
