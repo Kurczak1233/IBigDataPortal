@@ -4,6 +4,7 @@ using IBigDataPortal.Domain.UserMetadata;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Portal.IntegrationTests.SeedDatabase;
 
 namespace Portal.IntegrationTests.Authentication;
 
@@ -30,13 +31,13 @@ public class TestAuthHandler : AuthenticationHandler<TestAuthHandlerOptions>
 
     protected override Task<AuthenticateResult> HandleAuthenticateAsync()
     {
-        var claims = new List<Claim> { new Claim(ClaimTypes.Name, "Test user") };
+        var claims = new List<Claim> { new Claim(ClaimTypes.Name, "Admin user") };
 
         // Extract User ID from the request headers if it exists,
         // otherwise use the default User ID from the options.
-        claims.Add(new Claim(IUserMetadata.Email, "TestEmail@e.pl"));
-        claims.Add(new Claim(IUserMetadata.UserId, "1"));
-        claims.Add(new Claim(ClaimTypes.NameIdentifier, "TestEmail"));
+        claims.Add(new Claim(IUserMetadata.Email, "IntegrationTest@e.pl"));
+        claims.Add(new Claim(IUserMetadata.UserId, Utilities.AdminId.ToString()));
+        claims.Add(new Claim(ClaimTypes.NameIdentifier, "Integration test"));
 
         var identity = new ClaimsIdentity(claims, AuthenticationScheme);
         var principal = new ClaimsPrincipal(identity);

@@ -35,8 +35,9 @@ public static class Utilities
     public static int FirstEduLinkId { get; set; }
     public static int SecondEduLinkId { get; set; }
     public static int DeletedEduLinkId { get; set; }
-    public static int FirstCooperation { get; set; }
-    public static int DeletedCooperation { get; set; }
+    public static int FirstCooperationId { get; set; }
+    public static int DeletedCooperationId { get; set; }
+    public static int FirstCommentId { get; set; }
 
     public static async Task InitializeDbForTests(ApplicationDbContext db)
     {

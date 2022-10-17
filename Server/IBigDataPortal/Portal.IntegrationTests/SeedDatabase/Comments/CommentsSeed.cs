@@ -1,6 +1,7 @@
 using Articles.Contracts.Enums;
 using IBigDataPortal.Database;
 using IBigDataPortal.Database.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Portal.IntegrationTests.SeedDatabase.Comments;
 
@@ -66,6 +67,8 @@ public static class CommentsSeed
             });
           
             await db.SaveChangesAsync();
+            Utilities.FirstCommentId = 
+                    ((await db.Comments.FirstOrDefaultAsync((item) => item.Content == "First post comment"))!).Id;
         }
         catch
         {

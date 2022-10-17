@@ -53,7 +53,7 @@ namespace IBigDataPortal.Database.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.Cooperation", b =>
@@ -85,7 +85,7 @@ namespace IBigDataPortal.Database.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Cooperations");
+                    b.ToTable("Cooperations", (string)null);
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.EduLink", b =>
@@ -129,7 +129,7 @@ namespace IBigDataPortal.Database.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("EduLinks");
+                    b.ToTable("EduLinks", (string)null);
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.FileMetadata", b =>
@@ -165,7 +165,7 @@ namespace IBigDataPortal.Database.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.ToTable("FilesMetadata");
+                    b.ToTable("FilesMetadata", (string)null);
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.JobOffer", b =>
@@ -209,7 +209,7 @@ namespace IBigDataPortal.Database.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("JobOffers");
+                    b.ToTable("JobOffers", (string)null);
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.Post", b =>
@@ -253,7 +253,7 @@ namespace IBigDataPortal.Database.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.User", b =>
@@ -282,7 +282,7 @@ namespace IBigDataPortal.Database.Migrations
 
                     b.HasIndex("UserRoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("IBigDataPortal.Database.Entities.UserRole", b =>
@@ -299,7 +299,7 @@ namespace IBigDataPortal.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserRole");
+                    b.ToTable("UserRole", (string)null);
 
                     b.HasData(
                         new

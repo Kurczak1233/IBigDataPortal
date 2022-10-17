@@ -33,8 +33,8 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
         var connection = await _connectionService.GetAsync();
         var sql =
             $@"UPDATE {Dbo.Users}
-                SET {Dbo.Users}.{nameof(User.IsDeleted)} = @isDeleted
-                SET {Dbo.Users}.{nameof(User.UserRoleId)} = @role
+                SET {Dbo.Users}.{nameof(User.IsDeleted)} = @isDeleted,
+                {Dbo.Users}.{nameof(User.UserRoleId)} = @role
                 WHERE {Dbo.Users}.{nameof(User.Id)} = @userId";
         await connection.ExecuteAsync(sql,
             new

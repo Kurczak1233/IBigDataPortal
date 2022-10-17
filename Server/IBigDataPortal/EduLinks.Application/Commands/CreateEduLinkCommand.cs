@@ -54,7 +54,7 @@ public class CreateJobOfferCommandHandler : IRequestHandler<CreateEduLinkCommand
                 userId = request.CurrentUserId,
                 dateNow = nowDate,
                 commentsPermission = request.Body.CommentsPermissions,
-                visibilityPermission = request.Body.VisibilityPermissions
+                visibilityPermission = request.Body.VisibilityPermissions,
             });
         return eduLinkId;
     }
