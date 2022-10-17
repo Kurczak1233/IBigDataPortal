@@ -17,7 +17,7 @@ jobs:
     
     services:
       sql.data:
-        image: mcr.microsoft.com/mssql/server:2019-latest
+        image: mcr.microsoft.com/mssql/server:2022-latest
         env:
           SA_PASSWORD: P@$$w0rd
           ACCEPT_EULA: Y
@@ -32,7 +32,7 @@ jobs:
         with:
           files: ./Server/IBigDataPortal/Portal/appsettings.json
         env:
-          connectionStrings.SqlConnectionString: Server=localhost,1433; Database=PortalAPITesting; User Id='SA'; Password='P@$$w0rd'
+          connectionStrings.SqlConnectionString: Server=localhost:1433; Database=PortalAPITesting; User Id='SA'; Password='P@$$w0rd'
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
