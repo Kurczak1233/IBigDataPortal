@@ -32,7 +32,7 @@ jobs:
         with:
           files: ./Server/IBigDataPortal/Portal/appsettings.json
         env:
-          connectionStrings.SqlTestingConnectionString: Server=localhost,1433; Database=PortalAPITesting; User Id='SA'; Password='P@$$w0rd'
+          connectionStrings.SqlTestingConnectionString: Server=localhost,1433; Database=master; User Id='SA'; Password='P@$$w0rd'
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
