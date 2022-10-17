@@ -2,7 +2,7 @@ using FluentAssertions;
 using JobOffers.Domain.PostsAggregate.Requests;
 using Microsoft.EntityFrameworkCore;
 using Portal.IntegrationTests.SeedDatabase;
-using UserRole.Contracts.UserRoles;
+using UserRolesDto = UserRole.Contracts.UserRoles.UserRoles;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -25,8 +25,8 @@ public class CreatePost : IntegrationTest
         {
             Title = postTitle,
             Description = "Some description",
-            CommentsPermissions = UserRoles.Nobody,
-            VisibilityPermissions = UserRoles.Nobody
+            CommentsPermissions = UserRolesDto.Nobody,
+            VisibilityPermissions = UserRolesDto.Nobody
         };
         
         var response = await Client.PostAsync($"{Controller}", Utilities.GetRequestContent(request));

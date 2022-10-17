@@ -22,6 +22,6 @@ public class DeleteEduLink : IntegrationTest
         response.EnsureSuccessStatusCode();
         var allEduLinks = await Context.EduLinks.SingleOrDefaultAsync(link => link.Id == Utilities.FirstEduLinkId);
         allEduLinks.Should().NotBeNull();
-        allEduLinks!.IsDeleted.Should().BeTrue();
+        allEduLinks!.IsDeleted.Should().Be(1);
     }
 }

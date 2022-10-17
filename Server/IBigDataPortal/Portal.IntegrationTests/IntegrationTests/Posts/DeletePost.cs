@@ -23,6 +23,6 @@ public class DeletePost : IntegrationTest
         response.EnsureSuccessStatusCode();
         var foundPost = await Context.Posts.SingleOrDefaultAsync(link => link.Id == Utilities.FirstPostId);
         foundPost.Should().NotBeNull();
-        foundPost!.IsDeleted.Should().BeTrue();
+        foundPost!.IsDeleted.Should().Be(1);
     }
 }

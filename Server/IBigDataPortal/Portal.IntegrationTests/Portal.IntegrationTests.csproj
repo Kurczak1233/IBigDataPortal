@@ -21,9 +21,4 @@
       <ProjectReference Include="..\Portal\Portal.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="IntegrationTests\UserRoles" />
-      <Folder Include="IntegrationTests\Users" />
-    </ItemGroup>
-
 </Project>

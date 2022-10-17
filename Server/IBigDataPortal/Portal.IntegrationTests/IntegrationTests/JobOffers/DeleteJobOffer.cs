@@ -23,6 +23,6 @@ public class DeleteJobOffer : IntegrationTest
         response.EnsureSuccessStatusCode();
         var foundJobOffer = await Context.JobOffers.SingleOrDefaultAsync(link => link.Id == Utilities.FirstJobOfferId);
         foundJobOffer.Should().NotBeNull();
-        foundJobOffer!.IsDeleted.Should().BeTrue();
+        foundJobOffer!.IsDeleted.Should().Be(1);
     }
 }

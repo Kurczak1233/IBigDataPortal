@@ -4,19 +4,19 @@ using Posts.Contracts.ViewModels;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Portal.IntegrationTests.IntegrationTests.EduLinks;
-[Collection("Sequential")]
-public class GetAllEduLinks : IntegrationTest
-{
-    private readonly string Controller = "EduLinks";
+namespace Portal.IntegrationTests.IntegrationTests.JobOffers;
 
-    public GetAllEduLinks(CustomWebApplicationFactory factory, ITestOutputHelper output) : base(factory, output)
+[Collection("Sequential")]
+public class GetAllJobOffers : IntegrationTest
+{
+    private readonly string Controller = "JobOffers";
+
+    public GetAllJobOffers(CustomWebApplicationFactory factory, ITestOutputHelper output) : base(factory, output)
     {
     }
     
-    
     [Fact]
-    public async void ShouldCreateEduLink()
+    public async void ShouldGetAllActiveJobOffers()
     {
         var response = await Client.GetAsync($"{Controller}");
         response.EnsureSuccessStatusCode();
