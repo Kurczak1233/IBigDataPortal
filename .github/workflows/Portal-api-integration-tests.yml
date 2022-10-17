@@ -1,4 +1,4 @@
-name:  Portal - API integration tests
+name: Portal - API integration tests
 
 on:
   workflow_dispatch:
@@ -32,7 +32,7 @@ jobs:
         with:
           files: ./Server/IBigDataPortal/Portal/appsettings.json
         env:
-          connectionStrings.SqlConnectionString: Server=localhost:1433; Database=PortalAPITesting; User Id='SA'; Password='P@$$w0rd'
+          connectionStrings.SqlTestingConnectionString: Server=localhost,1433; Database=PortalAPITesting; User Id='SA'; Password='P@$$w0rd'
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
