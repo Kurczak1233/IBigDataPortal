@@ -34,6 +34,7 @@
       <ProjectReference Include="..\Files.Application\Files.Application.csproj" />
       <ProjectReference Include="..\Files.Domain\Files.Domain.csproj" />
       <ProjectReference Include="..\JobOffers.Application\JobOffers.Application.csproj" />
+      <ProjectReference Include="..\MobileApiOuterProject.Application\MobileApiOuterProject.Application.csproj" />
       <ProjectReference Include="..\Portal.Database\Portal.Database.csproj" />
       <ProjectReference Include="..\Portal.Infrastructure\Portal.Infrastructure.csproj" />
       <ProjectReference Include="..\Posts.Application\Posts.Application.csproj" />
