@@ -24,6 +24,7 @@ public static class MediatorAssemblies
         services.AddMediatR(AppDomain.CurrentDomain.Load("Articles.Application"));
         services.AddMediatR(AppDomain.CurrentDomain.Load("UserRole.Application"));
         services.AddMediatR(AppDomain.CurrentDomain.Load("Comments.Application"));
+        services.AddMediatR(AppDomain.CurrentDomain.Load("MobileApiOuterProject.Application"));
         services.AddMediatR(AppDomain.CurrentDomain.Load("Cooperations.Application"));
     }
 }
