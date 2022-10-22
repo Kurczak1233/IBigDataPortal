@@ -27,5 +27,3 @@ There are plenty smaller issues that can be easily improved.
 - User page administration access for the users and everybody in order to implement profile pictures in the commenting sections.
 - Role pop up or note that informs user about his current role. (maybe with come colours).
 ... and whenever needed bug fixes.
-
-## Stay tuned for MMP 1.0!
