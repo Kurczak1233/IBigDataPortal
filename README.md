@@ -28,6 +28,5 @@ There are plenty smaller issues that can be easily improved.
 - Role pop up or note that informs user about his current role. (maybe with come colours).
 ... and whenever needed bug fixes.
 
-
 Thesis: 
 https://athedu-my.sharepoint.com/:w:/r/personal/mk050666_student_ath_edu_pl/_layouts/15/doc2.aspx?sourcedoc=%7B8ED01FA8-DCBC-4661-BCD3-0018A9AD109B%7D&file=Wz%C3%B3r%20strony%20tytu%C5%82owej_PU_13_za%C5%82%C4%85cznik_nr_1.docx&action=default&mobileredirect=true&ct=1667146759484&wdOrigin=OFFICECOM-WEB.START.UPLOAD&cid=bb27ad4c-cb3b-451c-96f1-3571b92b261f
