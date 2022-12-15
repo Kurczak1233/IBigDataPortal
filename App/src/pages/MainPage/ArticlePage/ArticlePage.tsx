@@ -30,6 +30,7 @@ const ArticlePage = () => {
   } = ArticlePageLogic();
   const { control, errors, handleCreateComment, handleSubmit } =
     ArticlePageCommentsLogic(setArticleComments);
+
   if (!article) {
     return <BigLoader />;
   }
@@ -77,20 +78,20 @@ const ArticlePage = () => {
                   );
                 })}
               </div>
-              <div className={styles.imageContainer}>
-                {articleFiles &&
-                  articleFiles.map((item) => {
-                    return (
-                      <img
-                        key={item.guid}
-                        src={`${filesStorageBaseUrl}${item.guid}`}
-                        alt={"Post file"}
-                      />
-                    );
-                  })}
-              </div>
             </>
           )}
+          <div className={styles.imageContainer}>
+            {articleFiles &&
+              articleFiles.map((item) => {
+                return (
+                  <img
+                    key={item.guid}
+                    src={`${filesStorageBaseUrl}${item.guid}`}
+                    alt={"Post file"}
+                  />
+                );
+              })}
+          </div>
           {article.commentsPermissions === 0 && articleComments.length === 0 ? (
             <div />
           ) : (
