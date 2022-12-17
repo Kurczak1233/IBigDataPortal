@@ -147,7 +147,14 @@ function App() {
           <Route path={`/`} element={<MainPageMain />} />
         </Route>
 
-        <Route path={`${roleContactRoute}`} element={<RequestRolePage />} />
+        <Route
+          path={`${roleContactRoute}`}
+          element={
+            <Suspense fallback={<div />}>
+              <RequestRolePage />
+            </Suspense>
+          }
+        />
         <Route path={`${errorRoute}`} element={<div>Error page</div>} />
         <Route
           path={`${administrationRoute}`}
